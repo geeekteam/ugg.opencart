@@ -177,13 +177,13 @@ echo $header;
                         };?>
                         <li class="product-item">
                             <a href="<?=$product['href'];?>" class="img-product-item"><img src="<?=$product['thumb'];?>" alt=""></a>
-                            <span class="name-product-item"><span>Bailey Button White <span>Metallic</span></span> Оригинальные Угги с Мехом</span>
+                            <span class="name-product-item"><span><?=$product['name'];?></span>
                             <div class="price-product-item">
                                 <?php if($product['special']): ?>
                                     <span class="new-price-item"><span><?=$product_special_price;?></span> руб</span>
                                     <span class="old-price-item">/<span><?=$product_price;?></span></span>
                                 <?php else: ?>
-                                    <span class="new-price-item"><span><?=$product_price;?></span> руб</span>
+                                    <span class="new-price-item"><span><?=$product['price'];?></span> руб</span>
                                 <?php endif;?>
                             </div>
                             <a href="#" class="btn btn-icon">
