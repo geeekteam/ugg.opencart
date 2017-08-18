@@ -168,6 +168,7 @@ echo $header;
                     </select>
                 </div>
                 <ul class="list-product">
+
                     <?php foreach ($products as $product):
                         $options = $product['options'];
                         $product_name = $product['name'];
