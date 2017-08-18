@@ -7,111 +7,203 @@ echo $header;
 ?>
 
 <div id="middle">
-    <div class="container">
 
-        <div class="inner-head">
-            <ul class="bread-crumbs">
-                <?php $i = 0; foreach ($breadcrumbs as $breadcrumb): ?>
-                    <?php if ($i == 0):?>
-                        <li><a href="/">Главная</a></li>
-                    <?php elseif ($last_elem !== $breadcrumb): ?>
-                        <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-                    <?php elseif ($last_elem == $breadcrumb): ?>
-                        <li><?php echo $breadcrumb['text']; ?></li>
-                    <?php endif;?>
-                <?php $i++; endforeach;?>
-            </ul>
-            <h1 class="site-h2-tt main-titile"><?=$heading_title;?></h1>
-        </div>
-
-        <div class="banner-info">
-            <div class="banner-info-img hidden-devices">
-                <img src="<?php echo $thumb;?>" alt="">
-            </div>
-            <div class="banner-text">
-                <?=$description;?>
-            </div>
-        </div>
-
-
-        <div class="two-column-wrapp">
-            <div class="aside-column">
-                <div class="aside-nav">
-                    <ul class="aside-nav-first">
-                        <li><a href="/vans-old-skool">Кеды Vans Old School</a></li>
-                        <li><a href="/vans-slip-on">Vans Slip-On</a></li>
-                        <li><a href="/vans-authentic">Vans Authentic</a></li>
-                        <li><a href="/vans-era">Vans Era</a></li>
-                        <li><a href="/vans-sk8-hi">Vans SK8-HI</a></li>
-                    </ul>
-                    <ul class="aside-nav-second">
-                        <li><a href="/vysokie-kedy">Высокие кеды</a></li>
-                        <li><a href="/kedy">Кеды</a></li>
-                        <li><a href="/krossovki">Кроссовки</a></li>
-                        <li><a href="/detskie-kedy">Детские кеды</a></li>
-                        <li><a href="/futbolki">Футболки</a></li>
-                        <li><a href="/golovnye-ubory">Головные уборы</a></li>
-                    </ul>
-                </div>
-
-                <div class="aside-nav-banner hidden-devices">
-                    <a href="#"><img src="../image/aside-banner-1.jpg" alt=""></a>
-                </div>
-            </div>
-
-            <div class="main-column">
-                <div class="prod-wrapp prodFromCat" id="goDown">
-                    <h2 class="site-h3-tt text-center"><?=$heading_title;?></h2>
-                    <div class="prod-items">
-                        <?php $count = 0;
-                        foreach ($products as $product):
-                        $count++; ?>
-                            <div class="prod-item-wrapper item" data-category="<?=$heading_title;?>">
-                                <div class="prod-item">
-                                    <a href="<?=$product['href'];?>">
-                                        <div class="prod-img">
-                                            <?php foreach($product['options'] as $option):?>
-                                                <?php if($option['option_id'] == 14):?>
-                                                    <?php if (!empty(($option['value']))):?>
-                                                        <span class="prod-discount"><?=$option['value'];?></span>
-                                                    <?php endif;?>
-                                                <?php endif;?>
-                                            <?php endforeach;?>
-                                            <img src="<?=$product['thumb'];?>" alt="">
-                                        </div>
-                                        <div class="prod-info">
-                                            <span class="prod-name">
-                                                <span><?=$product['name'];?></span>
-                                            </span>
-                                            <div class="prod-price">
-                                                <?php if($product['special']): ?>
-                                                    <span class="prod-price"><?=str_replace('.00 р.', '', $product['special']);?><span>руб.</span></span>
-                                                    <del class="prod-old-price"><?=str_replace('.00 р.', '', $product['price']);?>руб.</del>
-                                                <?php else: ?>
-                                                    <span class="prod-price"><?=str_replace('.00 р.', '', $product['price']);?><span>руб.</span></span>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="prod-size">
-                                                <?php foreach($product['options'] as $option):?>
-                                                    <?php if($option['option_id'] == 13): ?>
-                                                        <?php foreach(($option['product_option_value']) as $sizes):?>
-                                                            <span><?php echo($sizes['name']);?></span>
-                                                        <?php endforeach;?>
-                                                    <?php endif;?>
-                                                <?php endforeach;?>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+    <section class="section-inner">
+        <div class="container group">
+            <div class="aside">
+                <div class="aside-img hidden-devices"><img src="/image/aside-banner.jpg" alt=""></div>
+                <div class="aside-catalog">
+                    <span class="tt-aside-catalog"><span>Каталог</span> <i class="icon"><img src="/image/icon-drop3.png" alt=""></i></span>
+                    <div class="aside-catalog-bl">
+                        <ul class="list-aside-catalog">
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Детские UGG</span>
+                                </a></li>
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Женские UGG</span>
+                                </a></li>
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Мужские UGG</span>
+                                </a></li>
+                        </ul>
+                        <ul class="list-aside-catalog">
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Высокие UGG</span>
+                                </a></li>
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Короткие UGG</span>
+                                </a></li>
+                            <li><a href="#">
+                                    <i class="icon"> › </i>
+                                    <span>Мини UGG</span>
+                                </a></li>
+                        </ul>
+                        <ul class="list-aside-product">
+                            <li><a href="#">UGG Bailey Button</a></li>
+                            <li><a href="#">UGG Bailey Triplet</a></li>
+                            <li><a href="#">UGG Bailey & Dylyn</a></li>
+                            <li><a href="#">UGG Classic Mini</a></li>
+                            <li><a href="#">UGG Classic Short</a></li>
+                            <li><a href="#">UGG Classic Sparkles</a></li>
+                            <li><a href="#">UGG Classic Tall</a></li>
+                            <li><a href="#">UGG Jimmy Choo</a></li>
+                            <li><a href="#">UGG Mini Bailey Bow</a></li>
+                            <li><a href="#">UGG Mini Fox Fur</a></li>
+                            <li><a href="#">UGG Mocassins</a></li>
+                            <li><a href="#">Домашние угги</a></li>
+                        </ul>
+                        <div class="filter-aside">
+                            <div class="filter-aside-tt">
+                                <span>Фильтры</span>
+                                <button type="reset">
+                                    <i class="icon"><img src="/image/delete-icon.png" alt=""></i>
+                                    <span>Сбросить</span>
+                                </button>
                             </div>
-                        <?php endforeach; ?>
+                            <div class="filter-aside-cont">
+                                <span class="tt-filter-aside-cont">Основной цвет</span>
+                                <ul class="list-filter-aside-color">
+                                    <li><a href="#"><span class="col-aside col-aside1"></span> <span>Бежевый (41)</span></a></li>
+                                    <li><a href="#"><span class="col-aside col-aside2"></span> <span>Коричневый (76)</span></a></li>
+                                    <li><a href="#"><span class="col-aside col-aside3"></span> <span>Серый (99)</span></a></li>
+                                    <li><a href="#"><span class="col-aside col-aside4"></span> <span>Синий (82)</span></a></li>
+                                    <li><a href="#"><span class="col-aside col-aside5"></span> <span>Черный (924)</span></a></li>
+                                </ul>
+                            </div>
+                            <div class="filter-aside-cont">
+                                <span class="tt-filter-aside-cont">Материал</span>
+                                <ul class="list-filter-material">
+                                    <li><a href="#">EVA (16)</a></li>
+                                    <li><a href="#">Кожа (94)</a></li>
+                                    <li><a href="#">Овчина (76)</a></li>
+                                    <li><a href="#">Замша (24)</a></li>
+                                    <li><a href="#">Твинфейс (9)</a></li>
+                                    <li><a href="#">UGGPURE (3)</a></li>
+                                    <li><a href="#">Защита от воды (99)</a></li>
+                                </ul>
+                            </div>
+                            <div class="filter-aside-cont">
+                                <span class="tt-filter-aside-cont">Размер</span>
+                                <ul class="list-size-filter">
+                                    <li><a href="#">36</a></li>
+                                    <li><a href="#">36,5</a></li>
+                                    <li><a href="#">37</a></li>
+                                    <li><a href="#">37.5</a></li>
+                                    <li><a href="#">38</a></li>
+                                    <li><a href="#">38.5</a></li>
+                                    <li><a href="#">39</a></li>
+                                    <li><a href="#">40</a></li>
+                                    <li><a href="#">41</a></li>
+                                    <li><a href="#">42</a></li>
+                                </ul>
+                            </div>
+                            <div class="filter-aside-cont">
+                                <span class="tt-filter-aside-cont">Высота обуви</span>
+                                <ul class="list-size-filter">
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                    <li><a href="#">10</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="aside-reviews hidden-devices">
+                    <div class="aside-reviews-bl">
+                        <span class="img-aside-reviews"><img src="/image/photo-reviews.png" alt=""></span>
+                        <div class="txt-aside-reviews">
+                            <span class="q-txt"><img src="/image/q-icon.png" alt=""></span>
+                            <p>Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве.</p>
+                            <b>Елена, Москва</b>
+                        </div>
+                    </div>
+                    <div class="aside-reviews-bl">
+                        <span class="img-aside-reviews"><img src="/image/photo-reviews.png" alt=""></span>
+                        <div class="txt-aside-reviews">
+                            <span class="q-txt"><img src="/image/q-icon.png" alt=""></span>
+                            <p>Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве.</p>
+                            <b>Елена, Москва</b>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-icon btn-max">
+                        <span>ВСЕ ОТЗЫВЫ</span>
+                        <i class="icon"> › </i>
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                <ul class="bread-crumbs hidden-devices">
+                    <?php $i = 0; foreach ($breadcrumbs as $breadcrumb): ?>
+                        <?php if ($i == 0):?>
+                            <li><a href="/">Главная</a></li>
+                        <?php elseif ($last_elem !== $breadcrumb): ?>
+                            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+                        <?php elseif ($last_elem == $breadcrumb): ?>
+                            <li><?php echo $breadcrumb['text']; ?></li>
+                        <?php endif;?>
+                    <?php $i++; endforeach;?>
+                </ul>
+                <h1 class="tt-cont"><?=$heading_title;?></h1>
+                <p>Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.</p>
+                <div class="number-product-bl">
+                    <span class="number-product">396 товаров</span>
+                    <select>
+                        <option>Сортировать по цене</option>
+                        <option>Сортировать по цене</option>
+                        <option>Сортировать по цене</option>
+                        <option>Сортировать по цене</option>
+                        <option>Сортировать по цене</option>
+                    </select>
+                </div>
+                <ul class="list-product">
+                    <?php foreach ($products as $product):
+                        $options = $product['options'];
+                        $product_name = $product['name'];
+                        $product_price = str_replace(' ', ',',(str_replace('.00 р.', '', $product['price'])));
+                        if ($product['special']) {
+                            $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));
+                        };?>
+                        <li class="product-item">
+                            <a href="<?=$product['href'];?>" class="img-product-item"><img src="<?=$product['thumb'];?>" alt=""></a>
+                            <span class="name-product-item"><span>Bailey Button White <span>Metallic</span></span> Оригинальные Угги с Мехом</span>
+                            <div class="price-product-item">
+                                <?php if($product['special']): ?>
+                                    <span class="new-price-item"><span><?=$product_special_price;?></span> руб</span>
+                                    <span class="old-price-item">/<span><?=$product_price;?></span></span>
+                                <?php else: ?>
+                                    <span class="new-price-item"><span><?=$product_price;?></span> руб</span>
+                                <?php endif;?>
+                            </div>
+                            <a href="#" class="btn btn-icon">
+                                <span>купить сейчас</span>
+                                <i class="icon"> › </i>
+                            </a>
+                            <?php foreach($options as $option):?>
+                                <?php if($option['option_id'] == 13):?>
+                                    <?php if (!empty(($option['value']))):?>
+                                        <span class="product-item-sale"><?=$option['value'];?></span>
+                                    <?php endif;?>
+                                <?php endif;?>
+                            <?php endforeach;?>
+                        </li>
+                    <?php endforeach;?>
+                </ul>
+                <?=$content_bottom;?>
             </div>
         </div>
-    </div>
+    </section>
 </div>
-
-<?=$content_bottom;?>
 
 <?php echo $footer; ?>
