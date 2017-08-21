@@ -58,65 +58,7 @@ echo $header;
                             <li><a href="#">Домашние угги</a></li>
                         </ul>
                         <div class="filter-aside">
-                            <div class="filter-aside-tt">
-                                <span>Фильтры</span>
-                                <button type="reset">
-                                    <i class="icon"><img src="/image/delete-icon.png" alt=""></i>
-                                    <span>Сбросить</span>
-                                </button>
-                            </div>
-                            <div class="filter-aside-cont">
-                                <span class="tt-filter-aside-cont">Основной цвет</span>
-                                <ul class="list-filter-aside-color">
-                                    <li><a href="#"><span class="col-aside col-aside1"></span> <span>Бежевый (41)</span></a></li>
-                                    <li><a href="#"><span class="col-aside col-aside2"></span> <span>Коричневый (76)</span></a></li>
-                                    <li><a href="#"><span class="col-aside col-aside3"></span> <span>Серый (99)</span></a></li>
-                                    <li><a href="#"><span class="col-aside col-aside4"></span> <span>Синий (82)</span></a></li>
-                                    <li><a href="#"><span class="col-aside col-aside5"></span> <span>Черный (924)</span></a></li>
-                                </ul>
-                            </div>
-                            <div class="filter-aside-cont">
-                                <span class="tt-filter-aside-cont">Материал</span>
-                                <ul class="list-filter-material">
-                                    <li><a href="#">EVA (16)</a></li>
-                                    <li><a href="#">Кожа (94)</a></li>
-                                    <li><a href="#">Овчина (76)</a></li>
-                                    <li><a href="#">Замша (24)</a></li>
-                                    <li><a href="#">Твинфейс (9)</a></li>
-                                    <li><a href="#">UGGPURE (3)</a></li>
-                                    <li><a href="#">Защита от воды (99)</a></li>
-                                </ul>
-                            </div>
-                            <div class="filter-aside-cont">
-                                <span class="tt-filter-aside-cont">Размер</span>
-                                <ul class="list-size-filter">
-                                    <li><a href="#">36</a></li>
-                                    <li><a href="#">36,5</a></li>
-                                    <li><a href="#">37</a></li>
-                                    <li><a href="#">37.5</a></li>
-                                    <li><a href="#">38</a></li>
-                                    <li><a href="#">38.5</a></li>
-                                    <li><a href="#">39</a></li>
-                                    <li><a href="#">40</a></li>
-                                    <li><a href="#">41</a></li>
-                                    <li><a href="#">42</a></li>
-                                </ul>
-                            </div>
-                            <div class="filter-aside-cont">
-                                <span class="tt-filter-aside-cont">Высота обуви</span>
-                                <ul class="list-size-filter">
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li><a href="#">10</a></li>
-                                </ul>
-                            </div>
+                            <?=$column_left;?>
                         </div>
                     </div>
                 </div>
@@ -157,18 +99,15 @@ echo $header;
                 </ul>
                 <h1 class="tt-cont"><?=$heading_title;?></h1>
                 <p>Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.</p>
-                <div class="number-product-bl">
+                <div class="number-product-bl js-sort">
                     <span class="number-product">396 товаров</span>
-                    <select>
-                        <option>Сортировать по цене</option>
-                        <option>Сортировать по цене</option>
-                        <option>Сортировать по цене</option>
-                        <option>Сортировать по цене</option>
-                        <option>Сортировать по цене</option>
+                    <select class="js-sort">
+                        <option disabled selected>Сортировка</option>
+                        <option class="js-sort-asc">По возрастанию цены</option>
+                        <option class="js-sort-desc">По убыванию цены</option>
                     </select>
                 </div>
-                <ul class="list-product">
-
+                <ul class="list-product js-sortable">
                     <?php foreach ($products as $product):
                         $options = $product['options'];
                         $product_name = $product['name'];
@@ -176,7 +115,11 @@ echo $header;
                         if ($product['special']) {
                             $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));
                         };?>
-                        <li class="product-item">
+                        <?php if($product['special']): ?>
+                            <li class="product-item" data-price="<?=$product['special'];?>">
+                        <?php else: ?>
+                            <li class="product-item" data-price="<?=$product['price'];?>">
+                        <?php endif; ?>
                             <a href="<?=$product['href'];?>" class="img-product-item"><img src="<?=$product['thumb'];?>" alt=""></a>
                             <span class="name-product-item"><span><?=$product['name'];?></span>
                             <div class="price-product-item">
