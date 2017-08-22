@@ -10,20 +10,6 @@ function futureDate() {
     dateSpan.html(futureDate + '!').css('display', 'inline-block');
 }
 
-var resetButton = $('.js-reset-filter'),
-    checkBoxes = $('.filter-aside-cont').find('input[type=checkbox]');
-
-resetButton.click(function () {
-    checkBoxes.each(function () {
-        var jcf = $(this).closest('.jcf-checkbox');
-        $(this).removeAttr('checked');
-        if (jcf.hasClass('jcf-checked')) {
-            jcf.removeClass('jcf-checked');
-            jcf.addClass('jcf-unchecked');
-        }
-    });
-});
-
 function sortAsc() {
     var $container = $('.js-sortable'),
         $products = $container.find('.product-item');

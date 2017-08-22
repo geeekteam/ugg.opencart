@@ -111,6 +111,7 @@ echo $header;
                     <?php foreach ($products as $product):
                         $options = $product['options'];
                         $product_name = $product['name'];
+                        echo $product['price'];
                         $product_price = str_replace(' ', ',',(str_replace('.00 р.', '', $product['price'])));
                         if ($product['special']) {
                             $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));

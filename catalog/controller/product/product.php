@@ -6,13 +6,12 @@ class ControllerProductProduct extends Controller {
 
 		$this->load->language('product/product');
 
-
-        // Отзывы
+        // Отзывы start
 
         $data['custom_reviews'] = array();
 
         $filter_data = array(
-            'filter_category_id' => 2,
+            'filter_category_id' => 1,
         );
 
         $this->load->model('newsblog/article');
@@ -22,7 +21,7 @@ class ControllerProductProduct extends Controller {
             'text' => $this->model_newsblog_article->getArticles($filter_data)
         );
 
-        // Отзывы
+        // Отзывы end
 
 		$data['breadcrumbs'] = array();
 

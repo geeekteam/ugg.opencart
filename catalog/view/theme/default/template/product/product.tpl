@@ -153,8 +153,97 @@ echo $header;
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
+                        <button type="submit" class="btn-lg btn btn-icon">
+                            <span>купить сейчас</span>
+                            <i class="icon"> › </i>
+                        </button>
+                    </div>
+                    <div class="product-inner-banner hidden-devices">
+                        <div class="product-inner-banner-bl">
+                            <i class="icon icon-price"></i>
+                            <span class="tt-product-inner-banner"><span>Дарим подарок</span> каждому клиенту нашего магазина</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="characteristics">
+                <?php if($attribute_groups):?>
+                    <div class="characteristics-cont">
+                        <span class="tt-characteristics">Характеристики</span>
+                        <div class="characteristics-table">
+                            <table>
+                                <?php foreach($attribute_groups as $characteristics): ?>
+                                    <?php if($characteristics['attribute_group_id'] == 10): ?>
+                                        <?php foreach($characteristics['attribute'] as $attribute): ?>
+                                        <tr>
+                                            <td><?=$attribute['name']; ?></td>
+                                            <td><?=$attribute['text']; ?></td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif;?>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <div class="characteristics-txt">
+                    <div class="characteristics-link">
+                        <a href="#">Доставка и оплата</a>
+                        <a href="#">Возврат</a>
+                    </div>
+                    <?=$description; ?>
+                </div>
+            </div>
+        </div>
+        <div class="reviews">
+            <div class="container">
+                <h2 class="col-wt">ОТЗЫВЫ <a href="#">СМОТРЕТЬ ВСЕ</a></h2>
+                <div class="owl-carousel reviews-slider">
+                    <?php $i = 0; shuffle($custom_reviews['text']); foreach ($custom_reviews['text'] as $review): ?>
+                    <div class="reviews-slider-item">
+                        <div class="txt-reviews-slider">
+                            <span class="ic-q"><img src="/image/q-icon.png" alt=""></span>
+                            <p><?=htmlspecialchars_decode($review['description']);?></p>
+                        </div>
+                        <div class="img-reviews">
+                            <span><img src="/image/<?=$review['image'];?>" alt=""></span>
+                            <p><?=$review['name'];?></p>
+                        </div>
+                    </div>
+                    <?php $i++; if($i == 4) break; endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+
+        <?=$column_left; ?>
+
+        <h2>Похожие модели</a></h2>
+            <div class="product-cont-catalog product-cont-catalog-bb">
+                <ul class="list-product">
+                    <?php foreach ($products as $product): ?>
+                        <li class="product-item">
+                            <a href="<?=$product['href']; ?>" class="img-product-item"><img src="<?=$product['thumb']; ?>" alt="<?=$product['name']; ?>"></a>
+                            <span class="name-product-item"><span><?=$product['name']; ?>s</span>
+                            <div class="price-product-item">
+                                <?php if ($product['special']): ?>
+                                    <?php
+                                        $special_price = str_replace(' ', ',', str_replace(('.00 р.'), '', $product['special']));
+                                        $default_price = str_replace(' ', '', str_replace(('.0000'), '', $product['price']));
+                                    ?>
+                                    <span class="new-price-item"><span><?=$special_price?></span> руб</span>
+                                    <span class="old-price-item">/ <span><?=$default_price?></span></span>
+                                <?php else: ?>
+                                    <span class="new-price-item"><span><?=$default_price?></span> руб</span>
+                                <?php endif; ?>
+                            </div>
+                            <a href="#" class="btn btn-icon">
+                                <span>купить сейчас</span>
+                                <i class="icon"> › </i>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         </div>
     </section>

@@ -910,7 +910,7 @@ a:hover {
   }
   #wrapper {
     min-height: 100%;
-    margin-bottom: -100px;
+    /*margin-bottom: -100px;*/
   }
   .page-buffer {
     height: 100px;
@@ -3718,6 +3718,7 @@ button.mfp-close,
   margin: 0;
   word-spacing: -0.36em;
   font-family: Verdana;
+  max-width: 340px;
 }
 
 .list-size-filter > li {
@@ -4722,7 +4723,6 @@ blockquote {
   }
   .list-product {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
   }
   .list-product > li {

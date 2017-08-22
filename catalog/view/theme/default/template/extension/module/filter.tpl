@@ -19,7 +19,7 @@
                         $checked = '';
                         (isset($_GET['filter']) && in_array($filter['filter_id'], explode(',', $_GET['filter']))) && $checked = 'checked';
                     ?>
-                    <li>
+                    <li class="filter-item">
                         <label>
                             <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
                             <a><span class="col-aside" style="background-color:<?=$color_code[0]?>;"></span><span><?=$color_name;?> (<?=$color_count;?>)</span></a>
@@ -41,7 +41,7 @@
                         (isset($_GET['filter']) && in_array($filter['filter_id'], explode(',', $_GET['filter']))) && $checked = 'checked';
                     ?>
 
-                    <li>
+                    <li class="filter-item">
                         <label>
                             <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
                             <a><?=$material_name;?> (<?=$material_count?>)</a>
@@ -62,7 +62,7 @@
                     $checked = '';
                     (isset($_GET['filter']) && in_array($filter['filter_id'], explode(',', $_GET['filter']))) && $checked = 'checked';
                 ?>
-                <li>
+                <li class="filter-item">
                     <label>
                         <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
                         <a><?=$size_name;?></a>
@@ -83,7 +83,7 @@
                     $checked = '';
                     (isset($_GET['filter']) && in_array($filter['filter_id'], explode(',', $_GET['filter']))) && $checked = 'checked';
                 ?>
-                <li>
+                <li class="filter-item">
                     <label>
                         <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
                         <a><?=$height_name;?></a>
@@ -95,15 +95,32 @@
     <?php endif;?>
 <?php endforeach;?>
 
-<p><button type="button" id="button-filter" class="btn btn-max">ПОИСК</button></p>
-
-
 <script type="text/javascript">
-    $('#button-filter').on('click', function () {
+    $('.filter-item').on('click', function () {
         filter = [];
         $('input[name^=\'filter\']:checked').each(function (element) {
             filter.push(this.value);
         });
         location = '<?php echo $action; ?>&filter=' + filter.join(',');
     });
+
+    var $resetButton = $('.js-reset-filter'),
+        $checkBoxes = $('.filter-aside-cont').find('input[type=checkbox]');
+
+    $resetButton.click(function () {
+        $checkBoxes.each(function () {
+            var $jcf = $(this).closest('.jcf-checkbox');
+            $(this).removeAttr('checked');
+            if ($jcf.hasClass('jcf-checked')) {
+                $jcf.removeClass('jcf-checked');
+                $jcf.addClass('jcf-unchecked');
+            }
+            filter = [];
+            $('input[name^=\'filter\']:checked').each(function (element) {
+                filter.push(this.value);
+            });
+            location = '<?php echo $action; ?>&filter=' + filter.join(',');
+        });
+    });
+
 </script>
