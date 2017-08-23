@@ -228,18 +228,11 @@ class ControllerProductCategory extends Controller {
 
                     foreach ($option['product_option_value'] as $option_value) {
                         if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
-                            if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-                                $price = $this->currency->format($this->tax->calculate($option_value['price'], $result['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
-                            } else {
-                                $price = false;
-                            }
-
                             $product_option_value_data[] = array(
                                 'product_option_value_id' => $option_value['product_option_value_id'],
                                 'option_value_id'         => $option_value['option_value_id'],
                                 'name'                    => $option_value['name'],
                                 'image'                   => $option_value['image'] ? $this->model_tool_image->resize($option_value['image'], 50, 50) : '',
-                                'price'                   => $price,
                                 'price_prefix'            => $option_value['price_prefix']
                             );
                         }
@@ -266,7 +259,7 @@ class ControllerProductCategory extends Controller {
 					'tax'         => $tax,
 					'minimum'     => ($result['minimum'] > 0) ? $result['minimum'] : 1,
 					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'path=' . $this->request->get['path'] . '&product_id=' . $result['product_id'] . $url),
+					'href'        => $this->url->link('product/product', '&product_id=' . $result['product_id'] . $url),
                     'options'     => $data['options']
 				);
 

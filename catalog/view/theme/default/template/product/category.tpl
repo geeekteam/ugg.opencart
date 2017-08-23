@@ -7,7 +7,6 @@ echo $header;
 ?>
 
 <div id="middle">
-
     <section class="section-inner">
         <div class="container group">
             <div class="aside">
@@ -15,51 +14,7 @@ echo $header;
                 <div class="aside-catalog">
                     <span class="tt-aside-catalog"><span>Каталог</span> <i class="icon"><img src="/image/icon-drop3.png" alt=""></i></span>
                     <div class="aside-catalog-bl">
-                        <ul class="list-aside-catalog">
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Детские UGG</span>
-                                </a></li>
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Женские UGG</span>
-                                </a></li>
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Мужские UGG</span>
-                                </a></li>
-                        </ul>
-                        <ul class="list-aside-catalog">
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Высокие UGG</span>
-                                </a></li>
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Короткие UGG</span>
-                                </a></li>
-                            <li><a href="#">
-                                    <i class="icon"> › </i>
-                                    <span>Мини UGG</span>
-                                </a></li>
-                        </ul>
-                        <ul class="list-aside-product">
-                            <li><a href="#">UGG Bailey Button</a></li>
-                            <li><a href="#">UGG Bailey Triplet</a></li>
-                            <li><a href="#">UGG Bailey & Dylyn</a></li>
-                            <li><a href="#">UGG Classic Mini</a></li>
-                            <li><a href="#">UGG Classic Short</a></li>
-                            <li><a href="#">UGG Classic Sparkles</a></li>
-                            <li><a href="#">UGG Classic Tall</a></li>
-                            <li><a href="#">UGG Jimmy Choo</a></li>
-                            <li><a href="#">UGG Mini Bailey Bow</a></li>
-                            <li><a href="#">UGG Mini Fox Fur</a></li>
-                            <li><a href="#">UGG Mocassins</a></li>
-                            <li><a href="#">Домашние угги</a></li>
-                        </ul>
-                        <div class="filter-aside">
-                            <?=$column_left;?>
-                        </div>
+                        <?=$column_left;?>
                     </div>
                 </div>
                 <div class="aside-reviews hidden-devices">
@@ -111,7 +66,6 @@ echo $header;
                     <?php foreach ($products as $product):
                         $options = $product['options'];
                         $product_name = $product['name'];
-                        echo $product['price'];
                         $product_price = str_replace(' ', ',',(str_replace('.00 р.', '', $product['price'])));
                         if ($product['special']) {
                             $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));

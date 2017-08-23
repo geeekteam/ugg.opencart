@@ -13,41 +13,30 @@
             <div class="footer-link-bl">
                 <span>категории</span>
                 <ul class="list-footer-link">
-                    <li><a href="#">Высокие УГГИ</a></li>
-                    <li><a href="#">Короткие УГГИ</a></li>
-                    <li><a href="#">Мини УГГИ</a></li>
-                    <li><a href="#">Женские УГГИ</a></li>
-                    <li><a href="#">Детские УГГИ</a></li>
-                    <li><a href="#">Мужские УГГИ</a></li>
+                    <li><a href="/vysokie-ugg">Высокие УГГИ</a></li>
+                    <li><a href="/korotkie-ugg">Короткие УГГИ</a></li>
+                    <li><a href="/zhenskie-ugg">Женские УГГИ</a></li>
+                    <li><a href="/detskie-ugg">Детские УГГИ</a></li>
+                    <li><a href="/muzhskie-ugg">Мужские УГГИ</a></li>
                 </ul>
             </div>
             <div class="footer-link-bl">
                 <span>МОДЕЛИ</span>
                 <ul class="list-footer-link">
-                    <li><a href="#">UGG Bailey Button</a></li>
-                    <li><a href="#">UGG Bailey Triplet</a></li>
-                    <li><a href="#">UGG Bailey & Dylyn</a></li>
-                    <li><a href="#">UGG Classic Mini</a></li>
-                    <li><a href="#">UGG Classic Short</a></li>
-                    <li><a href="#">UGG Classic Sparkles</a></li>
-                    <li><a href="#">UGG Classic Tall</a></li>
-                    <li><a href="#">UGG Jimmy Choo</a></li>
-                    <li><a href="#">UGG Mini Bailey Bow</a></li>
-                    <li><a href="#">UGG Mini Fox Fur</a></li>
-                    <li><a href="#">UGG Mocassins</a></li>
-                    <li><a href="#">Домашние угги</a></li>
+                    <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                    <li><a href="/ugg-bailey-triplet">UGG Bailey Triplet</a></li>
                 </ul>
             </div>
             <div class="footer-link-bl">
                 <span>МАТЕРИАЛ</span>
                 <ul class="list-footer-link">
-                    <li><a href="#">Eva</a></li>
-                    <li><a href="#">Кожа</a></li>
-                    <li><a href="#">Овчина</a></li>
-                    <li><a href="#">Замша</a></li>
-                    <li><a href="#">Твинфейс</a></li>
-                    <li><a href="#">UGGPURE</a></li>
-                    <li><a href="#">Защита от воды</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=3">Eva</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=9">Кожа</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=10">Овчина</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=11">Замша</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=12">Твинфейс</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=13">UGGPURE</a></li>
+                    <li><a href="/?route=product/category&amp;path=83&amp;filter=14">Защита от воды</a></li>
                 </ul>
             </div>
         </div>

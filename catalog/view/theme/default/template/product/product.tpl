@@ -108,7 +108,7 @@ echo $header;
                                 <span class="new-price-item"><span><?=$special_price;?></span> <span class="rubl"> </span></span>
                             <?php endif; ?>
                         </div>
-                        <a href="#" class="link-table image-popup">
+                        <a href="#popup_size_table" class="link-table open-modal">
                             <i class="icon icon-table"></i>
                             <span>Таблица размеров</span>
                         </a>
@@ -197,7 +197,7 @@ echo $header;
         </div>
         <div class="reviews">
             <div class="container">
-                <h2 class="col-wt">ОТЗЫВЫ <a href="#">СМОТРЕТЬ ВСЕ</a></h2>
+                <h2 class="col-wt">ОТЗЫВЫ <a href="/otzyvy">СМОТРЕТЬ ВСЕ</a></h2>
                 <div class="owl-carousel reviews-slider">
                     <?php $i = 0; shuffle($custom_reviews['text']); foreach ($custom_reviews['text'] as $review): ?>
                     <div class="reviews-slider-item">

@@ -34,36 +34,33 @@
             <div class="prod-icon-item">
                 <i class="icon icon-advantage4"></i>
                 <span class="prod-icon-name">
-            <span>Доставка </span>
-            <span>в день заказа</span>
-          </span>
+                    <span>Доставка</span>
+                    <span>в день заказа</span>
+                </span>
             </div>
-
             <div class="prod-icon-item">
                 <i class="icon icon-advantage5"></i>
                 <span class="prod-icon-name">
-            <span>Возврат</span>
-            <span>365 дней </span>
-          </span>
+                    <span>Возврат</span>
+                    <span>365 дней </span>
+                </span>
             </div>
 
             <div class="prod-icon-item">
                 <i class="icon icon-advantage6"></i>
                 <span class="prod-icon-name">
-            <span>Гарантия</span>
-            <span>60 дней</span>
-          </span>
+                    <span>Гарантия</span>
+                    <span>60 дней</span>
+                </span>
             </div>
 
             <div class="prod-icon-item">
                 <i class="icon icon-advantage7"></i>
                 <span class="prod-icon-name">
-            <span> Оригинальные</span>
-            <span>УГГИ из Австралии</span>
-          </span>
+                    <span> Оригинальные</span>
+                    <span>УГГИ из Австралии</span>
+                </span>
             </div>
-
-
         </div>
 
         <h2>Ваш заказ</h2>
@@ -219,16 +216,292 @@
         </div>
     </div>
 
+    <div id="popup_size_table" class="cart-modal mfp-hide">
+        <div>
+            <table class="table table-bordered table-razmer">
+                <thead>
+                <tr>
+                    <th>US</th>
+                    <th>Женский US</th>
+                    <th>UK</th>
+                    <th>EURO</th>
+                    <th>RUS</th>
+                    <th>CM</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>4,5</td>
+                    <td>5</td>
+                    <td>2</td>
+                    <td>34,5</td>
+                    <td>33,5</td>
+                    <td>21,5</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>5,5</td>
+                    <td>2,5</td>
+                    <td>35</td>
+                    <td>34</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>5,5</td>
+                    <td>6</td>
+                    <td>3</td>
+                    <td>36</td>
+                    <td>35</td>
+                    <td>22,5</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>6,5</td>
+                    <td>3,5</td>
+                    <td>36,5</td>
+                    <td>35,5</td>
+                    <td>23</td>
+                </tr>
+                <tr>
+                    <td>6,5</td>
+                    <td>7</td>
+                    <td>4</td>
+                    <td>37,5</td>
+                    <td>36</td>
+                    <td>23.5</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>7,5</td>
+                    <td>5</td>
+                    <td>38</td>
+                    <td>36.5</td>
+                    <td>24,5</td>
+                </tr>
+                <tr>
+                    <td>7,5</td>
+                    <td>8</td>
+                    <td>5</td>
+                    <td>38,5</td>
+                    <td>37,5</td>
+                    <td>24,5</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>8,5</td>
+                    <td>5.5</td>
+                    <td>39</td>
+                    <td>38</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>8,5</td>
+                    <td>9</td>
+                    <td>6</td>
+                    <td>40</td>
+                    <td>39</td>
+                    <td>25,5</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>9,5</td>
+                    <td>6,5</td>
+                    <td>40,5</td>
+                    <td>39,5</td>
+                    <td>26</td>
+                </tr>
+                <tr>
+                    <td>9,5</td>
+                    <td>10</td>
+                    <td>7</td>
+                    <td>41</td>
+                    <td>40</td>
+                    <td>26,5</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>10,5</td>
+                    <td>7,5</td>
+                    <td>42</td>
+                    <td>41</td>
+                    <td>27</td>
+                </tr>
+                <tr>
+                    <td>10,5</td>
+                    <td>11</td>
+                    <td>8</td>
+                    <td>42,5</td>
+                    <td>41,5</td>
+                    <td>27,5</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td></td>
+                    <td>8.5</td>
+                    <td>43</td>
+                    <td>42</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>11,5</td>
+                    <td></td>
+                    <td>9</td>
+                    <td>44</td>
+                    <td>43</td>
+                    <td>28,5</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td></td>
+                    <td>9.5</td>
+                    <td>44,5</td>
+                    <td>43,5</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td></td>
+                    <td>10,5</td>
+                    <td>45,5</td>
+                    <td>44</td>
+                    <td>30<br></td>
+                </tr>
+                <tr>
+                    <td><b>US<br></b></td>
+                    <td><b>Мужской US</b></td>
+                    <td><b>UK</b></td>
+                    <td><b>EURO</b></td>
+                    <td><b>RUS</b></td>
+                    <td><b>CM</b></td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>6,5</td>
+                    <td>5,5</td>
+                    <td>38,5</td>
+                    <td>37,5</td>
+                    <td>24</td>
+                </tr>
+                <tr>
+                    <td>6,5</td>
+                    <td>7</td>
+                    <td>6</td>
+                    <td>39</td>
+                    <td>38</td>
+                    <td>24,5</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>7,5</td>
+                    <td>6</td>
+                    <td>39,5</td>
+                    <td>38,5</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>7,5</td>
+                    <td>6</td>
+                    <td>40</td>
+                    <td>39</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>7,5</td>
+                    <td>8</td>
+                    <td>6,5</td>
+                    <td>40,5</td>
+                    <td>41,5</td>
+                    <td>25,5</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>8,5</td>
+                    <td>7</td>
+                    <td>41</td>
+                    <td>42</td>
+                    <td>26</td>
+                </tr>
+                <tr>
+                    <td>8,5</td>
+                    <td>9</td>
+                    <td>7,5</td>
+                    <td>42</td>
+                    <td>43</td>
+                    <td>26,5</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>9,5</td>
+                    <td>8</td>
+                    <td>42,5</td>
+                    <td>43,5</td>
+                    <td>27</td>
+                </tr>
+                <tr>
+                    <td>9,5</td>
+                    <td>10</td>
+                    <td>8,5</td>
+                    <td>43</td>
+                    <td>44</td>
+                    <td>27,5</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>10,5</td>
+                    <td>9</td>
+                    <td>44</td>
+                    <td>45</td>
+                    <td>28</td>
+                </tr>
+                <tr>
+                    <td>10,5</td>
+                    <td>11</td>
+                    <td>9,5</td>
+                    <td>44,5</td>
+                    <td>45,5</td>
+                    <td>28,5</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>11,5</td>
+                    <td>10</td>
+                    <td>45</td>
+                    <td>46</td>
+                    <td>29</td>
+                </tr>
+                <tr>
+                    <td>11,5</td>
+                    <td>12</td>
+                    <td>10,5</td>
+                    <td>45,5</td>
+                    <td>46,5</td>
+                    <td>29,5</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>12,5</td>
+                    <td>11</td>
+                    <td>46</td>
+                    <td>47</td>
+                    <td>30</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clear"></div>
+    </div>
+
     <header id="header" class="header">
 
         <div class="header-panel">
             <div class="container">
                 <ul class="head-nav">
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Доставка и оплата</a></li>
-                    <li><a href="#">Отзывы</a></li>
-                    <li><a href="#">Возврат</a></li>
-                    <li><a href="#">Контакты</a></li>
+                    <li><a href="/o-nas">О нас</a></li>
+                    <li><a href="/dostavka-i-oplata">Доставка и оплата</a></li>
+                    <li><a href="/otzyvy">Отзывы</a></li>
+                    <li><a href="/vozvrat">Возврат</a></li>
+                    <li><a href="/contacts">Контакты</a></li>
                 </ul>
             </div>
         </div>
@@ -237,11 +510,11 @@
             <div class="header-bl">
                 <div class="logo">
                     <?php if ($_SERVER['REQUEST_URI'] == '/'): ?>
-                        <a><img src="<?=$logo;?>" title="<?=$name;?>" alt="<?=$name;?>"></a>
+                    <a><img src="<?=$logo;?>" title="<?=$name;?>" alt="<?=$name;?>"></a>
                     <?php else: ?>
-                        <a href="<?=$home;?>"><img src="<?=$logo;?>" title="<?=$name;?>" alt="<?=$name;?>"></a>
+                    <a href="<?=$home;?>"><img src="<?=$logo;?>" title="<?=$name;?>" alt="<?=$name;?>"></a>
                     <?php endif; ?>
-                        <span class="logo-slogan"><?=$name;?></span>
+                    <span class="logo-slogan"><?=$name;?></span>
                 </div>
                 <div class="header-cont-bl">
                     <div class="header-info">
@@ -275,28 +548,23 @@
               <span></span>
             </span>
             </div>
-
             <div class="menu-wrapper-fixed">
                 <div class="menu-open-wrapper">
-
                     <nav class="header-nav">
                         <ul class="menu">
-                            <li><a href="#">Распродаж</a></li>
+                            <li><a href="/rasprodazha">Распродажа</a></li>
                             <li class="menu-drop-down">
-                      <span class="menu-dd-open-link">
-                        <span>Женские Угги</span>
-                        <i class="arrow-corner-bottom"></i>
-                      </span>
+                                <span class="menu-dd-open-link">
+                                    <span>Женские Угги</span>
+                                    <i class="arrow-corner-bottom"></i>
+                                </span>
                                 <ul>
-                                    <li><a href="#">Женские Угги</a></li>
-                                    <li><a href="#">Женские Угги</a></li>
-                                    <li><a href="#">Женские Угги</a></li>
-                                    <li><a href="#">Женские Угги</a></li>
+                                    <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                                    <li><a href="/ugg-bailey-triplet">UGG Bailey Triplet</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">Короткие Угги</a></li>
-                            <li><a href="#">Мини Угги</a></li>
-                            <li><a href="#">Bailey Button</a></li>
+                            <li><a href="/korotkie-ugg">Короткие Угги</a></li>
+                            <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
                         </ul>
                         <div class="search">
                             <form action="#">
@@ -305,7 +573,6 @@
                             </form>
                         </div>
                     </nav>
-
                 </div>
             </div>
         </div>

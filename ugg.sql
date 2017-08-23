@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Авг 21 2017 г., 15:23
+-- Время создания: Авг 23 2017 г., 15:26
 -- Версия сервера: 5.5.50-log
 -- Версия PHP: 5.6.23
 
@@ -187,7 +187,18 @@ CREATE TABLE IF NOT EXISTS `oc_attribute` (
   `attribute_id` int(11) NOT NULL,
   `attribute_group_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `oc_attribute`
+--
+
+INSERT INTO `oc_attribute` (`attribute_id`, `attribute_group_id`, `sort_order`) VALUES
+(16, 10, 4),
+(15, 10, 3),
+(14, 10, 2),
+(13, 10, 1),
+(12, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -201,6 +212,17 @@ CREATE TABLE IF NOT EXISTS `oc_attribute_description` (
   `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Дамп данных таблицы `oc_attribute_description`
+--
+
+INSERT INTO `oc_attribute_description` (`attribute_id`, `language_id`, `name`) VALUES
+(15, 1, 'Подошва'),
+(14, 1, 'Внутренний материал'),
+(13, 1, 'Материал'),
+(12, 1, 'Сезон'),
+(16, 1, 'Перепад');
+
 -- --------------------------------------------------------
 
 --
@@ -210,7 +232,14 @@ CREATE TABLE IF NOT EXISTS `oc_attribute_description` (
 CREATE TABLE IF NOT EXISTS `oc_attribute_group` (
   `attribute_group_id` int(11) NOT NULL,
   `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `oc_attribute_group`
+--
+
+INSERT INTO `oc_attribute_group` (`attribute_group_id`, `sort_order`) VALUES
+(10, 0);
 
 -- --------------------------------------------------------
 
@@ -223,6 +252,13 @@ CREATE TABLE IF NOT EXISTS `oc_attribute_group_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `oc_attribute_group_description`
+--
+
+INSERT INTO `oc_attribute_group_description` (`attribute_group_id`, `language_id`, `name`) VALUES
+(10, 1, 'Характеристики');
 
 -- --------------------------------------------------------
 
@@ -315,20 +351,22 @@ CREATE TABLE IF NOT EXISTS `oc_category` (
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_category`
 --
 
 INSERT INTO `oc_category` (`category_id`, `image`, `parent_id`, `top`, `column`, `sort_order`, `status`, `date_added`, `date_modified`) VALUES
-(79, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:36:05', '2017-08-18 14:36:05'),
-(80, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:37:25', '2017-08-21 15:17:56'),
-(81, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:38:52', '2017-08-18 14:38:52'),
-(82, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:40:30', '2017-08-18 14:40:30'),
-(67, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:10:24', '2017-08-18 14:31:03'),
-(77, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:33:06', '2017-08-18 14:33:06'),
-(78, 'catalog/aside-banner.jpg', 0, 0, 1, 0, 1, '2017-08-18 14:34:43', '2017-08-18 14:34:43');
+(79, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:36:05', '2017-08-22 15:23:26'),
+(80, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:37:25', '2017-08-22 15:23:33'),
+(81, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:38:52', '2017-08-22 15:23:18'),
+(82, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:40:30', '2017-08-22 15:23:29'),
+(83, '', 0, 0, 1, 0, 1, '2017-08-22 15:22:58', '2017-08-22 15:39:15'),
+(84, '', 83, 0, 1, 0, 1, '2017-08-23 16:11:50', '2017-08-23 16:11:50'),
+(67, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:10:24', '2017-08-22 15:23:10'),
+(77, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:33:06', '2017-08-22 15:23:15'),
+(78, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:34:43', '2017-08-22 15:23:22');
 
 -- --------------------------------------------------------
 
@@ -352,13 +390,15 @@ CREATE TABLE IF NOT EXISTS `oc_category_description` (
 --
 
 INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `description`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
+(83, 1, 'Все товары', '', '', '', '', ''),
 (80, 1, 'Мужcкие UGG', '', '', '', '', ''),
 (81, 1, 'Высокие UGG', '', '', '', '', ''),
 (82, 1, 'Короткие UGG', '', '', '', '', ''),
 (77, 1, 'UGG Bailey Triplet', '', '', '', '', ''),
 (78, 1, 'Детские UGG', '', '', '', '', ''),
 (79, 1, 'Женские UGG', '', '', '', '', ''),
-(67, 1, 'Ugg Bailey &amp; Dylyn', '', '', '', '', '');
+(67, 1, 'Ugg Bailey &amp; Dylyn', '', '', '', '', ''),
+(84, 1, 'Распродажа', '', 'Распродажа', 'Распродажа', '', '');
 
 -- --------------------------------------------------------
 
@@ -580,7 +620,66 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (82, 29),
 (82, 30),
 (82, 31),
-(82, 32);
+(82, 32),
+(83, 1),
+(83, 2),
+(83, 3),
+(83, 4),
+(83, 5),
+(83, 6),
+(83, 7),
+(83, 8),
+(83, 9),
+(83, 10),
+(83, 11),
+(83, 12),
+(83, 13),
+(83, 14),
+(83, 15),
+(83, 16),
+(83, 17),
+(83, 18),
+(83, 19),
+(83, 20),
+(83, 21),
+(83, 22),
+(83, 23),
+(83, 24),
+(83, 25),
+(83, 26),
+(83, 27),
+(83, 28),
+(83, 29),
+(83, 30),
+(83, 31),
+(83, 32),
+(84, 1),
+(84, 2),
+(84, 3),
+(84, 4),
+(84, 5),
+(84, 6),
+(84, 7),
+(84, 8),
+(84, 9),
+(84, 10),
+(84, 11),
+(84, 12),
+(84, 13),
+(84, 14),
+(84, 20),
+(84, 21),
+(84, 22),
+(84, 23),
+(84, 24),
+(84, 25),
+(84, 26),
+(84, 27),
+(84, 28),
+(84, 29),
+(84, 30),
+(84, 31),
+(84, 32);
 
 -- --------------------------------------------------------
 
@@ -599,13 +698,23 @@ CREATE TABLE IF NOT EXISTS `oc_category_path` (
 --
 
 INSERT INTO `oc_category_path` (`category_id`, `path_id`, `level`) VALUES
-(81, 81, 0),
-(67, 67, 0),
-(77, 77, 0),
-(80, 80, 0),
-(82, 82, 0),
-(78, 78, 0),
-(79, 79, 0);
+(81, 81, 1),
+(67, 83, 0),
+(77, 83, 0),
+(81, 83, 0),
+(78, 83, 0),
+(79, 83, 0),
+(82, 83, 0),
+(80, 83, 0),
+(84, 83, 0),
+(67, 67, 1),
+(84, 84, 1),
+(77, 77, 1),
+(80, 80, 1),
+(82, 82, 1),
+(78, 78, 1),
+(79, 79, 1),
+(83, 83, 0);
 
 -- --------------------------------------------------------
 
@@ -624,12 +733,14 @@ CREATE TABLE IF NOT EXISTS `oc_category_to_layout` (
 --
 
 INSERT INTO `oc_category_to_layout` (`category_id`, `store_id`, `layout_id`) VALUES
+(83, 0, 0),
 (79, 0, 0),
 (78, 0, 0),
 (82, 0, 0),
 (80, 0, 0),
 (77, 0, 0),
 (67, 0, 0),
+(84, 0, 0),
 (81, 0, 0);
 
 -- --------------------------------------------------------
@@ -654,7 +765,9 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 (79, 0),
 (80, 0),
 (81, 0),
-(82, 0);
+(82, 0),
+(83, 0),
+(84, 0);
 
 -- --------------------------------------------------------
 
@@ -1026,9 +1139,7 @@ CREATE TABLE IF NOT EXISTS `oc_currency` (
 --
 
 INSERT INTO `oc_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbol_right`, `decimal_place`, `value`, `status`, `date_modified`) VALUES
-(1, 'Рубль', 'RUB', '', ' р.', '2', 1.00000000, 1, '2017-08-21 08:24:05'),
-(2, 'US Dollar', 'USD', '$', '', '2', 0.01690000, 1, '2017-08-21 08:24:05'),
-(3, 'Euro', 'EUR', '', '€', '2', 0.01430000, 1, '2017-08-21 08:24:05');
+(1, 'Рубль', 'RUB', '', ' р.', '2', 1.00000000, 1, '2017-08-23 11:45:12');
 
 -- --------------------------------------------------------
 
@@ -1355,7 +1466,7 @@ CREATE TABLE IF NOT EXISTS `oc_extension` (
   `extension_id` int(11) NOT NULL,
   `type` varchar(32) NOT NULL,
   `code` varchar(32) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_extension`
@@ -1393,7 +1504,8 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (29, 'module', 'special'),
 (30, 'module', 'filter'),
 (31, 'module', 'html'),
-(32, 'module', 'categoryproducts');
+(32, 'module', 'categoryproducts'),
+(33, 'module', 'viewed');
 
 -- --------------------------------------------------------
 
@@ -1412,8 +1524,8 @@ CREATE TABLE IF NOT EXISTS `oc_filter` (
 --
 
 INSERT INTO `oc_filter` (`filter_id`, `filter_group_id`, `sort_order`) VALUES
-(2, 1, 0),
-(1, 1, 1),
+(32, 1, 14),
+(31, 1, 13),
 (3, 2, 0),
 (4, 2, 0),
 (5, 2, 0),
@@ -1431,19 +1543,19 @@ INSERT INTO `oc_filter` (`filter_id`, `filter_group_id`, `sort_order`) VALUES
 (17, 4, 2),
 (18, 4, 3),
 (19, 4, 4),
-(20, 1, 2),
-(21, 1, 3),
-(22, 1, 4),
-(23, 1, 5),
-(24, 1, 6),
-(25, 1, 7),
-(26, 1, 8),
-(27, 1, 9),
-(28, 1, 10),
-(29, 1, 11),
 (30, 1, 12),
-(31, 1, 13),
-(32, 1, 14);
+(29, 1, 11),
+(28, 1, 10),
+(27, 1, 9),
+(26, 1, 8),
+(25, 1, 7),
+(24, 1, 6),
+(23, 1, 5),
+(22, 1, 4),
+(21, 1, 3),
+(20, 1, 2),
+(1, 1, 0),
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1463,7 +1575,7 @@ CREATE TABLE IF NOT EXISTS `oc_filter_description` (
 --
 
 INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_id`, `name`) VALUES
-(1, 1, 1, '36'),
+(31, 1, 1, '42,5'),
 (4, 1, 2, 'Коричневый|#943f00'),
 (5, 1, 2, 'Серый|#adadad'),
 (12, 1, 3, 'Твинфейс'),
@@ -1476,24 +1588,24 @@ INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_i
 (17, 1, 4, '11'),
 (18, 1, 4, '12'),
 (19, 1, 4, '13'),
-(21, 1, 1, '37,5'),
-(22, 1, 1, '38'),
-(23, 1, 1, '38,5'),
-(24, 1, 1, '39'),
-(25, 1, 1, '39,5'),
-(26, 1, 1, '40'),
-(27, 1, 1, '40,5'),
-(28, 1, 1, '41'),
-(29, 1, 1, '41,5'),
+(32, 1, 1, '43'),
 (30, 1, 1, '42'),
-(31, 1, 1, '42,5'),
+(29, 1, 1, '41,5'),
+(28, 1, 1, '41'),
+(27, 1, 1, '40,5'),
+(26, 1, 1, '40'),
+(25, 1, 1, '39,5'),
+(24, 1, 1, '39'),
+(23, 1, 1, '38,5'),
+(22, 1, 1, '38'),
+(21, 1, 1, '37,5'),
 (3, 1, 2, 'Бежевый|#d4b69a'),
 (6, 1, 2, 'Синий|#0a43a3'),
 (7, 1, 2, 'Черный|#333333'),
 (13, 1, 3, 'UGGPURE'),
 (14, 1, 3, 'Защита от воды'),
 (20, 1, 1, '37'),
-(32, 1, 1, '43'),
+(1, 1, 1, '36'),
 (2, 1, 1, '36,5');
 
 -- --------------------------------------------------------
@@ -1605,10 +1717,10 @@ CREATE TABLE IF NOT EXISTS `oc_information_description` (
 --
 
 INSERT INTO `oc_information_description` (`information_id`, `language_id`, `title`, `description`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(4, 1, 'О нас', '&lt;p&gt;\r\n	О нас&lt;/p&gt;\r\n', '', '', '', ''),
-(5, 1, 'Условия соглашения', '&lt;p&gt;\r\n	Условия соглашения&lt;/p&gt;\r\n', '', '', '', ''),
-(3, 1, 'Политика безопасности', '&lt;p&gt;\r\n	Политика безопасности&lt;/p&gt;\r\n', '', '', '', ''),
-(6, 1, 'Информация о доставке', '&lt;p&gt;\r\n	Информация о доставке&lt;/p&gt;\r\n', '', '', '', '');
+(4, 1, 'О нас', '&lt;p&gt;Легендарная модель Nike Air Max 90 Skyline вновь появилась в продаже, но уже в новом исполнении. При разработке кроссовок этой модели дизайнеры постарались на славу. Подошва Nike Air Max Skyline позволяет амортизировать различного рода удары, что убережет Ваши суставы и органы от лишней нагрузки.&lt;/p&gt;\r\n          &lt;p&gt;Вы яркая личность, стремящаяся всегда выглядеть стильно? Значит, универсальные Converse – лучшее дополнение вашего образа. Ведь кеды уже давно стали не просто защитой для ног, а неотъемлемой частью имиджа: яркие и современные, невероятно удобные и не теряющие актуальности! Конверсы отличаются своей дерзостью и аутентичностью. Ни один производитель не сумел повторить успех данной марки! Хотите выделяться из серой массы? Обращайтесь! К нам только что поступила новая коллекция обуви!&lt;/p&gt;\r\n          &lt;blockquote&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots»&lt;/blockquote&gt;', 'О нас', 'О нас', '', ''),
+(5, 1, 'Контакты', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '', '', '', ''),
+(3, 1, 'Возврат', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Возврат', 'Возврат', '', ''),
+(6, 1, 'Доставка и оплата', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1621,6 +1733,16 @@ CREATE TABLE IF NOT EXISTS `oc_information_to_layout` (
   `store_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `oc_information_to_layout`
+--
+
+INSERT INTO `oc_information_to_layout` (`information_id`, `store_id`, `layout_id`) VALUES
+(6, 0, 0),
+(4, 0, 0),
+(3, 0, 0),
+(5, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1676,7 +1798,7 @@ INSERT INTO `oc_language` (`language_id`, `name`, `code`, `locale`, `image`, `di
 CREATE TABLE IF NOT EXISTS `oc_layout` (
   `layout_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout`
@@ -1709,7 +1831,7 @@ CREATE TABLE IF NOT EXISTS `oc_layout_module` (
   `code` varchar(64) NOT NULL,
   `position` varchar(14) NOT NULL,
   `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout_module`
@@ -1723,7 +1845,7 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (68, 6, 'account', 'column_right', 1),
 (119, 1, 'html.39', 'content_top', 7),
 (117, 1, 'categoryproducts.37', 'content_top', 5),
-(125, 3, 'html.41', 'content_bottom', 0),
+(128, 3, 'filter', 'column_left', 1),
 (118, 1, 'categoryproducts.38', 'content_top', 6),
 (116, 1, 'categoryproducts.36', 'content_top', 4),
 (115, 1, 'html.35', 'content_top', 3),
@@ -1731,7 +1853,11 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (113, 1, 'html.33', 'content_top', 1),
 (112, 1, 'special.32', 'content_top', 0),
 (120, 1, 'html.40', 'content_top', 8),
-(124, 3, 'filter', 'column_left', 1);
+(127, 3, 'html.43', 'column_left', 0),
+(126, 2, 'viewed.42', 'column_left', 0),
+(129, 3, 'html.41', 'content_bottom', 0),
+(132, 11, 'html.44', 'column_left', 0),
+(133, 11, 'html.45', 'content_bottom', 0);
 
 -- --------------------------------------------------------
 
@@ -1744,7 +1870,7 @@ CREATE TABLE IF NOT EXISTS `oc_layout_route` (
   `layout_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout_route`
@@ -1753,10 +1879,10 @@ CREATE TABLE IF NOT EXISTS `oc_layout_route` (
 INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `route`) VALUES
 (38, 6, 0, 'account/%'),
 (17, 10, 0, 'affiliate/%'),
-(66, 3, 0, 'product/category'),
+(69, 3, 0, 'product/category'),
 (63, 1, 0, 'common/home'),
-(20, 2, 0, 'product/product'),
-(24, 11, 0, 'information/information'),
+(67, 2, 0, 'product/product'),
+(72, 11, 0, 'information/information'),
 (23, 7, 0, 'checkout/%'),
 (31, 8, 0, 'information/contact'),
 (32, 9, 0, 'information/sitemap'),
@@ -1956,7 +2082,7 @@ CREATE TABLE IF NOT EXISTS `oc_module` (
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
   `setting` text NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_module`
@@ -1966,14 +2092,18 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 (29, 'Карусель на главной странице', 'carousel', '{"name":"Карусель на главной странице","banner_id":"8","width":"130","height":"100","status":"1"}'),
 (32, 'Главная - Баннер', 'special', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","limit":"0","width":"280","height":"280","status":"1"}'),
 (33, 'Информация о продукции ', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f \\u043e \\u043f\\u0440\\u043e\\u0434\\u0443\\u043a\\u0446\\u0438\\u0438 ","module_description":{"1":{"title":"","description":"&lt;section class=&quot;product-info-section&quot;&gt;\\r\\n    &lt;div class=&quot;container&quot;&gt;\\r\\n        &lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage1&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442 \\u043f\\u0440\\u0438 \\u043c\\u0438\\u043d\\u0443\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0438 \\u043f\\u043b\\u044e\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0430\\u0445&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage2&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u0430\\u0435\\u043c \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435 10 \\u043b\\u0435\\u0442&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043e\\u043b\\u044c\\u0448\\u0435 50 000 \\u0434\\u043e\\u0432\\u043e\\u043b\\u044c\\u043d\\u044b\\u0445 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0435\\u0439&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage3&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u041f\\u0440\\u044f\\u043c\\u044b\\u0435 \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0438 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0410\\u0443\\u0442\\u0435\\u043d\\u0442\\u0438\\u0447\\u043d\\u044b\\u0435 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0440\\u043e\\u0434\\u0438\\u043d\\u044b \\u0443\\u0433\\u0433\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/section&gt;\\r\\n"}},"status":"1"}'),
-(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u041c\\u0438\\u043d\\u0438 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Bailey Button&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Classic Mini&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Classic Short&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Classic Sparkles&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Classic Tall&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Jimmy Choo&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Mini Bailey Bow&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Mini Fox Fur&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGG Mocassins&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0414\\u043e\\u043c\\u0430\\u0448\\u043d\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0438&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col1&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col2&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col3&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col4&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col5&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;col6&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
+(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;Ugg Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=3&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=9&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=10&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=11&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=12&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=13&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=14&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=3&quot; class=&quot;col1&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=4&quot; class=&quot;col2&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=5&quot; class=&quot;col3&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=6&quot; class=&quot;col4&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=7&quot; class=&quot;col5&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=1&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=2&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=20&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=21&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=22&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=23&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=24&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=25&quot;&gt;39.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=26&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=28&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=30&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
 (35, 'Баннер', 'html', '{"name":"\\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;banner-cont&quot;&gt;\\r\\n        &lt;span class=&quot;banner-cont-ic&quot;&gt;\\r\\n            &lt;i class=&quot;icon icon-price&quot;&gt;&lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0414\\u0430\\u0440\\u0438\\u043c \\u043f\\u043e\\u0434\\u0430\\u0440\\u043e\\u043a \\u043a\\u0430\\u0436\\u0434\\u043e\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u0443 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n        &lt;span class=&quot;banner-cont-txt&quot;&gt;&lt;span&gt;\\u0441\\u0442\\u0438\\u043b\\u044c\\u043d\\u044b\\u0435 \\u043f\\u0435\\u0440\\u0447\\u0430\\u0442\\u043a\\u0438,&lt;\\/span&gt; \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0434\\u043e\\u043f\\u043e\\u043b\\u043d\\u044f\\u0442 \\u0412\\u0430\\u0448 \\u043e\\u0431\\u0440\\u0430\\u0437&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
 (36, 'UGG Bailey Triplet', 'categoryproducts', '{"name":"UGG Bailey Triplet","product":["77"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (37, 'Ugg Bailey &amp; Dylyn', 'categoryproducts', '{"name":"Ugg Bailey &amp; Dylyn","product":["67"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (38, 'Высокие UGG', 'categoryproducts', '{"name":"\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 UGG","product":["81"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (39, 'Почему клиенты выбирают нас', 'html', '{"name":"\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;why-we&quot;&gt;\\r\\n        &lt;h2&gt;\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441&lt;\\/h2&gt;\\r\\n        &lt;ul class=&quot;list-why-we&quot;&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u044d\\u043a\\u043e\\u043b\\u043e\\u0433\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438&lt;\\/span&gt; \\u0447\\u0438\\u0441\\u0442\\u043e\\u0433\\u043e \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b\\u0430&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041c\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u043c \\u0434\\u0443\\u0431\\u043b\\u0435\\u043d\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c, \\u0438\\u0437\\u0433\\u043e\\u0442\\u043e\\u0432\\u043b\\u0435\\u043d\\u043d\\u0443\\u044e \\u043f\\u043e \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438. \\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u0442\\u0435\\u0440\\u043c\\u043e\\u0440\\u0435\\u0433\\u0443\\u043b\\u0438\\u0440\\u0443\\u044e\\u0449\\u0438\\u043c \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432\\u0430\\u043c \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b, \\u0432 \\u0443\\u0433\\u0433\\u0430\\u0445 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u043f\\u0440\\u0438 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0435 \\u043e\\u0442 -33 \\u0434\\u043e +23 \\u0433\\u0440\\u0430\\u0434\\u0443\\u0441\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0428\\u0438\\u0440\\u043e\\u043a\\u0438\\u0439&lt;\\/span&gt; \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0440\\u044f\\u0434&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0412 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043d\\u0430\\u0439\\u0434\\u0435\\u0442\\u0435 \\u043a\\u043b\\u0430\\u0441\\u0441\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0443\\u0434\\u043b\\u0438\\u043d\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0434\\u0435\\u043a\\u043e\\u0440\\u0430\\u0442\\u0438\\u0432\\u043d\\u044b\\u043c\\u0438 \\u043f\\u0440\\u044f\\u0436\\u043a\\u0430\\u043c\\u0438, \\u0440\\u0435\\u043c\\u043d\\u044f\\u043c\\u0438 \\u0438 \\u0448\\u043d\\u0443\\u0440\\u043e\\u0432\\u043a\\u043e\\u0439, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438, \\u0443\\u043a\\u0440\\u0430\\u0448\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0442\\u0440\\u0430\\u0437\\u0430\\u043c\\u0438.&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img3.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041f\\u0440\\u043e\\u0444\\u0435\\u0441\\u0441\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u0430\\u044f \\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0430\\u0446\\u0438\\u044f \\u043f\\u043e \\u043b\\u044e\\u0431\\u044b\\u043c \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441\\u0430\\u043c&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u043d\\u0438\\u043a\\u0438 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430 \\u0440\\u0430\\u0441\\u0441\\u043a\\u0430\\u0436\\u0443\\u0442 \\u0412\\u0430\\u043c \\u0432\\u0441\\u0435 \\u043e \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0441\\u0442\\u0432\\u0430 \\u0443\\u0433\\u0433, \\u043e\\u0431 \\u0443\\u0445\\u043e\\u0434\\u0435 \\u0437\\u0430 \\u043d\\u0438\\u043c\\u0438, \\u043f\\u043e\\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u0434\\u043e\\u0431\\u0440\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c. \\u041c\\u044b \\u0437\\u043d\\u0430\\u0435\\u043c \\u043e \\u043b\\u0435\\u0433\\u0435\\u043d\\u0434\\u0430\\u0440\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0432\\u0441\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img4.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041b\\u0443\\u0447\\u0448\\u0438\\u0435 \\u0446\\u0435\\u043d\\u044b \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u043f\\u0440\\u044f\\u043c\\u044b\\u043c \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430\\u043c \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438 \\u043d\\u0430\\u043c \\u0443\\u0434\\u0430\\u0435\\u0442\\u0441\\u044f \\u043f\\u043e\\u0434\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u0442\\u044c \\u043e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0446\\u0435\\u043d\\u044b: \\u0432 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u0438\\u0442\\u044c \\u0441\\u0435\\u0431\\u0435 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n        &lt;\\/ul&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
 (40, 'Текст перед футером', 'html', '{"name":"\\u0422\\u0435\\u043a\\u0441\\u0442 \\u043f\\u0435\\u0440\\u0435\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;txt-about-prod&quot;&gt;\\r\\n        &lt;div&gt;\\r\\n            &lt;span&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438&lt;\\/span&gt;\\r\\n            &lt;p&gt;\\u0411\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland, \\u0438\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0432 1902 \\u0433\\u043e\\u0434\\u0443, \\u2014 \\u044d\\u0442\\u043e \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u043d\\u0438\\u0435 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u0446\\u0435\\u0434\\u0435\\u043d\\u0442\\u043d\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0438 \\u043d\\u0435\\u043f\\u0440\\u0435\\u0432\\u0437\\u043e\\u0439\\u0434\\u0435\\u043d\\u043d\\u043e\\u0433\\u043e \\u0441\\u0442\\u0438\\u043b\\u044f. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435, \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0434\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443 \\u043c\\u0438\\u0440\\u0443. \\u041a\\u043e\\u043d\\u0435\\u0447\\u043d\\u043e, \\u0432 \\u0420\\u043e\\u0441\\u0441\\u0438\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0434\\u0430\\u0432\\u043d\\u043e, \\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043e\\u043a \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0432\\u0435\\u0434\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432, \\u0432\\u0435\\u0434\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u043c\\u043d\\u043e\\u0433\\u043e \\u043b\\u0435\\u0442 \\u0437\\u043d\\u0430\\u044e\\u0442 \\u0438 \\u043b\\u044e\\u0431\\u044f\\u0442 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0435.&lt;\\/p&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;div&gt;\\r\\n            &lt;p&gt;\\u0415\\u0441\\u043b\\u0438 \\u0440\\u0430\\u043d\\u044c\\u0448\\u0435 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432\\u044b\\u043f\\u0443\\u0441\\u043a\\u0430\\u043b\\u0430\\u0441\\u044c \\u0438\\u0441\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u043b\\u044f \\u043f\\u0440\\u0435\\u0434\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 \\u0441\\u0438\\u043b\\u044c\\u043d\\u043e\\u0433\\u043e \\u043f\\u043e\\u043b\\u0430, \\u0442\\u043e \\u0441\\u0435\\u0439\\u0447\\u0430\\u0441 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430\\u043c \\u0434\\u043e\\u0441\\u0442\\u0443\\u043f\\u043d\\u044b \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0440\\u0430\\u0437\\u043b\\u0438\\u0447\\u043d\\u044b\\u0445 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439. \\u0414\\u0430\\u043d\\u043d\\u044b\\u0439 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e \\u0441\\u0432\\u043e\\u0435\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f \\u0438\\u043a\\u043e\\u043d\\u0430 \\u0441\\u0442\\u0438\\u043b\\u044f: \\u043e\\u0441\\u0435\\u043d\\u043d\\u0438\\u0435 \\u0438 \\u0437\\u0438\\u043c\\u043d\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland \\u043f\\u0440\\u0435\\u043a\\u0440\\u0430\\u0441\\u043d\\u043e \\u0443\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u043f\\u0443\\u0441\\u043a\\u0430\\u044e\\u0442 \\u0432\\u043b\\u0430\\u0433\\u0443, \\u043e\\u0442\\u043b\\u0438\\u0447\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u0443\\u0441\\u0442\\u043e\\u0439\\u0447\\u0438\\u0432\\u043e\\u0441\\u0442\\u044c\\u044e \\u0438 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u044f\\u044f \\u0441\\u0432\\u043e\\u0438\\u043c \\u0432\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0441\\u0442\\u0430\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043c\\u043e\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 \\u0432 \\u043b\\u044e\\u0431\\u044b\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445. \\u041a\\u043e\\u043c\\u0443-\\u0442\\u043e \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044b\\u0435 \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 Timberland \\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c\\u0441\\u044f \\u0433\\u0440\\u0443\\u0431\\u043e\\u0432\\u0430\\u0442\\u044b\\u043c\\u0438, \\u043d\\u043e \\u0434\\u0430\\u043c\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0445\\u043e\\u0442\\u044f\\u0442 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e\\u0432\\u0430\\u0442\\u044c \\u0441\\u0435\\u0431\\u044f \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u0432 \\u043b\\u044e\\u0431\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443, \\u043f\\u0440\\u0435\\u0434\\u043f\\u043e\\u0447\\u0438\\u0442\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b. \\u0422\\u0430\\u043a\\u0430\\u044f \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u043b\\u0430 \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u0441\\u043f\\u0440\\u043e\\u0441, \\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0435\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434: \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0438\\u0445 \\u043d\\u0435 \\u0441\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u043d\\u0438\\u043a\\u0430\\u043a\\u043e\\u0433\\u043e \\u0442\\u0440\\u0443\\u0434\\u0430.&lt;\\/p&gt;\\r\\n        &lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
-(41, 'Каталог - Текст над футером', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433 - \\u0422\\u0435\\u043a\\u0441\\u0442 \\u043d\\u0430\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;content-txt&quot;&gt;\\r\\n            &lt;span&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438&lt;\\/span&gt;\\r\\n            &lt;p&gt;\\u0411\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland, \\u0438\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0432 1902 \\u0433\\u043e\\u0434\\u0443, \\u2014 \\u044d\\u0442\\u043e \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u043d\\u0438\\u0435 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u0446\\u0435\\u0434\\u0435\\u043d\\u0442\\u043d\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0438 \\u043d\\u0435\\u043f\\u0440\\u0435\\u0432\\u0437\\u043e\\u0439\\u0434\\u0435\\u043d\\u043d\\u043e\\u0433\\u043e \\u0441\\u0442\\u0438\\u043b\\u044f. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435, \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0434\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443 \\u043c\\u0438\\u0440\\u0443. \\u041a\\u043e\\u043d\\u0435\\u0447\\u043d\\u043e, \\u0432 \\u0420\\u043e\\u0441\\u0441\\u0438\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0434\\u0430\\u0432\\u043d\\u043e, \\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043e\\u043a \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0432\\u0435\\u0434\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432, \\u0432\\u0435\\u0434\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u043c\\u043d\\u043e\\u0433\\u043e \\u043b\\u0435\\u0442 \\u0437\\u043d\\u0430\\u044e\\u0442 \\u0438 \\u043b\\u044e\\u0431\\u044f\\u0442 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0435.&lt;\\/p&gt;\\r\\n            &lt;p&gt;\\u0415\\u0441\\u043b\\u0438 \\u0440\\u0430\\u043d\\u044c\\u0448\\u0435 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432\\u044b\\u043f\\u0443\\u0441\\u043a\\u0430\\u043b\\u0430\\u0441\\u044c \\u0438\\u0441\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u043b\\u044f \\u043f\\u0440\\u0435\\u0434\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 \\u0441\\u0438\\u043b\\u044c\\u043d\\u043e\\u0433\\u043e \\u043f\\u043e\\u043b\\u0430, \\u0442\\u043e \\u0441\\u0435\\u0439\\u0447\\u0430\\u0441 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430\\u043c \\u0434\\u043e\\u0441\\u0442\\u0443\\u043f\\u043d\\u044b \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0440\\u0430\\u0437\\u043b\\u0438\\u0447\\u043d\\u044b\\u0445 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439. \\u0414\\u0430\\u043d\\u043d\\u044b\\u0439 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e \\u0441\\u0432\\u043e\\u0435\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f \\u0438\\u043a\\u043e\\u043d\\u0430 \\u0441\\u0442\\u0438\\u043b\\u044f: \\u043e\\u0441\\u0435\\u043d\\u043d\\u0438\\u0435 \\u0438 \\u0437\\u0438\\u043c\\u043d\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland \\u043f\\u0440\\u0435\\u043a\\u0440\\u0430\\u0441\\u043d\\u043e \\u0443\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u043f\\u0443\\u0441\\u043a\\u0430\\u044e\\u0442 \\u0432\\u043b\\u0430\\u0433\\u0443, \\u043e\\u0442\\u043b\\u0438\\u0447\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u0443\\u0441\\u0442\\u043e\\u0439\\u0447\\u0438\\u0432\\u043e\\u0441\\u0442\\u044c\\u044e \\u0438 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u044f\\u044f \\u0441\\u0432\\u043e\\u0438\\u043c \\u0432\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0441\\u0442\\u0430\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043c\\u043e\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 \\u0432 \\u043b\\u044e\\u0431\\u044b\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445. \\u041a\\u043e\\u043c\\u0443-\\u0442\\u043e \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044b\\u0435 \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 Timberland \\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c\\u0441\\u044f \\u0433\\u0440\\u0443\\u0431\\u043e\\u0432\\u0430\\u0442\\u044b\\u043c\\u0438, \\u043d\\u043e \\u0434\\u0430\\u043c\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0445\\u043e\\u0442\\u044f\\u0442 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e\\u0432\\u0430\\u0442\\u044c \\u0441\\u0435\\u0431\\u044f \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u0432 \\u043b\\u044e\\u0431\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443, \\u043f\\u0440\\u0435\\u0434\\u043f\\u043e\\u0447\\u0438\\u0442\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b. \\u0422\\u0430\\u043a\\u0430\\u044f \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u043b\\u0430 \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u0441\\u043f\\u0440\\u043e\\u0441, \\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0435\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434: \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0438\\u0445 \\u043d\\u0435 \\u0441\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u043d\\u0438\\u043a\\u0430\\u043a\\u043e\\u0433\\u043e \\u0442\\u0440\\u0443\\u0434\\u0430.&lt;\\/p&gt;\\r\\n          &lt;\\/div&gt;\\r\\n"}},"status":"1"}');
+(41, 'Категория - Текст над футером', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f - \\u0422\\u0435\\u043a\\u0441\\u0442 \\u043d\\u0430\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;content-txt&quot;&gt;\\r\\n            &lt;span&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438&lt;\\/span&gt;\\r\\n            &lt;p&gt;\\u0411\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland, \\u0438\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0432 1902 \\u0433\\u043e\\u0434\\u0443, \\u2014 \\u044d\\u0442\\u043e \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u043d\\u0438\\u0435 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u0446\\u0435\\u0434\\u0435\\u043d\\u0442\\u043d\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0438 \\u043d\\u0435\\u043f\\u0440\\u0435\\u0432\\u0437\\u043e\\u0439\\u0434\\u0435\\u043d\\u043d\\u043e\\u0433\\u043e \\u0441\\u0442\\u0438\\u043b\\u044f. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435, \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0434\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443 \\u043c\\u0438\\u0440\\u0443. \\u041a\\u043e\\u043d\\u0435\\u0447\\u043d\\u043e, \\u0432 \\u0420\\u043e\\u0441\\u0441\\u0438\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0434\\u0430\\u0432\\u043d\\u043e, \\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043e\\u043a \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0432\\u0435\\u0434\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432, \\u0432\\u0435\\u0434\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u043c\\u043d\\u043e\\u0433\\u043e \\u043b\\u0435\\u0442 \\u0437\\u043d\\u0430\\u044e\\u0442 \\u0438 \\u043b\\u044e\\u0431\\u044f\\u0442 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0435.&lt;\\/p&gt;\\r\\n            &lt;p&gt;\\u0415\\u0441\\u043b\\u0438 \\u0440\\u0430\\u043d\\u044c\\u0448\\u0435 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432\\u044b\\u043f\\u0443\\u0441\\u043a\\u0430\\u043b\\u0430\\u0441\\u044c \\u0438\\u0441\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u043b\\u044f \\u043f\\u0440\\u0435\\u0434\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 \\u0441\\u0438\\u043b\\u044c\\u043d\\u043e\\u0433\\u043e \\u043f\\u043e\\u043b\\u0430, \\u0442\\u043e \\u0441\\u0435\\u0439\\u0447\\u0430\\u0441 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430\\u043c \\u0434\\u043e\\u0441\\u0442\\u0443\\u043f\\u043d\\u044b \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0440\\u0430\\u0437\\u043b\\u0438\\u0447\\u043d\\u044b\\u0445 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439. \\u0414\\u0430\\u043d\\u043d\\u044b\\u0439 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e \\u0441\\u0432\\u043e\\u0435\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f \\u0438\\u043a\\u043e\\u043d\\u0430 \\u0441\\u0442\\u0438\\u043b\\u044f: \\u043e\\u0441\\u0435\\u043d\\u043d\\u0438\\u0435 \\u0438 \\u0437\\u0438\\u043c\\u043d\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland \\u043f\\u0440\\u0435\\u043a\\u0440\\u0430\\u0441\\u043d\\u043e \\u0443\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u043f\\u0443\\u0441\\u043a\\u0430\\u044e\\u0442 \\u0432\\u043b\\u0430\\u0433\\u0443, \\u043e\\u0442\\u043b\\u0438\\u0447\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u0443\\u0441\\u0442\\u043e\\u0439\\u0447\\u0438\\u0432\\u043e\\u0441\\u0442\\u044c\\u044e \\u0438 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u044f\\u044f \\u0441\\u0432\\u043e\\u0438\\u043c \\u0432\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0441\\u0442\\u0430\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043c\\u043e\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 \\u0432 \\u043b\\u044e\\u0431\\u044b\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445. \\u041a\\u043e\\u043c\\u0443-\\u0442\\u043e \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044b\\u0435 \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 Timberland \\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c\\u0441\\u044f \\u0433\\u0440\\u0443\\u0431\\u043e\\u0432\\u0430\\u0442\\u044b\\u043c\\u0438, \\u043d\\u043e \\u0434\\u0430\\u043c\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0445\\u043e\\u0442\\u044f\\u0442 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e\\u0432\\u0430\\u0442\\u044c \\u0441\\u0435\\u0431\\u044f \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u0432 \\u043b\\u044e\\u0431\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443, \\u043f\\u0440\\u0435\\u0434\\u043f\\u043e\\u0447\\u0438\\u0442\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b. \\u0422\\u0430\\u043a\\u0430\\u044f \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u043b\\u0430 \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u0441\\u043f\\u0440\\u043e\\u0441, \\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0435\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434: \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0438\\u0445 \\u043d\\u0435 \\u0441\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u043d\\u0438\\u043a\\u0430\\u043a\\u043e\\u0433\\u043e \\u0442\\u0440\\u0443\\u0434\\u0430.&lt;\\/p&gt;\\r\\n          &lt;\\/div&gt;\\r\\n"}},"status":"1"}'),
+(42, 'Товар - Вы смотрели', 'viewed', '{"name":"\\u0422\\u043e\\u0432\\u0430\\u0440 - \\u0412\\u044b \\u0441\\u043c\\u043e\\u0442\\u0440\\u0435\\u043b\\u0438","limit":"4","width":"200","height":"200","status":"1"}'),
+(43, 'Категория - Меню в сайдбаре', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f - \\u041c\\u0435\\u043d\\u044e \\u0432 \\u0441\\u0430\\u0439\\u0434\\u0431\\u0430\\u0440\\u0435","module_description":{"1":{"title":"","description":"&lt;ul class=&quot;list-aside-catalog&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;\\r\\n\\r\\n&lt;ul class=&quot;list-aside-catalog&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 UGG&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 UGG&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;\\r\\n\\r\\n&lt;ul class=&quot;list-aside-product&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;UGG Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;"}},"status":"1"}'),
+(44, 'Информация - Баннер слева', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440 \\u0441\\u043b\\u0435\\u0432\\u0430","module_description":{"1":{"title":"","description":"&lt;div class=&quot;aside-banner&quot;&gt;\\r\\n    &lt;div class=&quot;banner-tt&quot;&gt;\\r\\n        &lt;span&gt;\\u041a\\u041b\\u0410\\u0421\\u0421\\u0418\\u0427\\u0415\\u0421\\u041a\\u0418\\u0415 UGG Bailey&lt;\\/span&gt;\\r\\n        &lt;div&gt;&lt;span&gt;\\u0434\\u043e&lt;\\/span&gt; \\u0421\\u043a\\u0438\\u0434\\u043a\\u0430 &lt;span&gt;50%&lt;\\/span&gt;&lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;a href=&quot;\\/all&quot; class=&quot;btn btn-icon&quot;&gt;\\r\\n        &lt;span&gt;\\u0432 \\u043a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433&lt;\\/span&gt;\\r\\n        &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n    &lt;\\/a&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
+(45, 'Информация - Контент под информацией', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f - \\u041a\\u043e\\u043d\\u0442\\u0435\\u043d\\u0442 \\u043f\\u043e\\u0434 \\u0438\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u0435\\u0439","module_description":{"1":{"title":"","description":"&lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage4&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0414\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430 &lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0432 \\u0434\\u0435\\u043d\\u044c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage5&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0412\\u043e\\u0437\\u0432\\u0440\\u0430\\u0442&lt;\\/span&gt;\\r\\n            &lt;span&gt;365 \\u0434\\u043d\\u0435\\u0439 &lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage6&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0413\\u0430\\u0440\\u0430\\u043d\\u0442\\u0438\\u044f&lt;\\/span&gt;\\r\\n            &lt;span&gt;60 \\u0434\\u043d\\u0435\\u0439&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-logo&quot;&gt;&lt;img src=&quot;\\/image\\/logo-header.png&quot; alt=&quot;&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt; \\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435&lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0423\\u0413\\u0413\\u0418 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;\\r\\n&lt;div class=&quot;prod-img-content&quot;&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}');
 
 -- --------------------------------------------------------
 
@@ -1997,14 +2127,14 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article` (
 --
 
 INSERT INTO `oc_newsblog_article` (`article_id`, `image`, `date_available`, `sort_order`, `status`, `viewed`, `date_added`, `date_modified`) VALUES
-(1, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:17:54', '2017-08-18 18:30:05'),
-(2, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:22', '2017-08-18 18:30:10'),
-(3, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:24', '2017-08-18 18:30:14'),
-(4, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:24', '2017-08-18 18:30:18'),
-(5, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-18 18:30:22'),
-(6, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-18 18:30:26'),
-(7, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-18 18:30:30'),
-(8, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-18 18:30:33');
+(1, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:17:54', '2017-08-23 17:14:05'),
+(2, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:22', '2017-08-23 17:14:03'),
+(3, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:24', '2017-08-23 17:14:01'),
+(4, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:24', '2017-08-23 17:14:00'),
+(5, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-23 17:13:58'),
+(6, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-23 17:13:57'),
+(7, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-23 17:13:54'),
+(8, 'catalog/ugg/photo-reviews.png', '2017-08-18 15:17:13', 500, 1, 0, '2017-08-18 18:18:26', '2017-08-23 17:13:53');
 
 -- --------------------------------------------------------
 
@@ -2043,14 +2173,14 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_description` (
 --
 
 INSERT INTO `oc_newsblog_article_description` (`article_id`, `language_id`, `name`, `preview`, `description`, `tag`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(1, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(2, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(3, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(4, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(5, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(6, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(7, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', ''),
-(8, 1, 'Артем, Москва', '', 'Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!', '', 'Артем, Москва', 'Артем, Москва', '', '');
+(1, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(2, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(3, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(4, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(5, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(6, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(7, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', ''),
+(8, 1, 'Артем, Москва', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;br&gt;&lt;/p&gt;', '', 'Артем, Москва', 'Артем, Москва', '', '');
 
 -- --------------------------------------------------------
 
@@ -2063,21 +2193,21 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_image` (
   `article_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_newsblog_article_image`
 --
 
 INSERT INTO `oc_newsblog_article_image` (`product_image_id`, `article_id`, `image`, `sort_order`) VALUES
-(17, 1, 'catalog/ugg/photo-reviews.png', 0),
-(18, 2, 'catalog/ugg/photo-reviews.png', 0),
-(19, 3, 'catalog/ugg/photo-reviews.png', 0),
-(20, 4, 'catalog/ugg/photo-reviews.png', 0),
-(21, 5, 'catalog/ugg/photo-reviews.png', 0),
-(22, 6, 'catalog/ugg/photo-reviews.png', 0),
-(23, 7, 'catalog/ugg/photo-reviews.png', 0),
-(24, 8, 'catalog/ugg/photo-reviews.png', 0);
+(40, 1, 'catalog/ugg/photo-reviews.png', 0),
+(39, 2, 'catalog/ugg/photo-reviews.png', 0),
+(38, 3, 'catalog/ugg/photo-reviews.png', 0),
+(37, 4, 'catalog/ugg/photo-reviews.png', 0),
+(36, 5, 'catalog/ugg/photo-reviews.png', 0),
+(35, 6, 'catalog/ugg/photo-reviews.png', 0),
+(34, 7, 'catalog/ugg/photo-reviews.png', 0),
+(33, 8, 'catalog/ugg/photo-reviews.png', 0);
 
 -- --------------------------------------------------------
 
@@ -2682,15 +2812,15 @@ CREATE TABLE IF NOT EXISTS `oc_product` (
 --
 
 INSERT INTO `oc_product` (`product_id`, `model`, `sku`, `upc`, `ean`, `jan`, `isbn`, `mpn`, `location`, `quantity`, `stock_status_id`, `image`, `manufacturer_id`, `shipping`, `price`, `points`, `tax_class_id`, `date_available`, `weight`, `weight_class_id`, `length`, `width`, `height`, `length_class_id`, `subtract`, `minimum`, `sort_order`, `status`, `viewed`, `date_added`, `date_modified`) VALUES
-(54, 'Bailey Button Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 107, '2017-08-18 15:00:48', '2017-08-21 18:21:34'),
-(55, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 0, '2017-08-18 15:04:32', '2017-08-18 19:14:41'),
-(56, 'Bailey Button White', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 0, '2017-08-18 15:17:27', '2017-08-18 17:19:31'),
-(57, 'Bailey Button Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 3, '2017-08-18 15:19:46', '2017-08-18 19:15:55'),
-(58, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 0, '2017-08-18 19:17:06', '2017-08-18 19:17:21'),
-(50, 'Bailey Button White Metallic', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1000, 1, 1, 3, '2017-08-18 14:46:09', '2017-08-18 17:19:58'),
-(51, 'Bailey Button Yellow', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 1, '2017-08-18 14:50:16', '2017-08-18 17:20:16'),
-(52, 'Bailey Button Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 0, '2017-08-18 14:54:26', '2017-08-18 17:14:43'),
-(53, 'Bailey Button Wheat', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 1, '2017-08-18 14:58:45', '2017-08-18 17:18:06');
+(54, 'Bailey Button Black', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1000, 1, 1, 191, '2017-08-18 15:00:48', '2017-08-23 16:12:04'),
+(55, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 17, '2017-08-18 15:04:32', '2017-08-23 17:35:01'),
+(56, 'Bailey Button White', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 26, '2017-08-18 15:17:27', '2017-08-22 16:00:26'),
+(57, 'Bailey Button Leather', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1000, 1, 1, 3, '2017-08-18 15:19:46', '2017-08-22 15:52:16'),
+(58, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 0, '2017-08-18 19:17:06', '2017-08-23 17:33:55'),
+(50, 'Bailey Button White Metallic', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1000, 1, 1, 13, '2017-08-18 14:46:09', '2017-08-22 16:01:21'),
+(51, 'Bailey Button Yellow', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 10, '2017-08-18 14:50:16', '2017-08-22 16:02:07'),
+(52, 'Bailey Button Grey', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 18, '2017-08-18 14:54:26', '2017-08-22 15:52:02'),
+(53, 'Bailey Button Wheat', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1000, 1, 1, 1, '2017-08-18 14:58:45', '2017-08-22 15:59:06');
 
 -- --------------------------------------------------------
 
@@ -2704,6 +2834,57 @@ CREATE TABLE IF NOT EXISTS `oc_product_attribute` (
   `language_id` int(11) NOT NULL,
   `text` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `oc_product_attribute`
+--
+
+INSERT INTO `oc_product_attribute` (`product_id`, `attribute_id`, `language_id`, `text`) VALUES
+(54, 13, 1, 'Замша'),
+(54, 12, 1, 'Весна-лето'),
+(54, 16, 1, '13 мм'),
+(54, 15, 1, 'Полиуретан'),
+(54, 14, 1, 'Искусственная кожа'),
+(52, 14, 1, 'Мех'),
+(52, 12, 1, 'Зима'),
+(52, 13, 1, 'Замша, защита от воды'),
+(57, 14, 1, 'Мех'),
+(57, 12, 1, 'Весна-осень'),
+(57, 13, 1, 'Замша'),
+(55, 13, 1, 'Мех'),
+(55, 14, 1, 'Кожа'),
+(55, 15, 1, 'Полиуретан'),
+(52, 15, 1, 'Резина'),
+(52, 16, 1, '10 мм'),
+(57, 15, 1, 'Полиуретан'),
+(57, 16, 1, '10 мм'),
+(58, 14, 1, 'Овчина'),
+(58, 15, 1, 'Полиуретан'),
+(58, 16, 1, '13 мм'),
+(53, 14, 1, 'Мех'),
+(53, 13, 1, 'Кожа'),
+(53, 16, 1, '13 мм'),
+(53, 15, 1, 'Полиуретан'),
+(53, 12, 1, 'Весна-осень'),
+(58, 13, 1, 'Кожа'),
+(58, 12, 1, 'Зима'),
+(56, 14, 1, 'Замша'),
+(56, 13, 1, 'Кожа'),
+(56, 16, 1, '13 мм'),
+(56, 15, 1, 'Полиуретан'),
+(56, 12, 1, 'Зима'),
+(50, 14, 1, 'Мех'),
+(50, 13, 1, 'Замша'),
+(50, 16, 1, '13 мм'),
+(50, 15, 1, 'Полиуретан'),
+(50, 12, 1, 'Зима'),
+(51, 14, 1, 'Замша'),
+(51, 13, 1, 'Мех'),
+(51, 16, 1, '12 мм'),
+(51, 15, 1, 'Полиуретан'),
+(51, 12, 1, 'Зима'),
+(55, 12, 1, 'Зима'),
+(55, 16, 1, '9 мм');
 
 -- --------------------------------------------------------
 
@@ -2728,15 +2909,15 @@ CREATE TABLE IF NOT EXISTS `oc_product_description` (
 --
 
 INSERT INTO `oc_product_description` (`product_id`, `language_id`, `name`, `description`, `tag`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(51, 1, 'Bailey Button Yellow', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Yellow', 'Bailey Button Yellow', '', ''),
-(54, 1, 'Bailey Button Black', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Black', 'Bailey Button Black', '', ''),
-(55, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(56, 1, 'Bailey Button White', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White', 'Bailey Button White', '', ''),
-(57, 1, 'Bailey Button Leather', '', '', 'Bailey Button Leather', 'Bailey Button Leather', '', ''),
-(58, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(50, 1, 'Bailey Button White Metallic', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White Metallic', 'Bailey Button White Metallic', '', ''),
-(53, 1, 'Bailey Button Wheat', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Wheat', 'Bailey Button Wheat', '', ''),
-(52, 1, 'Bailey Button Grey', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Артикул: 990-007&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Grey', 'Bailey Button Grey', '', '');
+(53, 1, 'Bailey Button Wheat', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Wheat', 'Bailey Button Wheat', '', ''),
+(51, 1, 'Bailey Button Yellow', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Yellow', 'Bailey Button Yellow', '', ''),
+(54, 1, 'Bailey Button Black', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Black', 'Bailey Button Black', '', ''),
+(55, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
+(56, 1, 'Bailey Button White', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White', 'Bailey Button White', '', ''),
+(58, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
+(57, 1, 'Bailey Button Leather', 'Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.\r\n\r\nЕсли раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.', '', 'Bailey Button Leather', 'Bailey Button Leather', '', ''),
+(50, 1, 'Bailey Button White Metallic', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White Metallic', 'Bailey Button White Metallic', '', ''),
+(52, 1, 'Bailey Button Grey', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Grey', 'Bailey Button Grey', '', '');
 
 -- --------------------------------------------------------
 
@@ -2753,14 +2934,14 @@ CREATE TABLE IF NOT EXISTS `oc_product_discount` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
   `date_end` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM AUTO_INCREMENT=447 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=448 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_discount`
 --
 
 INSERT INTO `oc_product_discount` (`product_discount_id`, `product_id`, `customer_group_id`, `quantity`, `priority`, `price`, `date_start`, `date_end`) VALUES
-(446, 50, 1, 0, 0, '0.0000', '0000-00-00', '0000-00-00');
+(447, 50, 1, 0, 0, '0.0000', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -2903,26 +3084,29 @@ CREATE TABLE IF NOT EXISTS `oc_product_image` (
   `product_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=2423 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2461 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_image`
 --
 
 INSERT INTO `oc_product_image` (`product_image_id`, `product_id`, `image`, `sort_order`) VALUES
-(2397, 56, 'catalog/ugg/product7.jpg', 0),
-(2404, 57, 'catalog/ugg/product8.jpg', 0),
-(2406, 58, 'catalog/ugg/product6.jpg', 0),
-(2422, 54, 'catalog/ugg/product5.jpg', 0),
-(2402, 55, 'catalog/ugg/product6.jpg', 0),
-(2398, 50, 'catalog/ugg/bailey-button-white-metallic-2.jpg', 0),
-(2395, 53, 'catalog/ugg/product5.jpg', 0),
-(2396, 53, 'catalog/ugg/product5.jpg', 0),
-(2399, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2400, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2392, 52, 'catalog/ugg/product4.jpg', 0),
-(2391, 52, 'catalog/ugg/product4.jpg', 0),
-(2421, 54, 'catalog/ugg/product7.jpg', 0);
+(2446, 56, 'catalog/ugg/product7.jpg', 0),
+(2441, 57, 'catalog/ugg/product8.jpg', 0),
+(2454, 58, 'catalog/ugg/product6.jpg', 0),
+(2453, 54, 'catalog/ugg/product7.jpg', 0),
+(2455, 58, 'catalog/ugg/product-img1.png', 0),
+(2459, 55, 'catalog/ugg/product6.jpg', 0),
+(2460, 55, 'catalog/ugg/product3.jpg', 0),
+(2458, 55, 'catalog/ugg/product7.jpg', 0),
+(2447, 50, 'catalog/ugg/bailey-button-white-metallic-2.jpg', 0),
+(2443, 53, 'catalog/ugg/product5.jpg', 0),
+(2444, 53, 'catalog/ugg/product5.jpg', 0),
+(2448, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
+(2449, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
+(2440, 52, 'catalog/ugg/product4.jpg', 0),
+(2439, 52, 'catalog/ugg/product4.jpg', 0),
+(2452, 54, 'catalog/ugg/product5.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -2936,33 +3120,49 @@ CREATE TABLE IF NOT EXISTS `oc_product_option` (
   `option_id` int(11) NOT NULL,
   `value` text NOT NULL,
   `required` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=247 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=264 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_option`
 --
 
 INSERT INTO `oc_product_option` (`product_option_id`, `product_id`, `option_id`, `value`, `required`) VALUES
+(253, 51, 15, '', 0),
+(247, 52, 15, '', 1),
+(246, 54, 16, '', 0),
+(254, 55, 16, '', 0),
+(251, 57, 15, '', 0),
+(245, 54, 15, '', 0),
+(248, 52, 16, '', 1),
+(236, 57, 14, '', 0),
+(255, 55, 15, '', 0),
+(231, 53, 13, '55%', 0),
+(239, 56, 13, '56%', 0),
 (227, 50, 13, '60%', 0),
-(228, 51, 13, '50%', 1),
-(229, 52, 13, '60%', 1),
-(246, 54, 16, '', 1),
-(231, 53, 13, '55%', 1),
-(235, 52, 14, '', 1),
-(236, 57, 14, '', 1),
-(237, 55, 14, '', 1),
-(238, 53, 14, '', 1),
-(239, 56, 13, '56%', 1),
-(240, 56, 14, '', 1),
-(241, 50, 14, '', 1),
-(242, 51, 14, '', 1),
-(232, 55, 13, '50%', 1),
-(233, 57, 13, '59%', 1),
-(244, 58, 13, '50%', 1),
-(243, 58, 14, '', 1),
-(245, 54, 15, '', 1),
+(252, 51, 16, '', 0),
+(257, 58, 15, '', 0),
+(243, 58, 14, '', 0),
 (234, 54, 14, '', 0),
-(230, 54, 13, '60%', 0);
+(230, 54, 13, '60%', 0),
+(249, 52, 14, '', 0),
+(229, 52, 13, '60%', 0),
+(233, 57, 13, '59%', 0),
+(242, 51, 14, '', 0),
+(228, 51, 13, '50%', 0),
+(237, 55, 14, '', 0),
+(250, 57, 16, '', 0),
+(238, 53, 14, '', 0),
+(258, 53, 16, '', 0),
+(259, 53, 15, '', 0),
+(244, 58, 13, '50%', 0),
+(240, 56, 14, '', 0),
+(260, 56, 16, '', 0),
+(261, 56, 15, '', 0),
+(241, 50, 14, '', 0),
+(262, 50, 16, '', 0),
+(263, 50, 15, '', 0),
+(256, 58, 16, '', 0),
+(232, 55, 13, '50%', 0);
 
 -- --------------------------------------------------------
 
@@ -2984,78 +3184,104 @@ CREATE TABLE IF NOT EXISTS `oc_product_option_value` (
   `points_prefix` varchar(1) NOT NULL,
   `weight` decimal(15,2) NOT NULL,
   `weight_prefix` varchar(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_option_value`
 --
 
 INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_option_id`, `product_id`, `option_id`, `option_value_id`, `quantity`, `subtract`, `price`, `price_prefix`, `points`, `points_prefix`, `weight`, `weight_prefix`) VALUES
-(30, 235, 52, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(29, 235, 52, 14, 51, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(28, 235, 52, 14, 49, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(84, 248, 52, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(83, 248, 52, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(82, 247, 52, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(89, 249, 52, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(81, 246, 54, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
 (80, 246, 54, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(79, 245, 54, 15, 64, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(27, 234, 54, 14, 59, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(79, 245, 54, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(27, 234, 54, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (26, 234, 54, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
 (25, 234, 54, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(24, 234, 54, 14, 56, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(24, 234, 54, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (23, 234, 54, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(22, 234, 54, 14, 54, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(21, 234, 54, 14, 53, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(20, 234, 54, 14, 52, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(18, 234, 54, 14, 50, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(45, 236, 57, 14, 63, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(44, 236, 57, 14, 62, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(43, 236, 57, 14, 61, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(42, 236, 57, 14, 60, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(41, 236, 57, 14, 59, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(40, 236, 57, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(39, 236, 57, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(38, 236, 57, 14, 56, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(37, 236, 57, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(36, 236, 57, 14, 54, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(35, 236, 57, 14, 53, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(34, 236, 57, 14, 52, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(33, 236, 57, 14, 51, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(32, 236, 57, 14, 50, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(31, 236, 57, 14, 49, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(52, 237, 55, 14, 61, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(51, 237, 55, 14, 59, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(22, 234, 54, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(21, 234, 54, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(92, 251, 57, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(45, 236, 57, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(44, 236, 57, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(43, 236, 57, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(42, 236, 57, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(41, 236, 57, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(40, 236, 57, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(39, 236, 57, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(38, 236, 57, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(37, 236, 57, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(36, 236, 57, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(35, 236, 57, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(34, 236, 57, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(33, 236, 57, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(97, 254, 55, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(96, 254, 55, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(98, 255, 55, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(52, 237, 55, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(51, 237, 55, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (50, 237, 55, 14, 55, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(49, 237, 55, 14, 52, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(48, 237, 55, 14, 51, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(47, 237, 55, 14, 50, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(46, 237, 55, 14, 49, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(53, 238, 53, 14, 55, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(54, 238, 53, 14, 57, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(55, 238, 53, 14, 59, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(56, 238, 53, 14, 60, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(57, 238, 53, 14, 63, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(58, 240, 56, 14, 49, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(59, 240, 56, 14, 50, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(60, 240, 56, 14, 52, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(61, 240, 56, 14, 53, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(62, 240, 56, 14, 56, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(63, 240, 56, 14, 59, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(64, 240, 56, 14, 60, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(65, 240, 56, 14, 61, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(66, 240, 56, 14, 62, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(67, 241, 50, 14, 57, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(68, 241, 50, 14, 61, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(69, 242, 51, 14, 50, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(70, 242, 51, 14, 51, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(71, 242, 51, 14, 52, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(78, 243, 58, 14, 61, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(77, 243, 58, 14, 59, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(76, 243, 58, 14, 55, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(75, 243, 58, 14, 52, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(74, 243, 58, 14, 51, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(73, 243, 58, 14, 50, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(72, 243, 58, 14, 49, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(19, 234, 54, 14, 51, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(17, 234, 54, 14, 49, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(81, 246, 54, 16, 66, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+');
+(49, 237, 55, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(57, 238, 53, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(56, 238, 53, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(55, 238, 53, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(54, 238, 53, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(53, 238, 53, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(66, 240, 56, 14, 62, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(65, 240, 56, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(64, 240, 56, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(63, 240, 56, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(62, 240, 56, 14, 56, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(61, 240, 56, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(60, 240, 56, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(59, 240, 56, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(58, 240, 56, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(68, 241, 50, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(67, 241, 50, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(94, 252, 51, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(93, 252, 51, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(95, 253, 51, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(100, 256, 58, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(99, 256, 58, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(101, 257, 58, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(78, 243, 58, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(77, 243, 58, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(76, 243, 58, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(75, 243, 58, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(20, 234, 54, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(19, 234, 54, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(18, 234, 54, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(17, 234, 54, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(88, 249, 52, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(87, 249, 52, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(86, 249, 52, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(85, 249, 52, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(32, 236, 57, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(31, 236, 57, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(71, 242, 51, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(70, 242, 51, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(69, 242, 51, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(48, 237, 55, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(47, 237, 55, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(46, 237, 55, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(90, 250, 57, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(91, 250, 57, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(74, 243, 58, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(73, 243, 58, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(72, 243, 58, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(102, 258, 53, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(103, 258, 53, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(104, 259, 53, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(105, 260, 56, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(106, 260, 56, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(107, 261, 56, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(108, 262, 50, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(109, 262, 50, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(110, 263, 50, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+');
 
 -- --------------------------------------------------------
 
@@ -3107,22 +3333,22 @@ CREATE TABLE IF NOT EXISTS `oc_product_special` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
   `date_end` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM AUTO_INCREMENT=479 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_special`
 --
 
 INSERT INTO `oc_product_special` (`product_special_id`, `product_id`, `customer_group_id`, `priority`, `price`, `date_start`, `date_end`) VALUES
-(478, 54, 1, 0, '9100.0000', '0000-00-00', '0000-00-00'),
-(463, 50, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
-(458, 52, 1, 0, '12460.0000', '0000-00-00', '0000-00-00'),
-(461, 53, 1, 0, '5400.0000', '0000-00-00', '0000-00-00'),
-(464, 51, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
-(466, 55, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
-(462, 56, 1, 0, '6600.0000', '0000-00-00', '0000-00-00'),
-(468, 57, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
-(470, 58, 1, 0, '4900.0000', '0000-00-00', '0000-00-00');
+(497, 54, 1, 0, '9100.0000', '0000-00-00', '0000-00-00'),
+(494, 50, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(488, 52, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
+(491, 53, 1, 0, '5400.0000', '0000-00-00', '0000-00-00'),
+(495, 51, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
+(500, 55, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
+(493, 56, 1, 0, '6600.0000', '0000-00-00', '0000-00-00'),
+(489, 57, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
+(498, 58, 1, 0, '4900.0000', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -3141,37 +3367,46 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_category` (
 --
 
 INSERT INTO `oc_product_to_category` (`product_id`, `category_id`, `main_category`) VALUES
-(57, 79, 0),
-(56, 77, 0),
-(52, 81, 0),
-(52, 82, 0),
-(57, 81, 1),
-(57, 80, 0),
-(52, 79, 1),
-(54, 80, 0),
-(51, 77, 0),
-(50, 67, 0),
-(54, 67, 0),
-(51, 82, 0),
-(55, 81, 1),
+(57, 82, 0),
 (56, 79, 0),
-(56, 80, 0),
-(56, 78, 1),
-(58, 79, 0),
-(58, 80, 0),
+(52, 82, 0),
+(52, 83, 0),
+(57, 78, 0),
+(57, 80, 0),
+(52, 81, 0),
 (54, 81, 0),
+(51, 83, 0),
+(50, 81, 1),
 (54, 82, 1),
+(51, 78, 1),
+(55, 83, 0),
+(56, 77, 0),
+(56, 83, 0),
+(56, 78, 1),
+(58, 81, 1),
+(58, 80, 0),
+(54, 67, 0),
+(54, 83, 0),
 (53, 80, 1),
 (53, 81, 0),
-(52, 77, 0),
-(50, 80, 0),
-(50, 81, 1),
-(57, 78, 0),
-(57, 82, 0),
+(52, 79, 1),
+(50, 67, 0),
+(50, 83, 0),
+(57, 81, 1),
+(57, 83, 0),
 (55, 79, 0),
+(55, 81, 1),
+(51, 77, 0),
+(58, 83, 0),
+(54, 80, 0),
+(52, 77, 0),
+(57, 79, 0),
 (55, 80, 0),
-(51, 78, 1),
-(58, 81, 1);
+(58, 79, 0),
+(56, 80, 0),
+(50, 80, 0),
+(51, 82, 0),
+(54, 84, 0);
 
 -- --------------------------------------------------------
 
@@ -3408,7 +3643,7 @@ CREATE TABLE IF NOT EXISTS `oc_setting` (
   `key` varchar(64) NOT NULL,
   `value` text NOT NULL,
   `serialized` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=727 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1054 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_setting`
@@ -3416,51 +3651,49 @@ CREATE TABLE IF NOT EXISTS `oc_setting` (
 
 INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `serialized`) VALUES
 (617, 0, 'filter', 'filter_status', '1', 0),
-(725, 0, 'config', 'config_owner', 'Мое Имя', 0),
-(718, 0, 'config', 'config_sms_message', '', 0),
-(719, 0, 'config', 'config_sms_gate_username', '', 0),
-(720, 0, 'config', 'config_sms_gate_password', '', 0),
-(721, 0, 'config', 'config_meta_title', 'Официальный сайт UGG Australia', 0),
-(722, 0, 'config', 'config_meta_description', 'Официальный сайт UGG Australia', 0),
-(723, 0, 'config', 'config_meta_keyword', '', 0),
-(724, 0, 'config', 'config_name', 'Официальный сайт UGG Australia', 0),
-(717, 0, 'config', 'config_sms_copy', '', 0),
-(715, 0, 'config', 'config_sms_from', '', 0),
-(716, 0, 'config', 'config_sms_to', '', 0),
-(713, 0, 'config', 'config_sms_alert', '0', 0),
-(714, 0, 'config', 'config_sms_gatename', 'testsms', 0),
-(712, 0, 'config', 'config_error_filename', 'error.log', 0),
-(711, 0, 'config', 'config_error_log', '1', 0),
-(710, 0, 'config', 'config_error_display', '1', 0),
+(1052, 0, 'config', 'config_owner', 'Мое Имя', 0),
+(1053, 0, 'config', 'config_address', '', 0),
+(1051, 0, 'config', 'config_name', 'Официальный сайт UGG Australia', 0),
+(1050, 0, 'config', 'config_meta_keyword', '', 0),
+(1049, 0, 'config', 'config_meta_description', 'Официальный сайт UGG Australia', 0),
+(1048, 0, 'config', 'config_meta_title', 'Официальный сайт UGG Australia', 0),
+(1047, 0, 'config', 'config_sms_gate_password', '', 0),
+(1046, 0, 'config', 'config_sms_gate_username', '', 0),
+(1045, 0, 'config', 'config_sms_message', '', 0),
+(1044, 0, 'config', 'config_sms_copy', '', 0),
+(1043, 0, 'config', 'config_sms_to', '', 0),
+(1042, 0, 'config', 'config_sms_from', '', 0),
+(1041, 0, 'config', 'config_sms_gatename', 'testsms', 0),
+(1038, 0, 'config', 'config_error_log', '1', 0),
+(1039, 0, 'config', 'config_error_filename', 'error.log', 0),
+(1040, 0, 'config', 'config_sms_alert', '0', 0),
+(1037, 0, 'config', 'config_error_display', '1', 0),
 (4, 0, 'voucher', 'voucher_sort_order', '8', 0),
 (5, 0, 'voucher', 'voucher_status', '1', 0),
-(700, 0, 'config', 'config_compression', '0', 0),
-(701, 0, 'config', 'config_mail_regexp', '/^[^@]+@.*.[a-z]{2,15}$/i', 0),
-(702, 0, 'config', 'config_editor_default', '0', 0),
-(703, 0, 'config', 'config_secure', '0', 0),
-(704, 0, 'config', 'config_password', '1', 0),
-(705, 0, 'config', 'config_shared', '0', 0),
-(706, 0, 'config', 'config_encryption', 'VLWteTBEi9ocKzd6AcezNYvTcmCnHXfFZ4gF3bvyNIvcNqtzhY6tcRxpdNCRJoVtxAlDvt3SAIn3OHzrrvXa9E7j4Lfncz6l1DzGZsP5GERSTOigNPwJo2pevCEk1cosKsqGSMVna2gxdi0Cx8ENIFL00Kv09GMFfmATQvVidwUSa4XyGdfmAlTqjK6BKrm6g8KlM2cLstulS6B15IsUfZ5cm8dd9XztPm9CXyiql3SCoNLbGHF8PPyZbDSCAl4p05B5ejJFP6ItOuotVuYG0o8zj8PeDKOuaDcexg0PgJ4bEQuqUqZNnErPJkJG1UAmKBSbByQkCdAMNyfhE3VV0XV29kxOccuNqSeMOjuNDO3a13XR6cWve8TMnNRyLBZd13PIcOouiNvqWqy0JayuEqg0UhKeXaf5IrhFWOUtCHIMHk2HG71sQj6Kfz2YUbonlYeQ0DV957cLlhtkpCrulghEjkDFxi69X0UMG6SqwOc3ddzgvxUgpw8c6yIsy2ONeP5anI8jqiamiTRWWa1mF5snrdZlrtt3EwEmVsfu5bflVNRz38vmOknzumy60HtnNhKnFEeNsCyHnoLZVbFxk3ttLOfh8As02Hh3f1YTaHzRtQPiOwDjIVgefLYNTmRAl0ZzkWJ3Jc16sSZIPtrFqOcjkg1DQMbUzyS98gInlJqQ1QlVu03SQu8yEPPmMG1K4qYz6yPwCvwAqcSeZYxeXp2xjxy1D5Xh8EUpmr2agNQYtZJ006H1tLKwjKrkAScERimwrVna3tzkkvV415WkLuftOJXOxDKU3Sq72C84MAOlBDwcuDpkIeiaSnbAYSFNaUfdpeeKJuvbrMHTLRJI72SHJVE7ht4oEmPqFkJRnEWtyF36pYRgeWyUOI4UGHmSMnVxwAao3wC0BMeF4EijWQt2IfHP1hMHhUuWiD9zowkMOpwFGFaK38C8vVSFMyDpO6Ur7xBkYtKlaYlAYUG26rRnjB57zfrZ89kNQj12dmwCu13iscW0NxllFcoeGLzR', 0),
-(709, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\n&quot;application/zip&quot;\r\napplication/x-zip\r\n&quot;application/x-zip&quot;\r\napplication/x-zip-compressed\r\n&quot;application/x-zip-compressed&quot;\r\napplication/rar\r\n&quot;application/rar&quot;\r\napplication/x-rar\r\n&quot;application/x-rar&quot;\r\napplication/x-rar-compressed\r\n&quot;application/x-rar-compressed&quot;\r\napplication/octet-stream\r\n&quot;application/octet-stream&quot;\r\naudio/mpeg\r\nvideo/quicktime\r\napplication/pdf', 0),
-(708, 0, 'config', 'config_file_ext_allowed', 'zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc', 0),
-(707, 0, 'config', 'config_file_max_size', '300000', 0),
-(699, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
-(697, 0, 'config', 'config_seo_url_postfix', '', 0),
-(698, 0, 'config', 'config_seo_pro_utm', 'block\r\nfrommarket\r\ngclid\r\nkeyword\r\nlist_type\r\nopenstat\r\nopenstat_service\r\nopenstat_campaign\r\nopenstat_ad\r\nopenstat_source\r\nposition\r\nsource\r\ntracking\r\ntype\r\nyclid\r\nymclid\r\nuri\r\nurltype\r\nutm_source\r\nutm_medium\r\nutm_campaign\r\nutm_term\r\nutm_content', 0),
-(696, 0, 'config', 'config_seo_url_include_path', '0', 0),
-(695, 0, 'config', 'config_seo_url_type', 'seo_url', 0),
-(694, 0, 'config', 'config_seo_url', '0', 0),
-(693, 0, 'config', 'config_maintenance', '0', 0),
-(692, 0, 'config', 'config_alert_email', '', 0),
-(691, 0, 'config', 'config_mail_alert', '["order"]', 1),
-(689, 0, 'config', 'config_mail_smtp_port', '25', 0),
-(690, 0, 'config', 'config_mail_smtp_timeout', '5', 0),
-(688, 0, 'config', 'config_mail_smtp_password', '', 0),
-(687, 0, 'config', 'config_mail_smtp_username', '', 0),
-(686, 0, 'config', 'config_mail_smtp_hostname', '', 0),
-(685, 0, 'config', 'config_mail_parameter', '', 0),
-(684, 0, 'config', 'config_mail_protocol', 'mail', 0),
-(683, 0, 'config', 'config_ftp_status', '1', 0),
+(1026, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
+(1036, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\n&quot;application/zip&quot;\r\napplication/x-zip\r\n&quot;application/x-zip&quot;\r\napplication/x-zip-compressed\r\n&quot;application/x-zip-compressed&quot;\r\napplication/rar\r\n&quot;application/rar&quot;\r\napplication/x-rar\r\n&quot;application/x-rar&quot;\r\napplication/x-rar-compressed\r\n&quot;application/x-rar-compressed&quot;\r\napplication/octet-stream\r\n&quot;application/octet-stream&quot;\r\naudio/mpeg\r\nvideo/quicktime\r\napplication/pdf', 0),
+(1034, 0, 'config', 'config_file_max_size', '300000', 0),
+(1035, 0, 'config', 'config_file_ext_allowed', 'zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc', 0),
+(1027, 0, 'config', 'config_compression', '0', 0),
+(1028, 0, 'config', 'config_mail_regexp', '/^[^@]+@.*.[a-z]{2,15}$/i', 0),
+(1029, 0, 'config', 'config_editor_default', '0', 0),
+(1030, 0, 'config', 'config_secure', '0', 0),
+(1031, 0, 'config', 'config_password', '1', 0),
+(1032, 0, 'config', 'config_shared', '0', 0),
+(1033, 0, 'config', 'config_encryption', 'VLWteTBEi9ocKzd6AcezNYvTcmCnHXfFZ4gF3bvyNIvcNqtzhY6tcRxpdNCRJoVtxAlDvt3SAIn3OHzrrvXa9E7j4Lfncz6l1DzGZsP5GERSTOigNPwJo2pevCEk1cosKsqGSMVna2gxdi0Cx8ENIFL00Kv09GMFfmATQvVidwUSa4XyGdfmAlTqjK6BKrm6g8KlM2cLstulS6B15IsUfZ5cm8dd9XztPm9CXyiql3SCoNLbGHF8PPyZbDSCAl4p05B5ejJFP6ItOuotVuYG0o8zj8PeDKOuaDcexg0PgJ4bEQuqUqZNnErPJkJG1UAmKBSbByQkCdAMNyfhE3VV0XV29kxOccuNqSeMOjuNDO3a13XR6cWve8TMnNRyLBZd13PIcOouiNvqWqy0JayuEqg0UhKeXaf5IrhFWOUtCHIMHk2HG71sQj6Kfz2YUbonlYeQ0DV957cLlhtkpCrulghEjkDFxi69X0UMG6SqwOc3ddzgvxUgpw8c6yIsy2ONeP5anI8jqiamiTRWWa1mF5snrdZlrtt3EwEmVsfu5bflVNRz38vmOknzumy60HtnNhKnFEeNsCyHnoLZVbFxk3ttLOfh8As02Hh3f1YTaHzRtQPiOwDjIVgefLYNTmRAl0ZzkWJ3Jc16sSZIPtrFqOcjkg1DQMbUzyS98gInlJqQ1QlVu03SQu8yEPPmMG1K4qYz6yPwCvwAqcSeZYxeXp2xjxy1D5Xh8EUpmr2agNQYtZJ006H1tLKwjKrkAScERimwrVna3tzkkvV415WkLuftOJXOxDKU3Sq72C84MAOlBDwcuDpkIeiaSnbAYSFNaUfdpeeKJuvbrMHTLRJI72SHJVE7ht4oEmPqFkJRnEWtyF36pYRgeWyUOI4UGHmSMnVxwAao3wC0BMeF4EijWQt2IfHP1hMHhUuWiD9zowkMOpwFGFaK38C8vVSFMyDpO6Ur7xBkYtKlaYlAYUG26rRnjB57zfrZ89kNQj12dmwCu13iscW0NxllFcoeGLzR', 0),
+(1024, 0, 'config', 'config_seo_url_postfix', '', 0),
+(1025, 0, 'config', 'config_seo_pro_utm', 'block\r\nfrommarket\r\ngclid\r\nkeyword\r\nlist_type\r\nopenstat\r\nopenstat_service\r\nopenstat_campaign\r\nopenstat_ad\r\nopenstat_source\r\nposition\r\nsource\r\ntracking\r\ntype\r\nyclid\r\nymclid\r\nuri\r\nurltype\r\nutm_source\r\nutm_medium\r\nutm_campaign\r\nutm_term\r\nutm_content', 0),
+(1023, 0, 'config', 'config_seo_url_include_path', '0', 0),
+(1021, 0, 'config', 'config_seo_url', '1', 0),
+(1022, 0, 'config', 'config_seo_url_type', 'seo_url', 0),
+(1020, 0, 'config', 'config_maintenance', '0', 0),
+(1019, 0, 'config', 'config_alert_email', '', 0),
+(1018, 0, 'config', 'config_mail_alert', '["order"]', 1),
+(1017, 0, 'config', 'config_mail_smtp_timeout', '5', 0),
+(1016, 0, 'config', 'config_mail_smtp_port', '25', 0),
+(1015, 0, 'config', 'config_mail_smtp_password', '', 0),
+(1014, 0, 'config', 'config_mail_smtp_username', '', 0),
+(1013, 0, 'config', 'config_mail_smtp_hostname', '', 0),
 (96, 0, 'free_checkout', 'free_checkout_status', '1', 0),
 (97, 0, 'free_checkout', 'free_checkout_order_status_id', '1', 0),
 (98, 0, 'shipping', 'shipping_sort_order', '3', 0),
@@ -3540,72 +3773,74 @@ INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `ser
 (172, 0, 'dashboard_recent', 'dashboard_recent_sort_order', '8', 0),
 (173, 0, 'dashboard_activity', 'dashboard_activity_width', '4', 0),
 (174, 0, 'dashboard_recent', 'dashboard_recent_width', '8', 0),
-(682, 0, 'config', 'config_ftp_root', '', 0),
-(681, 0, 'config', 'config_ftp_password', 'admin', 0),
-(680, 0, 'config', 'config_ftp_username', 'ugg', 0),
-(679, 0, 'config', 'config_ftp_port', '21', 0),
-(678, 0, 'config', 'config_ftp_hostname', 'ugg.opencart', 0),
-(677, 0, 'config', 'config_icon', 'catalog/logo.png', 0),
-(676, 0, 'config', 'config_logo', 'catalog/logo.png', 0),
-(675, 0, 'config', 'config_captcha_page', '["review","return","contact"]', 1),
-(674, 0, 'config', 'config_captcha', '', 0),
-(673, 0, 'config', 'config_return_status_id', '2', 0),
-(672, 0, 'config', 'config_return_id', '0', 0),
-(671, 0, 'config', 'config_affiliate_id', '4', 0),
-(670, 0, 'config', 'config_affiliate_commission', '5', 0),
-(669, 0, 'config', 'config_affiliate_auto', '0', 0),
-(668, 0, 'config', 'config_affiliate_approval', '0', 0),
-(667, 0, 'config', 'config_stock_checkout', '0', 0),
-(666, 0, 'config', 'config_stock_warning', '0', 0),
-(665, 0, 'config', 'config_stock_display', '0', 0),
-(662, 0, 'config', 'config_complete_status', '["3","5"]', 1),
-(663, 0, 'config', 'config_fraud_status_id', '2', 0),
-(664, 0, 'config', 'config_api_id', '1', 0),
-(661, 0, 'config', 'config_processing_status', '["2","3","1","12","5"]', 1),
-(660, 0, 'config', 'config_order_status_id', '1', 0),
-(659, 0, 'config', 'config_checkout_id', '5', 0),
-(658, 0, 'config', 'config_checkout_guest', '1', 0),
-(657, 0, 'config', 'config_cart_weight', '1', 0),
-(656, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
-(655, 0, 'config', 'config_account_id', '3', 0),
-(653, 0, 'config', 'config_customer_price', '0', 0),
-(654, 0, 'config', 'config_login_attempts', '5', 0),
-(652, 0, 'config', 'config_customer_group_display', '["1"]', 1),
-(651, 0, 'config', 'config_customer_group_id', '1', 0),
-(650, 0, 'config', 'config_customer_search', '0', 0),
-(649, 0, 'config', 'config_customer_activity', '0', 0),
-(648, 0, 'config', 'config_customer_online', '0', 0),
-(647, 0, 'config', 'config_tax_customer', 'shipping', 0),
-(646, 0, 'config', 'config_tax_default', 'shipping', 0),
-(645, 0, 'config', 'config_tax', '1', 0),
-(644, 0, 'config', 'config_voucher_max', '1000', 0),
-(643, 0, 'config', 'config_voucher_min', '1', 0),
-(642, 0, 'config', 'config_review_guest', '1', 0),
-(641, 0, 'config', 'config_review_status', '1', 0),
-(640, 0, 'config', 'config_product_mpn_hide', '0', 0),
-(639, 0, 'config', 'config_product_isbn_hide', '0', 0),
-(638, 0, 'config', 'config_product_jan_hide', '0', 0),
-(637, 0, 'config', 'config_product_ean_hide', '0', 0),
-(636, 0, 'config', 'config_product_upc_hide', '0', 0),
-(635, 0, 'config', 'config_limit_admin', '20', 0),
-(634, 0, 'config', 'config_product_count', '1', 0),
-(633, 0, 'config', 'config_weight_class_id', '1', 0),
-(619, 0, 'config', 'config_theme', 'theme_default', 0),
-(620, 0, 'config', 'config_layout_id', '4', 0),
-(621, 0, 'config', 'config_geocode', '54.718681,20.499113', 0),
-(622, 0, 'config', 'config_email', 'admin@ugg.opencart', 0),
-(623, 0, 'config', 'config_telephone', '123456789', 0),
-(624, 0, 'config', 'config_fax', '', 0),
-(625, 0, 'config', 'config_image', '', 0),
-(626, 0, 'config', 'config_country_id', '176', 0),
-(627, 0, 'config', 'config_zone_id', '2785', 0),
-(628, 0, 'config', 'config_language', 'ru-ru', 0),
-(629, 0, 'config', 'config_admin_language', 'ru-ru', 0),
-(630, 0, 'config', 'config_currency', 'RUB', 0),
-(631, 0, 'config', 'config_currency_auto', '1', 0),
-(632, 0, 'config', 'config_length_class_id', '1', 0),
-(618, 0, 'config', 'config_langdata', '{"1":{"meta_title":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_description":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_keyword":"","name":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","owner":"\\u041c\\u043e\\u0435 \\u0418\\u043c\\u044f","address":"\\u0410\\u0434\\u0440\\u0435\\u0441","open":"\\u0441 10\\u0447 \\u0434\\u043e 18\\u0447\\r\\n\\u043e\\u0431\\u0435\\u0434 \\u0441 14\\u0447 \\u0434\\u043e 15\\u0447\\r\\n\\u0432\\u043e\\u0441\\u043a\\u0440\\u0435\\u0441\\u0435\\u043d\\u044c\\u0435 - \\u0432\\u044b\\u0445\\u043e\\u0434\\u043d\\u043e\\u0439","comment":""}}', 1),
-(726, 0, 'config', 'config_address', '', 0);
+(1012, 0, 'config', 'config_mail_parameter', '', 0),
+(1011, 0, 'config', 'config_mail_protocol', 'mail', 0),
+(1010, 0, 'config', 'config_ftp_status', '1', 0),
+(1009, 0, 'config', 'config_ftp_root', '', 0),
+(1008, 0, 'config', 'config_ftp_password', 'admin', 0),
+(1006, 0, 'config', 'config_ftp_port', '21', 0),
+(1007, 0, 'config', 'config_ftp_username', 'ugg', 0),
+(1005, 0, 'config', 'config_ftp_hostname', 'ugg.opencart', 0),
+(1002, 0, 'config', 'config_captcha_page', '["review","return","contact"]', 1),
+(1003, 0, 'config', 'config_logo', 'catalog/logo.png', 0),
+(1004, 0, 'config', 'config_icon', 'catalog/logo.png', 0),
+(1001, 0, 'config', 'config_captcha', '', 0),
+(1000, 0, 'config', 'config_return_status_id', '2', 0),
+(999, 0, 'config', 'config_return_id', '0', 0),
+(998, 0, 'config', 'config_affiliate_id', '4', 0),
+(997, 0, 'config', 'config_affiliate_commission', '5', 0),
+(996, 0, 'config', 'config_affiliate_auto', '0', 0),
+(995, 0, 'config', 'config_affiliate_approval', '0', 0),
+(994, 0, 'config', 'config_stock_checkout', '0', 0),
+(993, 0, 'config', 'config_stock_warning', '0', 0),
+(992, 0, 'config', 'config_stock_display', '0', 0),
+(991, 0, 'config', 'config_api_id', '1', 0),
+(990, 0, 'config', 'config_fraud_status_id', '2', 0),
+(988, 0, 'config', 'config_processing_status', '["2","3","1","12","5"]', 1),
+(989, 0, 'config', 'config_complete_status', '["3","5"]', 1),
+(987, 0, 'config', 'config_order_status_id', '2', 0),
+(986, 0, 'config', 'config_checkout_id', '5', 0),
+(985, 0, 'config', 'config_checkout_guest', '1', 0),
+(984, 0, 'config', 'config_cart_weight', '1', 0),
+(983, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
+(982, 0, 'config', 'config_account_id', '3', 0),
+(981, 0, 'config', 'config_login_attempts', '5', 0),
+(980, 0, 'config', 'config_customer_price', '0', 0),
+(979, 0, 'config', 'config_customer_group_display', '["1"]', 1),
+(978, 0, 'config', 'config_customer_group_id', '1', 0),
+(977, 0, 'config', 'config_customer_search', '0', 0),
+(976, 0, 'config', 'config_customer_activity', '0', 0),
+(975, 0, 'config', 'config_customer_online', '0', 0),
+(974, 0, 'config', 'config_tax_customer', 'shipping', 0),
+(973, 0, 'config', 'config_tax_default', 'shipping', 0),
+(972, 0, 'config', 'config_tax', '1', 0),
+(971, 0, 'config', 'config_voucher_max', '1000', 0),
+(970, 0, 'config', 'config_voucher_min', '1', 0),
+(969, 0, 'config', 'config_review_guest', '1', 0),
+(968, 0, 'config', 'config_review_status', '1', 0),
+(967, 0, 'config', 'config_product_mpn_hide', '0', 0),
+(966, 0, 'config', 'config_product_isbn_hide', '0', 0),
+(965, 0, 'config', 'config_product_jan_hide', '0', 0),
+(964, 0, 'config', 'config_product_ean_hide', '0', 0),
+(963, 0, 'config', 'config_product_upc_hide', '0', 0),
+(962, 0, 'config', 'config_limit_admin', '20', 0),
+(961, 0, 'config', 'config_product_count', '1', 0),
+(960, 0, 'config', 'config_weight_class_id', '1', 0),
+(959, 0, 'config', 'config_length_class_id', '1', 0),
+(958, 0, 'config', 'config_currency_auto', '0', 0),
+(957, 0, 'config', 'config_currency', 'RUB', 0),
+(956, 0, 'config', 'config_admin_language', 'ru-ru', 0),
+(955, 0, 'config', 'config_language', 'ru-ru', 0),
+(954, 0, 'config', 'config_zone_id', '2785', 0),
+(953, 0, 'config', 'config_country_id', '176', 0),
+(952, 0, 'config', 'config_image', '', 0),
+(951, 0, 'config', 'config_fax', '', 0),
+(950, 0, 'config', 'config_telephone', '123456789', 0),
+(949, 0, 'config', 'config_email', 'admin@ugg.opencart', 0),
+(946, 0, 'config', 'config_theme', 'theme_default', 0),
+(947, 0, 'config', 'config_layout_id', '4', 0),
+(948, 0, 'config', 'config_geocode', '54.718681,20.499113', 0),
+(945, 0, 'config', 'config_langdata', '{"1":{"meta_title":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_description":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_keyword":"","name":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","owner":"\\u041c\\u043e\\u0435 \\u0418\\u043c\\u044f","address":"\\u0410\\u0434\\u0440\\u0435\\u0441","open":"\\u0441 10\\u0447 \\u0434\\u043e 18\\u0447\\r\\n\\u043e\\u0431\\u0435\\u0434 \\u0441 14\\u0447 \\u0434\\u043e 15\\u0447\\r\\n\\u0432\\u043e\\u0441\\u043a\\u0440\\u0435\\u0441\\u0435\\u043d\\u044c\\u0435 - \\u0432\\u044b\\u0445\\u043e\\u0434\\u043d\\u043e\\u0439","comment":""}}', 1);
 
 -- --------------------------------------------------------
 
@@ -3784,7 +4019,7 @@ CREATE TABLE IF NOT EXISTS `oc_url_alias` (
   `url_alias_id` int(11) NOT NULL,
   `query` varchar(255) NOT NULL,
   `keyword` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=945 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=995 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_url_alias`
@@ -3829,34 +4064,36 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (636, 'affiliate/login', 'affiliate-login'),
 (637, 'account/return/add', 'add-return'),
 (638, 'common/home', ''),
-(772, 'information_id=4', 'about_us'),
-(905, 'product_id=50', 'bailey-button-white-metallic'),
-(936, 'category_id=80', 'muzhskie-ugg'),
-(872, 'category_id=81', 'vysokie-ugg'),
-(873, 'category_id=82', 'korotkie-ugg'),
-(868, 'category_id=77', 'ugg-bailey-triplet'),
-(869, 'category_id=78', 'detskie-ugg'),
-(870, 'category_id=79', 'zhenskie-ugg'),
-(867, 'category_id=67', 'ugg-bailey-dylyn'),
-(906, 'product_id=51', 'bailey-button-yellow'),
-(900, 'product_id=52', 'bailey-button-grey'),
-(903, 'product_id=53', 'bailey-button-wheat'),
-(944, 'product_id=54', 'bailey-button-black'),
-(933, 'product_id=55', 'bailey-button-rust'),
-(904, 'product_id=56', 'bailey-button-white'),
-(935, 'product_id=57', 'bailey-button-leather'),
+(982, 'information_id=4', 'o-nas'),
+(968, 'product_id=50', 'bailey-button-white-metallic'),
+(955, 'category_id=80', 'muzhskie-ugg'),
+(951, 'category_id=81', 'vysokie-ugg'),
+(954, 'category_id=82', 'korotkie-ugg'),
+(950, 'category_id=77', 'ugg-bailey-triplet'),
+(952, 'category_id=78', 'detskie-ugg'),
+(953, 'category_id=79', 'zhenskie-ugg'),
+(949, 'category_id=67', 'ugg-bailey-dylyn'),
+(969, 'product_id=51', 'bailey-button-yellow'),
+(964, 'product_id=52', 'bailey-button-grey'),
+(966, 'product_id=53', 'bailey-button-wheat'),
+(980, 'product_id=54', 'bailey-button-black'),
+(994, 'product_id=55', 'bailey-button-rust'),
+(967, 'product_id=56', 'bailey-button-white'),
+(965, 'product_id=57', 'bailey-button-leather'),
 (907, 'newsblog_category_id=1', 'otzyvy'),
-(924, 'newsblog_article_id=1', 'artem-moskva'),
-(925, 'newsblog_article_id=2', 'artem-moskva-2'),
-(926, 'newsblog_article_id=3', 'Аrtem-Мoskva'),
-(927, 'newsblog_article_id=4', 'Аrtem-Мoskva-4'),
-(928, 'newsblog_article_id=5', 'Аrtem-Мoskva-5'),
-(929, 'newsblog_article_id=6', 'Аrtem-Мoskva-6'),
-(930, 'newsblog_article_id=7', 'Аrtem-Мoskva-7'),
-(931, 'newsblog_article_id=8', 'Аrtem-Мoskva-8'),
-(841, 'information_id=6', 'delivery'),
-(842, 'information_id=3', 'privacy'),
-(843, 'information_id=5', 'terms');
+(991, 'newsblog_article_id=1', 'artem-moskva'),
+(990, 'newsblog_article_id=2', 'artem-moskva-2'),
+(989, 'newsblog_article_id=3', 'Аrtem-Мoskva'),
+(988, 'newsblog_article_id=4', 'Аrtem-Мoskva-4'),
+(987, 'newsblog_article_id=5', 'Аrtem-Мoskva-5'),
+(986, 'newsblog_article_id=6', 'Аrtem-Мoskva-6'),
+(985, 'newsblog_article_id=7', 'Аrtem-Мoskva-7'),
+(984, 'newsblog_article_id=8', 'Аrtem-Мoskva-8'),
+(958, 'category_id=83', 'all'),
+(979, 'category_id=84', 'rasprodazha'),
+(981, 'information_id=6', 'dostavka-i-oplata'),
+(983, 'information_id=3', 'vozvrat'),
+(992, 'information_id=5', 'contacts');
 
 -- --------------------------------------------------------
 
@@ -3904,7 +4141,7 @@ CREATE TABLE IF NOT EXISTS `oc_user_group` (
 --
 
 INSERT INTO `oc_user_group` (`user_group_id`, `name`, `permission`) VALUES
-(1, 'Administrator', '{"access":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/filemanager","customer\\/custom_field","customer\\/customer","customer\\/customer_group","design\\/banner","design\\/language","design\\/layout","design\\/menu","design\\/theme","design\\/translation","event\\/compatibility","event\\/theme","extension\\/analytics\\/google_analytics","extension\\/captcha\\/basic_captcha","extension\\/captcha\\/google_captcha","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/event","extension\\/extension","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/feed\\/openbaypro","extension\\/feed\\/unisender","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/installer","extension\\/modification","extension\\/module\\/account","extension\\/module\\/affiliate","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/openbay","extension\\/openbay\\/amazon","extension\\/openbay\\/amazon_listing","extension\\/openbay\\/amazon_product","extension\\/openbay\\/amazonus","extension\\/openbay\\/amazonus_listing","extension\\/openbay\\/amazonus_product","extension\\/openbay\\/ebay","extension\\/openbay\\/ebay_profile","extension\\/openbay\\/ebay_template","extension\\/openbay\\/etsy","extension\\/openbay\\/etsy_product","extension\\/openbay\\/etsy_shipping","extension\\/openbay\\/etsy_shop","extension\\/openbay\\/fba","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_payeer","extension\\/payment\\/ocstore_w1","extension\\/payment\\/ocstore_yk","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/pp_standard","extension\\/payment\\/qiwi_rest","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/sberbank_transfer","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/shoputils_w1","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/webmoney_wmb","extension\\/payment\\/webmoney_wme","extension\\/payment\\/webmoney_wmk","extension\\/payment\\/webmoney_wmr","extension\\/payment\\/webmoney_wmu","extension\\/payment\\/webmoney_wmz","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/by_total","extension\\/shipping\\/citylink","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/track_no","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/store","extension\\/theme\\/theme_default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","marketing\\/affiliate","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","octeam\\/toolset","octeam_tools\\/cache","octeam_tools\\/seo_manager","report\\/affiliate","report\\/affiliate_activity","report\\/affiliate_login","report\\/customer_activity","report\\/customer_credit","report\\/customer_login","report\\/customer_online","report\\/customer_order","report\\/customer_reward","report\\/customer_search","report\\/marketing","report\\/product_purchased","report\\/product_viewed","report\\/sale_coupon","report\\/sale_order","report\\/sale_return","report\\/sale_shipping","report\\/sale_tax","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/compatibility","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission","extension\\/module\\/special","extension\\/module\\/filter","extension\\/module\\/html","extension\\/module\\/categoryproducts","newsblog\\/category","newsblog\\/article","extension\\/module\\/newsblog_articles"],"modify":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/filemanager","customer\\/custom_field","customer\\/customer","customer\\/customer_group","design\\/banner","design\\/language","design\\/layout","design\\/menu","design\\/theme","design\\/translation","event\\/compatibility","event\\/theme","extension\\/analytics\\/google_analytics","extension\\/captcha\\/basic_captcha","extension\\/captcha\\/google_captcha","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/event","extension\\/extension","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/feed\\/openbaypro","extension\\/feed\\/unisender","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/installer","extension\\/modification","extension\\/module\\/account","extension\\/module\\/affiliate","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/openbay","extension\\/openbay\\/amazon","extension\\/openbay\\/amazon_listing","extension\\/openbay\\/amazon_product","extension\\/openbay\\/amazonus","extension\\/openbay\\/amazonus_listing","extension\\/openbay\\/amazonus_product","extension\\/openbay\\/ebay","extension\\/openbay\\/ebay_profile","extension\\/openbay\\/ebay_template","extension\\/openbay\\/etsy","extension\\/openbay\\/etsy_product","extension\\/openbay\\/etsy_shipping","extension\\/openbay\\/etsy_shop","extension\\/openbay\\/fba","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_payeer","extension\\/payment\\/ocstore_w1","extension\\/payment\\/ocstore_yk","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/pp_standard","extension\\/payment\\/qiwi_rest","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/sberbank_transfer","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/shoputils_w1","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/webmoney_wmb","extension\\/payment\\/webmoney_wme","extension\\/payment\\/webmoney_wmk","extension\\/payment\\/webmoney_wmr","extension\\/payment\\/webmoney_wmu","extension\\/payment\\/webmoney_wmz","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/by_total","extension\\/shipping\\/citylink","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/track_no","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/store","extension\\/theme\\/theme_default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","marketing\\/affiliate","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","octeam\\/toolset","octeam_tools\\/cache","octeam_tools\\/seo_manager","report\\/affiliate","report\\/affiliate_activity","report\\/affiliate_login","report\\/customer_activity","report\\/customer_credit","report\\/customer_login","report\\/customer_online","report\\/customer_order","report\\/customer_reward","report\\/customer_search","report\\/marketing","report\\/product_purchased","report\\/product_viewed","report\\/sale_coupon","report\\/sale_order","report\\/sale_return","report\\/sale_shipping","report\\/sale_tax","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/compatibility","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission","extension\\/module\\/special","extension\\/module\\/filter","extension\\/module\\/html","extension\\/module\\/categoryproducts","newsblog\\/category","newsblog\\/article","extension\\/module\\/newsblog_articles"],"hiden":["extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/klarna_checkout_module","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/fedex","extension\\/shipping\\/royal_mail","extension\\/shipping\\/ups","extension\\/shipping\\/usps"]}'),
+(1, 'Administrator', '{"access":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/filemanager","customer\\/custom_field","customer\\/customer","customer\\/customer_group","design\\/banner","design\\/language","design\\/layout","design\\/menu","design\\/theme","design\\/translation","event\\/compatibility","event\\/theme","extension\\/analytics\\/google_analytics","extension\\/captcha\\/basic_captcha","extension\\/captcha\\/google_captcha","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/event","extension\\/extension","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/feed\\/openbaypro","extension\\/feed\\/unisender","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/installer","extension\\/modification","extension\\/module\\/account","extension\\/module\\/affiliate","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/openbay","extension\\/openbay\\/amazon","extension\\/openbay\\/amazon_listing","extension\\/openbay\\/amazon_product","extension\\/openbay\\/amazonus","extension\\/openbay\\/amazonus_listing","extension\\/openbay\\/amazonus_product","extension\\/openbay\\/ebay","extension\\/openbay\\/ebay_profile","extension\\/openbay\\/ebay_template","extension\\/openbay\\/etsy","extension\\/openbay\\/etsy_product","extension\\/openbay\\/etsy_shipping","extension\\/openbay\\/etsy_shop","extension\\/openbay\\/fba","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_payeer","extension\\/payment\\/ocstore_w1","extension\\/payment\\/ocstore_yk","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/pp_standard","extension\\/payment\\/qiwi_rest","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/sberbank_transfer","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/shoputils_w1","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/webmoney_wmb","extension\\/payment\\/webmoney_wme","extension\\/payment\\/webmoney_wmk","extension\\/payment\\/webmoney_wmr","extension\\/payment\\/webmoney_wmu","extension\\/payment\\/webmoney_wmz","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/by_total","extension\\/shipping\\/citylink","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/track_no","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/store","extension\\/theme\\/theme_default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","marketing\\/affiliate","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","octeam\\/toolset","octeam_tools\\/cache","octeam_tools\\/seo_manager","report\\/affiliate","report\\/affiliate_activity","report\\/affiliate_login","report\\/customer_activity","report\\/customer_credit","report\\/customer_login","report\\/customer_online","report\\/customer_order","report\\/customer_reward","report\\/customer_search","report\\/marketing","report\\/product_purchased","report\\/product_viewed","report\\/sale_coupon","report\\/sale_order","report\\/sale_return","report\\/sale_shipping","report\\/sale_tax","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/compatibility","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission","extension\\/module\\/special","extension\\/module\\/filter","extension\\/module\\/html","extension\\/module\\/categoryproducts","newsblog\\/category","newsblog\\/article","extension\\/module\\/newsblog_articles","extension\\/module\\/viewed"],"modify":["catalog\\/attribute","catalog\\/attribute_group","catalog\\/category","catalog\\/download","catalog\\/filter","catalog\\/information","catalog\\/manufacturer","catalog\\/option","catalog\\/product","catalog\\/recurring","catalog\\/review","common\\/column_left","common\\/filemanager","customer\\/custom_field","customer\\/customer","customer\\/customer_group","design\\/banner","design\\/language","design\\/layout","design\\/menu","design\\/theme","design\\/translation","event\\/compatibility","event\\/theme","extension\\/analytics\\/google_analytics","extension\\/captcha\\/basic_captcha","extension\\/captcha\\/google_captcha","extension\\/dashboard\\/activity","extension\\/dashboard\\/chart","extension\\/dashboard\\/customer","extension\\/dashboard\\/map","extension\\/dashboard\\/online","extension\\/dashboard\\/order","extension\\/dashboard\\/recent","extension\\/dashboard\\/sale","extension\\/event","extension\\/extension","extension\\/extension\\/analytics","extension\\/extension\\/captcha","extension\\/extension\\/dashboard","extension\\/extension\\/feed","extension\\/extension\\/fraud","extension\\/extension\\/module","extension\\/extension\\/payment","extension\\/extension\\/shipping","extension\\/extension\\/theme","extension\\/extension\\/total","extension\\/feed\\/google_base","extension\\/feed\\/google_sitemap","extension\\/feed\\/openbaypro","extension\\/feed\\/unisender","extension\\/fraud\\/fraudlabspro","extension\\/fraud\\/ip","extension\\/fraud\\/maxmind","extension\\/installer","extension\\/modification","extension\\/module\\/account","extension\\/module\\/affiliate","extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/banner","extension\\/module\\/bestseller","extension\\/module\\/carousel","extension\\/module\\/category","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/featured","extension\\/module\\/filter","extension\\/module\\/google_hangouts","extension\\/module\\/html","extension\\/module\\/information","extension\\/module\\/klarna_checkout_module","extension\\/module\\/latest","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/module\\/slideshow","extension\\/module\\/special","extension\\/module\\/store","extension\\/openbay","extension\\/openbay\\/amazon","extension\\/openbay\\/amazon_listing","extension\\/openbay\\/amazon_product","extension\\/openbay\\/amazonus","extension\\/openbay\\/amazonus_listing","extension\\/openbay\\/amazonus_product","extension\\/openbay\\/ebay","extension\\/openbay\\/ebay_profile","extension\\/openbay\\/ebay_template","extension\\/openbay\\/etsy","extension\\/openbay\\/etsy_product","extension\\/openbay\\/etsy_shipping","extension\\/openbay\\/etsy_shop","extension\\/openbay\\/fba","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bank_transfer","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/cod","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/free_checkout","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/liqpay","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_payeer","extension\\/payment\\/ocstore_w1","extension\\/payment\\/ocstore_yk","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/pp_standard","extension\\/payment\\/qiwi_rest","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/sberbank_transfer","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/shoputils_w1","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/webmoney_wmb","extension\\/payment\\/webmoney_wme","extension\\/payment\\/webmoney_wmk","extension\\/payment\\/webmoney_wmr","extension\\/payment\\/webmoney_wmu","extension\\/payment\\/webmoney_wmz","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/by_total","extension\\/shipping\\/citylink","extension\\/shipping\\/fedex","extension\\/shipping\\/flat","extension\\/shipping\\/free","extension\\/shipping\\/item","extension\\/shipping\\/parcelforce_48","extension\\/shipping\\/pickup","extension\\/shipping\\/royal_mail","extension\\/shipping\\/track_no","extension\\/shipping\\/ups","extension\\/shipping\\/usps","extension\\/shipping\\/weight","extension\\/store","extension\\/theme\\/theme_default","extension\\/total\\/coupon","extension\\/total\\/credit","extension\\/total\\/handling","extension\\/total\\/klarna_fee","extension\\/total\\/low_order_fee","extension\\/total\\/reward","extension\\/total\\/shipping","extension\\/total\\/sub_total","extension\\/total\\/tax","extension\\/total\\/total","extension\\/total\\/voucher","localisation\\/country","localisation\\/currency","localisation\\/geo_zone","localisation\\/language","localisation\\/length_class","localisation\\/location","localisation\\/order_status","localisation\\/return_action","localisation\\/return_reason","localisation\\/return_status","localisation\\/stock_status","localisation\\/tax_class","localisation\\/tax_rate","localisation\\/weight_class","localisation\\/zone","marketing\\/affiliate","marketing\\/contact","marketing\\/coupon","marketing\\/marketing","octeam\\/toolset","octeam_tools\\/cache","octeam_tools\\/seo_manager","report\\/affiliate","report\\/affiliate_activity","report\\/affiliate_login","report\\/customer_activity","report\\/customer_credit","report\\/customer_login","report\\/customer_online","report\\/customer_order","report\\/customer_reward","report\\/customer_search","report\\/marketing","report\\/product_purchased","report\\/product_viewed","report\\/sale_coupon","report\\/sale_order","report\\/sale_return","report\\/sale_shipping","report\\/sale_tax","sale\\/order","sale\\/recurring","sale\\/return","sale\\/voucher","sale\\/voucher_theme","setting\\/setting","setting\\/store","startup\\/compatibility","startup\\/error","startup\\/event","startup\\/login","startup\\/permission","startup\\/router","startup\\/sass","startup\\/startup","tool\\/backup","tool\\/log","tool\\/upload","user\\/api","user\\/user","user\\/user_permission","extension\\/module\\/special","extension\\/module\\/filter","extension\\/module\\/html","extension\\/module\\/categoryproducts","newsblog\\/category","newsblog\\/article","extension\\/module\\/newsblog_articles","extension\\/module\\/viewed"],"hiden":["extension\\/module\\/amazon_login","extension\\/module\\/amazon_pay","extension\\/module\\/divido_calculator","extension\\/module\\/ebay_listing","extension\\/module\\/klarna_checkout_module","extension\\/module\\/laybuy_layout","extension\\/module\\/pilibaba_button","extension\\/module\\/pp_button","extension\\/module\\/pp_login","extension\\/module\\/sagepay_direct_cards","extension\\/module\\/sagepay_server_cards","extension\\/payment\\/amazon_login_pay","extension\\/payment\\/authorizenet_aim","extension\\/payment\\/authorizenet_sim","extension\\/payment\\/bluepay_hosted","extension\\/payment\\/bluepay_redirect","extension\\/payment\\/cardconnect","extension\\/payment\\/cardinity","extension\\/payment\\/cheque","extension\\/payment\\/divido","extension\\/payment\\/eway","extension\\/payment\\/firstdata","extension\\/payment\\/firstdata_remote","extension\\/payment\\/g2apay","extension\\/payment\\/globalpay","extension\\/payment\\/globalpay_remote","extension\\/payment\\/klarna_account","extension\\/payment\\/klarna_checkout","extension\\/payment\\/klarna_invoice","extension\\/payment\\/laybuy","extension\\/payment\\/nochex","extension\\/payment\\/ocstore_yk_company_AB","extension\\/payment\\/ocstore_yk_company_AC","extension\\/payment\\/ocstore_yk_company_EP","extension\\/payment\\/ocstore_yk_company_GP","extension\\/payment\\/ocstore_yk_company_MA","extension\\/payment\\/ocstore_yk_company_MC","extension\\/payment\\/ocstore_yk_company_MP","extension\\/payment\\/ocstore_yk_company_PB","extension\\/payment\\/ocstore_yk_company_PC","extension\\/payment\\/ocstore_yk_company_QW","extension\\/payment\\/ocstore_yk_company_SB","extension\\/payment\\/ocstore_yk_company_WM","extension\\/payment\\/ocstore_yk_physical_AC","extension\\/payment\\/ocstore_yk_physical_PC","extension\\/payment\\/paymate","extension\\/payment\\/paypoint","extension\\/payment\\/payza","extension\\/payment\\/perpetual_payments","extension\\/payment\\/pilibaba","extension\\/payment\\/pp_express","extension\\/payment\\/pp_payflow","extension\\/payment\\/pp_payflow_iframe","extension\\/payment\\/pp_pro","extension\\/payment\\/pp_pro_iframe","extension\\/payment\\/realex","extension\\/payment\\/realex_remote","extension\\/payment\\/sagepay_direct","extension\\/payment\\/sagepay_server","extension\\/payment\\/sagepay_us","extension\\/payment\\/securetrading_pp","extension\\/payment\\/securetrading_ws","extension\\/payment\\/skrill","extension\\/payment\\/twocheckout","extension\\/payment\\/web_payment_software","extension\\/payment\\/worldpay","extension\\/shipping\\/auspost","extension\\/shipping\\/fedex","extension\\/shipping\\/royal_mail","extension\\/shipping\\/ups","extension\\/shipping\\/usps"]}'),
 (10, 'Demonstration', '');
 
 -- --------------------------------------------------------
@@ -9218,12 +9455,12 @@ ALTER TABLE `oc_api_session`
 -- AUTO_INCREMENT для таблицы `oc_attribute`
 --
 ALTER TABLE `oc_attribute`
-  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT для таблицы `oc_attribute_group`
 --
 ALTER TABLE `oc_attribute_group`
-  MODIFY `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT для таблицы `oc_banner`
 --
@@ -9243,7 +9480,7 @@ ALTER TABLE `oc_cart`
 -- AUTO_INCREMENT для таблицы `oc_category`
 --
 ALTER TABLE `oc_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT для таблицы `oc_country`
 --
@@ -9338,7 +9575,7 @@ ALTER TABLE `oc_event`
 -- AUTO_INCREMENT для таблицы `oc_extension`
 --
 ALTER TABLE `oc_extension`
-  MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT для таблицы `oc_filter`
 --
@@ -9368,17 +9605,17 @@ ALTER TABLE `oc_language`
 -- AUTO_INCREMENT для таблицы `oc_layout`
 --
 ALTER TABLE `oc_layout`
-  MODIFY `layout_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `layout_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT для таблицы `oc_layout_module`
 --
 ALTER TABLE `oc_layout_module`
-  MODIFY `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=126;
+  MODIFY `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=134;
 --
 -- AUTO_INCREMENT для таблицы `oc_layout_route`
 --
 ALTER TABLE `oc_layout_route`
-  MODIFY `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+  MODIFY `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT для таблицы `oc_length_class`
 --
@@ -9413,7 +9650,7 @@ ALTER TABLE `oc_modification`
 -- AUTO_INCREMENT для таблицы `oc_module`
 --
 ALTER TABLE `oc_module`
-  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT для таблицы `oc_newsblog_article`
 --
@@ -9423,7 +9660,7 @@ ALTER TABLE `oc_newsblog_article`
 -- AUTO_INCREMENT для таблицы `oc_newsblog_article_image`
 --
 ALTER TABLE `oc_newsblog_article_image`
-  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT для таблицы `oc_newsblog_category`
 --
@@ -9498,22 +9735,22 @@ ALTER TABLE `oc_product`
 -- AUTO_INCREMENT для таблицы `oc_product_discount`
 --
 ALTER TABLE `oc_product_discount`
-  MODIFY `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=447;
+  MODIFY `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=448;
 --
 -- AUTO_INCREMENT для таблицы `oc_product_image`
 --
 ALTER TABLE `oc_product_image`
-  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2423;
+  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2461;
 --
 -- AUTO_INCREMENT для таблицы `oc_product_option`
 --
 ALTER TABLE `oc_product_option`
-  MODIFY `product_option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=247;
+  MODIFY `product_option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=264;
 --
 -- AUTO_INCREMENT для таблицы `oc_product_option_value`
 --
 ALTER TABLE `oc_product_option_value`
-  MODIFY `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=82;
+  MODIFY `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=111;
 --
 -- AUTO_INCREMENT для таблицы `oc_product_reward`
 --
@@ -9523,7 +9760,7 @@ ALTER TABLE `oc_product_reward`
 -- AUTO_INCREMENT для таблицы `oc_product_special`
 --
 ALTER TABLE `oc_product_special`
-  MODIFY `product_special_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=479;
+  MODIFY `product_special_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=501;
 --
 -- AUTO_INCREMENT для таблицы `oc_recurring`
 --
@@ -9563,7 +9800,7 @@ ALTER TABLE `oc_review`
 -- AUTO_INCREMENT для таблицы `oc_setting`
 --
 ALTER TABLE `oc_setting`
-  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=727;
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1054;
 --
 -- AUTO_INCREMENT для таблицы `oc_stock_status`
 --
@@ -9608,7 +9845,7 @@ ALTER TABLE `oc_upload`
 -- AUTO_INCREMENT для таблицы `oc_url_alias`
 --
 ALTER TABLE `oc_url_alias`
-  MODIFY `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=945;
+  MODIFY `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=995;
 --
 -- AUTO_INCREMENT для таблицы `oc_user`
 --
