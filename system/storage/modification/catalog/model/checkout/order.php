@@ -871,7 +871,7 @@ class ModelCheckoutOrder extends Model {
 			shipping_custom_field = '[]', 
 			shipping_method = '', 
 			shipping_code = 'flat.flat', 
-			comment = '" . $this->db->escape($data['product_comment']) . "', 
+			comment = '" . $this->db->escape($data['delivery_type']) . "', 
 			total = '" . $this->db->escape(isset($data['total']) ? (float)$data['total'] : '0') . "', 
 			order_status_id = '1', 
 			affiliate_id = '0', 

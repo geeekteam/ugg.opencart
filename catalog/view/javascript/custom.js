@@ -270,6 +270,8 @@ $(document).on('click', '.js-btn-buy', function (e) {
                     });
                     jcf.replaceAll();
                     totalPrice();
+                    if ($('.link-basket').hasClass('hidden'))
+                        $('.link-basket').removeClass('hidden');
                 }, 200)
             });
         }
@@ -297,7 +299,8 @@ $(document).on('submit', '.jq-send-form', function (e) {
 $(document).on('submit', '.jqs-send-form', function (e) {
     e.preventDefault();
     var $form = $(this),
-        data = {products: {}};
+        data = {products: {}},
+        $items = $form.find('js-prod-cart-item');
 
     productSize();
 
@@ -322,6 +325,7 @@ $(document).on('submit', '.jqs-send-form', function (e) {
     addOrder(data, function (response) {
         console.log(response);
     });
+
     $.magnificPopup.close({
         items: {
             src: '#cartModal'
@@ -332,6 +336,8 @@ $(document).on('submit', '.jqs-send-form', function (e) {
             src: '#thanks'
         }
     });
+
+    clearForm ();
 });
 
 function addOrder(data, callback) {
@@ -349,6 +355,28 @@ function addOrder(data, callback) {
     });
 
 }
+
+// Очистка формы
+function clearForm () {
+    var $form = $('#cartModal');
+
+    $form.find('.js-prod-cart-item').each(function () {
+        var cart_id = $(this).attr('data-cart-id');
+        $.ajax({
+            url: 'index.php?route=checkout/cart/remove',
+            type: 'post',
+            data: 'key=' + cart_id,
+            dataType: 'json',
+            success: function () {
+                $basketCountProducts.html(0);
+            }
+        });
+        $form.find('input').val('');
+        $(this).remove();
+        if (!$('.link-basket').hasClass('hidden'))
+            $('.link-basket').addClass('hidden');
+    });
+};
 
 //Сохранение выбранных опций (размер, привезите несколько, тип доставки)
 function productSize() {
@@ -424,6 +452,8 @@ function removeItem(item) {
                 success: function () {
                     $basketCountProducts.html(itemsCount-1);
                     item.remove();
+                    if (!$('.link-basket').hasClass('hidden'))
+                        $('.link-basket').addClass('hidden');
                 }
             });
 

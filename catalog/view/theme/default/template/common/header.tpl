@@ -509,9 +509,13 @@
                         <i class="icon icon-phone"></i>
                         <span>Заказать звонок</span>
                     </a>
-                    <a href="#cartModal" class="link-basket open-modal">
-                        <i class="icon icon-cart"></i>
-                        <span class="basket-count-products">(<span class="js-basket-count-products">0</span>)</span>
+                    <?php if (count($cart)<1): ?>
+                        <a href="#cartModal" class="link-basket hidden open-modal">
+                    <?php else: ?>
+                        <a href="#cartModal" class="link-basket open-modal">
+                    <?php endif; ?>
+                            <i class="icon icon-cart"></i>
+                            <span class="basket-count-products">(<span class="js-basket-count-products">0</span>)</span>
                     </a>
                 </div>
             </div>
