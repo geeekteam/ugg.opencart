@@ -15,7 +15,7 @@ jQuery(function($){
     image: {
       verticalFit: true
     }
-    
+
   });
 
   //form elements
@@ -37,7 +37,7 @@ $("a.scrollto").click(function () {
 });
 
   $(window).scroll(function() {
-    if ($(this).scrollTop() > $('body').height()){  
+    if ($(this).scrollTop() > $('body').height()){
       $('body').addClass("sticky");
     }
     else{
@@ -155,10 +155,11 @@ $(window).load(function() {
   // owl carousel thumb
   //
 
-  var sync1 = $(".owl-slider-main");
-  var sync2 = $(".owl-thumbs");
-  var slidesPerPage = 3; //globaly define number of elements per page
-  var syncedSecondary = true;
+    var slidesCount = $('.owl-thumbs').find('.thumb-item').length;
+    var sync1 = $(".owl-slider-main");
+    var sync2 = $(".owl-thumbs");
+    var slidesPerPage = slidesCount; //globaly define number of elements per page
+    var syncedSecondary = true;
 
   sync1.owlCarousel({
     items : 1,
@@ -188,18 +189,18 @@ $(window).load(function() {
   function syncPosition(el) {
     //if you set loop to false, you have to restore this next line
     //var current = el.item.index;
-    
+
     //if you disable loop you have to comment this block
     var count = el.item.count-1;
     var current = Math.round(el.item.index - (el.item.count/2) - .5);
-    
+
     if(current < 0) {
       current = count;
     }
     if(current > count) {
       current = 0;
     }
-    
+
     //end block
 
     sync2
@@ -210,7 +211,7 @@ $(window).load(function() {
     var onscreen = sync2.find('.owl-item.active').length - 1;
     var start = sync2.find('.owl-item.active').first().index();
     var end = sync2.find('.owl-item.active').last().index();
-    
+
     if (current > end) {
       sync2.data('owl.carousel').to(current, 100, true);
     }
@@ -218,14 +219,14 @@ $(window).load(function() {
       sync2.data('owl.carousel').to(current - onscreen, 100, true);
     }
   }
-  
+
   function syncPosition2(el) {
     if(syncedSecondary) {
       var number = el.item.index;
       sync1.data('owl.carousel').to(number, 100, true);
     }
   }
-  
+
   sync2.on("click", ".owl-item", function(e){
     e.preventDefault();
     var number = $(this).index();
@@ -235,6 +236,6 @@ $(window).load(function() {
   //
   // end owl carousel thumb
   //----------------------------------------------------
-  
+
 
 });

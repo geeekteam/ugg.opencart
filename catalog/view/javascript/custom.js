@@ -299,6 +299,7 @@ $(document).on('submit', '.jqs-send-form', function (e) {
     var $form = $(this),
         data = {products: {}};
 
+    productSize();
 
     $.each($form.serializeArray(), function (index, input) {
         if (input.name.indexOf('products[') > -1) {
@@ -320,9 +321,7 @@ $(document).on('submit', '.jqs-send-form', function (e) {
 
     addOrder(data, function (response) {
         console.log(response);
-
     });
-
     $.magnificPopup.close({
         items: {
             src: '#cartModal'
@@ -336,16 +335,33 @@ $(document).on('submit', '.jqs-send-form', function (e) {
 });
 
 function addOrder(data, callback) {
+    var $form = $('.jqs-send-form'),
+        $items = $form.find('.js-prod-cart-item');
     $.ajax({
         url: 'index.php?route=checkout/confirm/addFromMain',
         type: 'post',
         data: data,
         dataType: 'json',
         success: function (response) {
-            callback(response);
+            // callback(response);
+            console.log("success");
         }
     });
 
+}
+
+//Сохранение выбранных опций (размер, привезите несколько, тип доставки)
+function productSize() {
+    var $form = $('#cartModal'),
+        $items = $form.find('.js-prod-cart-item');
+    $items.each(function () {
+        var currentSize = $(this).find('.js-select-size .jcf-select-text span').html(),
+            inputSize = $(this).find('.js-hidden-input-product-size'),
+            giveSome = $(this).find('.js-give-some .jcf-label-active').html(),
+            inputGiveSome = $(this).find('.js-hidden-input-give-some');
+        inputSize.val(currentSize);
+        inputGiveSome.val(giveSome);
+    });
 }
 
 // Расчёт полной стоимости заказа и стоимости отдельных товаров в зависимости от их количества
@@ -415,7 +431,6 @@ function removeItem(item) {
     }
 }
 
-
 //Пересчёт общей суммы и стомости товара при увеличении количества товаров
 $(document).on('click', '.js-plus-count', function () {
     var $count = $(this).siblings('.js-item-count'),
@@ -459,9 +474,8 @@ $(document).on('click', '.link-basket', function () {
 $(document).on('click', '.js-delivery-russian', function () {
     var $form = $('#cartModal'),
         $totalPriceSpan = $form.find('.js-total-price'),
-        $totalPriceInput = parseInt($form.find('.js-total-price-input').val());
-    $totalPriceSpan.html(parseInt($totalPriceInput) + 390 + ' <span class="rubl"> </span>');
-    $totalPriceInput.val()
+        $totalPriceInput = $form.find('.js-total-price-input');
+    $totalPriceSpan.html(parseInt($totalPriceInput.val()) + 390 + ' <span class="rubl"> </span>');
 });
 
 // Сохранение преждней стоимости, если доставка по России не выбрана
@@ -471,18 +485,3 @@ $(document).on('click', '.js-delivery-default', function () {
         $totalPriceInput = $form.find('.js-total-price-input').val();
     $totalPriceSpan.html($totalPriceInput + ' <span class="rubl"> </span>');
 });
-
-/*
-function customerValues() {
-    var $form = $('#cartModal'),
-        $customerName = $form.find('#input-name'),
-        $customerPhone = $form.find('#input-phone');
-    $customerName.on('focusout', function () {
-        $(this).value($(this.val()))
-    });
-    $customerPhone.on('focusout', function () {
-        $(this).value($(this.val()))
-    });
-}
-
-customerValues();*/

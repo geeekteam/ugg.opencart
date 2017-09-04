@@ -4508,7 +4508,7 @@ blockquote {
 
 .owl-thumbs .owl-item > div {
   border: 1px solid rgba(180, 185, 189, 0.33);
-  padding: 0px;
+  padding: 0;
   margin: 0 5px;
   text-align: center;
   cursor: pointer;
@@ -4929,13 +4929,13 @@ blockquote {
   }
   .owl-thumbs {
     position: absolute;
-    transform: rotate(90deg);
-    right: -81px;
-    top: 65px;
+    /*transform: rotate(90deg);*/
+    right: 0;
+    top: -6px;
     margin: 0;
   }
   .owl-thumbs .owl-item > div {
-    transform: rotate(-90deg);
+    /*transform: rotate(-90deg);*/
   }
   .product-inner-cont {
     margin-left: 420px;
@@ -4946,7 +4946,8 @@ blockquote {
     margin-top: 5px;
   }
   .owl-thumbs .owl-item {
-    min-height: 70px;
+    min-width: 70px;
+    float: none;
   }
   .owl-thumbs.owl-carousel .owl-stage-outer {
     padding: 1px;

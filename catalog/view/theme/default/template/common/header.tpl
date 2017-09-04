@@ -76,29 +76,33 @@
                         <input type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_id]" value="<?=$cartItem['product_id']; ?>">
                         <input type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_name]" value="<?=$cartItem['name']; ?>">
                         <input class="js-hidden-input-item-price" type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_price]" value="<?=$cartItem['price']; ?>">
-                        <input type="hidden" class="js-total-price-input" name="products[<?=$cartItem['product_id']; ?>][product_total_price]" value="">
+                        <input type="hidden" class="js-hidden-input-product-size" name="products[<?=$cartItem['product_id']; ?>][product_size]">
+                        <input type="hidden" class="js-hidden-input-give-some" name="products[<?=$cartItem['product_id']; ?>][give_some]">
                         <div class="prod-cart-col t-col-1">
                             <span class="prod-cart-img"><img src="/image/<?=$cartItem['image']; ?>" alt=""></span>
                         </div>
-
                         <div class="prod-cart-col t-col-2">
                             <span class="prod-cart-name"><?=$cartItem['name']; ?></span>
                         </div>
-
                         <div class="prod-cart-col t-col-3">
-                            <div class="prod-cart-select-wrapp">
-                                <select name="" id="">
+                            <div class="prod-cart-select-wrapp js-select-size">
+                                <select>
                                     <?php foreach($cartItem['options'] as $option) : ?>
                                         <?php if($option['option_id'] == 14) : ?>
                                             <?php foreach($option['product_option_value'] as $optionValue) : ?>
-                                                <?php $selectedOption = ($optionValue['product_option_value_id'] ==  $cartItem['option'][0]['product_option_value_id']) ? 'selected' : '';?>
-                                                <option value="<?=$optionValue['product_option_value_id']; ?>" <?=$selectedOption;?>><?=$optionValue['name']; ?> </option>
+                                                <?php if(isset($cartItem['option'][0]['product_option_value_id'])): ?>
+                                                    <?php $selectedOption = ($optionValue['product_option_value_id'] ==  $cartItem['option'][0]['product_option_value_id']) ? 'selected' : '';?>
+                                                    <option value="<?=$optionValue['product_option_value_id']; ?>" <?=$selectedOption;?>><?=$optionValue['name']; ?> </option>
+                                                <?php else: ?>
+                                                    <?php $selectedOption = ''; ?>
+                                                <?php endif; ?>
+                                                <option value="<?=$optionValue['product_option_value_id']; ?>"><?=$optionValue['name']; ?> </option>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-                            <div class="prod-cart-check-wrapp">
+                            <div class="prod-cart-check-wrapp js-give-some">
                                 <input type="checkbox" id="ch1" name="ch1">
                                 <label for="ch1">Не уверена в размере - привезите несколько</label>
                             </div>
@@ -120,18 +124,18 @@
             </div>
 
             <div class="prod-cart-table-summ">
-                <div class="cart-table-del">
+                <div class="cart-table-del js-delivery-type">
                     <span class="tt-cart-table-del">Доставка:</span>
                     <span class="cart-table-del-item js-delivery-default">
-                        <input type="radio" checked id="rad1" name="delrad">
+                        <input type="radio" checked id="rad1" name="delivery_type" value="по Москве">
                         <label for="rad1">по Москве</label>
                     </span>
                     <span class="cart-table-del-item js-delivery-russian">
-                        <input type="radio" id="rad2" name="delrad">
+                        <input type="radio" id="rad2" name="delivery_type" value="по России">
                         <label for="rad2">по России (+390 <span class="rubl"> </span>)</label>
                     </span>
                     <span class="cart-table-del-item js-delivery-default">
-                        <input type="radio" id="rad3" name="delrad">
+                        <input type="radio" id="rad3" name="delivery_type" value="самовывоз">
                         <label for="rad3">Самовывоз<br> (м. Театральная, Столешников пер. 11)</label>
                     </span>
                 </div>
@@ -144,6 +148,7 @@
         </div>
 
         <div class="modal-contacts-form">
+            <input type="hidden" class="js-total-price-input" name="total_price" value="">
             <div class="form-group">
                 <label for="inputName">Ваше имя</label>
                 <div class="icon-input">

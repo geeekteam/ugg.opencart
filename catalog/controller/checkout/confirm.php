@@ -435,14 +435,19 @@ class ControllerCheckoutConfirm extends Controller {
 
         $firstname = $this->request->post['firstname'];
         $telephone = $this->request->post['telephone'];
+        $total_price = $this->request->post['total_price'];
+        $delivery_type = $this->request->post['delivery_type'];
 
         foreach ($this->request->post['products'] as $products):
             $products['firstname'] = $firstname;
             $products['telephone'] = $telephone;
+            $products['total_price'] = $total_price;
+            $products['delivery_type'] = $delivery_type;
             $this->model_checkout_order->insertOrder($products);
         endforeach;
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($order_datas));
+
     }
 }

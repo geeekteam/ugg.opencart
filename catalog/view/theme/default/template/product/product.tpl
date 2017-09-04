@@ -88,9 +88,9 @@ echo $header;
                         <?php endforeach;?>
                     </div>
                     <div class="owl-thumbs owl-carousel owl-loaded owl-drag">
-                        <div><img src="<?php echo $thumb; ?>" alt=""></div>
+                        <div class="thumb-item"><img src="<?php echo $thumb; ?>" alt=""></div>
                         <?php foreach ($images as $image) : ?>
-                            <div><img src="<?=$image['thumb']; ?>"></div>
+                            <div class="thumb-item"><img src="<?=$image['thumb']; ?>"></div>
                         <?php endforeach;?>
                     </div>
                 </div>

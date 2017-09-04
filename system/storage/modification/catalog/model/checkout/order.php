@@ -900,10 +900,9 @@ class ModelCheckoutOrder extends Model {
 
 
             $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'sub_total', title = 'Сумма', value = '".(float)$data['price']."', sort_order = '1'");
-            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'shipping', title = '".(float)$data['shipping']."', value = '".(float)$data['priceShip']."', sort_order = '3'");
-            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'total', title = 'Итого', value = '".(float)$data['priceTotal']."', sort_order = '9'");
-        }
-
+//            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'shipping', title = '".(float)$data['shipping']."', value = '".(float)$data['priceShip']."', sort_order = '3'");
+//            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'total', title = 'Итого', value = '".(float)$data['priceTotal']."', sort_order = '9'");
+        };
         return $order_id;
     }
 }
