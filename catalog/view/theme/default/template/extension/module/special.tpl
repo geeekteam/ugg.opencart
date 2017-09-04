@@ -17,17 +17,18 @@
                         <div class="main-screen-sale"><span>Скидка <span>более 50%</span></span> ТОЛЬКО ДО <span
                                     class="js-future-date">...</span></div>
                     </div>
-                    <div class="main-screen-product">
-                                    <span class="img-main-screen-product">
-                                        <img src="<?=($product['thumb']); ?>" alt="<?=($product['name']); ?>">
-                                        <?php foreach($options as $option):?>
-                                            <?php if($option['option_id'] == 13):?>
-                                                <?php if (!empty(($option['value']))):?>
-                                                    <span>-<?=$option['value'];?></span>
-                                                <?php endif;?>
-                                            <?php endif;?>
-                                        <?php endforeach;?>
-                                    </span>
+                    <form class="main-screen-product">
+                        <input type="hidden" name="product_id" value="<?=$product['product_id']; ?>">
+                        <span class="img-main-screen-product">
+                            <img src="<?=($product['thumb']); ?>" alt="<?=($product['name']); ?>">
+                            <?php foreach($options as $option):?>
+                                <?php if($option['option_id'] == 13):?>
+                                    <?php if (!empty(($option['value']))):?>
+                                        <span>-<?=$option['value'];?></span>
+                                    <?php endif;?>
+                                <?php endif;?>
+                            <?php endforeach;?>
+                        </span>
                         <div class="main-screen-product-cont">
                             <span class="tt-main-screen-product-cont"><?=$product_name;?></span>
                             <?php if($product['special']): ?>
@@ -37,22 +38,27 @@
                             <?php endif; ?>
                             <div class="size-main-screen-product">
                                 <span>Размер (RUS)</span>
-                                <div>
-                                    <?php foreach($product['options'] as $option):?>
-                                        <?php if($option['option_id'] == 14): ?>
-                                            <?php $j = 0; foreach(($option['product_option_value']) as $sizes):?>
-                                                <a href="#"><?php echo($sizes['name']);?></a>
-                                            <?php $j++; endforeach;?>
-                                        <?php endif;?>
-                                    <?php endforeach;?>
-                                </div>
+                                <?php foreach($options as $option): ?>
+                                    <?php if ($option['option_id'] == 14): ?>
+                                        <ul class="list-size-filter">
+                                            <?php $i = 1; foreach($option['product_option_value'] as $sizes): ?>
+                                                <li>
+                                                    <label class="js-size-label size-label">
+                                                        <input class="js-size" type="radio" name="<?=$option['product_option_id']?>" value="<?=$sizes['product_option_value_id']?>" data-size="<?php echo $sizes['name']; ?>" id="mSize<?=$i;?>">
+                                                        <a><?=($sizes['name']);?></a>
+                                                    </label>
+                                                </li>
+                                                <?php $i++; endforeach;?>
+                                        </ul>
+                                    <?php endif;?>
+                                <?php endforeach;?>
                             </div>
-                            <a href="#" class="btn btn-lg btn-icon">
+                            <a href="#" class="btn btn-lg btn-icon js-btn-buy">
                                 <span>купить сейчас</span>
                                 <i class="icon"> › </i>
                             </a>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>

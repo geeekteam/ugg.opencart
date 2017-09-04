@@ -75,6 +75,8 @@ echo $header;
                         <?php else: ?>
                             <li class="product-item" data-price="<?=$product['price'];?>">
                         <?php endif; ?>
+                        <form action="#">
+                            <input type="hidden" name="product_id" value="<?=$product['product_id']; ?>">
                             <a href="<?=$product['href'];?>" class="img-product-item"><img src="<?=$product['thumb'];?>" alt=""></a>
                             <span class="name-product-item"><span><?=$product['name'];?></span>
                             <div class="price-product-item">
@@ -85,7 +87,7 @@ echo $header;
                                     <span class="new-price-item"><span><?=$product['price'];?></span> руб</span>
                                 <?php endif;?>
                             </div>
-                            <a href="#" class="btn btn-icon">
+                            <a href="#" class="btn btn-icon js-btn-buy">
                                 <span>купить сейчас</span>
                                 <i class="icon"> › </i>
                             </a>
@@ -96,7 +98,8 @@ echo $header;
                                     <?php endif;?>
                                 <?php endif;?>
                             <?php endforeach;?>
-                        </li>
+                        </form>
+                    </li>
                     <?php endforeach;?>
                 </ul>
                 <?=$content_bottom;?>

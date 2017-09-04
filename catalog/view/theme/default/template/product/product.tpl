@@ -72,7 +72,8 @@ echo $header;
                 <?php $i++; endforeach;?>
             </ul>
             <h1 class="tt-cont"><?=$heading_title; ?></h1>
-            <div class="product-inner">
+            <form class="product-inner">
+                <input type="hidden" name="product_id" value="<?=$product_id; ?>">
                 <div class="owl-slider-thumb-wrapp">
                     <div class="owl-slider-main owl-carousel owl-loaded owl-drag">
                         <div>
@@ -117,7 +118,7 @@ echo $header;
                                 <ul class="list-size-filter">
                                     <?php $i = 1; foreach($option['product_option_value'] as $sizes): ?>
                                         <li>
-                                            <label class="js-size-label size-label">
+                                            <label class="js-size-label size-label js-btn-buy">
                                                 <input class="js-size" type="radio" name="<?=$option['product_option_id']?>" value="<?=$sizes['product_option_value_id']?>" data-size="<?php echo $sizes['name']; ?>" id="mSize<?=$i;?>">
                                                 <a><?=($sizes['name']);?></a>
                                             </label>
@@ -153,10 +154,10 @@ echo $header;
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
-                        <button type="submit" class="btn-lg btn btn-icon">
+                        <a class="btn-lg btn btn-icon js-btn-buy">
                             <span>купить сейчас</span>
                             <i class="icon"> › </i>
-                        </button>
+                        </a>
                     </div>
                     <div class="product-inner-banner hidden-devices">
                         <div class="product-inner-banner-bl">
@@ -165,7 +166,7 @@ echo $header;
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div class="characteristics">
                 <?php if($attribute_groups):?>
                     <div class="characteristics-cont">
@@ -223,24 +224,27 @@ echo $header;
                 <ul class="list-product">
                     <?php foreach ($products as $product): ?>
                         <li class="product-item">
-                            <a href="<?=$product['href']; ?>" class="img-product-item"><img src="<?=$product['thumb']; ?>" alt="<?=$product['name']; ?>"></a>
-                            <span class="name-product-item"><span><?=$product['name']; ?>s</span>
-                            <div class="price-product-item">
-                                <?php if ($product['special']): ?>
-                                    <?php
+                            <form action="#">
+                                <input type="hidden" name="product_id" value="<?=$product['product_id']; ?>">
+                                <a href="<?=$product['href']; ?>" class="img-product-item"><img src="<?=$product['thumb']; ?>" alt="<?=$product['name']; ?>"></a>
+                                <span class="name-product-item"><span><?=$product['name']; ?>s</span>
+                                <div class="price-product-item">
+                                    <?php if ($product['special']): ?>
+                                        <?php
                                         $special_price = str_replace(' ', ',', str_replace(('.00 р.'), '', $product['special']));
                                         $default_price = str_replace(' ', '', str_replace(('.0000'), '', $product['price']));
-                                    ?>
-                                    <span class="new-price-item"><span><?=$special_price?></span> руб</span>
-                                    <span class="old-price-item">/ <span><?=$default_price?></span></span>
-                                <?php else: ?>
-                                    <span class="new-price-item"><span><?=$default_price?></span> руб</span>
-                                <?php endif; ?>
-                            </div>
-                            <a href="#" class="btn btn-icon">
-                                <span>купить сейчас</span>
-                                <i class="icon"> › </i>
-                            </a>
+                                        ?>
+                                        <span class="new-price-item"><span><?=$special_price?></span> руб</span>
+                                        <span class="old-price-item">/ <span><?=$default_price?></span></span>
+                                    <?php else: ?>
+                                        <span class="new-price-item"><span><?=$default_price?></span> руб</span>
+                                    <?php endif; ?>
+                                </div>
+                                <a href="#" class="btn btn-icon js-btn-buy">
+                                    <span>купить сейчас</span>
+                                    <i class="icon"> › </i>
+                                </a>
+                            </form>
                         </li>
                     <?php endforeach; ?>
                 </ul>

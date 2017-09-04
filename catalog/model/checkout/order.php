@@ -823,4 +823,85 @@ class ModelCheckoutOrder extends Model {
 			}
 		}
 	}
+
+    public function insertOrder($data)
+    {
+        $this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET 
+			invoice_prefix = 'INV-2013-00', 
+			store_id = '0', 
+			store_name = '', 
+			store_url = '', 
+			customer_id = '0', 
+			customer_group_id = '1', 
+			firstname = '" . $this->db->escape($data['firstname']) . "', 
+			lastname = '', 
+			email = '', 
+			telephone = '" . $this->db->escape($data['telephone']) . "', 
+			fax = '', 
+			custom_field = '[]', 
+			payment_firstname = '', 
+			payment_lastname = '', 
+			payment_company = '', 
+			payment_address_1 = '',  
+			payment_address_2 = '', 
+			payment_city = '', 
+			payment_postcode = '', 
+			payment_country = 'Russian Federation', 
+			payment_country_id = '176', 
+			payment_zone = '', 
+			payment_zone_id = '0', 
+			payment_address_format = '', 
+			payment_custom_field = '[]', 
+			payment_method = '', 
+			payment_code = 'code', 
+			shipping_firstname = '', 
+			shipping_lastname = '', 
+			shipping_company = '', 
+			shipping_address_1 = '', 
+			shipping_address_2 = '', 
+			shipping_city = '', 
+			shipping_postcode = '', 
+			shipping_country = 'Russian Federation', 
+			shipping_country_id = '176', 
+			shipping_zone = '', 
+			shipping_zone_id = '0', 
+			shipping_address_format = '', 
+			shipping_custom_field = '[]', 
+			shipping_method = '', 
+			shipping_code = 'flat.flat', 
+			comment = '" . $this->db->escape($data['product_comment']) . "', 
+			total = '" . $this->db->escape(isset($data['total']) ? (float)$data['total'] : '0') . "', 
+			order_status_id = '1', 
+			affiliate_id = '0', 
+			commission = '0.0000', 
+			marketing_id = '0', 
+			tracking = '', 
+			language_id = '1', 
+			currency_id = '4', 
+			currency_code = 'RUB', 
+			currency_value = '1.00000000', 
+			ip = '', 
+			forwarded_ip = '', 
+			user_agent = '', 
+			accept_language = '', 
+			date_added = NOW(), 
+			date_modified = NOW()
+			");
+
+        $order_id = $this->db->getLastId();
+
+        // Product
+        if (isset($data['product_name']) && isset($data['product_id'])) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_product SET order_id = '" . (int)$order_id . "', product_id = '" . (int)$data['product_id'] . "', name = '" . $this->db->escape($data['product_name']) . "', quantity = '" . (float)$data['product_quantity'] . "', price = '" . (float)$data['product_price'] . "', total = '" . (float)$data['product_total_price'] . "'");
+
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '1', notify = '1'");
+
+
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'sub_total', title = 'Сумма', value = '".(float)$data['price']."', sort_order = '1'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'shipping', title = '".(float)$data['shipping']."', value = '".(float)$data['priceShip']."', sort_order = '3'");
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'total', title = 'Итого', value = '".(float)$data['priceTotal']."', sort_order = '9'");
+        }
+
+        return $order_id;
+    }
 }

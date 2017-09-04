@@ -807,7 +807,7 @@ a:hover {
   vertical-align: middle;
 }
 
-.link-basket span {
+.link-basket .basket-count-products {
   display: inline-block;
   vertical-align: middle;
   margin-left: 11px;
@@ -3002,6 +3002,12 @@ body > .jcf-select-drop.jcf-drop-flipped {
 }
 
 .modal-contacts-form {
+  padding: 10px 25px 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-thanks {
   padding: 10px 25px 25px;
 }
 
@@ -5723,4 +5729,8 @@ blockquote {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+}
+
+.js-basket-count-products {
+  margin-left: 0;
 }

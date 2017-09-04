@@ -4,7 +4,8 @@
         foreach($products as $product):
         $count++; ?>
         <div class="prod-item-wrapper" data-count="<?=$count;?>">
-            <div class="prod-item">
+            <form action="#" class="prod-item">
+                <input type="hidden" name="product_id" value="<?=$product['product_id']; ?>">
                 <a href="<?=$product['href'];?>">
                     <div class="prod-img">
                         <?php foreach($product['options'] as $option):?>
@@ -40,7 +41,7 @@
                         </div>
                     </div>
                 </a>
-            </div>
+            </form>
         </div>
         <?php endforeach;?>
     </div>

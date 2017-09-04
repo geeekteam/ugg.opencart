@@ -25,11 +25,12 @@ jQuery(function($){
     maxVisibleItems: 10,
     useCustomScroll: false
   });
-  
+
   jcf.replaceAll();
 
+
 $("a.scrollto").click(function () {
-    var elementClick = $(this).attr("href")
+    var elementClick = $(this).attr("href");
     var destination = $(elementClick).offset().top;
     jQuery("html:not(:animated),body:not(:animated)").animate({scrollTop: destination}, 800);
     return false;
@@ -42,23 +43,6 @@ $("a.scrollto").click(function () {
     else{
       $('body').removeClass("sticky");
     }
-  });
-
-  // plus/minus value
-  $('.minus-input').click(function () {
-    var $input = $(this).parent().find('input');
-    var count = parseInt($input.val()) - 1;
-    count = count < 1 ? 1 : count;
-    $input.val(count);
-    $input.change();
-    return false;
-  });
-  
-  $('.plus-input').click(function () {
-    var $input = $(this).parent().find('input');
-    $input.val(parseInt($input.val()) + 1);
-    $input.change();
-    return false;
   });
 
   // add-open-class
