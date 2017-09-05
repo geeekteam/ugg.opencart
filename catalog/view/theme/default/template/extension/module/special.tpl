@@ -40,16 +40,14 @@
                                 <span>Размер (RUS)</span>
                                 <?php foreach($options as $option): ?>
                                     <?php if ($option['option_id'] == 14): ?>
-                                        <ul class="list-size-filter">
+                                        <div>
                                             <?php $i = 1; foreach($option['product_option_value'] as $sizes): ?>
-                                                <li>
-                                                    <label class="js-size-label size-label">
-                                                        <input class="js-size" type="radio" name="<?=$option['product_option_id']?>" value="<?=$sizes['product_option_value_id']?>" data-size="<?php echo $sizes['name']; ?>" id="mSize<?=$i;?>">
-                                                        <a><?=($sizes['name']);?></a>
-                                                    </label>
-                                                </li>
-                                                <?php $i++; endforeach;?>
-                                        </ul>
+                                                <label class="js-size-label size-label js-btn-buy">
+                                                    <input class="js-size" type="radio" name="<?=$option['product_option_id']?>" value="<?=$sizes['product_option_value_id']?>" data-size="<?php echo $sizes['name']; ?>" id="mSize<?=$i;?>">
+                                                    <a><?=($sizes['name']);?></a>
+                                                </label>
+                                            <?php $i++; endforeach;?>
+                                        </div>
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </div>

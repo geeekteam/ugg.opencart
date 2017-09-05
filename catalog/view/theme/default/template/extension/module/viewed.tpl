@@ -24,6 +24,13 @@
                             <span>купить сейчас</span>
                             <i class="icon"> › </i>
                         </a>
+                        <?php foreach($options as $option):?>
+                            <?php if($option['option_id'] == 13):?>
+                                <?php if (!empty(($option['value']))):?>
+                                    <span class="product-item-sale"><?=$option['value'];?></span>
+                                <?php endif;?>
+                            <?php endif;?>
+                        <?php endforeach;?>
                     </form>
                 </li>
             <?php endforeach; ?>

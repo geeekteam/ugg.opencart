@@ -34,8 +34,7 @@ echo $header;
         </div>
     </section>
 
-
-</div><!-- #middle-->
+</div>
 
 
 <?php echo $footer; ?>

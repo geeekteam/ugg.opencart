@@ -128,28 +128,34 @@ echo $header;
                             <?php endif;?>
                         <?php endforeach;?>
 
-                        <?php foreach($options as $option): ?>
-                            <?php if ($option['option_id'] == 15): ?>
-                                <div class="prod-cart-check-wrapp">
-                                    <input class="js-several-sizes" type="checkbox" id="<?=$option['name'];?>" name="<?=$option['product_option_id']?>" value="<?=$option['product_option_value_id']?>">
-                                    <label for="<?=$option['name'];?>"><?=$option['name'];?></label>
-                                </div>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                        <label>
+                            <input class="js-give-some-in-cart" type="checkbox" value="привезите несколько">
+                            <span>Привезти несколько размеров</span>
+                        </label>
 
                         <?php foreach($options as $option): ?>
                             <?php if ($option['option_id'] == 16): ?>
                                 <div class="delivery">
                                     <span>Доставка:</span>
                                     <div class="delivery-bl">
-                                        <?php $j = 1; foreach($option['product_option_value'] as $delivery): ?>
-                                            <div>
-                                                <label>
-                                                    <input class="js-delivery" type="radio" name="<?=$option['product_option_id']?>" value="<?=$delivery['product_option_value_id']?>" data-size="<?php echo $delivery['name']; ?>" id="delivery[<?=$j;?>]">
-                                                    <span><?=$delivery['name'];?></span>
-                                                </label>
-                                            </div>
-                                        <?php $j++; endforeach?>
+                                        <div>
+                                            <label>
+                                                <input type="radio" checked name="delivery" class="js-delivery-in-cart" value="по Москве">
+                                                <span>По Москве</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label>
+                                                <input type="radio" name="delivery" class="js-delivery-in-cart" value="по России">
+                                                <span>По России (+390 р.)</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label>
+                                                <input type="radio" name="delivery" class="js-delivery-in-cart" value="самовывоз">
+                                                <span>Самовывоз</span>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             <?php endif; ?>
@@ -189,10 +195,11 @@ echo $header;
                 <?php endif; ?>
                 <div class="characteristics-txt">
                     <div class="characteristics-link">
-                        <a href="#">Доставка и оплата</a>
-                        <a href="#">Возврат</a>
+                        <a href="/dostavka-i-oplata">Доставка и оплата</a>
+                        <a href="/vozvrat">Возврат</a>
                     </div>
-                    <?=$description; ?>
+                    <p><?=$sku;?></p>
+                    <?=$description;?>
                 </div>
             </div>
         </div>
@@ -244,6 +251,13 @@ echo $header;
                                     <span>купить сейчас</span>
                                     <i class="icon"> › </i>
                                 </a>
+                                <?php foreach($options as $option):?>
+                                    <?php if($option['option_id'] == 13):?>
+                                        <?php if (!empty(($option['value']))):?>
+                                            <span class="product-item-sale"><?=$option['value'];?></span>
+                                        <?php endif;?>
+                                    <?php endif;?>
+                                <?php endforeach;?>
                             </form>
                         </li>
                     <?php endforeach; ?>

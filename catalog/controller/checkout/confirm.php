@@ -437,14 +437,110 @@ class ControllerCheckoutConfirm extends Controller {
         $telephone = $this->request->post['telephone'];
         $total_price = $this->request->post['total_price'];
         $delivery_type = $this->request->post['delivery_type'];
+        $product_data = '';
 
-        foreach ($this->request->post['products'] as $products):
-            $products['firstname'] = $firstname;
-            $products['telephone'] = $telephone;
-            $products['total_price'] = $total_price;
-            $products['delivery_type'] = $delivery_type;
-            $this->model_checkout_order->insertOrder($products);
+        foreach ($this->request->post['products'] as $product):
+            $product['firstname'] = $firstname;
+            $product['telephone'] = $telephone;
+            $product['total_price'] = $total_price;
+            $product['delivery_type'] = $delivery_type;
+            $this->model_checkout_order->insertOrder($product);
+
+            $give_some = $product['give_some'];
+            if ($give_some != "") :
+                $product_data .= "<p style='margin-top: 0;'>" . $product['product_name'] . ", цена: " . $product['product_price'] . " руб." . ", количество: " . $product['product_quantity'] . $give_some . "</p>" . "</br>";
+            else:
+                $product_data .= "<p style='margin-top: 0;'>" . $product['product_name'] . ", цена: " . $product['product_price'] . " руб." . ", количество: " . $product['product_quantity'] . "</p>" . "</br>";
+            endif;
         endforeach;
+
+        unset($product);
+
+        $message = "<table border='0'>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Имя:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $firstname . "</p></td>" .
+            "</tr>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Телефон:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $telephone . "</p></td>" .
+            "</tr>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Товар(ы):</p></td>" .
+            "<td>"
+            . $product_data .
+            "</td>" .
+            "</tr>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Тип доставки:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $delivery_type . "</p></td>" .
+            "</tr>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Итого:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $total_price . " руб.</p></td>" .
+            "</tr>" .
+            "</table>";
+
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo($this->config->get('config_email'));
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender("UGG");
+        $mail->setSubject("Новый заказ");
+
+        $mail->setHtml($message);
+
+        $mail->send();
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($order_datas));
+
+        unset($firstname);
+        unset($telephone);
+    }
+
+    function sendFeedback() {
+
+        $order_datas = array();
+
+        $firstname = $this->request->post['firstname'];
+        $telephone = $this->request->post['telephone'];
+
+        $message = "<table border='0'>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Имя:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $firstname . "</p></td>" .
+            "</tr>" .
+            "<tr valign=\"top\">" .
+            "<td><p style='margin-top: 0;'>Телефон:</p></td>" .
+            "<td><p style='margin-top: 0;'>" . $telephone . "</p></td>" .
+            "</tr>" .
+            "</table>";
+
+        $mail = new Mail();
+        $mail->protocol = $this->config->get('config_mail_protocol');
+        $mail->parameter = $this->config->get('config_mail_parameter');
+        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+
+        $mail->setTo($this->config->get('config_email'));
+        $mail->setFrom($this->config->get('config_email'));
+        $mail->setSender("UGG");
+        $mail->setSubject("Обратная связь");
+
+        $mail->setHtml($message);
+
+        $mail->send();
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($order_datas));

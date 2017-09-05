@@ -73,7 +73,7 @@
                 </div>
                 <?php foreach($cart as $cartItem) : ?>
                     <div class="prod-cart-row js-prod-cart-item" data-cart-id="<?=$cartItem['cart_id']?>">
-                        <input type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_id]" value="<?=$cartItem['product_id']; ?>">
+                        <input class="js-product-id" type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_id]" value="<?=$cartItem['product_id']; ?>">
                         <input type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_name]" value="<?=$cartItem['name']; ?>">
                         <input class="js-hidden-input-item-price" type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_price]" value="<?=$cartItem['price']; ?>">
                         <input type="hidden" class="js-hidden-input-product-size" name="products[<?=$cartItem['product_id']; ?>][product_size]">
@@ -103,8 +103,10 @@
                                 </select>
                             </div>
                             <div class="prod-cart-check-wrapp js-give-some">
-                                <input type="checkbox" id="ch1" name="ch1">
-                                <label for="ch1">Не уверена в размере - привезите несколько</label>
+                                <label>
+                                    <input type="checkbox" value="привезите несколько">
+                                    <span>Не уверена в размере - привезите несколько</span>
+                                </label>
                             </div>
                         </div>
 
@@ -167,17 +169,17 @@
         </div>
     </form>
 
-    <div id="feedback" class="st-modal mfp-hide">
+    <div id="feedback" class="jqs-feedback-form st-modal mfp-hide">
         <div class="modal-contacts-form">
             <form action="#">
                 <span class="site-h2-tt text-center">Обратный звонок</span>
                 <div class="form-group form-group-icon">
                     <i class="icon icon-pers"></i>
-                    <input type="text" placeholder="Ваше имя" id="input-name">
+                    <input type="text" placeholder="Ваше имя" name="firstname" id="input-name">
                 </div>
                 <div class="form-group form-group-icon">
                     <i class="icon icon-phone3"></i>
-                    <input type="text" placeholder="+7" id="input-phone" class="mask-phone">
+                    <input type="text" placeholder="+7" name="telephone" id="input-phone" class="mask-phone">
                 </div>
                 <button class="btn btn-icon btn-max" type="submit"><span>ОФОРМИТЬ</span> <i class="icon">›</i></button>
             </form>
@@ -546,9 +548,12 @@
                             <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
                         </ul>
                         <div class="search">
-                            <form action="#">
-                                <div class="search-inp"><input type="text" placeholder="Поиск"></div>
-                                <button type="submit" class="btn-search"><i class="icon icon-search"></i></button>
+                            <form action="/" method="get" class="js-search-form">
+                                <div class="search-inp">
+                                    <input type="hidden" name="route" value="product/search">
+                                    <input type="text" name="search" placeholder="Поиск">
+                                </div>
+                                <button type="button" class="btn-search"><i class="icon icon-search"></i></button>
                             </form>
                         </div>
                     </nav>

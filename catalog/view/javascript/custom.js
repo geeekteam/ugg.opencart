@@ -27,6 +27,44 @@ function futureDate() {
     dateSpan.html(futureDate + '!').css('display', 'inline-block');
 }
 
+function sortAsc() {
+    var $container = $('.js-sortable'),
+        $products = $container.find('.product-item');
+
+    $products.sort(function (a, b) {
+        var an = $(a).attr('data-price'),
+            bn = $(b).attr('data-price');
+        if (an && bn) {
+            return an.toUpperCase().localeCompare(bn.toUpperCase());
+        }
+        return 0;
+    });
+    $products.detach().appendTo($container);
+}
+
+function sortDesc() {
+    var $container = $('.js-sortable'),
+        $products = $container.find('.product-item');
+
+    $products.sort(function (a, b) {
+        var an = $(a).attr('data-price'),
+            bn = $(b).attr('data-price');
+        if (an && bn) {
+            return bn.toUpperCase().localeCompare(an.toUpperCase());
+        }
+        return 0;
+    });
+    $products.detach().appendTo($container);
+}
+
+$('.js-sort').change(function () {
+    var $option = $("select option:selected");
+    if ($option.hasClass('js-sort-asc'))
+        sortAsc();
+    if ($option.hasClass('js-sort-desc'))
+        sortDesc();
+});
+
 
 function scrollToTop() {
     var scrollButton = $('.js-scroll-top');
@@ -56,11 +94,12 @@ $(function () {
     var currentState = history.state;
     for (const key in currentState) {
         if (currentState[key] && currentState[key].contentProducts) {
-            $('.prodList[data-category="' + key + '"]').html('');
-            $('.prodList[data-category="' + key + '"]').append(currentState[key].contentProducts);
+            $('.list-product[data-category="' + key + '"]').html('');
+            $('.list-product[data-category="' + key + '"]').append(currentState[key].contentProducts);
             page = currentState[key].page;
         }
     }
+    console.log('hi');
     var $showMore = $('.js-show-more');
     if ($showMore.length) {
 
@@ -71,6 +110,7 @@ $(function () {
             var category = $newShowMore.data('category');
             $(document).on('scroll', function () {
 
+
                 if (maxPage > page && $(this).scrollTop() >= $newShowMore.position().top - 700 && !loadPage) {
                     loadPage = true;
                     $('#fountainG').show();
@@ -80,15 +120,14 @@ $(function () {
                         url: url,
                         data: {page: page},
                         success: function (data) {
-                            $(data).find('.prodList[data-category="' + category + '"] .prod-item-wrapper[data-category="' + category + '"]').each(function () {
-                                $('.prodList[data-category="' + category + '"]').append(this);
-
+                            $(data).find('.list-product[data-category="' + category + '"] .prod-item-wrapper[data-category="' + category + '"]').each(function () {
+                                $('.list-product[data-category="' + category + '"]').append(this);
                             });
 
                             var state = {};
 
                             state[category] = {
-                                contentProducts: $('.prodList[data-category="' + category + '"]').html(),
+                                contentProducts: $('.list-product[data-category="' + category + '"]').html(),
                                 page: page
                             };
 
@@ -113,7 +152,6 @@ $(function () {
 
 });
 
-
 scrollToTop();
 futureDate();
 
@@ -126,93 +164,6 @@ var $sendForm = $('.js-send-form'),
     $thanks = $('.js-thanks'),
     $thanksModal = $('.thanks-modal'),
     $closeThanksBtn = $('.js-close-thanks');
-
-/*$sendForm.each(function () {
- var $this = $(this);
- if ($this.data('form-type') === 'main-banner') {
- $this.submit(function (t) {
- t.preventDefault();
- var $cphone = $this.find('.js-phone'),
- $cname = 'Заказ товара от: ' + $this.find('.js-name').val(),
- $title = $this.find('.js-title').val(),
- $price = $this.find('.js-price').val(),
- $size = $this.find('.js-size[type=radio]:checked').attr('data-size'),
- $productId = $this.find('.js-product-id').val(),
- $button = $this.find('.js-btn');
- if (validatePhone($cphone.val()) == true) {
- $cphone.removeAttr('style');
- var order = 'cphone=' + $cphone.val() + '&iname=' + $cname + '&ititle=' + $title + '&iprice=' + $price + '&ipriceTotal=' + $price + '&prid=' + $productId + '&isize=' + $size;
- $.ajax({
- url: 'index.php?route=checkout/cart/addorder',
- type: 'post',
- data: order,
- dataType: 'json',
- beforeSend: function () {
- $button.text('Отправка...');
- },
- complete: function () {
- $button.text('Купить');
- },
- success: function (json) {
- if (json['error']) {
- if (json['error']['phone']) {
- $cphone.css('border', '1px solid red');
- }
- }
- $cphone.removeAttr('style');
- $this.addClass('hidden');
- $thanks.addClass('active');
- }
- });
- } else {
- $cphone.css('border', '1px solid red');
- }
- })
- }
-
- if ($this.data('form-type') === 'modal-call') {
- $this.submit(function (t) {
- t.preventDefault();
- var $cphone = $this.find('.js-phone'),
- $cname = 'Заказ звонка от: ' + $this.find('.js-name').val(),
- $button = $this.find('.js-btn');
- if (validatePhone($cphone.val()) == true) {
- $cphone.removeAttr('style');
- var order = 'cphone=' + $cphone.val() + '&iname=' + $cname;
- $.ajax({
- url: 'index.php?route=checkout/cart/addorder',
- type: 'post',
- data: order,
- dataType: 'json',
- beforeSend: function () {
- $button.text('Отправка...');
- },
- complete: function () {
- $button.text('Оформить');
- },
- success: function (json) {
- if (json['error']) {
- if (json['error']['phone']) {
- $cphone.css('border', '1px solid red');
- }
- }
- $cphone.removeAttr('style');
- $.magnificPopup.close();
- $.magnificPopup.open({
- items: {
- src: '#thanksModal',
- type: 'inline'
- }
- })
- }
- });
- } else {
- $cphone.css('border', '1px solid red');
- }
- })
- }
- });*/
-
 
 $closeThanksBtn.click(function () {
     $thanks.removeClass('active');
@@ -239,6 +190,7 @@ $(document).on('click', '.js-btn-buy', function (e) {
         };
     if ($(this).hasClass('js-size-label'))
         $(this).find('input.js-size').prop('checked', true);
+    $('#input-phone').css('border', 'none');
 
     $.each($form.serializeArray(), function (key, input) {
         if (input.name === 'product_id') data[input.name] = input.value;
@@ -256,13 +208,13 @@ $(document).on('click', '.js-btn-buy', function (e) {
             getCartAddedNewProduct(data.product_id, function (productIncart) {
                 var product = productIncart.product;
                 $('#cartModal').find('#cart').load('?route=common/header/info .js-prod-cart-item');
-                setTimeout(function() {
+                setTimeout(function () {
                     $.magnificPopup.open({
                         items: {
                             src: '#cartModal'
                         },
-                        callbacks : {
-                            beforeOpen : function(){
+                        callbacks: {
+                            beforeOpen: function () {
                                 var itemsCount = $('#cartModal').find('.js-prod-cart-item').length;
                                 $basketCountProducts.html(itemsCount);
                             }
@@ -272,10 +224,12 @@ $(document).on('click', '.js-btn-buy', function (e) {
                     totalPrice();
                     if ($('.link-basket').hasClass('hidden'))
                         $('.link-basket').removeClass('hidden');
-                }, 200)
+                }, 220)
+                productOptions();
             });
         }
     });
+
 });
 
 $(document).on('submit', '.jq-send-form', function (e) {
@@ -283,81 +237,131 @@ $(document).on('submit', '.jq-send-form', function (e) {
 
     var $form = $(this),
         tempData = {},
-        data = [];
+        data = [],
+        $phone = $form.find('#input-phone');
 
-    $.each($form.serializeArray(), function (key, input) {
-        tempData[input.name] = input.value;
-    });
+    if (validatePhone($phone.val()) === true) {
+        $phone.css('border', 'none');
+        $.each($form.serializeArray(), function (key, input) {
+            tempData[input.name] = input.value;
+        });
 
-    data.push(tempData);
-
-    addOrder(data, function (response) {
-        console.log(response);
-    });
+        data.push(tempData);
+        addOrder(data, function (response) {
+            console.log(response);
+        });
+    } else {
+        $phone.css('border', '1px solid red');
+    }
 });
 
 $(document).on('submit', '.jqs-send-form', function (e) {
     e.preventDefault();
     var $form = $(this),
         data = {products: {}},
-        $items = $form.find('js-prod-cart-item');
+        $phone = $form.find('#input-phone');
 
     productSize();
+    if (validatePhone($phone.val()) === true) {
+        $phone.css('border', 'none');
+        $.each($form.serializeArray(), function (index, input) {
+            if (input.name.indexOf('products[') > -1) {
+                var slitedInput = input.name.split(']['),
+                    productId = slitedInput[0].replace('products[', ''),
+                    fieldName = slitedInput[1].replace(']', '');
 
-    $.each($form.serializeArray(), function (index, input) {
-        if (input.name.indexOf('products[') > -1) {
-            var slitedInput = input.name.split(']['),
-                productId = slitedInput[0].replace('products[', ''),
-                fieldName = slitedInput[1].replace(']', '');
+                if (data.products[productId] === undefined)
+                    data.products[productId] = {};
 
-            if (data.products[productId] === undefined)
-                data.products[productId] = {};
+                data.products[productId][fieldName] = input.value;
+            } else {
+                data[input.name] = input.value;
+            }
 
-            data.products[productId][fieldName] = input.value;
-        } else {
-            data[input.name] = input.value;
-        }
+        });
 
-    });
+        addOrder(data, function (response) {
+            console.log(response);
+        });
 
-    console.log(data);
+        $.magnificPopup.close({
+            items: {
+                src: '#cartModal'
+            }
+        });
+        $.magnificPopup.open({
+            items: {
+                src: '#thanks'
+            }
+        });
 
-    addOrder(data, function (response) {
-        console.log(response);
-    });
-
-    $.magnificPopup.close({
-        items: {
-            src: '#cartModal'
-        }
-    });
-    $.magnificPopup.open({
-        items: {
-            src: '#thanks'
-        }
-    });
-
-    clearForm ();
+        clearForm();
+    } else {
+        $phone.css('border', '1px solid red');
+    }
 });
 
 function addOrder(data, callback) {
-    var $form = $('.jqs-send-form'),
-        $items = $form.find('.js-prod-cart-item');
     $.ajax({
         url: 'index.php?route=checkout/confirm/addFromMain',
         type: 'post',
         data: data,
         dataType: 'json',
         success: function (response) {
-            // callback(response);
-            console.log("success");
+            callback(response);
         }
     });
-
 }
 
-// Очистка формы
-function clearForm () {
+$(document).on('submit', '.jqs-feedback-form', function (e) {
+    e.preventDefault();
+    var $form = $(this),
+        data = {},
+        $name = $form.find('#input-name'),
+        $phone = $form.find('#input-phone');
+
+    if (validatePhone($phone.val()) === true) {
+        $phone.css('border', 'none');
+
+        data['firstname'] = $name.val();
+        data['telephone'] = $phone.val();
+
+        sendFeedback(data, function (response) {
+            // console.log(response);
+        });
+
+        $.magnificPopup.close({
+            items: {
+                src: '#feedback'
+            }
+        });
+        $.magnificPopup.open({
+            items: {
+                src: '#thanks'
+            }
+        });
+
+        clearFeedbackForm();
+    } else {
+        $phone.css('border', '1px solid red');
+    }
+});
+
+function sendFeedback(data, callback) {
+    var $form = $('.jqs-feeback-form');
+    $.ajax({
+        url: 'index.php?route=checkout/confirm/sendFeedback',
+        type: 'post',
+        data: data,
+        dataType: 'json',
+        success: function (response) {
+            callback(response);
+        }
+    });
+}
+
+// Очистка формы корзины
+function clearForm() {
     var $form = $('#cartModal');
 
     $form.find('.js-prod-cart-item').each(function () {
@@ -377,6 +381,12 @@ function clearForm () {
             $('.link-basket').addClass('hidden');
     });
 };
+
+// Очистка формы обратного звонка
+function clearFeedbackForm() {
+    var $form = $('.jqs-feedback-form');
+    $form.find('input').val('').css('border', 'none');
+}
 
 //Сохранение выбранных опций (размер, привезите несколько, тип доставки)
 function productSize() {
@@ -432,7 +442,7 @@ function removeItem(item) {
                 data: 'key=' + cart_id,
                 dataType: 'json',
                 success: function () {
-                    $basketCountProducts.html(itemsCount-1);
+                    $basketCountProducts.html(itemsCount - 1);
                 }
             });
         }
@@ -450,7 +460,7 @@ function removeItem(item) {
                 data: 'key=' + cart_id,
                 dataType: 'json',
                 success: function () {
-                    $basketCountProducts.html(itemsCount-1);
+                    $basketCountProducts.html(itemsCount - 1);
                     item.remove();
                     if (!$('.link-basket').hasClass('hidden'))
                         $('.link-basket').addClass('hidden');
@@ -496,6 +506,7 @@ $(document).on('focusout', '.js-item-count', function () {
 // Расчёт итоговой суммы при клике на кнпоку, вызывающую корзину
 $(document).on('click', '.link-basket', function () {
     totalPrice();
+    $('#input-phone').css('border', 'none');
     jcf.replaceAll();
 });
 
@@ -508,10 +519,45 @@ $(document).on('click', '.js-delivery-russian', function () {
     $totalPriceSpan.html(parseInt($totalPriceInput.val()) + 390 + ' <span class="rubl"> </span>');
 });
 
-// Сохранение преждней стоимости, если доставка по России не выбрана
+// Сохранение прежней стоимости, если доставка по России не выбрана
 $(document).on('click', '.js-delivery-default', function () {
     var $form = $('#cartModal'),
         $totalPriceSpan = $form.find('.js-total-price'),
         $totalPriceInput = $form.find('.js-total-price-input').val();
     $totalPriceSpan.html($totalPriceInput + ' <span class="rubl"> </span>');
 });
+
+//Отключать submit на кнопку при пустом поле поиска
+$('.js-search-form').on('click', function (e) {
+    var $form = $(this),
+        $btn = $form.find('button'),
+        $input = $form.find('input[type="text"]');
+    if ($input.val().length === 0)
+        $btn.prop("type", "button");
+    else
+        $btn.prop("type", "submit");
+});
+
+// Изменение типа дсставки и чекбокса "Привезти несколько размеров" внутри корзины при их выборе на странице товара
+function productOptions() {
+    var productIdInCart = $('input[name=product_id]').val(),
+        $form = $('.jqs-send-form'),
+        $giveSomeInCart = $('.js-give-some-in-cart'),
+        $deliveryInCart = $('.js-delivery-in-cart:checked');
+
+    // $form.find('.js-prod-cart-item').each(function () {
+    //     var productIdInBasket = $(this).find('.js-product-id').val(),
+    //         $giveSomeInBasket = $(this).find('.js-give-some input[type=checkbox]');
+    //     if (productIdInBasket === productIdInCart) {
+    //         if($giveSomeInCart.is(":checked")) {
+    //             console.log('give some');
+    //             $giveSomeInBasket.prop('checked', true);
+    //         }
+    //     }
+    // });
+    $form.find('.js-delivery-type input[type=radio]').each(function () {
+        var $deliveryInBasket = $(this);
+        if ($deliveryInBasket.val() === $deliveryInCart.val())
+            $deliveryInBasket.prop('checked', true);
+    });
+}
