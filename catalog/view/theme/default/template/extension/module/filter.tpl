@@ -20,14 +20,18 @@
                             $checked = '';
                             (isset($_GET['filter']) && in_array($filter['filter_id'], explode(',', $_GET['filter']))) && $checked = 'checked';
                         ?>
+<!--                        <pre>-->
+<!--                            --><?php //count($filter['products']); ?>
+<!--                        </pre>-->
                         <li class="filter-item">
                             <label>
                                 <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
-                                <a><span class="col-aside" style="background-color:<?=$color_code[0]?>;"></span><span><?=$color_name;?> (<?=$color_count;?>)</span></a>
+                                <a><span class="col-aside" style="background-color:<?=$color_code[0]?>;"></span><span class="js-filter-name" data-filter-name="<?=$color_name;?>"><?=$color_name;?> (<?=$color_count;?>)</span></a>
                             </label>
                         </li>
                     <?php endforeach;?>
                 </ul>
+                <span class="js-all-filters col-aside all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 3): ?>
             <div class="filter-aside-cont">
@@ -45,11 +49,12 @@
                         <li class="filter-item">
                             <label>
                                 <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
-                                <a><?=$material_name;?> (<?=$material_count?>)</a>
+                                <a><span class="js-filter-name" data-filter-name="<?=$material_name;?>"><?=$material_name;?> (<?=$material_count?>)</span></a>
                             </label>
                         </li>
                     <?php endforeach;?>
                 </ul>
+                <span class="col-aside js-all-filters all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 1): ?>
             <div class="filter-aside-cont">
@@ -66,11 +71,12 @@
                     <li class="filter-item">
                         <label>
                             <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
-                            <a><?=$size_name;?></a>
+                            <a><span class="js-filter-name" data-filter-name="<?=$size_name;?>"><?=$size_name;?></span></a>
                         </label>
                     </li>
                     <?php endforeach;?>
                 </ul>
+                <span class="col-aside js-all-filters all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 4): ?>
             <div class="filter-aside-cont">
@@ -87,7 +93,7 @@
                     <li class="filter-item">
                         <label>
                             <input class="hidden-checkbox" type="checkbox" name="filter[]" value="<?php echo $filter['filter_id']; ?>" <?=$checked; ?>>
-                            <a><?=$height_name;?></a>
+                            <a><span class="js-filter-name" data-filter-name="<?=$height_name;?>"><?=$height_name;?></span></a>
                         </label>
                     </li>
                     <?php endforeach;?>
@@ -97,32 +103,32 @@
     <?php endforeach;?>
 </div>
 
-<script type="text/javascript">
+<script>
+    //Очистка фильтра по нажатию на кнопку "Все", показ всех элементов фильтра
+    $('.js-all-filters').on('click', function () {
+        var newLocation = location.href,
+            filter = [];
+        newLocation = newLocation.split('filter=').pop();
+        newLocation = newLocation.split(',');
+        $(this).closest('.filter-aside-cont').find('input[name^=\'filter\']:checked').each(function (element) {
+            var index = newLocation.indexOf(this.value);
+            newLocation.splice(index, 1);
+            filter.push(newLocation);
+        });
+        location = '<?php echo $action; ?>&filter=' + filter.join(',');
+    });
+
+    //Фильтрация по клику на элемент фильтра
     $('.filter-item').on('click', function () {
-        filter = [];
+        var filter = [];
         $('input[name^=\'filter\']:checked').each(function (element) {
             filter.push(this.value);
         });
         location = '<?php echo $action; ?>&filter=' + filter.join(',');
     });
 
-    var $resetButton = $('.js-reset-filter'),
-        $checkBoxes = $('.filter-aside-cont').find('input[type=checkbox]');
-
-    $resetButton.click(function () {
-        $checkBoxes.each(function () {
-            var $jcf = $(this).closest('.jcf-checkbox');
-            $(this).removeAttr('checked');
-            if ($jcf.hasClass('jcf-checked')) {
-                $jcf.removeClass('jcf-checked');
-                $jcf.addClass('jcf-unchecked');
-            }
-            filter = [];
-            $('input[name^=\'filter\']:checked').each(function (element) {
-                filter.push(this.value);
-            });
-            location = '<?php echo $action; ?>&filter=' + filter.join(',');
-        });
+    //Сброс всех фильтров
+    $('.js-reset-filter').on('click', function () {
+        location = '<?php echo $action; ?>';
     });
-
 </script>

@@ -13,6 +13,7 @@ class ControllerExtensionModuleFilter extends Controller {
 
 		$category_info = $this->model_catalog_category->getCategory($category_id);
 
+
 		if ($category_info) {
 			$this->load->language('extension/module/filter');
 
@@ -48,6 +49,19 @@ class ControllerExtensionModuleFilter extends Controller {
 
 			$filter_groups = $this->model_catalog_category->getCategoryFilters($category_id);
 
+            $this->load->model('catalog/product');
+
+            $filter_data = array(
+                'filter_category_id' => $category_id
+            );
+
+            $products = $this->model_catalog_product->getProducts($filter_data);
+
+            foreach ($products as $product):
+                $products[] = $product['product_id'];
+            endforeach;
+
+
 			if ($filter_groups) {
 				foreach ($filter_groups as $filter_group) {
 					$childen_data = array();
@@ -56,9 +70,11 @@ class ControllerExtensionModuleFilter extends Controller {
 						$filter_data = array(
 							'filter_category_id' => $category_id,
 							'filter_filter'      => $filter['filter_id']
+
 						);
 
 						$childen_data[] = array(
+                            'products'      => $products,
 							'filter_id' => $filter['filter_id'],
 							'name'      => $filter['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : '')
 						);

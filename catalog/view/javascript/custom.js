@@ -68,7 +68,6 @@ $('.js-sort').change(function () {
 
 function scrollToTop() {
     var scrollButton = $('.js-scroll-top');
-
     scrollButton.hide();
 
     $(document).ready(function () {
@@ -86,74 +85,6 @@ function scrollToTop() {
         return false;
     });
 }
-
-var page = 1;
-var loadPage = false;
-
-$(function () {
-    var currentState = history.state;
-    for (const key in currentState) {
-        if (currentState[key] && currentState[key].contentProducts) {
-            $('.list-product[data-category="' + key + '"]').html('');
-            $('.list-product[data-category="' + key + '"]').append(currentState[key].contentProducts);
-            page = currentState[key].page;
-        }
-    }
-    console.log('hi');
-    var $showMore = $('.js-show-more');
-    if ($showMore.length) {
-
-        $showMore.each(function () {
-            var $newShowMore = $(this);
-            var maxPage = $newShowMore.data('max-page');
-            var url = $newShowMore.data('max-url');
-            var category = $newShowMore.data('category');
-            $(document).on('scroll', function () {
-
-
-                if (maxPage > page && $(this).scrollTop() >= $newShowMore.position().top - 700 && !loadPage) {
-                    loadPage = true;
-                    $('#fountainG').show();
-                    page++;
-
-                    $.ajax({
-                        url: url,
-                        data: {page: page},
-                        success: function (data) {
-                            $(data).find('.list-product[data-category="' + category + '"] .prod-item-wrapper[data-category="' + category + '"]').each(function () {
-                                $('.list-product[data-category="' + category + '"]').append(this);
-                            });
-
-                            var state = {};
-
-                            state[category] = {
-                                contentProducts: $('.list-product[data-category="' + category + '"]').html(),
-                                page: page
-                            };
-
-                            history.replaceState(state, location.href, location.href);
-
-                            loadPage = false;
-                            $('#fountainG').hide();
-                        }
-                    })
-
-                }
-            });
-        })
-    }
-
-    $('.goBack').on('click', function () {
-        if (history.length > 2) {
-            window.history.go(-1);
-            return false;
-        }
-    });
-
-});
-
-scrollToTop();
-futureDate();
 
 function validatePhone(phoneNumber) {
     var phoneNumberPattern = /((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{8,10}/;
@@ -277,7 +208,6 @@ $(document).on('submit', '.jqs-send-form', function (e) {
             } else {
                 data[input.name] = input.value;
             }
-
         });
 
         addOrder(data, function (response) {
@@ -294,7 +224,6 @@ $(document).on('submit', '.jqs-send-form', function (e) {
                 src: '#thanks'
             }
         });
-
         clearForm();
     } else {
         $phone.css('border', '1px solid red');
@@ -446,7 +375,7 @@ function removeItem(item) {
                 }
             });
         }
-        // Удалить товар из списка и закрыть корзину, если товар единственный
+    // Удалить товар из списка и закрыть корзину, если товар единственный
     } else if (itemsCount === 1) {
         if (($count.val() < 1)) {
             $.magnificPopup.close({
@@ -540,24 +469,67 @@ $('.js-search-form').on('click', function (e) {
 
 // Изменение типа дсставки и чекбокса "Привезти несколько размеров" внутри корзины при их выборе на странице товара
 function productOptions() {
-    var productIdInCart = $('input[name=product_id]').val(),
-        $form = $('.jqs-send-form'),
-        $giveSomeInCart = $('.js-give-some-in-cart'),
+    var $form = $('.jqs-send-form'),
         $deliveryInCart = $('.js-delivery-in-cart:checked');
 
-    // $form.find('.js-prod-cart-item').each(function () {
-    //     var productIdInBasket = $(this).find('.js-product-id').val(),
-    //         $giveSomeInBasket = $(this).find('.js-give-some input[type=checkbox]');
-    //     if (productIdInBasket === productIdInCart) {
-    //         if($giveSomeInCart.is(":checked")) {
-    //             console.log('give some');
-    //             $giveSomeInBasket.prop('checked', true);
-    //         }
-    //     }
-    // });
+    /*var productIdInCart = $('input[name=product_id]').val();
+    var $giveSomeInCart = $('.js-give-some-in-cart');
+
+    $form.find('.js-prod-cart-item').each(function () {
+        var productIdInBasket = $(this).find('.js-product-id').val(),
+            $giveSomeInBasket = $(this).find('.js-give-some input[type=checkbox]');
+        if (productIdInBasket === productIdInCart) {
+            if($giveSomeInCart.is(":checked")) {
+                console.log('give some');
+                $giveSomeInBasket.prop('checked', true);
+            }
+        }
+    });*/
+
     $form.find('.js-delivery-type input[type=radio]').each(function () {
         var $deliveryInBasket = $(this);
         if ($deliveryInBasket.val() === $deliveryInCart.val())
             $deliveryInBasket.prop('checked', true);
     });
 }
+
+//Cкрытие всех фильтров, кроме активного, появление кнопки "Все"
+function filterCheckedItems() {
+    var $filters = $('.filter-aside-cont');
+    $filters.each(function () {
+        var $allButton = $(this).find('.js-all-filters'),
+            $inputs = $(this).find('.filter-item input');
+        if ($inputs.filter(":checked").length > 0) {
+            $inputs.not(":checked").closest('.filter-item').addClass('hidden');
+            $allButton.removeClass('hidden');
+        }
+    });
+}
+
+//Изменение тайтла категории при применении фильтров
+function categoryTitle() {
+    var $categoryTitleSpan = $('.js-category-title'),
+        categoryTitle = $categoryTitleSpan.html(),
+        $filters = $('.filter-aside-cont'),
+        $inputsChecked = $filters.find('input:checked'),
+        arr = [];
+    $inputsChecked.each(function () {
+        var filterName = $(this).closest('.filter-item').find('.js-filter-name').attr('data-filter-name');
+        filterName = filterName.replace(/\s/g, '');
+        arr.push(filterName);
+    });
+    $categoryTitleSpan.html(categoryTitle + ', ' + arr.join(', '));
+
+}
+
+//Изменение тайтла категории при применении фильтров
+categoryTitle();
+
+//Кнопка скролла наверх
+scrollToTop();
+
+//Расчёт даты до окончания акции (+n дней к текущей)
+futureDate();
+
+//Скрытие фильтров, кроме активного
+filterCheckedItems();
