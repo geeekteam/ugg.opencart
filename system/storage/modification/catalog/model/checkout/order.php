@@ -829,7 +829,7 @@ class ModelCheckoutOrder extends Model {
     public function insertOrder($data)
     {
         $this->db->query("INSERT INTO `" . DB_PREFIX . "order` SET 
-			invoice_prefix = 'INV-2013-00', 
+	        invoice_prefix = 'INV-2013-00', 
 			store_id = '0', 
 			store_name = '', 
 			store_url = '', 
@@ -887,7 +887,7 @@ class ModelCheckoutOrder extends Model {
 			user_agent = '', 
 			accept_language = '', 
 			date_added = NOW(), 
-			date_modified = NOW()
+			date_modified = NOW(),		
 			");
 
         $order_id = $this->db->getLastId();

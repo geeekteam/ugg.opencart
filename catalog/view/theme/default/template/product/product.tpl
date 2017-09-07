@@ -99,7 +99,7 @@ echo $header;
                         <span class="tt-product-inner-info">Акция до <span class="js-future-date">...</span></span>
                         <span class="product-inner-info-sale">
                             <i class="icon icon-check"></i>
-                            <span>Осталось 2 пары по акции</span>
+                            <span>Осталось <span class="js-quantity"><?php echo $quantity;?></span> пары по акции</span>
                         </span>
                         <div class="price-product-item">
                             <?php if ($special): ?>

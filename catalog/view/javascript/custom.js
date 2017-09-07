@@ -210,9 +210,13 @@ $(document).on('submit', '.jqs-send-form', function (e) {
             }
         });
 
+        console.log(data);
+
         addOrder(data, function (response) {
             console.log(response);
         });
+
+        // quantityPerStock();
 
         $.magnificPopup.close({
             items: {
@@ -256,7 +260,7 @@ $(document).on('submit', '.jqs-feedback-form', function (e) {
         data['telephone'] = $phone.val();
 
         sendFeedback(data, function (response) {
-            // console.log(response);
+            console.log(response);
         });
 
         $.magnificPopup.close({
@@ -518,9 +522,55 @@ function categoryTitle() {
         filterName = filterName.replace(/\s/g, '');
         arr.push(filterName);
     });
-    $categoryTitleSpan.html(categoryTitle + ', ' + arr.join(', '));
-
+    if (arr.length > 0)
+        $categoryTitleSpan.html(categoryTitle + ', ' + arr.join(', '));
 }
+
+function quantityPerStock() {
+    var $form = $('.jqs-send-form'),
+        $items = $form.find('.js-prod-cart-item');
+
+
+    var data = [];
+
+    //Помещаем отправленные в корзину продукты и их количество в массив
+    $items.each(function () {
+        var products_id = $(this).find('.js-product-id').val(),
+            products_quantity = $(this).find('.js-item-count').val();
+        data.push({
+            product_id: products_id,
+            quantity: products_quantity
+        });
+    });
+    // массив помещаем в localStorage
+    localStorage.setItem('product_info', JSON.stringify(data));
+}
+
+// присваиваем данные из localStorage переменной
+var productInStorage = JSON.parse(localStorage.getItem('product_info'));
+
+// сравниваем ID купленных пользователем товаров с товаром, на страницу которого пользователь зашёл
+function checkProductQuantity() {
+    var $quantity = $('.js-quantity');
+
+    // по наличию поля с остатком товаров по акции решаем, выполнять сравнение или нет
+    if ($quantity.length !== 0) {
+        // перебираем массив в localStorage, пытаясь найти среди купленных товар, на странице которого находимся
+        $.each(productInStorage, function (index, value) {
+            var product_id = $('form').find('input[name=product_id]').val();
+            // если такой товар найден и разница между остатком и количеством купленных пользователем товаров меньше или равна нуля, то показываем 0
+            if (value.product_id === product_id && (parseInt($quantity.html() - value.quantity) <= 0))
+                $quantity.html(0);
+        });
+    }
+}
+
+//Выполняем функцию, если в массиве что-то есть
+if (productInStorage.length > 0)
+    checkProductQuantity();
+
+
+
 
 //Изменение тайтла категории при применении фильтров
 categoryTitle();

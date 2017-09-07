@@ -176,6 +176,8 @@ class ControllerProductProduct extends Controller {
 
 		$product_info = $this->model_catalog_product->getProduct($product_id);
 
+        $data['quantity'] = $this->model_catalog_product->getProduct($product_id)['quantity'];
+
 		if ($product_info) {
 			$url = '';
 
@@ -226,6 +228,7 @@ class ControllerProductProduct extends Controller {
 			if (isset($this->request->get['limit'])) {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
+
 
 			$data['breadcrumbs'][] = array(
 				'text' => $product_info['name'],

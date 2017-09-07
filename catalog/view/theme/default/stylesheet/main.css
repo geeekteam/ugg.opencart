@@ -4534,6 +4534,10 @@ blockquote {
   text-align: center;
 }
 
+.owl-thumbs > .owl-stage-outer {
+  text-align: right;
+}
+
 .owl-thumbs .owl-item > div {
   border: 1px solid rgba(180, 185, 189, 0.33);
   padding: 0;
@@ -4961,6 +4965,7 @@ blockquote {
     right: 0;
     top: -6px;
     margin: 0;
+    margin-left: auto;
   }
   .owl-thumbs .owl-item > div {
     /*transform: rotate(-90deg);*/
@@ -4976,6 +4981,7 @@ blockquote {
   .owl-thumbs .owl-item {
     min-width: 70px;
     float: none;
+    margin-left: auto;
   }
   .owl-thumbs.owl-carousel .owl-stage-outer {
     padding: 1px;
@@ -5692,6 +5698,10 @@ blockquote {
   }
 
   .reviews-page__author-name {
+    text-align: center;
+  }
+
+  .owl-thumbs > .owl-stage-outer {
     text-align: center;
   }
 }

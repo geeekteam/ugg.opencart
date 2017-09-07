@@ -432,12 +432,14 @@ class ControllerCheckoutConfirm extends Controller {
 
         $order_datas = array();
         $this->load->model('checkout/order');
+        $this->load->model('catalog/product');
 
         $firstname = $this->request->post['firstname'];
         $telephone = $this->request->post['telephone'];
         $total_price = $this->request->post['total_price'];
         $delivery_type = $this->request->post['delivery_type'];
         $product_data = '';
+
 
         foreach ($this->request->post['products'] as $product):
             $product['firstname'] = $firstname;
@@ -446,6 +448,22 @@ class ControllerCheckoutConfirm extends Controller {
             $product['delivery_type'] = $delivery_type;
             $this->model_checkout_order->insertOrder($product);
 
+
+            //start
+
+            $product_db_quantity = $this->model_catalog_product->getProduct($product['product_id'])['quantity'];
+
+            $product_db_quantity = $product_db_quantity - $product['product_quantity'];
+            if ($product_db_quantity <= 0) {
+                $product_db_quantity = 19;
+            }
+
+            $new_product_data[] = array(
+                'product_id' => $product['product_id'],
+                'quantity' => $product_db_quantity
+            );
+
+
             $give_some = $product['give_some'];
             if ($give_some != "") :
                 $product_data .= "<p style='margin-top: 0;'>" . $product['product_name'] . ", цена: " . $product['product_price'] . " руб." . ", количество: " . $product['product_quantity'] . $give_some . "</p>" . "</br>";
@@ -453,6 +471,8 @@ class ControllerCheckoutConfirm extends Controller {
                 $product_data .= "<p style='margin-top: 0;'>" . $product['product_name'] . ", цена: " . $product['product_price'] . " руб." . ", количество: " . $product['product_quantity'] . "</p>" . "</br>";
             endif;
         endforeach;
+
+        $this->model_catalog_product->updateQuantity($new_product_data);
 
         unset($product);
 

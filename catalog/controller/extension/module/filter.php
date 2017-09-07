@@ -49,18 +49,25 @@ class ControllerExtensionModuleFilter extends Controller {
 
 			$filter_groups = $this->model_catalog_category->getCategoryFilters($category_id);
 
-            $this->load->model('catalog/product');
+            // start
 
-            $filter_data = array(
-                'filter_category_id' => $category_id
+            if (isset($this->request->get['filter'])) {
+                $filter = $this->request->get['filter'];
+            } else {
+                $filter = '';
+            }
+
+            $filtered_data = array(
+                'filter_category_id' => $category_id,
+                'filter_filter'      => $filter,
             );
 
-            $products = $this->model_catalog_product->getProducts($filter_data);
+            $this->load->model('catalog/product');
 
-            foreach ($products as $product):
-                $products[] = $product['product_id'];
-            endforeach;
+            $products = $this->model_catalog_product->getProducts($filtered_data);
 
+
+            // end
 
 			if ($filter_groups) {
 				foreach ($filter_groups as $filter_group) {
@@ -74,7 +81,8 @@ class ControllerExtensionModuleFilter extends Controller {
 						);
 
 						$childen_data[] = array(
-                            'products'      => $products,
+                            'filter_product_id' => $this->model_catalog_product->getAllProductFilters($filter['filter_id']),
+                            'products'  => $products,
 							'filter_id' => $filter['filter_id'],
 							'name'      => $filter['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : '')
 						);
