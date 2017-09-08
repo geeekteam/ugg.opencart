@@ -210,13 +210,11 @@ $(document).on('submit', '.jqs-send-form', function (e) {
             }
         });
 
-        console.log(data);
-
         addOrder(data, function (response) {
             console.log(response);
         });
 
-        // quantityPerStock();
+        quantityPerStock();
 
         $.magnificPopup.close({
             items: {
@@ -529,17 +527,20 @@ function categoryTitle() {
 function quantityPerStock() {
     var $form = $('.jqs-send-form'),
         $items = $form.find('.js-prod-cart-item');
-
-
     var data = [];
 
     //Помещаем отправленные в корзину продукты и их количество в массив
     $items.each(function () {
         var products_id = $(this).find('.js-product-id').val(),
-            products_quantity = $(this).find('.js-item-count').val();
+            products_quantity = $(this).find('.js-hidden-input-product-quantity').val(),
+            product_quantity_in_cart = $(this).find('.js-item-count').val(),
+
+            quantityDifference = parseInt(products_quantity) - parseInt(product_quantity_in_cart);
+        if (parseInt(quantityDifference) <= 0)
+            quantityDifference = 0;
         data.push({
-            product_id: products_id,
-            quantity: products_quantity
+            product_id: parseInt(products_id),
+            quantity: parseInt(quantityDifference)
         });
     });
     // массив помещаем в localStorage
@@ -547,30 +548,36 @@ function quantityPerStock() {
 }
 
 // присваиваем данные из localStorage переменной
-var productInStorage = JSON.parse(localStorage.getItem('product_info'));
+if (localStorage.getItem('product_info') !== null)
+    var productInStorage = JSON.parse(localStorage.getItem('product_info'));
+
 
 // сравниваем ID купленных пользователем товаров с товаром, на страницу которого пользователь зашёл
 function checkProductQuantity() {
-    var $quantity = $('.js-quantity');
+    var $quantity = $('.js-quantity-in-product');
+    var product_id_in_form = $('form').find('input[name=product_id]').val();
+    // перебираем массив в localStorage, пытаясь найти среди купленных товар, на странице которого находимся
+    $.each(productInStorage, function (index, value) {
 
-    // по наличию поля с остатком товаров по акции решаем, выполнять сравнение или нет
-    if ($quantity.length !== 0) {
-        // перебираем массив в localStorage, пытаясь найти среди купленных товар, на странице которого находимся
-        $.each(productInStorage, function (index, value) {
-            var product_id = $('form').find('input[name=product_id]').val();
-            // если такой товар найден и разница между остатком и количеством купленных пользователем товаров меньше или равна нуля, то показываем 0
-            if (value.product_id === product_id && (parseInt($quantity.html() - value.quantity) <= 0))
-                $quantity.html(0);
-        });
-    }
+        // если такой товар найден и разница между остатком и количеством купленных пользователем товаров меньше или равна нуля, то показываем 0
+        if (parseInt(value.product_id) === parseInt(product_id_in_form) && (parseInt(value.quantity) === 0)) {
+            $quantity.html(0);
+            return false;
+        } else {
+            $quantity.html(quantityInProductReal);
+        }
+    });
 }
 
 //Выполняем функцию, если в массиве что-то есть
-if (productInStorage.length > 0)
+console.log(productInStorage);
+var $quantityInProductSpan = $('.js-quantity-in-product'),
+    quantityInProductReal = $('.js-quantity-in-product-real').val();
+if (productInStorage && productInStorage.length > 0) {
     checkProductQuantity();
-
-
-
+} else {
+    $quantityInProductSpan.html(quantityInProductReal);
+}
 
 //Изменение тайтла категории при применении фильтров
 categoryTitle();

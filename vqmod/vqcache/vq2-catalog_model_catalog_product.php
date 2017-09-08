@@ -6,7 +6,7 @@ class ModelCatalogProduct extends Model {
 
     public function updateQuantity($data) {
 	    foreach ($data as $product):
-            $this->db->query("UPDATE " . DB_PREFIX . "product SET quantity = " . (int)$product['quantity'] . " WHERE product_id = '" . (int)$product['product_id'] . "'");
+            $this->db->query("UPDATE " . DB_PREFIX . "product SET quantity = '" . (int)$product['quantity'] . "' WHERE product_id = '" . (int)$product['product_id'] . "'");
 	    endforeach;
     }
 

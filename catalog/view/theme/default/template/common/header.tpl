@@ -78,6 +78,7 @@
                         <input class="js-hidden-input-item-price" type="hidden" name="products[<?=$cartItem['product_id']; ?>][product_price]" value="<?=$cartItem['price']; ?>">
                         <input type="hidden" class="js-hidden-input-product-size" name="products[<?=$cartItem['product_id']; ?>][product_size]">
                         <input type="hidden" class="js-hidden-input-give-some" name="products[<?=$cartItem['product_id']; ?>][give_some]">
+                        <input type="hidden" class="js-hidden-input-product-quantity" value="<?=$product_quantity;?>">
                         <div class="prod-cart-col t-col-1">
                             <span class="prod-cart-img"><img src="/image/<?=$cartItem['image']; ?>" alt=""></span>
                         </div>

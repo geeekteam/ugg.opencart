@@ -337,3 +337,7 @@ catalog\controller\common\content_bottom.php
 catalog\controller\common\header.php
 catalog\controller\checkout\checkout.php
 catalog\model\checkout\order.php
+admin\controller\tool\log.php
+admin\language\en-gb\tool\log.php
+admin\language\ru-ru\tool\log.php
+admin\view\template\tool\log.tpl

@@ -458,10 +458,20 @@ class ControllerCheckoutConfirm extends Controller {
                 $product_db_quantity = 19;
             }
 
+
+//            $new_product_data['product_id'] = $product['product_id'];
             $new_product_data[] = array(
                 'product_id' => $product['product_id'],
                 'quantity' => $product_db_quantity
             );
+
+
+
+//
+
+
+
+            //end
 
 
             $give_some = $product['give_some'];
@@ -501,23 +511,23 @@ class ControllerCheckoutConfirm extends Controller {
             "</tr>" .
             "</table>";
 
-        $mail = new Mail();
-        $mail->protocol = $this->config->get('config_mail_protocol');
-        $mail->parameter = $this->config->get('config_mail_parameter');
-        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
-        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
-        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
-        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
-        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
-
-        $mail->setTo($this->config->get('config_email'));
-        $mail->setFrom($this->config->get('config_email'));
-        $mail->setSender("UGG");
-        $mail->setSubject("Новый заказ");
-
-        $mail->setHtml($message);
-
-        $mail->send();
+//        $mail = new Mail();
+//        $mail->protocol = $this->config->get('config_mail_protocol');
+//        $mail->parameter = $this->config->get('config_mail_parameter');
+//        $mail->smtp_hostname = $this->config->get('config_mail_smtp_hostname');
+//        $mail->smtp_username = $this->config->get('config_mail_smtp_username');
+//        $mail->smtp_password = html_entity_decode($this->config->get('config_mail_smtp_password'), ENT_QUOTES, 'UTF-8');
+//        $mail->smtp_port = $this->config->get('config_mail_smtp_port');
+//        $mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
+//
+//        $mail->setTo($this->config->get('config_email'));
+//        $mail->setFrom($this->config->get('config_email'));
+//        $mail->setSender("UGG");
+//        $mail->setSubject("Новый заказ");
+//
+//        $mail->setHtml($message);
+//
+//        $mail->send();
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($order_datas));

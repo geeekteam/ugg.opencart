@@ -96,10 +96,11 @@ echo $header;
                 </div>
                 <div class="product-inner-cont">
                     <div class="product-inner-info">
+                        <input type="hidden" class="js-quantity-in-product-real" value="<?php echo $quantity;?>">
                         <span class="tt-product-inner-info">Акция до <span class="js-future-date">...</span></span>
                         <span class="product-inner-info-sale">
                             <i class="icon icon-check"></i>
-                            <span>Осталось <span class="js-quantity"><?php echo $quantity;?></span> пары по акции</span>
+                            <span>Осталось <span class="js-quantity-in-product">...</span> пары по акции</span>
                         </span>
                         <div class="price-product-item">
                             <?php if ($special): ?>
