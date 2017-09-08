@@ -179,7 +179,7 @@ $(document).on('submit', '.jq-send-form', function (e) {
 
         data.push(tempData);
         addOrder(data, function (response) {
-            console.log(response);
+            // console.log(response);
         });
     } else {
         $phone.css('border', '1px solid red');
@@ -211,7 +211,7 @@ $(document).on('submit', '.jqs-send-form', function (e) {
         });
 
         addOrder(data, function (response) {
-            console.log(response);
+            // console.log(response);
         });
 
         quantityPerStock();
@@ -258,7 +258,7 @@ $(document).on('submit', '.jqs-feedback-form', function (e) {
         data['telephone'] = $phone.val();
 
         sendFeedback(data, function (response) {
-            console.log(response);
+            // console.log(response);
         });
 
         $.magnificPopup.close({
@@ -524,10 +524,23 @@ function categoryTitle() {
         $categoryTitleSpan.html(categoryTitle + ', ' + arr.join(', '));
 }
 
+Object.extend = function(destination, source) {
+    for (var property in source) {
+        if (source.hasOwnProperty(property)) {
+            destination[property] = source[property];
+        }
+    }
+    return destination;
+};
+
 function quantityPerStock() {
     var $form = $('.jqs-send-form'),
         $items = $form.find('.js-prod-cart-item');
     var data = [];
+
+    if (localStorage.getItem('product_info') !== null){
+        var oldStorage = JSON.parse(localStorage.getItem('product_info'));
+    }
 
     //Помещаем отправленные в корзину продукты и их количество в массив
     $items.each(function () {
@@ -544,12 +557,17 @@ function quantityPerStock() {
         });
     });
     // массив помещаем в localStorage
-    localStorage.setItem('product_info', JSON.stringify(data));
+
+    if (localStorage.getItem('product_info') !== null) {
+        var currentStorage =  oldStorage.concat(data);
+        localStorage.setItem('product_info', JSON.stringify(currentStorage));
+    } else {
+        localStorage.setItem('product_info', JSON.stringify(data));
+    }
 }
 
 // присваиваем данные из localStorage переменной
-if (localStorage.getItem('product_info') !== null)
-    var productInStorage = JSON.parse(localStorage.getItem('product_info'));
+var productInStorage = JSON.parse(localStorage.getItem('product_info'));
 
 
 // сравниваем ID купленных пользователем товаров с товаром, на страницу которого пользователь зашёл
@@ -570,7 +588,6 @@ function checkProductQuantity() {
 }
 
 //Выполняем функцию, если в массиве что-то есть
-console.log(productInStorage);
 var $quantityInProductSpan = $('.js-quantity-in-product'),
     quantityInProductReal = $('.js-quantity-in-product-real').val();
 if (productInStorage && productInStorage.length > 0) {
