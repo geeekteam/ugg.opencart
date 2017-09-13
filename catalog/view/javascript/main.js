@@ -76,6 +76,8 @@ $("a.scrollto").click(function () {
   $('.btn-search').click(function(){
    if($(this).parent().is('.search-open')){
     $(this).parent().removeClass('search-open');
+    $(this).siblings('')('input').val('');
+    $(this).closest('.search-form').removeClass('search-open');
    }else{
     $(this).parent().addClass('search-open');
    }

@@ -18,10 +18,10 @@ class ControllerExtensionModuleSpecial extends Controller {
 		$data['products'] = array();
 
 		$filter_data = array(
-			'sort'  => 'pd.name',
-			'order' => 'ASC',
+			'sort'  => 'date_modified',
+			'order' => 'DESC',
 			'start' => 0,
-			'limit' => $setting['limit']
+			'limit' => 1
 		);
 
 		$results = $this->model_catalog_product->getProductSpecials($filter_data);
@@ -74,7 +74,9 @@ class ControllerExtensionModuleSpecial extends Controller {
 					'special'     => $special,
 					'tax'         => $tax,
 					'rating'      => $rating,
-					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id'])
+					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id']),
+                    'date_added'  => date($this->model_catalog_product->getProduct($result['product_id'])['date_added']),
+                    'date_modified'  => date($this->model_catalog_product->getProduct($result['product_id'])['date_modified']),
 				);
 			}
 

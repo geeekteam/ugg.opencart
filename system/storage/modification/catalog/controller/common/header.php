@@ -350,6 +350,7 @@ class ControllerCommonHeader extends Controller
         foreach ($data['cart'] as $key => $dataCart) {
             $data['cart'][$key]['options'] = $this->model_catalog_product->getProductOptions($dataCart['product_id']);
             $data['product_quantity'] = $this->model_catalog_product->getProduct($dataCart['product_id'])['quantity'];
+            $data['product_href'] = $this->url->link('product/product', 'product_id=' . $dataCart['product_id']);
         }
 
 

@@ -1,13 +1,14 @@
 <?php foreach ($products as $product): ?>
-    <?php if ($product['product_id'] == 51): ?>
-        <?php
-                $options = $product['options'];
-                $product_name = $product['name'];
-                $product_price = str_replace(' ', ',',(str_replace('.00 р.', '', $product['price'])));
-                if ($product['special']) {
-                    $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));
-                };
-            ?>
+    <?php
+        foreach ($product['options'] as $option):
+            if (($option['option_id'] == 18)):
+
+            $options = $product['options'];
+            $product_name = $product['name'];
+            $product_price = str_replace(' ', ',',(str_replace('.00 р.', '', $product['price'])));
+            if ($product['special']) {
+                $product_special_price = str_replace(' ', ',' ,(str_replace('.00 р.', '', $product['special'])));
+            }; ?>
         <section class="main-screen">
             <div class="main-screen-cont">
                 <div class="container group">
@@ -60,7 +61,7 @@
                 </div>
             </div>
         </section>
-    <?php endif; ?>
+        <?php endif; endforeach;  ?>
 <?php endforeach;?>
 
 

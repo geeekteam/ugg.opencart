@@ -20,41 +20,41 @@ echo $header;
     <section class="section-product">
         <div class="product-info-icons-top">
             <div class="container">
-                <div class="product-info-icons hidden-devices">
+                <div class="product-info-icons">
                     <div class="prod-icon-item">
                         <i class="icon icon-advantage4"></i>
                         <span class="prod-icon-name">
-                <span>Доставка </span>
-                <span>в день заказа</span>
-              </span>
+                            <span>Доставка </span>
+                            <span>в день заказа</span>
+                        </span>
                     </div>
                     <div class="prod-icon-item">
                         <i class="icon icon-advantage5"></i>
                         <span class="prod-icon-name">
-                <span>Возврат</span>
-                <span>365 дней </span>
-              </span>
+                            <span>Возврат</span>
+                            <span>365 дней </span>
+                        </span>
                     </div>
                     <div class="prod-icon-item">
                         <i class="icon icon-advantage6"></i>
                         <span class="prod-icon-name">
-                <span>Гарантия</span>
-                <span>60 дней</span>
-              </span>
+                            <span>Гарантия</span>
+                            <span>60 дней</span>
+                        </span>
                     </div>
                     <div class="prod-icon-item">
                         <i class="icon icon-advantage7"></i>
                         <span class="prod-icon-name">
-                <span> Оригинальные</span>
-                <span>УГГИ из Австралии</span>
-              </span>
+                            <span> Оригинальные</span>
+                            <span>УГГИ из Австралии</span>
+                        </span>
                     </div>
                     <div class="prod-icon-item">
                         <i class="icon icon-advantage8"></i>
                         <span class="prod-icon-name">
-                <span>Магазин в центре</span>
-                <span>Москвы</span>
-              </span>
+                            <span>Магазин в центре</span>
+                            <span>Москвы</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@ echo $header;
                         <span class="tt-product-inner-info">Акция до <span class="js-future-date">...</span></span>
                         <span class="product-inner-info-sale">
                             <i class="icon icon-check"></i>
-                            <span>Осталось <span class="js-quantity-in-product">...</span> пары по акции</span>
+                            <span>Осталось <span class="js-quantity-in-product">...</span> пар по акции</span>
                         </span>
                         <div class="price-product-item">
                             <?php if ($special): ?>

@@ -113,12 +113,16 @@ var $basketCountProducts = $('.js-basket-count-products'),
 $basketCountProducts.html(productsCountInCart);
 
 $(document).on('click', '.js-btn-buy', function (e) {
+    var time = performance.now();
+    var preload = true;
     e.preventDefault();
     var $buyBtn = $(this),
         $form = $buyBtn.closest('form'),
         data = {
             option: {}
         };
+
+    $(this).closest('.product-item').find('.js-btn-buy span').html('загрузка...');
     if ($(this).hasClass('js-size-label'))
         $(this).find('input.js-size').prop('checked', true);
     $('#input-phone').css('border', 'none');
@@ -127,36 +131,32 @@ $(document).on('click', '.js-btn-buy', function (e) {
         if (input.name === 'product_id') data[input.name] = input.value;
         else data['option'][input.name] = input.value;
     });
-
     $.post('/?route=checkout/cart/add', data, function (response) {
         // Error
         if (response.error !== undefined) {
 
         }
-
         // Success
         if (response.success !== undefined) {
+            $('#cartModal').find('#cart').load('?route=common/header/info .js-prod-cart-table');
             getCartAddedNewProduct(data.product_id, function (productIncart) {
-                var product = productIncart.product;
-                $('#cartModal').find('#cart').load('?route=common/header/info .js-prod-cart-item');
-                setTimeout(function () {
+                jcf.replaceAll();
+                time = performance.now() - time;
+                preload = false;
+                totalPrice();
+                if (preload === false) {
+                    $('.js-btn-buy').find('span').html('купить сейчас');
                     $.magnificPopup.open({
                         items: {
                             src: '#cartModal'
-                        },
-                        callbacks: {
-                            beforeOpen: function () {
-                                var itemsCount = $('#cartModal').find('.js-prod-cart-item').length;
-                                $basketCountProducts.html(itemsCount);
-                            }
                         }
                     });
-                    jcf.replaceAll();
-                    totalPrice();
                     if ($('.link-basket').hasClass('hidden'))
                         $('.link-basket').removeClass('hidden');
-                }, 220)
-                productOptions();
+                    productOptions();
+                }
+                var itemsCount = $('#cartModal').find('.js-prod-cart-item').length;
+                $basketCountProducts.html(itemsCount);
             });
         }
     });
@@ -179,8 +179,9 @@ $(document).on('submit', '.jq-send-form', function (e) {
 
         data.push(tempData);
         addOrder(data, function (response) {
-            // console.log(response);
+            console.log(response);
         });
+
     } else {
         $phone.css('border', '1px solid red');
     }
@@ -211,8 +212,10 @@ $(document).on('submit', '.jqs-send-form', function (e) {
         });
 
         addOrder(data, function (response) {
-            // console.log(response);
+            console.log(response);
         });
+
+        console.log(data);
 
         quantityPerStock();
 
@@ -326,7 +329,7 @@ function productSize() {
     $items.each(function () {
         var currentSize = $(this).find('.js-select-size .jcf-select-text span').html(),
             inputSize = $(this).find('.js-hidden-input-product-size'),
-            giveSome = $(this).find('.js-give-some .jcf-label-active').html(),
+            giveSome = $(this).find('.js-give-some .js-give-some-text').html(),
             inputGiveSome = $(this).find('.js-hidden-input-give-some');
         inputSize.val(currentSize);
         inputGiveSome.val(giveSome);
@@ -377,7 +380,7 @@ function removeItem(item) {
                 }
             });
         }
-    // Удалить товар из списка и закрыть корзину, если товар единственный
+        // Удалить товар из списка и закрыть корзину, если товар единственный
     } else if (itemsCount === 1) {
         if (($count.val() < 1)) {
             $.magnificPopup.close({
@@ -459,14 +462,21 @@ $(document).on('click', '.js-delivery-default', function () {
 });
 
 //Отключать submit на кнопку при пустом поле поиска
-$('.js-search-form').on('click', function (e) {
-    var $form = $(this),
-        $btn = $form.find('button'),
-        $input = $form.find('input[type="text"]');
-    if ($input.val().length === 0)
-        $btn.prop("type", "button");
-    else
-        $btn.prop("type", "submit");
+/*$('.js-search-form').on('click', function (e) {
+ var $form = $(this),
+ $btn = $form.find('button'),
+ $input = $form.find('input[type="text"]');
+ if ($input.val().length === 0)
+ $btn.prop("type", "button");
+ else
+ $btn.prop("type", "submit");
+ });*/
+
+//Очистка поиска
+$('.search-close').on("click", function (e) {
+    $(this).siblings('input').val('');
+    $(this).closest('.search-form').removeClass('search-open');
+    $('.search-result').hide();
 });
 
 // Изменение типа дсставки и чекбокса "Привезти несколько размеров" внутри корзины при их выборе на странице товара
@@ -475,18 +485,18 @@ function productOptions() {
         $deliveryInCart = $('.js-delivery-in-cart:checked');
 
     /*var productIdInCart = $('input[name=product_id]').val();
-    var $giveSomeInCart = $('.js-give-some-in-cart');
+     var $giveSomeInCart = $('.js-give-some-in-cart');
 
-    $form.find('.js-prod-cart-item').each(function () {
-        var productIdInBasket = $(this).find('.js-product-id').val(),
-            $giveSomeInBasket = $(this).find('.js-give-some input[type=checkbox]');
-        if (productIdInBasket === productIdInCart) {
-            if($giveSomeInCart.is(":checked")) {
-                console.log('give some');
-                $giveSomeInBasket.prop('checked', true);
-            }
-        }
-    });*/
+     $form.find('.js-prod-cart-item').each(function () {
+     var productIdInBasket = $(this).find('.js-product-id').val(),
+     $giveSomeInBasket = $(this).find('.js-give-some input[type=checkbox]');
+     if (productIdInBasket === productIdInCart) {
+     if($giveSomeInCart.is(":checked")) {
+     console.log('give some');
+     $giveSomeInBasket.prop('checked', true);
+     }
+     }
+     });*/
 
     $form.find('.js-delivery-type input[type=radio]').each(function () {
         var $deliveryInBasket = $(this);
@@ -524,7 +534,7 @@ function categoryTitle() {
         $categoryTitleSpan.html(categoryTitle + ', ' + arr.join(', '));
 }
 
-Object.extend = function(destination, source) {
+Object.extend = function (destination, source) {
     for (var property in source) {
         if (source.hasOwnProperty(property)) {
             destination[property] = source[property];
@@ -538,7 +548,7 @@ function quantityPerStock() {
         $items = $form.find('.js-prod-cart-item');
     var data = [];
 
-    if (localStorage.getItem('product_info') !== null){
+    if (localStorage.getItem('product_info') !== null) {
         var oldStorage = JSON.parse(localStorage.getItem('product_info'));
     }
 
@@ -559,7 +569,7 @@ function quantityPerStock() {
     // массив помещаем в localStorage
 
     if (localStorage.getItem('product_info') !== null) {
-        var currentStorage =  oldStorage.concat(data);
+        var currentStorage = oldStorage.concat(data);
         localStorage.setItem('product_info', JSON.stringify(currentStorage));
     } else {
         localStorage.setItem('product_info', JSON.stringify(data));
@@ -595,6 +605,48 @@ if (productInStorage && productInStorage.length > 0) {
 } else {
     $quantityInProductSpan.html(quantityInProductReal);
 }
+
+//Поиск
+
+$('.search-inp input').on('keydown', function () {
+
+    if (!$(this).val()) {
+        $('.search-result').hide();
+        return;
+    }
+
+    var data = {
+        search: $(this).val()
+    };
+    $.ajax({
+        url: 'index.php?route=common/ajax_search',
+        data: data,
+        type: 'post',
+        dataType: 'json',
+        success: function (json) {
+            if (!json.products) {
+                return;
+            }
+
+            var inner = $('.search-result .search-result-inner');
+            var template = $('.search-result .search-result-inner .template').clone();
+            inner.html('');
+
+            inner.append(template);
+
+            json.products.forEach(function (product) {
+                var t = template.clone().removeClass('template');
+                t.find('a').attr('href', product.href);
+                t.find('img').attr('src', product.thumb);
+                t.find('span').html(product.name);
+                inner.append(t);
+            });
+
+            $('.search-result').show();
+
+        }
+    });
+});
 
 //Изменение тайтла категории при применении фильтров
 categoryTitle();

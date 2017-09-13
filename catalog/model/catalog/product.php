@@ -221,7 +221,8 @@ class ModelCatalogProduct extends Model {
 			'p.model',
 			'ps.price',
 			'rating',
-			'p.sort_order'
+			'p.sort_order',
+            'date_modified'
 		);
 
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
@@ -235,9 +236,9 @@ class ModelCatalogProduct extends Model {
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
-			$sql .= " DESC, LCASE(pd.name) DESC";
+			$sql .= " DESC, LCASE(p.date_modified) DESC";
 		} else {
-			$sql .= " ASC, LCASE(pd.name) ASC";
+			$sql .= " ASC, LCASE(p.date_modified) ASC";
 		}
 
 		if (isset($data['start']) || isset($data['limit'])) {

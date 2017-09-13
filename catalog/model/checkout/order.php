@@ -869,8 +869,8 @@ class ModelCheckoutOrder extends Model {
 			shipping_custom_field = '[]', 
 			shipping_method = '', 
 			shipping_code = 'flat.flat', 
-			comment = '" . $this->db->escape($data['delivery_type']) . $this->db->escape($data['give_some']) ."', 
-			total = '" . $this->db->escape(isset($data['total']) ? (float)$data['total'] : '0') . "', 
+			comment = '" . "Доставка: " . $this->db->escape($data['delivery_type']) . ", размер: " . $this->db->escape($data['product_size']) .", ". $this->db->escape($data['give_some']) . "',
+			total = '" . $this->db->escape(isset($data['total_price']) ? (float)$data['total_price'] : '0') . "', 
 			order_status_id = '1', 
 			affiliate_id = '0', 
 			commission = '0.0000', 
@@ -896,10 +896,9 @@ class ModelCheckoutOrder extends Model {
 
             $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = '" . (int)$order_id . "', order_status_id = '1', notify = '1'");
 
-
             $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'sub_total', title = 'Сумма', value = '".(float)$data['total_price']."', sort_order = '1'");
-//            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'shipping', title = '".(float)$data['shipping']."', value = '".(float)$data['priceShip']."', sort_order = '3'");
-//            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'total', title = 'Итого', value = '".(float)$data['priceTotal']."', sort_order = '9'");
+
+            $this->db->query("INSERT INTO " . DB_PREFIX . "order_total SET order_id = '" . (int)$order_id . "', code = 'total', title = 'Итого', value = '".(float)$data['total_price']."', sort_order = '9'");
         };
         return $order_id;
     }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.7
+-- version 4.0.10.10
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 06 2017 г., 15:04
--- Версия сервера: 5.5.50-log
--- Версия PHP: 5.6.23
+-- Время создания: Сен 11 2017 г., 17:46
+-- Версия сервера: 5.5.45
+-- Версия PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- База данных: `ugg`
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `oc_address` (
-  `address_id` int(11) NOT NULL,
+  `address_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,
@@ -38,8 +38,10 @@ CREATE TABLE IF NOT EXISTS `oc_address` (
   `postcode` varchar(10) NOT NULL,
   `country_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `custom_field` text NOT NULL,
+  PRIMARY KEY (`address_id`),
+  KEY `customer_id` (`customer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `oc_address` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate` (
-  `affiliate_id` int(11) NOT NULL,
+  `affiliate_id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,
   `email` varchar(96) NOT NULL,
@@ -78,8 +80,9 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate` (
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `approved` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`affiliate_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -88,13 +91,14 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_activity` (
-  `affiliate_activity_id` int(11) NOT NULL,
+  `affiliate_activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `affiliate_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
   `data` text NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`affiliate_activity_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -103,13 +107,16 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_activity` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_login` (
-  `affiliate_login_id` int(11) NOT NULL,
+  `affiliate_login_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(96) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `total` int(4) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`affiliate_login_id`),
+  KEY `email` (`email`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -118,13 +125,14 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_login` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_transaction` (
-  `affiliate_transaction_id` int(11) NOT NULL,
+  `affiliate_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `affiliate_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`affiliate_transaction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -133,13 +141,14 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_transaction` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api` (
-  `api_id` int(11) NOT NULL,
+  `api_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `key` text NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`api_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_api`
@@ -155,10 +164,11 @@ INSERT INTO `oc_api` (`api_id`, `name`, `key`, `status`, `date_added`, `date_mod
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api_ip` (
-  `api_ip_id` int(11) NOT NULL,
+  `api_ip_id` int(11) NOT NULL AUTO_INCREMENT,
   `api_id` int(11) NOT NULL,
-  `ip` varchar(40) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `ip` varchar(40) NOT NULL,
+  PRIMARY KEY (`api_ip_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -167,15 +177,16 @@ CREATE TABLE IF NOT EXISTS `oc_api_ip` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api_session` (
-  `api_session_id` int(11) NOT NULL,
+  `api_session_id` int(11) NOT NULL AUTO_INCREMENT,
   `api_id` int(11) NOT NULL,
   `token` varchar(32) NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `session_name` varchar(32) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`api_session_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -184,10 +195,11 @@ CREATE TABLE IF NOT EXISTS `oc_api_session` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_attribute` (
-  `attribute_id` int(11) NOT NULL,
+  `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
   `attribute_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`attribute_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Дамп данных таблицы `oc_attribute`
@@ -209,7 +221,8 @@ INSERT INTO `oc_attribute` (`attribute_id`, `attribute_group_id`, `sort_order`) 
 CREATE TABLE IF NOT EXISTS `oc_attribute_description` (
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`attribute_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -230,9 +243,10 @@ INSERT INTO `oc_attribute_description` (`attribute_id`, `language_id`, `name`) V
 --
 
 CREATE TABLE IF NOT EXISTS `oc_attribute_group` (
-  `attribute_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`attribute_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `oc_attribute_group`
@@ -250,7 +264,8 @@ INSERT INTO `oc_attribute_group` (`attribute_group_id`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_attribute_group_description` (
   `attribute_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`attribute_group_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -267,10 +282,11 @@ INSERT INTO `oc_attribute_group_description` (`attribute_group_id`, `language_id
 --
 
 CREATE TABLE IF NOT EXISTS `oc_banner` (
-  `banner_id` int(11) NOT NULL,
+  `banner_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `status` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`banner_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `oc_banner`
@@ -288,14 +304,15 @@ INSERT INTO `oc_banner` (`banner_id`, `name`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_banner_image` (
-  `banner_image_id` int(11) NOT NULL,
+  `banner_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `banner_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
   `link` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`banner_image_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=113 ;
 
 --
 -- Дамп данных таблицы `oc_banner_image`
@@ -324,7 +341,7 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 --
 
 CREATE TABLE IF NOT EXISTS `oc_cart` (
-  `cart_id` int(11) unsigned NOT NULL,
+  `cart_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `api_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `session_id` varchar(32) NOT NULL,
@@ -332,8 +349,18 @@ CREATE TABLE IF NOT EXISTS `oc_cart` (
   `recurring_id` int(11) NOT NULL,
   `option` text NOT NULL,
   `quantity` int(5) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`cart_id`),
+  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=412 ;
+
+--
+-- Дамп данных таблицы `oc_cart`
+--
+
+INSERT INTO `oc_cart` (`cart_id`, `api_id`, `customer_id`, `session_id`, `product_id`, `recurring_id`, `option`, `quantity`, `date_added`) VALUES
+(410, 0, 0, 'kvkqd53fn7j3fjccgh717a2pi0', 51, 0, '{"242":"71"}', 1, '2017-09-11 20:36:30'),
+(411, 0, 0, 'kvkqd53fn7j3fjccgh717a2pi0', 51, 0, '{"242":"69"}', 1, '2017-09-11 20:36:32');
 
 -- --------------------------------------------------------
 
@@ -342,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `oc_cart` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_category` (
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `top` tinyint(1) NOT NULL,
@@ -350,23 +377,25 @@ CREATE TABLE IF NOT EXISTS `oc_category` (
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
 
 --
 -- Дамп данных таблицы `oc_category`
 --
 
 INSERT INTO `oc_category` (`category_id`, `image`, `parent_id`, `top`, `column`, `sort_order`, `status`, `date_added`, `date_modified`) VALUES
-(79, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:36:05', '2017-08-22 15:23:26'),
-(80, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:37:25', '2017-08-22 15:23:33'),
-(81, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:38:52', '2017-08-22 15:23:18'),
-(82, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:40:30', '2017-08-22 15:23:29'),
-(83, '', 0, 0, 1, 0, 1, '2017-08-22 15:22:58', '2017-08-22 15:39:15'),
+(79, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:36:05', '2017-09-11 20:36:03'),
+(80, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:37:25', '2017-09-11 20:36:12'),
+(81, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:38:52', '2017-09-11 20:35:57'),
+(82, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:40:30', '2017-09-11 20:36:08'),
+(83, '', 0, 0, 1, 0, 1, '2017-08-22 15:22:58', '2017-09-11 20:35:16'),
 (84, '', 83, 0, 1, 0, 1, '2017-08-23 16:11:50', '2017-08-23 16:11:50'),
-(67, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:10:24', '2017-08-22 15:23:10'),
-(77, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:33:06', '2017-08-22 15:23:15'),
-(78, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:34:43', '2017-08-22 15:23:22');
+(67, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:10:24', '2017-09-11 20:35:53'),
+(77, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:33:06', '2017-09-11 20:35:54'),
+(78, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:34:43', '2017-09-11 20:36:00');
 
 -- --------------------------------------------------------
 
@@ -382,7 +411,9 @@ CREATE TABLE IF NOT EXISTS `oc_category_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`category_id`,`language_id`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -390,14 +421,14 @@ CREATE TABLE IF NOT EXISTS `oc_category_description` (
 --
 
 INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `description`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(83, 1, 'Все товары', '', '', '', '', ''),
-(80, 1, 'Мужcкие UGG', '', '', '', '', ''),
-(81, 1, 'Высокие UGG', '', '', '', '', ''),
-(82, 1, 'Короткие UGG', '', '', '', '', ''),
-(77, 1, 'UGG Bailey Triplet', '', '', '', '', ''),
-(78, 1, 'Детские UGG', '', '', '', '', ''),
-(79, 1, 'Женские UGG', '', '', '', '', ''),
-(67, 1, 'Ugg Bailey &amp; Dylyn', '', '', '', '', ''),
+(83, 1, 'Все товары', 'Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.', 'Все товары', 'Все товары', '', ''),
+(80, 1, 'Мужcкие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Мужcкие UGG', 'Мужcкие UGG', '', ''),
+(81, 1, 'Высокие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Высокие UGG', 'Высокие UGG', '', ''),
+(82, 1, 'Короткие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Короткие UGG', 'Короткие UGG', '', ''),
+(77, 1, 'UGG Bailey Triplet', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'UGG Bailey Triplet', 'UGG Bailey Triplet', '', ''),
+(78, 1, 'Детские UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Детские UGG', 'Детские UGG', '', ''),
+(79, 1, 'Женские UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Женские UGG', 'Женские UGG', '', ''),
+(67, 1, 'Ugg Bailey &amp; Dylyn', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Ugg Bailey &amp; Dylyn', 'Ugg Bailey &amp; Dylyn', '', ''),
 (84, 1, 'Распродажа', '', 'Распродажа', 'Распродажа', '', '');
 
 -- --------------------------------------------------------
@@ -408,7 +439,8 @@ INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `de
 
 CREATE TABLE IF NOT EXISTS `oc_category_filter` (
   `category_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL
+  `filter_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`filter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -690,7 +722,8 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_category_path` (
   `category_id` int(11) NOT NULL,
   `path_id` int(11) NOT NULL,
-  `level` int(11) NOT NULL
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`path_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -725,7 +758,8 @@ INSERT INTO `oc_category_path` (`category_id`, `path_id`, `level`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_category_to_layout` (
   `category_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -751,7 +785,8 @@ INSERT INTO `oc_category_to_layout` (`category_id`, `store_id`, `layout_id`) VAL
 
 CREATE TABLE IF NOT EXISTS `oc_category_to_store` (
   `category_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL
+  `store_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -776,14 +811,15 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_country` (
-  `country_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
   `iso_code_3` varchar(3) NOT NULL,
   `address_format` text NOT NULL,
   `postcode_required` tinyint(1) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`country_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=258 ;
 
 --
 -- Дамп данных таблицы `oc_country`
@@ -1053,7 +1089,7 @@ INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `add
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon` (
-  `coupon_id` int(11) NOT NULL,
+  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `code` varchar(20) NOT NULL,
   `type` char(1) NOT NULL,
@@ -1066,8 +1102,9 @@ CREATE TABLE IF NOT EXISTS `oc_coupon` (
   `uses_total` int(11) NOT NULL,
   `uses_customer` varchar(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`coupon_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `oc_coupon`
@@ -1086,7 +1123,8 @@ INSERT INTO `oc_coupon` (`coupon_id`, `name`, `code`, `type`, `discount`, `logge
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_category` (
   `coupon_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`coupon_id`,`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1096,13 +1134,14 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_category` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_history` (
-  `coupon_history_id` int(11) NOT NULL,
+  `coupon_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `coupon_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`coupon_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1111,10 +1150,11 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_product` (
-  `coupon_product_id` int(11) NOT NULL,
+  `coupon_product_id` int(11) NOT NULL AUTO_INCREMENT,
   `coupon_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `product_id` int(11) NOT NULL,
+  PRIMARY KEY (`coupon_product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1123,7 +1163,7 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_product` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_currency` (
-  `currency_id` int(11) NOT NULL,
+  `currency_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(32) NOT NULL,
   `code` varchar(3) NOT NULL,
   `symbol_left` varchar(12) NOT NULL,
@@ -1131,8 +1171,9 @@ CREATE TABLE IF NOT EXISTS `oc_currency` (
   `decimal_place` char(1) NOT NULL,
   `value` float(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`currency_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `oc_currency`
@@ -1148,7 +1189,7 @@ INSERT INTO `oc_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbo
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer` (
-  `customer_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_group_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
   `language_id` int(11) NOT NULL,
@@ -1170,8 +1211,9 @@ CREATE TABLE IF NOT EXISTS `oc_customer` (
   `safe` tinyint(1) NOT NULL,
   `token` text NOT NULL,
   `code` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1180,13 +1222,14 @@ CREATE TABLE IF NOT EXISTS `oc_customer` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_activity` (
-  `customer_activity_id` int(11) NOT NULL,
+  `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
   `data` text NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_activity_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1195,10 +1238,11 @@ CREATE TABLE IF NOT EXISTS `oc_customer_activity` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_group` (
-  `customer_group_id` int(11) NOT NULL,
+  `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `approval` int(1) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`customer_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_customer_group`
@@ -1217,7 +1261,8 @@ CREATE TABLE IF NOT EXISTS `oc_customer_group_description` (
   `customer_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  PRIMARY KEY (`customer_group_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1234,11 +1279,12 @@ INSERT INTO `oc_customer_group_description` (`customer_group_id`, `language_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_history` (
-  `customer_history_id` int(11) NOT NULL,
+  `customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1247,11 +1293,13 @@ CREATE TABLE IF NOT EXISTS `oc_customer_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_ip` (
-  `customer_ip_id` int(11) NOT NULL,
+  `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_ip_id`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1260,13 +1308,16 @@ CREATE TABLE IF NOT EXISTS `oc_customer_ip` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_login` (
-  `customer_login_id` int(11) NOT NULL,
+  `customer_login_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(96) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `total` int(4) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`customer_login_id`),
+  KEY `email` (`email`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1279,7 +1330,8 @@ CREATE TABLE IF NOT EXISTS `oc_customer_online` (
   `customer_id` int(11) NOT NULL,
   `url` text NOT NULL,
   `referer` text NOT NULL,
-  `date_added` datetime NOT NULL
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1289,13 +1341,14 @@ CREATE TABLE IF NOT EXISTS `oc_customer_online` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_reward` (
-  `customer_reward_id` int(11) NOT NULL,
+  `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL DEFAULT '0',
   `order_id` int(11) NOT NULL DEFAULT '0',
   `description` text NOT NULL,
   `points` int(8) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_reward_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1304,7 +1357,7 @@ CREATE TABLE IF NOT EXISTS `oc_customer_reward` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_search` (
-  `customer_search_id` int(11) NOT NULL,
+  `customer_search_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -1314,8 +1367,9 @@ CREATE TABLE IF NOT EXISTS `oc_customer_search` (
   `description` tinyint(1) NOT NULL,
   `products` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_search_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1324,13 +1378,14 @@ CREATE TABLE IF NOT EXISTS `oc_customer_search` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_transaction` (
-  `customer_transaction_id` int(11) NOT NULL,
+  `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_transaction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1341,7 +1396,8 @@ CREATE TABLE IF NOT EXISTS `oc_customer_transaction` (
 CREATE TABLE IF NOT EXISTS `oc_customer_wishlist` (
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`customer_id`,`product_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1351,14 +1407,15 @@ CREATE TABLE IF NOT EXISTS `oc_customer_wishlist` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_custom_field` (
-  `custom_field_id` int(11) NOT NULL,
+  `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
   `value` text NOT NULL,
   `validation` varchar(255) NOT NULL,
   `location` varchar(7) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`custom_field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1369,7 +1426,8 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field` (
 CREATE TABLE IF NOT EXISTS `oc_custom_field_customer_group` (
   `custom_field_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
-  `required` tinyint(1) NOT NULL
+  `required` tinyint(1) NOT NULL,
+  PRIMARY KEY (`custom_field_id`,`customer_group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1381,7 +1439,8 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_customer_group` (
 CREATE TABLE IF NOT EXISTS `oc_custom_field_description` (
   `custom_field_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`custom_field_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1391,10 +1450,11 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_custom_field_value` (
-  `custom_field_value_id` int(11) NOT NULL,
+  `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
   `custom_field_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`custom_field_value_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1406,7 +1466,8 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_value_description` (
   `custom_field_value_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`custom_field_value_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1416,11 +1477,12 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_value_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_download` (
-  `download_id` int(11) NOT NULL,
+  `download_id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(160) NOT NULL,
   `mask` varchar(128) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`download_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1431,7 +1493,8 @@ CREATE TABLE IF NOT EXISTS `oc_download` (
 CREATE TABLE IF NOT EXISTS `oc_download_description` (
   `download_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`download_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1441,13 +1504,14 @@ CREATE TABLE IF NOT EXISTS `oc_download_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_event` (
-  `event_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(32) NOT NULL,
   `trigger` text NOT NULL,
   `action` text NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`event_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_event`
@@ -1463,10 +1527,11 @@ INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `date
 --
 
 CREATE TABLE IF NOT EXISTS `oc_extension` (
-  `extension_id` int(11) NOT NULL,
+  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
-  `code` varchar(32) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+  `code` varchar(32) NOT NULL,
+  PRIMARY KEY (`extension_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
 
 --
 -- Дамп данных таблицы `oc_extension`
@@ -1514,10 +1579,11 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_filter` (
-  `filter_id` int(11) NOT NULL,
+  `filter_id` int(11) NOT NULL AUTO_INCREMENT,
   `filter_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`filter_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
 
 --
 -- Дамп данных таблицы `oc_filter`
@@ -1567,7 +1633,8 @@ CREATE TABLE IF NOT EXISTS `oc_filter_description` (
   `filter_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `filter_group_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`filter_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1615,9 +1682,10 @@ INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_i
 --
 
 CREATE TABLE IF NOT EXISTS `oc_filter_group` (
-  `filter_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`filter_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Дамп данных таблицы `oc_filter_group`
@@ -1638,7 +1706,8 @@ INSERT INTO `oc_filter_group` (`filter_group_id`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_filter_group_description` (
   `filter_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`filter_group_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1658,12 +1727,13 @@ INSERT INTO `oc_filter_group_description` (`filter_group_id`, `language_id`, `na
 --
 
 CREATE TABLE IF NOT EXISTS `oc_geo_zone` (
-  `geo_zone_id` int(11) NOT NULL,
+  `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
   `date_modified` datetime NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`geo_zone_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `oc_geo_zone`
@@ -1679,11 +1749,12 @@ INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_information` (
-  `information_id` int(11) NOT NULL,
+  `information_id` int(11) NOT NULL AUTO_INCREMENT,
   `bottom` int(1) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`information_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `oc_information`
@@ -1709,7 +1780,8 @@ CREATE TABLE IF NOT EXISTS `oc_information_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`information_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1731,7 +1803,8 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 CREATE TABLE IF NOT EXISTS `oc_information_to_layout` (
   `information_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`information_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1752,7 +1825,8 @@ INSERT INTO `oc_information_to_layout` (`information_id`, `store_id`, `layout_id
 
 CREATE TABLE IF NOT EXISTS `oc_information_to_store` (
   `information_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL
+  `store_id` int(11) NOT NULL,
+  PRIMARY KEY (`information_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1772,15 +1846,17 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_language` (
-  `language_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `code` varchar(5) NOT NULL,
   `locale` varchar(255) NOT NULL,
   `image` varchar(64) NOT NULL,
   `directory` varchar(32) NOT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`language_id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `oc_language`
@@ -1796,9 +1872,10 @@ INSERT INTO `oc_language` (`language_id`, `name`, `code`, `locale`, `image`, `di
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout` (
-  `layout_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+  `layout_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`layout_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Дамп данных таблицы `oc_layout`
@@ -1826,12 +1903,13 @@ INSERT INTO `oc_layout` (`layout_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout_module` (
-  `layout_module_id` int(11) NOT NULL,
+  `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,
   `layout_id` int(11) NOT NULL,
   `code` varchar(64) NOT NULL,
   `position` varchar(14) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=135 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`layout_module_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
 
 --
 -- Дамп данных таблицы `oc_layout_module`
@@ -1845,7 +1923,6 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (68, 6, 'account', 'column_right', 1),
 (119, 1, 'html.39', 'content_top', 7),
 (117, 1, 'categoryproducts.37', 'content_top', 5),
-(128, 3, 'filter', 'column_left', 1),
 (118, 1, 'categoryproducts.38', 'content_top', 6),
 (116, 1, 'categoryproducts.36', 'content_top', 4),
 (115, 1, 'html.35', 'content_top', 3),
@@ -1853,9 +1930,9 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (113, 1, 'html.33', 'content_top', 1),
 (112, 1, 'special.32', 'content_top', 0),
 (120, 1, 'html.40', 'content_top', 8),
-(127, 3, 'html.43', 'column_left', 0),
+(136, 3, 'html.41', 'content_bottom', 0),
 (126, 2, 'viewed.42', 'column_left', 0),
-(129, 3, 'html.41', 'content_bottom', 0),
+(135, 3, 'filter', 'column_left', 1),
 (132, 11, 'html.44', 'column_left', 0),
 (133, 11, 'html.45', 'content_bottom', 0),
 (134, 8, 'html.44', 'column_left', 0);
@@ -1867,11 +1944,12 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout_route` (
-  `layout_route_id` int(11) NOT NULL,
+  `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,
   `layout_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `route` varchar(64) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
+  `route` varchar(64) NOT NULL,
+  PRIMARY KEY (`layout_route_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
 
 --
 -- Дамп данных таблицы `oc_layout_route`
@@ -1880,7 +1958,7 @@ CREATE TABLE IF NOT EXISTS `oc_layout_route` (
 INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `route`) VALUES
 (38, 6, 0, 'account/%'),
 (17, 10, 0, 'affiliate/%'),
-(69, 3, 0, 'product/category'),
+(74, 3, 0, 'product/category'),
 (63, 1, 0, 'common/home'),
 (67, 2, 0, 'product/product'),
 (72, 11, 0, 'information/information'),
@@ -1899,9 +1977,10 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 --
 
 CREATE TABLE IF NOT EXISTS `oc_length_class` (
-  `length_class_id` int(11) NOT NULL,
-  `value` decimal(15,2) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `length_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` decimal(15,2) NOT NULL,
+  PRIMARY KEY (`length_class_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `oc_length_class`
@@ -1922,7 +2001,8 @@ CREATE TABLE IF NOT EXISTS `oc_length_class_description` (
   `length_class_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
-  `unit` varchar(4) NOT NULL
+  `unit` varchar(4) NOT NULL,
+  PRIMARY KEY (`length_class_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1940,7 +2020,7 @@ INSERT INTO `oc_length_class_description` (`length_class_id`, `language_id`, `ti
 --
 
 CREATE TABLE IF NOT EXISTS `oc_location` (
-  `location_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `address` text NOT NULL,
   `telephone` varchar(32) NOT NULL,
@@ -1948,8 +2028,10 @@ CREATE TABLE IF NOT EXISTS `oc_location` (
   `geocode` varchar(32) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `open` text NOT NULL,
-  `comment` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `comment` text NOT NULL,
+  PRIMARY KEY (`location_id`),
+  KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1958,11 +2040,12 @@ CREATE TABLE IF NOT EXISTS `oc_location` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_manufacturer` (
-  `manufacturer_id` int(11) NOT NULL,
+  `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`manufacturer_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 -- --------------------------------------------------------
 
@@ -1978,7 +2061,8 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`manufacturer_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1989,7 +2073,8 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_description` (
 
 CREATE TABLE IF NOT EXISTS `oc_manufacturer_to_store` (
   `manufacturer_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL
+  `store_id` int(11) NOT NULL,
+  PRIMARY KEY (`manufacturer_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1999,13 +2084,14 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_to_store` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_marketing` (
-  `marketing_id` int(11) NOT NULL,
+  `marketing_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
   `code` varchar(64) NOT NULL,
   `clicks` int(5) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`marketing_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2014,13 +2100,14 @@ CREATE TABLE IF NOT EXISTS `oc_marketing` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_menu` (
-  `menu_id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `type` varchar(6) NOT NULL,
   `link` varchar(255) NOT NULL,
   `sort_order` int(3) NOT NULL,
-  `status` tinyint(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`menu_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2031,7 +2118,8 @@ CREATE TABLE IF NOT EXISTS `oc_menu` (
 CREATE TABLE IF NOT EXISTS `oc_menu_description` (
   `menu_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`menu_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2044,7 +2132,9 @@ CREATE TABLE IF NOT EXISTS `oc_menu_module` (
   `menu_module_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   `code` varchar(64) NOT NULL,
-  `sort_order` int(3) NOT NULL
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`menu_module_id`),
+  KEY `menu_id` (`menu_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2054,7 +2144,7 @@ CREATE TABLE IF NOT EXISTS `oc_menu_module` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_modification` (
-  `modification_id` int(11) NOT NULL,
+  `modification_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `code` varchar(64) NOT NULL,
   `author` varchar(64) NOT NULL,
@@ -2062,8 +2152,9 @@ CREATE TABLE IF NOT EXISTS `oc_modification` (
   `link` varchar(255) NOT NULL,
   `xml` mediumtext NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`modification_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_modification`
@@ -2079,11 +2170,12 @@ INSERT INTO `oc_modification` (`modification_id`, `name`, `code`, `author`, `ver
 --
 
 CREATE TABLE IF NOT EXISTS `oc_module` (
-  `module_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `setting` text NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+  `setting` text NOT NULL,
+  PRIMARY KEY (`module_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
 
 --
 -- Дамп данных таблицы `oc_module`
@@ -2093,7 +2185,7 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 (29, 'Карусель на главной странице', 'carousel', '{"name":"Карусель на главной странице","banner_id":"8","width":"130","height":"100","status":"1"}'),
 (32, 'Главная - Баннер', 'special', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","limit":"0","width":"280","height":"280","status":"1"}'),
 (33, 'Информация о продукции ', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f \\u043e \\u043f\\u0440\\u043e\\u0434\\u0443\\u043a\\u0446\\u0438\\u0438 ","module_description":{"1":{"title":"","description":"&lt;section class=&quot;product-info-section&quot;&gt;\\r\\n    &lt;div class=&quot;container&quot;&gt;\\r\\n        &lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage1&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442 \\u043f\\u0440\\u0438 \\u043c\\u0438\\u043d\\u0443\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0438 \\u043f\\u043b\\u044e\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0430\\u0445&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage2&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u0430\\u0435\\u043c \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435 10 \\u043b\\u0435\\u0442&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043e\\u043b\\u044c\\u0448\\u0435 50 000 \\u0434\\u043e\\u0432\\u043e\\u043b\\u044c\\u043d\\u044b\\u0445 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0435\\u0439&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage3&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u041f\\u0440\\u044f\\u043c\\u044b\\u0435 \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0438 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0410\\u0443\\u0442\\u0435\\u043d\\u0442\\u0438\\u0447\\u043d\\u044b\\u0435 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0440\\u043e\\u0434\\u0438\\u043d\\u044b \\u0443\\u0433\\u0433\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/section&gt;\\r\\n"}},"status":"1"}'),
-(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;Ugg Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=3&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=9&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=10&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=11&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=12&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=13&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=14&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=3&quot; class=&quot;col1&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=4&quot; class=&quot;col2&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=5&quot; class=&quot;col3&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=6&quot; class=&quot;col4&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=7&quot; class=&quot;col5&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=1&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=2&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=20&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=21&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=22&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=23&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=24&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=25&quot;&gt;39.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=26&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=28&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/?route=product\\/category&amp;amp;path=83&amp;amp;filter=30&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
+(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;Ugg Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=9&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=10&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=11&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=12&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=13&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=14&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot; class=&quot;col1&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=4&quot; class=&quot;col2&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=5&quot; class=&quot;col3&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=6&quot; class=&quot;col4&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=7&quot; class=&quot;col5&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=1&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=2&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=20&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=21&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=22&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=23&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=24&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=25&quot;&gt;39.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=26&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=28&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=30&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
 (35, 'Баннер', 'html', '{"name":"\\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;banner-cont&quot;&gt;\\r\\n        &lt;span class=&quot;banner-cont-ic&quot;&gt;\\r\\n            &lt;i class=&quot;icon icon-price&quot;&gt;&lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0414\\u0430\\u0440\\u0438\\u043c \\u043f\\u043e\\u0434\\u0430\\u0440\\u043e\\u043a \\u043a\\u0430\\u0436\\u0434\\u043e\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u0443 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n        &lt;span class=&quot;banner-cont-txt&quot;&gt;&lt;span&gt;\\u0441\\u0442\\u0438\\u043b\\u044c\\u043d\\u044b\\u0435 \\u043f\\u0435\\u0440\\u0447\\u0430\\u0442\\u043a\\u0438,&lt;\\/span&gt; \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0434\\u043e\\u043f\\u043e\\u043b\\u043d\\u044f\\u0442 \\u0412\\u0430\\u0448 \\u043e\\u0431\\u0440\\u0430\\u0437&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
 (36, 'UGG Bailey Triplet', 'categoryproducts', '{"name":"UGG Bailey Triplet","product":["77"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (37, 'Ugg Bailey &amp; Dylyn', 'categoryproducts', '{"name":"Ugg Bailey &amp; Dylyn","product":["67"],"limit":"4","width":"200","height":"200","status":"1"}'),
@@ -2113,15 +2205,16 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article` (
-  `article_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(255) DEFAULT NULL,
   `date_available` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `viewed` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `oc_newsblog_article`
@@ -2147,7 +2240,8 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_attribute` (
   `article_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` text NOT NULL
+  `text` text NOT NULL,
+  PRIMARY KEY (`article_id`,`attribute_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2166,7 +2260,9 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`article_id`,`language_id`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2190,11 +2286,13 @@ INSERT INTO `oc_newsblog_article_description` (`article_id`, `language_id`, `nam
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_image` (
-  `product_image_id` int(11) NOT NULL,
+  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_image_id`),
+  KEY `article_id` (`article_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
 
 --
 -- Дамп данных таблицы `oc_newsblog_article_image`
@@ -2219,7 +2317,8 @@ INSERT INTO `oc_newsblog_article_image` (`product_image_id`, `article_id`, `imag
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_related` (
   `article_id` int(11) NOT NULL,
   `related_id` int(11) NOT NULL,
-  `type` int(1) NOT NULL
+  `type` int(1) NOT NULL,
+  PRIMARY KEY (`article_id`,`related_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2231,7 +2330,9 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_related` (
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_category` (
   `article_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `main_category` tinyint(1) NOT NULL DEFAULT '0'
+  `main_category` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`article_id`,`category_id`),
+  KEY `category_id` (`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2257,7 +2358,8 @@ INSERT INTO `oc_newsblog_article_to_category` (`article_id`, `category_id`, `mai
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_layout` (
   `article_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`article_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2282,7 +2384,8 @@ INSERT INTO `oc_newsblog_article_to_layout` (`article_id`, `store_id`, `layout_i
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_store` (
   `article_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL DEFAULT '0'
+  `store_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`article_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2306,15 +2409,17 @@ INSERT INTO `oc_newsblog_article_to_store` (`article_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category` (
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
-  `settings` text NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `settings` text NOT NULL,
+  PRIMARY KEY (`category_id`),
+  KEY `parent_id` (`parent_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_newsblog_category`
@@ -2337,7 +2442,9 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_category_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`category_id`,`language_id`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2356,7 +2463,8 @@ INSERT INTO `oc_newsblog_category_description` (`category_id`, `language_id`, `n
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_path` (
   `category_id` int(11) NOT NULL,
   `path_id` int(11) NOT NULL,
-  `level` int(11) NOT NULL
+  `level` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`path_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2375,7 +2483,8 @@ INSERT INTO `oc_newsblog_category_path` (`category_id`, `path_id`, `level`) VALU
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_to_layout` (
   `category_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2393,7 +2502,8 @@ INSERT INTO `oc_newsblog_category_to_layout` (`category_id`, `store_id`, `layout
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_to_store` (
   `category_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL
+  `store_id` int(11) NOT NULL,
+  PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2410,10 +2520,11 @@ INSERT INTO `oc_newsblog_category_to_store` (`category_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_option` (
-  `option_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(32) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`option_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Дамп данных таблицы `oc_option`
@@ -2434,7 +2545,8 @@ INSERT INTO `oc_option` (`option_id`, `type`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_option_description` (
   `option_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`option_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2454,11 +2566,12 @@ INSERT INTO `oc_option_description` (`option_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_option_value` (
-  `option_value_id` int(11) NOT NULL,
+  `option_value_id` int(11) NOT NULL AUTO_INCREMENT,
   `option_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`option_value_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
 
 --
 -- Дамп данных таблицы `oc_option_value`
@@ -2494,7 +2607,8 @@ CREATE TABLE IF NOT EXISTS `oc_option_value_description` (
   `option_value_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`option_value_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2528,7 +2642,7 @@ INSERT INTO `oc_option_value_description` (`option_value_id`, `language_id`, `op
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order` (
-  `order_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
   `invoice_no` int(11) NOT NULL DEFAULT '0',
   `invoice_prefix` varchar(26) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
@@ -2588,8 +2702,9 @@ CREATE TABLE IF NOT EXISTS `oc_order` (
   `user_agent` varchar(255) NOT NULL,
   `accept_language` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=454 ;
 
 --
 -- Дамп данных таблицы `oc_order`
@@ -2682,7 +2797,376 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 (84, 0, 'INV-2013-00', 0, '', '', 0, 1, '90-80-89-', '', '', '+7 (890) 890-89-08', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-05 14:11:07', '2017-09-05 14:11:07'),
 (85, 0, 'INV-2013-00', 0, '', '', 0, 1, '123123', '', '', '+7 (123) 123-13-12', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-05 14:12:06', '2017-09-05 14:12:06'),
 (86, 0, 'INV-2013-00', 0, '', '', 0, 1, '53453534', '', '', '+7 (345) 345-34-53', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-05 14:12:24', '2017-09-05 14:12:24'),
-(87, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (234) 234-23-42', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-05 14:32:36', '2017-09-05 14:32:36');
+(87, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (234) 234-23-42', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-05 14:32:36', '2017-09-05 14:32:36'),
+(88, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 01:57:58', '2017-09-08 01:57:58'),
+(89, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 01:59:36', '2017-09-08 01:59:36'),
+(90, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:01:53', '2017-09-08 02:01:53'),
+(91, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:06:33', '2017-09-08 02:06:33'),
+(92, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:08:47', '2017-09-08 02:08:47'),
+(93, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:08:58', '2017-09-08 02:08:58'),
+(94, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:09:14', '2017-09-08 02:09:14'),
+(95, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:09:27', '2017-09-08 02:09:27'),
+(96, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:09:52', '2017-09-08 02:09:52'),
+(97, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (898) 989-89-89', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:10:00', '2017-09-08 02:10:00'),
+(98, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (222) 222-22-22', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:10:13', '2017-09-08 02:10:13'),
+(99, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:12:32', '2017-09-08 02:12:32'),
+(100, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:12:44', '2017-09-08 02:12:44'),
+(101, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 02:13:30', '2017-09-08 02:13:30'),
+(102, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (878) 789-78-97', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 10:24:26', '2017-09-08 10:24:26'),
+(103, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 10:53:40', '2017-09-08 10:53:40'),
+(104, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (545) 454-54-54', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:00:25', '2017-09-08 11:00:25'),
+(105, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (564) 564-56-45', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:00:35', '2017-09-08 11:00:35'),
+(106, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:00:51', '2017-09-08 11:00:51'),
+(107, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (908) 908-90-98', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:17:50', '2017-09-08 11:17:50'),
+(108, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:18:18', '2017-09-08 11:18:18'),
+(109, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:23:19', '2017-09-08 11:23:19'),
+(110, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:25:18', '2017-09-08 11:25:18'),
+(111, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (123) 123-12-31', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:25:32', '2017-09-08 11:25:32'),
+(112, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:26:23', '2017-09-08 11:26:23'),
+(113, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:26:31', '2017-09-08 11:26:31'),
+(114, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:27:00', '2017-09-08 11:27:00'),
+(115, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:27:29', '2017-09-08 11:27:29'),
+(116, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:27:45', '2017-09-08 11:27:45'),
+(117, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:32:46', '2017-09-08 11:32:46'),
+(118, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:32:59', '2017-09-08 11:32:59'),
+(119, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:33:43', '2017-09-08 11:33:43'),
+(120, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:37:31', '2017-09-08 11:37:31'),
+(121, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:37:41', '2017-09-08 11:37:41'),
+(122, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:37:48', '2017-09-08 11:37:48'),
+(123, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:38:36', '2017-09-08 11:38:36'),
+(124, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:39:18', '2017-09-08 11:39:18'),
+(125, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:01', '2017-09-08 11:40:01'),
+(126, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:07', '2017-09-08 11:40:07'),
+(127, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:45', '2017-09-08 11:40:45'),
+(128, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:51', '2017-09-08 11:40:51');
+INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
+(129, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:42:14', '2017-09-08 11:42:14'),
+(130, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:43:59', '2017-09-08 11:43:59'),
+(131, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:44:17', '2017-09-08 11:44:17'),
+(132, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:44:47', '2017-09-08 11:44:47'),
+(133, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:45:26', '2017-09-08 11:45:26'),
+(134, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:45:32', '2017-09-08 11:45:32'),
+(135, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:47:34', '2017-09-08 11:47:34'),
+(136, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:47:41', '2017-09-08 11:47:41'),
+(137, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:48:05', '2017-09-08 11:48:05'),
+(138, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:48:13', '2017-09-08 11:48:13'),
+(139, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:51:11', '2017-09-08 11:51:11'),
+(140, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:51:35', '2017-09-08 11:51:35'),
+(141, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:52:07', '2017-09-08 11:52:07'),
+(142, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:52:15', '2017-09-08 11:52:15'),
+(143, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:55:34', '2017-09-08 11:55:34'),
+(144, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (222) 222-22-22', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:00:16', '2017-09-08 12:00:16'),
+(145, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (444) 444-44-44', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:00:22', '2017-09-08 12:00:22'),
+(146, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:00:27', '2017-09-08 12:00:27'),
+(147, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:00:32', '2017-09-08 12:00:32'),
+(148, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:02:18', '2017-09-08 12:02:18'),
+(149, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:02:18', '2017-09-08 12:02:18'),
+(150, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:04:52', '2017-09-08 12:04:52'),
+(151, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:05:21', '2017-09-08 12:05:21'),
+(152, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:08:07', '2017-09-08 12:08:07'),
+(153, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (151) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:08:18', '2017-09-08 12:08:18'),
+(154, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:08:24', '2017-09-08 12:08:24'),
+(155, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:16:44', '2017-09-08 12:16:44'),
+(156, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:17:36', '2017-09-08 12:17:36'),
+(157, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:17:36', '2017-09-08 12:17:36'),
+(158, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:25:57', '2017-09-08 12:25:57'),
+(159, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:26:03', '2017-09-08 12:26:03'),
+(160, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:26:08', '2017-09-08 12:26:08'),
+(161, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:26:44', '2017-09-08 12:26:44'),
+(162, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:26:49', '2017-09-08 12:26:49'),
+(163, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:27:31', '2017-09-08 12:27:31'),
+(164, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:28:17', '2017-09-08 12:28:17'),
+(165, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:29:06', '2017-09-08 12:29:06'),
+(166, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:29:13', '2017-09-08 12:29:13'),
+(167, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:29:32', '2017-09-08 12:29:32'),
+(168, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:31:09', '2017-09-08 12:31:09'),
+(169, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:31:14', '2017-09-08 12:31:14'),
+(170, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:32:46', '2017-09-08 12:32:46'),
+(171, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:32:51', '2017-09-08 12:32:51'),
+(172, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:32:55', '2017-09-08 12:32:55'),
+(173, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:32:59', '2017-09-08 12:32:59'),
+(174, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:35:07', '2017-09-08 12:35:07'),
+(175, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:35:21', '2017-09-08 12:35:21'),
+(176, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:35:33', '2017-09-08 12:35:33'),
+(177, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:35:42', '2017-09-08 12:35:42'),
+(178, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:35:49', '2017-09-08 12:35:49'),
+(179, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:36:53', '2017-09-08 12:36:53'),
+(180, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:36:53', '2017-09-08 12:36:53'),
+(181, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:36:53', '2017-09-08 12:36:53'),
+(182, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:37:16', '2017-09-08 12:37:16'),
+(183, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:37:29', '2017-09-08 12:37:29'),
+(184, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:37:48', '2017-09-08 12:37:48'),
+(185, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:37:48', '2017-09-08 12:37:48'),
+(186, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:38:09', '2017-09-08 12:38:09'),
+(187, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:38:09', '2017-09-08 12:38:09'),
+(188, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:39:48', '2017-09-08 12:39:48'),
+(189, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:39:48', '2017-09-08 12:39:48'),
+(190, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:40:05', '2017-09-08 12:40:05'),
+(191, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:40:13', '2017-09-08 12:40:13'),
+(192, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:40:24', '2017-09-08 12:40:24'),
+(193, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:40:30', '2017-09-08 12:40:30'),
+(194, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:41:17', '2017-09-08 12:41:17'),
+(195, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:41:23', '2017-09-08 12:41:23'),
+(196, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:41:48', '2017-09-08 12:41:48'),
+(197, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:42:11', '2017-09-08 12:42:11'),
+(198, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:42:35', '2017-09-08 12:42:35'),
+(199, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:43:58', '2017-09-08 12:43:58'),
+(200, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:44:22', '2017-09-08 12:44:22'),
+(201, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:44:53', '2017-09-08 12:44:53'),
+(202, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:45:16', '2017-09-08 12:45:16'),
+(203, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:48:43', '2017-09-08 12:48:43'),
+(204, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:48:44', '2017-09-08 12:48:44'),
+(205, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:49:09', '2017-09-08 12:49:09'),
+(206, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:49:58', '2017-09-08 12:49:58'),
+(207, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:50:47', '2017-09-08 12:50:47'),
+(208, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:51:10', '2017-09-08 12:51:10'),
+(209, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:52:06', '2017-09-08 12:52:06'),
+(210, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:52:12', '2017-09-08 12:52:12'),
+(211, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:52:34', '2017-09-08 12:52:34'),
+(212, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:52:39', '2017-09-08 12:52:39'),
+(213, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:52:54', '2017-09-08 12:52:54'),
+(214, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:53:07', '2017-09-08 12:53:07'),
+(215, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:53:42', '2017-09-08 12:53:42'),
+(216, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:04', '2017-09-08 12:54:04'),
+(217, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:09', '2017-09-08 12:54:09'),
+(218, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:14', '2017-09-08 12:54:14'),
+(219, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:28', '2017-09-08 12:54:28'),
+(220, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:46', '2017-09-08 12:54:46'),
+(221, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 12:54:46', '2017-09-08 12:54:46'),
+(222, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:01:05', '2017-09-08 13:01:05'),
+(223, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:02:20', '2017-09-08 13:02:20'),
+(224, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:03:26', '2017-09-08 13:03:26'),
+(225, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:04:47', '2017-09-08 13:04:47'),
+(226, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:05:32', '2017-09-08 13:05:32'),
+(227, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:05:41', '2017-09-08 13:05:41'),
+(228, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:07:40', '2017-09-08 13:07:40'),
+(229, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:07:46', '2017-09-08 13:07:46'),
+(230, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:07:51', '2017-09-08 13:07:51'),
+(231, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:08:37', '2017-09-08 13:08:37'),
+(232, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:11:13', '2017-09-08 13:11:13'),
+(233, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:14:13', '2017-09-08 13:14:13'),
+(234, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:15:29', '2017-09-08 13:15:29'),
+(235, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:15:35', '2017-09-08 13:15:35'),
+(236, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:15:40', '2017-09-08 13:15:40'),
+(237, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:16:27', '2017-09-08 13:16:27'),
+(238, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:16:33', '2017-09-08 13:16:33'),
+(239, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:17:25', '2017-09-08 13:17:25'),
+(240, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:17:32', '2017-09-08 13:17:32'),
+(241, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:17:39', '2017-09-08 13:17:39'),
+(242, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:17:51', '2017-09-08 13:17:51'),
+(243, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:17:55', '2017-09-08 13:17:55'),
+(244, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:18:22', '2017-09-08 13:18:22'),
+(245, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:18:22', '2017-09-08 13:18:22'),
+(246, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:18:41', '2017-09-08 13:18:41'),
+(247, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
+(248, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
+(249, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
+(250, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56');
+INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
+(251, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56'),
+(252, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56'),
+(253, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:21:01', '2017-09-08 13:21:01'),
+(254, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:24', '2017-09-08 13:23:24'),
+(255, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:35', '2017-09-08 13:23:35'),
+(256, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:35', '2017-09-08 13:23:35'),
+(257, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:24:40', '2017-09-08 13:24:40'),
+(258, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:24:40', '2017-09-08 13:24:40'),
+(259, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:24:49', '2017-09-08 13:24:49'),
+(260, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:25:08', '2017-09-08 13:25:08'),
+(261, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:25:08', '2017-09-08 13:25:08'),
+(262, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:25:08', '2017-09-08 13:25:08'),
+(263, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:26:52', '2017-09-08 13:26:52'),
+(264, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:33:42', '2017-09-08 13:33:42'),
+(265, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:33:57', '2017-09-08 13:33:57'),
+(266, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:35:05', '2017-09-08 13:35:05'),
+(267, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:35:10', '2017-09-08 13:35:10'),
+(268, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:35:14', '2017-09-08 13:35:14'),
+(269, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:35:18', '2017-09-08 13:35:18'),
+(270, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:36:17', '2017-09-08 13:36:17'),
+(271, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:37:12', '2017-09-08 13:37:12'),
+(272, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:37:54', '2017-09-08 13:37:54'),
+(273, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:37:58', '2017-09-08 13:37:58'),
+(274, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:38:05', '2017-09-08 13:38:05'),
+(275, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:38:44', '2017-09-08 13:38:44'),
+(276, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:38:44', '2017-09-08 13:38:44'),
+(277, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:48:06', '2017-09-08 13:48:06'),
+(278, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:48:06', '2017-09-08 13:48:06'),
+(279, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:22', '2017-09-08 13:49:22'),
+(280, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:22', '2017-09-08 13:49:22'),
+(281, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:38', '2017-09-08 13:49:38'),
+(282, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:38', '2017-09-08 13:49:38'),
+(283, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:43', '2017-09-08 13:49:43'),
+(284, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:49:43', '2017-09-08 13:49:43'),
+(285, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:50:14', '2017-09-08 13:50:14'),
+(286, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:50:14', '2017-09-08 13:50:14'),
+(287, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:54:40', '2017-09-08 13:54:40'),
+(288, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:54:57', '2017-09-08 13:54:57'),
+(289, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:55:05', '2017-09-08 13:55:05'),
+(290, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:27', '2017-09-08 13:56:27'),
+(291, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:27', '2017-09-08 13:56:27'),
+(292, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:38', '2017-09-08 13:56:38'),
+(293, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:38', '2017-09-08 13:56:38'),
+(294, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:40', '2017-09-08 13:56:40'),
+(295, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:56:40', '2017-09-08 13:56:40'),
+(296, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:57:19', '2017-09-08 13:57:19'),
+(297, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:57:19', '2017-09-08 13:57:19'),
+(298, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:59:41', '2017-09-08 13:59:41'),
+(299, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:59:41', '2017-09-08 13:59:41'),
+(300, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:59:54', '2017-09-08 13:59:54'),
+(301, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:59:54', '2017-09-08 13:59:54'),
+(302, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:59:54', '2017-09-08 13:59:54'),
+(303, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:00:07', '2017-09-08 14:00:07'),
+(304, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:02:50', '2017-09-08 14:02:50'),
+(305, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:03:22', '2017-09-08 14:03:22'),
+(306, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:03:45', '2017-09-08 14:03:45'),
+(307, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:04:02', '2017-09-08 14:04:02'),
+(308, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:06:38', '2017-09-08 14:06:38'),
+(309, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:07:05', '2017-09-08 14:07:05'),
+(310, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:08:03', '2017-09-08 14:08:03'),
+(311, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:08:09', '2017-09-08 14:08:09'),
+(312, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:09:53', '2017-09-08 14:09:53'),
+(313, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:10:15', '2017-09-08 14:10:15'),
+(314, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:10:15', '2017-09-08 14:10:15'),
+(315, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:10:26', '2017-09-08 14:10:26'),
+(316, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:11:40', '2017-09-08 14:11:40'),
+(317, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:12:44', '2017-09-08 14:12:44'),
+(318, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:14:53', '2017-09-08 14:14:53'),
+(319, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:14:53', '2017-09-08 14:14:53'),
+(320, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:15:05', '2017-09-08 14:15:05'),
+(321, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:16:12', '2017-09-08 14:16:12'),
+(322, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:16:12', '2017-09-08 14:16:12'),
+(323, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:16:20', '2017-09-08 14:16:20'),
+(324, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:17:25', '2017-09-08 14:17:25'),
+(325, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:17:25', '2017-09-08 14:17:25'),
+(326, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:17:32', '2017-09-08 14:17:32'),
+(327, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:19:17', '2017-09-08 14:19:17'),
+(328, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:19:50', '2017-09-08 14:19:50'),
+(329, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:20:16', '2017-09-08 14:20:16'),
+(330, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:20:16', '2017-09-08 14:20:16'),
+(331, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:20:29', '2017-09-08 14:20:29'),
+(332, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:20:43', '2017-09-08 14:20:43'),
+(333, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:20:49', '2017-09-08 14:20:49'),
+(334, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:21:47', '2017-09-08 14:21:47'),
+(335, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:23:46', '2017-09-08 14:23:46'),
+(336, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:23:47', '2017-09-08 14:23:47'),
+(337, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:24:39', '2017-09-08 14:24:39'),
+(338, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:27:54', '2017-09-08 14:27:54'),
+(339, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (222) 222-22-22', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:29:29', '2017-09-08 14:29:29'),
+(340, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:29:35', '2017-09-08 14:29:35'),
+(341, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:29:49', '2017-09-08 14:29:49'),
+(342, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:32:02', '2017-09-08 14:32:02'),
+(343, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:32:03', '2017-09-08 14:32:03'),
+(344, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:39:04', '2017-09-08 14:39:04'),
+(345, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:39:12', '2017-09-08 14:39:12'),
+(346, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:51:20', '2017-09-08 14:51:20'),
+(347, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:52:12', '2017-09-08 14:52:12'),
+(348, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:52:23', '2017-09-08 14:52:23'),
+(349, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 14:53:17', '2017-09-08 14:53:17'),
+(350, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (222) 222-22-22', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:00:51', '2017-09-08 15:00:51'),
+(351, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:03:52', '2017-09-08 15:03:52'),
+(352, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:03:58', '2017-09-08 15:03:58'),
+(353, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:04:41', '2017-09-08 15:04:41'),
+(354, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:05:37', '2017-09-08 15:05:37'),
+(355, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:05:49', '2017-09-08 15:05:49'),
+(356, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:06:49', '2017-09-08 15:06:49'),
+(357, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:07:27', '2017-09-08 15:07:27'),
+(358, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:07:49', '2017-09-08 15:07:49'),
+(359, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:09:07', '2017-09-08 15:09:07'),
+(360, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:10:04', '2017-09-08 15:10:04'),
+(361, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:12:14', '2017-09-08 15:12:14'),
+(362, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:12:21', '2017-09-08 15:12:21'),
+(363, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:12:33', '2017-09-08 15:12:33'),
+(364, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:17:10', '2017-09-08 15:17:10'),
+(365, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:18:44', '2017-09-08 15:18:44'),
+(366, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:19:38', '2017-09-08 15:19:38'),
+(367, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:19:38', '2017-09-08 15:19:38'),
+(368, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:20:34', '2017-09-08 15:20:34'),
+(369, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:20:34', '2017-09-08 15:20:34'),
+(370, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:20:43', '2017-09-08 15:20:43'),
+(371, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:12', '2017-09-08 15:21:12'),
+(372, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:22', '2017-09-08 15:21:22');
+INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
+(373, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:29', '2017-09-08 15:21:29'),
+(374, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:06', '2017-09-08 15:22:06'),
+(375, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:17', '2017-09-08 15:22:17'),
+(376, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:17', '2017-09-08 15:22:17'),
+(377, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:53', '2017-09-08 15:22:53'),
+(378, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:53', '2017-09-08 15:22:53'),
+(379, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:27', '2017-09-08 15:24:27'),
+(380, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:27', '2017-09-08 15:24:27'),
+(381, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:38', '2017-09-08 15:24:38'),
+(382, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:25:02', '2017-09-08 15:25:02'),
+(383, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:25:02', '2017-09-08 15:25:02'),
+(384, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:25:20', '2017-09-08 15:25:20'),
+(385, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:25:20', '2017-09-08 15:25:20'),
+(386, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:26:05', '2017-09-08 15:26:05'),
+(387, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:26:14', '2017-09-08 15:26:14'),
+(388, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:26:14', '2017-09-08 15:26:14'),
+(389, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:18', '2017-09-08 15:28:18'),
+(390, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:18', '2017-09-08 15:28:18'),
+(391, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:25', '2017-09-08 15:28:25'),
+(392, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:36', '2017-09-08 15:28:36'),
+(393, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:45', '2017-09-08 15:28:45'),
+(394, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:28:55', '2017-09-08 15:28:55'),
+(395, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:29:02', '2017-09-08 15:29:02'),
+(396, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:30:03', '2017-09-08 15:30:03'),
+(397, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:30:09', '2017-09-08 15:30:09'),
+(398, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:30:41', '2017-09-08 15:30:41'),
+(399, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:31:01', '2017-09-08 15:31:01'),
+(400, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:31:01', '2017-09-08 15:31:01'),
+(401, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:32:49', '2017-09-08 15:32:49'),
+(402, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:32:49', '2017-09-08 15:32:49'),
+(403, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:32:57', '2017-09-08 15:32:57'),
+(404, 0, 'INV-2013-00', 0, '', '', 0, 1, '77777', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:33:42', '2017-09-08 15:33:42'),
+(405, 0, 'INV-2013-00', 0, '', '', 0, 1, '77777', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:33:42', '2017-09-08 15:33:42'),
+(406, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:33:50', '2017-09-08 15:33:50'),
+(407, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:37:02', '2017-09-08 15:37:02'),
+(408, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:37:08', '2017-09-08 15:37:08'),
+(409, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:37:19', '2017-09-08 15:37:19'),
+(410, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:38:26', '2017-09-08 15:38:26'),
+(411, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:38:26', '2017-09-08 15:38:26'),
+(412, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:38:40', '2017-09-08 15:38:40'),
+(413, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:40:13', '2017-09-08 15:40:13'),
+(414, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:40:13', '2017-09-08 15:40:13'),
+(415, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:41:04', '2017-09-08 15:41:04'),
+(416, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:45:54', '2017-09-08 15:45:54'),
+(417, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:45:54', '2017-09-08 15:45:54'),
+(418, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:46:58', '2017-09-08 15:46:58'),
+(419, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:46:58', '2017-09-08 15:46:58'),
+(420, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:47:06', '2017-09-08 15:47:06'),
+(421, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:51:16', '2017-09-08 15:51:16'),
+(422, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:51:16', '2017-09-08 15:51:16'),
+(423, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:51:23', '2017-09-08 15:51:23'),
+(424, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:51:34', '2017-09-08 15:51:34'),
+(425, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:51:40', '2017-09-08 15:51:40'),
+(426, 0, 'INV-2013-00', 0, '', '', 0, 1, '111', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:52:11', '2017-09-08 15:52:11'),
+(427, 0, 'INV-2013-00', 0, '', '', 0, 1, '1111', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:52:16', '2017-09-08 15:52:16'),
+(428, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:54:59', '2017-09-08 15:54:59'),
+(429, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:54:59', '2017-09-08 15:54:59'),
+(430, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:55:05', '2017-09-08 15:55:05'),
+(431, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:59:52', '2017-09-08 15:59:52'),
+(432, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:59:52', '2017-09-08 15:59:52'),
+(433, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:59:58', '2017-09-08 15:59:58'),
+(434, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:00:18', '2017-09-08 16:00:18'),
+(435, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:00:21', '2017-09-08 16:00:21'),
+(436, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:00:25', '2017-09-08 16:00:25'),
+(437, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:07', '2017-09-08 16:03:07'),
+(438, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:07', '2017-09-08 16:03:07'),
+(439, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:14', '2017-09-08 16:03:14'),
+(440, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:20', '2017-09-08 16:03:20'),
+(441, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:34', '2017-09-08 16:03:34'),
+(442, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:41', '2017-09-08 16:03:41'),
+(443, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:51', '2017-09-08 16:03:51'),
+(444, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:03:59', '2017-09-08 16:03:59'),
+(445, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:06:40', '2017-09-08 16:06:40'),
+(446, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:06:48', '2017-09-08 16:06:48'),
+(447, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:09:41', '2017-09-08 16:09:41'),
+(448, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:09:41', '2017-09-08 16:09:41'),
+(449, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:00', '2017-09-08 16:10:00'),
+(450, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:00', '2017-09-08 16:10:00'),
+(451, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:24', '2017-09-08 16:10:24'),
+(452, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:24', '2017-09-08 16:10:24'),
+(453, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:40', '2017-09-08 16:10:40');
 
 -- --------------------------------------------------------
 
@@ -2691,15 +3175,16 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_custom_field` (
-  `order_custom_field_id` int(11) NOT NULL,
+  `order_custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
   `custom_field_value_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `value` text NOT NULL,
   `type` varchar(32) NOT NULL,
-  `location` varchar(16) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `location` varchar(16) NOT NULL,
+  PRIMARY KEY (`order_custom_field_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2708,13 +3193,15 @@ CREATE TABLE IF NOT EXISTS `oc_order_custom_field` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_history` (
-  `order_history_id` int(11) NOT NULL,
+  `order_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `order_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`order_history_id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=449 ;
 
 --
 -- Дамп данных таблицы `oc_order_history`
@@ -2799,7 +3286,376 @@ INSERT INTO `oc_order_history` (`order_history_id`, `order_id`, `order_status_id
 (76, 84, 1, 1, '', '0000-00-00 00:00:00'),
 (77, 85, 1, 1, '', '0000-00-00 00:00:00'),
 (78, 86, 1, 1, '', '0000-00-00 00:00:00'),
-(79, 87, 1, 1, '', '0000-00-00 00:00:00');
+(79, 87, 1, 1, '', '0000-00-00 00:00:00'),
+(80, 0, 1, 1, '', '0000-00-00 00:00:00'),
+(81, 0, 1, 1, '', '0000-00-00 00:00:00'),
+(82, 0, 1, 1, '', '0000-00-00 00:00:00'),
+(83, 88, 1, 1, '', '0000-00-00 00:00:00'),
+(84, 89, 1, 1, '', '0000-00-00 00:00:00'),
+(85, 90, 1, 1, '', '0000-00-00 00:00:00'),
+(86, 91, 1, 1, '', '0000-00-00 00:00:00'),
+(87, 92, 1, 1, '', '0000-00-00 00:00:00'),
+(88, 93, 1, 1, '', '0000-00-00 00:00:00'),
+(89, 94, 1, 1, '', '0000-00-00 00:00:00'),
+(90, 95, 1, 1, '', '0000-00-00 00:00:00'),
+(91, 96, 1, 1, '', '0000-00-00 00:00:00'),
+(92, 97, 1, 1, '', '0000-00-00 00:00:00'),
+(93, 98, 1, 1, '', '0000-00-00 00:00:00'),
+(94, 99, 1, 1, '', '0000-00-00 00:00:00'),
+(95, 100, 1, 1, '', '0000-00-00 00:00:00'),
+(96, 101, 1, 1, '', '0000-00-00 00:00:00'),
+(97, 102, 1, 1, '', '0000-00-00 00:00:00'),
+(98, 103, 1, 1, '', '0000-00-00 00:00:00'),
+(99, 104, 1, 1, '', '0000-00-00 00:00:00'),
+(100, 105, 1, 1, '', '0000-00-00 00:00:00'),
+(101, 106, 1, 1, '', '0000-00-00 00:00:00'),
+(102, 107, 1, 1, '', '0000-00-00 00:00:00'),
+(103, 108, 1, 1, '', '0000-00-00 00:00:00'),
+(104, 109, 1, 1, '', '0000-00-00 00:00:00'),
+(105, 110, 1, 1, '', '0000-00-00 00:00:00'),
+(106, 111, 1, 1, '', '0000-00-00 00:00:00'),
+(107, 112, 1, 1, '', '0000-00-00 00:00:00'),
+(108, 113, 1, 1, '', '0000-00-00 00:00:00'),
+(109, 114, 1, 1, '', '0000-00-00 00:00:00'),
+(110, 115, 1, 1, '', '0000-00-00 00:00:00'),
+(111, 116, 1, 1, '', '0000-00-00 00:00:00'),
+(112, 117, 1, 1, '', '0000-00-00 00:00:00'),
+(113, 118, 1, 1, '', '0000-00-00 00:00:00'),
+(114, 119, 1, 1, '', '0000-00-00 00:00:00'),
+(115, 120, 1, 1, '', '0000-00-00 00:00:00'),
+(116, 121, 1, 1, '', '0000-00-00 00:00:00'),
+(117, 122, 1, 1, '', '0000-00-00 00:00:00'),
+(118, 123, 1, 1, '', '0000-00-00 00:00:00'),
+(119, 124, 1, 1, '', '0000-00-00 00:00:00'),
+(120, 125, 1, 1, '', '0000-00-00 00:00:00'),
+(121, 126, 1, 1, '', '0000-00-00 00:00:00'),
+(122, 127, 1, 1, '', '0000-00-00 00:00:00'),
+(123, 128, 1, 1, '', '0000-00-00 00:00:00'),
+(124, 129, 1, 1, '', '0000-00-00 00:00:00'),
+(125, 130, 1, 1, '', '0000-00-00 00:00:00'),
+(126, 131, 1, 1, '', '0000-00-00 00:00:00'),
+(127, 132, 1, 1, '', '0000-00-00 00:00:00'),
+(128, 133, 1, 1, '', '0000-00-00 00:00:00'),
+(129, 134, 1, 1, '', '0000-00-00 00:00:00'),
+(130, 135, 1, 1, '', '0000-00-00 00:00:00'),
+(131, 136, 1, 1, '', '0000-00-00 00:00:00'),
+(132, 137, 1, 1, '', '0000-00-00 00:00:00'),
+(133, 138, 1, 1, '', '0000-00-00 00:00:00'),
+(134, 139, 1, 1, '', '0000-00-00 00:00:00'),
+(135, 140, 1, 1, '', '0000-00-00 00:00:00'),
+(136, 141, 1, 1, '', '0000-00-00 00:00:00'),
+(137, 142, 1, 1, '', '0000-00-00 00:00:00'),
+(138, 143, 1, 1, '', '0000-00-00 00:00:00'),
+(139, 144, 1, 1, '', '0000-00-00 00:00:00'),
+(140, 145, 1, 1, '', '0000-00-00 00:00:00'),
+(141, 146, 1, 1, '', '0000-00-00 00:00:00'),
+(142, 147, 1, 1, '', '0000-00-00 00:00:00'),
+(143, 148, 1, 1, '', '0000-00-00 00:00:00'),
+(144, 149, 1, 1, '', '0000-00-00 00:00:00'),
+(145, 150, 1, 1, '', '0000-00-00 00:00:00'),
+(146, 151, 1, 1, '', '0000-00-00 00:00:00'),
+(147, 152, 1, 1, '', '0000-00-00 00:00:00'),
+(148, 153, 1, 1, '', '0000-00-00 00:00:00'),
+(149, 154, 1, 1, '', '0000-00-00 00:00:00'),
+(150, 155, 1, 1, '', '0000-00-00 00:00:00'),
+(151, 156, 1, 1, '', '0000-00-00 00:00:00'),
+(152, 157, 1, 1, '', '0000-00-00 00:00:00'),
+(153, 158, 1, 1, '', '0000-00-00 00:00:00'),
+(154, 159, 1, 1, '', '0000-00-00 00:00:00'),
+(155, 160, 1, 1, '', '0000-00-00 00:00:00'),
+(156, 161, 1, 1, '', '0000-00-00 00:00:00'),
+(157, 162, 1, 1, '', '0000-00-00 00:00:00'),
+(158, 163, 1, 1, '', '0000-00-00 00:00:00'),
+(159, 164, 1, 1, '', '0000-00-00 00:00:00'),
+(160, 165, 1, 1, '', '0000-00-00 00:00:00'),
+(161, 166, 1, 1, '', '0000-00-00 00:00:00'),
+(162, 167, 1, 1, '', '0000-00-00 00:00:00'),
+(163, 168, 1, 1, '', '0000-00-00 00:00:00'),
+(164, 169, 1, 1, '', '0000-00-00 00:00:00'),
+(165, 170, 1, 1, '', '0000-00-00 00:00:00'),
+(166, 171, 1, 1, '', '0000-00-00 00:00:00'),
+(167, 172, 1, 1, '', '0000-00-00 00:00:00'),
+(168, 173, 1, 1, '', '0000-00-00 00:00:00'),
+(169, 174, 1, 1, '', '0000-00-00 00:00:00'),
+(170, 175, 1, 1, '', '0000-00-00 00:00:00'),
+(171, 176, 1, 1, '', '0000-00-00 00:00:00'),
+(172, 177, 1, 1, '', '0000-00-00 00:00:00'),
+(173, 178, 1, 1, '', '0000-00-00 00:00:00'),
+(174, 179, 1, 1, '', '0000-00-00 00:00:00'),
+(175, 180, 1, 1, '', '0000-00-00 00:00:00'),
+(176, 181, 1, 1, '', '0000-00-00 00:00:00'),
+(177, 182, 1, 1, '', '0000-00-00 00:00:00'),
+(178, 183, 1, 1, '', '0000-00-00 00:00:00'),
+(179, 184, 1, 1, '', '0000-00-00 00:00:00'),
+(180, 185, 1, 1, '', '0000-00-00 00:00:00'),
+(181, 186, 1, 1, '', '0000-00-00 00:00:00'),
+(182, 187, 1, 1, '', '0000-00-00 00:00:00'),
+(183, 188, 1, 1, '', '0000-00-00 00:00:00'),
+(184, 189, 1, 1, '', '0000-00-00 00:00:00'),
+(185, 190, 1, 1, '', '0000-00-00 00:00:00'),
+(186, 191, 1, 1, '', '0000-00-00 00:00:00'),
+(187, 192, 1, 1, '', '0000-00-00 00:00:00'),
+(188, 193, 1, 1, '', '0000-00-00 00:00:00'),
+(189, 194, 1, 1, '', '0000-00-00 00:00:00'),
+(190, 195, 1, 1, '', '0000-00-00 00:00:00'),
+(191, 196, 1, 1, '', '0000-00-00 00:00:00'),
+(192, 197, 1, 1, '', '0000-00-00 00:00:00'),
+(193, 198, 1, 1, '', '0000-00-00 00:00:00'),
+(194, 199, 1, 1, '', '0000-00-00 00:00:00'),
+(195, 200, 1, 1, '', '0000-00-00 00:00:00'),
+(196, 201, 1, 1, '', '0000-00-00 00:00:00'),
+(197, 202, 1, 1, '', '0000-00-00 00:00:00'),
+(198, 203, 1, 1, '', '0000-00-00 00:00:00'),
+(199, 204, 1, 1, '', '0000-00-00 00:00:00'),
+(200, 205, 1, 1, '', '0000-00-00 00:00:00'),
+(201, 206, 1, 1, '', '0000-00-00 00:00:00'),
+(202, 207, 1, 1, '', '0000-00-00 00:00:00'),
+(203, 208, 1, 1, '', '0000-00-00 00:00:00'),
+(204, 209, 1, 1, '', '0000-00-00 00:00:00'),
+(205, 210, 1, 1, '', '0000-00-00 00:00:00'),
+(206, 211, 1, 1, '', '0000-00-00 00:00:00'),
+(207, 212, 1, 1, '', '0000-00-00 00:00:00'),
+(208, 213, 1, 1, '', '0000-00-00 00:00:00'),
+(209, 214, 1, 1, '', '0000-00-00 00:00:00'),
+(210, 215, 1, 1, '', '0000-00-00 00:00:00'),
+(211, 216, 1, 1, '', '0000-00-00 00:00:00'),
+(212, 217, 1, 1, '', '0000-00-00 00:00:00'),
+(213, 218, 1, 1, '', '0000-00-00 00:00:00'),
+(214, 219, 1, 1, '', '0000-00-00 00:00:00'),
+(215, 220, 1, 1, '', '0000-00-00 00:00:00'),
+(216, 221, 1, 1, '', '0000-00-00 00:00:00'),
+(217, 222, 1, 1, '', '0000-00-00 00:00:00'),
+(218, 223, 1, 1, '', '0000-00-00 00:00:00'),
+(219, 224, 1, 1, '', '0000-00-00 00:00:00'),
+(220, 225, 1, 1, '', '0000-00-00 00:00:00'),
+(221, 226, 1, 1, '', '0000-00-00 00:00:00'),
+(222, 227, 1, 1, '', '0000-00-00 00:00:00'),
+(223, 228, 1, 1, '', '0000-00-00 00:00:00'),
+(224, 229, 1, 1, '', '0000-00-00 00:00:00'),
+(225, 230, 1, 1, '', '0000-00-00 00:00:00'),
+(226, 231, 1, 1, '', '0000-00-00 00:00:00'),
+(227, 232, 1, 1, '', '0000-00-00 00:00:00'),
+(228, 233, 1, 1, '', '0000-00-00 00:00:00'),
+(229, 234, 1, 1, '', '0000-00-00 00:00:00'),
+(230, 235, 1, 1, '', '0000-00-00 00:00:00'),
+(231, 236, 1, 1, '', '0000-00-00 00:00:00'),
+(232, 237, 1, 1, '', '0000-00-00 00:00:00'),
+(233, 238, 1, 1, '', '0000-00-00 00:00:00'),
+(234, 239, 1, 1, '', '0000-00-00 00:00:00'),
+(235, 240, 1, 1, '', '0000-00-00 00:00:00'),
+(236, 241, 1, 1, '', '0000-00-00 00:00:00'),
+(237, 242, 1, 1, '', '0000-00-00 00:00:00'),
+(238, 243, 1, 1, '', '0000-00-00 00:00:00'),
+(239, 244, 1, 1, '', '0000-00-00 00:00:00'),
+(240, 245, 1, 1, '', '0000-00-00 00:00:00'),
+(241, 246, 1, 1, '', '0000-00-00 00:00:00'),
+(242, 247, 1, 1, '', '0000-00-00 00:00:00'),
+(243, 248, 1, 1, '', '0000-00-00 00:00:00'),
+(244, 249, 1, 1, '', '0000-00-00 00:00:00'),
+(245, 250, 1, 1, '', '0000-00-00 00:00:00'),
+(246, 251, 1, 1, '', '0000-00-00 00:00:00'),
+(247, 252, 1, 1, '', '0000-00-00 00:00:00'),
+(248, 253, 1, 1, '', '0000-00-00 00:00:00'),
+(249, 254, 1, 1, '', '0000-00-00 00:00:00'),
+(250, 255, 1, 1, '', '0000-00-00 00:00:00'),
+(251, 256, 1, 1, '', '0000-00-00 00:00:00'),
+(252, 257, 1, 1, '', '0000-00-00 00:00:00'),
+(253, 258, 1, 1, '', '0000-00-00 00:00:00'),
+(254, 259, 1, 1, '', '0000-00-00 00:00:00'),
+(255, 260, 1, 1, '', '0000-00-00 00:00:00'),
+(256, 261, 1, 1, '', '0000-00-00 00:00:00'),
+(257, 262, 1, 1, '', '0000-00-00 00:00:00'),
+(258, 263, 1, 1, '', '0000-00-00 00:00:00'),
+(259, 264, 1, 1, '', '0000-00-00 00:00:00'),
+(260, 265, 1, 1, '', '0000-00-00 00:00:00'),
+(261, 266, 1, 1, '', '0000-00-00 00:00:00'),
+(262, 267, 1, 1, '', '0000-00-00 00:00:00'),
+(263, 268, 1, 1, '', '0000-00-00 00:00:00'),
+(264, 269, 1, 1, '', '0000-00-00 00:00:00'),
+(265, 270, 1, 1, '', '0000-00-00 00:00:00'),
+(266, 271, 1, 1, '', '0000-00-00 00:00:00'),
+(267, 272, 1, 1, '', '0000-00-00 00:00:00'),
+(268, 273, 1, 1, '', '0000-00-00 00:00:00'),
+(269, 274, 1, 1, '', '0000-00-00 00:00:00'),
+(270, 275, 1, 1, '', '0000-00-00 00:00:00'),
+(271, 276, 1, 1, '', '0000-00-00 00:00:00'),
+(272, 277, 1, 1, '', '0000-00-00 00:00:00'),
+(273, 278, 1, 1, '', '0000-00-00 00:00:00'),
+(274, 279, 1, 1, '', '0000-00-00 00:00:00'),
+(275, 280, 1, 1, '', '0000-00-00 00:00:00'),
+(276, 281, 1, 1, '', '0000-00-00 00:00:00'),
+(277, 282, 1, 1, '', '0000-00-00 00:00:00'),
+(278, 283, 1, 1, '', '0000-00-00 00:00:00'),
+(279, 284, 1, 1, '', '0000-00-00 00:00:00'),
+(280, 285, 1, 1, '', '0000-00-00 00:00:00'),
+(281, 286, 1, 1, '', '0000-00-00 00:00:00'),
+(282, 287, 1, 1, '', '0000-00-00 00:00:00'),
+(283, 288, 1, 1, '', '0000-00-00 00:00:00'),
+(284, 289, 1, 1, '', '0000-00-00 00:00:00'),
+(285, 290, 1, 1, '', '0000-00-00 00:00:00'),
+(286, 291, 1, 1, '', '0000-00-00 00:00:00'),
+(287, 292, 1, 1, '', '0000-00-00 00:00:00'),
+(288, 293, 1, 1, '', '0000-00-00 00:00:00'),
+(289, 294, 1, 1, '', '0000-00-00 00:00:00'),
+(290, 295, 1, 1, '', '0000-00-00 00:00:00'),
+(291, 296, 1, 1, '', '0000-00-00 00:00:00'),
+(292, 297, 1, 1, '', '0000-00-00 00:00:00'),
+(293, 298, 1, 1, '', '0000-00-00 00:00:00'),
+(294, 299, 1, 1, '', '0000-00-00 00:00:00'),
+(295, 300, 1, 1, '', '0000-00-00 00:00:00'),
+(296, 301, 1, 1, '', '0000-00-00 00:00:00'),
+(297, 302, 1, 1, '', '0000-00-00 00:00:00'),
+(298, 303, 1, 1, '', '0000-00-00 00:00:00'),
+(299, 304, 1, 1, '', '0000-00-00 00:00:00'),
+(300, 305, 1, 1, '', '0000-00-00 00:00:00'),
+(301, 306, 1, 1, '', '0000-00-00 00:00:00'),
+(302, 307, 1, 1, '', '0000-00-00 00:00:00'),
+(303, 308, 1, 1, '', '0000-00-00 00:00:00'),
+(304, 309, 1, 1, '', '0000-00-00 00:00:00'),
+(305, 310, 1, 1, '', '0000-00-00 00:00:00'),
+(306, 311, 1, 1, '', '0000-00-00 00:00:00'),
+(307, 312, 1, 1, '', '0000-00-00 00:00:00'),
+(308, 313, 1, 1, '', '0000-00-00 00:00:00'),
+(309, 314, 1, 1, '', '0000-00-00 00:00:00'),
+(310, 315, 1, 1, '', '0000-00-00 00:00:00'),
+(311, 316, 1, 1, '', '0000-00-00 00:00:00'),
+(312, 317, 1, 1, '', '0000-00-00 00:00:00'),
+(313, 318, 1, 1, '', '0000-00-00 00:00:00'),
+(314, 319, 1, 1, '', '0000-00-00 00:00:00'),
+(315, 320, 1, 1, '', '0000-00-00 00:00:00'),
+(316, 321, 1, 1, '', '0000-00-00 00:00:00'),
+(317, 322, 1, 1, '', '0000-00-00 00:00:00'),
+(318, 323, 1, 1, '', '0000-00-00 00:00:00'),
+(319, 324, 1, 1, '', '0000-00-00 00:00:00'),
+(320, 325, 1, 1, '', '0000-00-00 00:00:00'),
+(321, 326, 1, 1, '', '0000-00-00 00:00:00'),
+(322, 327, 1, 1, '', '0000-00-00 00:00:00'),
+(323, 328, 1, 1, '', '0000-00-00 00:00:00'),
+(324, 329, 1, 1, '', '0000-00-00 00:00:00'),
+(325, 330, 1, 1, '', '0000-00-00 00:00:00'),
+(326, 331, 1, 1, '', '0000-00-00 00:00:00'),
+(327, 332, 1, 1, '', '0000-00-00 00:00:00'),
+(328, 333, 1, 1, '', '0000-00-00 00:00:00'),
+(329, 334, 1, 1, '', '0000-00-00 00:00:00'),
+(330, 335, 1, 1, '', '0000-00-00 00:00:00'),
+(331, 336, 1, 1, '', '0000-00-00 00:00:00'),
+(332, 337, 1, 1, '', '0000-00-00 00:00:00'),
+(333, 338, 1, 1, '', '0000-00-00 00:00:00'),
+(334, 339, 1, 1, '', '0000-00-00 00:00:00'),
+(335, 340, 1, 1, '', '0000-00-00 00:00:00'),
+(336, 341, 1, 1, '', '0000-00-00 00:00:00'),
+(337, 342, 1, 1, '', '0000-00-00 00:00:00'),
+(338, 343, 1, 1, '', '0000-00-00 00:00:00'),
+(339, 344, 1, 1, '', '0000-00-00 00:00:00'),
+(340, 345, 1, 1, '', '0000-00-00 00:00:00'),
+(341, 346, 1, 1, '', '0000-00-00 00:00:00'),
+(342, 347, 1, 1, '', '0000-00-00 00:00:00'),
+(343, 348, 1, 1, '', '0000-00-00 00:00:00'),
+(344, 349, 1, 1, '', '0000-00-00 00:00:00'),
+(345, 350, 1, 1, '', '0000-00-00 00:00:00'),
+(346, 351, 1, 1, '', '0000-00-00 00:00:00'),
+(347, 352, 1, 1, '', '0000-00-00 00:00:00'),
+(348, 353, 1, 1, '', '0000-00-00 00:00:00'),
+(349, 354, 1, 1, '', '0000-00-00 00:00:00'),
+(350, 355, 1, 1, '', '0000-00-00 00:00:00'),
+(351, 356, 1, 1, '', '0000-00-00 00:00:00'),
+(352, 357, 1, 1, '', '0000-00-00 00:00:00'),
+(353, 358, 1, 1, '', '0000-00-00 00:00:00'),
+(354, 359, 1, 1, '', '0000-00-00 00:00:00'),
+(355, 360, 1, 1, '', '0000-00-00 00:00:00'),
+(356, 361, 1, 1, '', '0000-00-00 00:00:00'),
+(357, 362, 1, 1, '', '0000-00-00 00:00:00'),
+(358, 363, 1, 1, '', '0000-00-00 00:00:00'),
+(359, 364, 1, 1, '', '0000-00-00 00:00:00'),
+(360, 365, 1, 1, '', '0000-00-00 00:00:00'),
+(361, 366, 1, 1, '', '0000-00-00 00:00:00'),
+(362, 367, 1, 1, '', '0000-00-00 00:00:00'),
+(363, 368, 1, 1, '', '0000-00-00 00:00:00'),
+(364, 369, 1, 1, '', '0000-00-00 00:00:00'),
+(365, 370, 1, 1, '', '0000-00-00 00:00:00'),
+(366, 371, 1, 1, '', '0000-00-00 00:00:00'),
+(367, 372, 1, 1, '', '0000-00-00 00:00:00'),
+(368, 373, 1, 1, '', '0000-00-00 00:00:00'),
+(369, 374, 1, 1, '', '0000-00-00 00:00:00'),
+(370, 375, 1, 1, '', '0000-00-00 00:00:00'),
+(371, 376, 1, 1, '', '0000-00-00 00:00:00'),
+(372, 377, 1, 1, '', '0000-00-00 00:00:00'),
+(373, 378, 1, 1, '', '0000-00-00 00:00:00'),
+(374, 379, 1, 1, '', '0000-00-00 00:00:00'),
+(375, 380, 1, 1, '', '0000-00-00 00:00:00'),
+(376, 381, 1, 1, '', '0000-00-00 00:00:00'),
+(377, 382, 1, 1, '', '0000-00-00 00:00:00'),
+(378, 383, 1, 1, '', '0000-00-00 00:00:00'),
+(379, 384, 1, 1, '', '0000-00-00 00:00:00'),
+(380, 385, 1, 1, '', '0000-00-00 00:00:00'),
+(381, 386, 1, 1, '', '0000-00-00 00:00:00'),
+(382, 387, 1, 1, '', '0000-00-00 00:00:00'),
+(383, 388, 1, 1, '', '0000-00-00 00:00:00'),
+(384, 389, 1, 1, '', '0000-00-00 00:00:00'),
+(385, 390, 1, 1, '', '0000-00-00 00:00:00'),
+(386, 391, 1, 1, '', '0000-00-00 00:00:00'),
+(387, 392, 1, 1, '', '0000-00-00 00:00:00'),
+(388, 393, 1, 1, '', '0000-00-00 00:00:00'),
+(389, 394, 1, 1, '', '0000-00-00 00:00:00'),
+(390, 395, 1, 1, '', '0000-00-00 00:00:00'),
+(391, 396, 1, 1, '', '0000-00-00 00:00:00'),
+(392, 397, 1, 1, '', '0000-00-00 00:00:00'),
+(393, 398, 1, 1, '', '0000-00-00 00:00:00'),
+(394, 399, 1, 1, '', '0000-00-00 00:00:00'),
+(395, 400, 1, 1, '', '0000-00-00 00:00:00'),
+(396, 401, 1, 1, '', '0000-00-00 00:00:00'),
+(397, 402, 1, 1, '', '0000-00-00 00:00:00'),
+(398, 403, 1, 1, '', '0000-00-00 00:00:00'),
+(399, 404, 1, 1, '', '0000-00-00 00:00:00'),
+(400, 405, 1, 1, '', '0000-00-00 00:00:00'),
+(401, 406, 1, 1, '', '0000-00-00 00:00:00'),
+(402, 407, 1, 1, '', '0000-00-00 00:00:00'),
+(403, 408, 1, 1, '', '0000-00-00 00:00:00'),
+(404, 409, 1, 1, '', '0000-00-00 00:00:00'),
+(405, 410, 1, 1, '', '0000-00-00 00:00:00'),
+(406, 411, 1, 1, '', '0000-00-00 00:00:00'),
+(407, 412, 1, 1, '', '0000-00-00 00:00:00'),
+(408, 413, 1, 1, '', '0000-00-00 00:00:00'),
+(409, 414, 1, 1, '', '0000-00-00 00:00:00'),
+(410, 415, 1, 1, '', '0000-00-00 00:00:00'),
+(411, 416, 1, 1, '', '0000-00-00 00:00:00'),
+(412, 417, 1, 1, '', '0000-00-00 00:00:00'),
+(413, 418, 1, 1, '', '0000-00-00 00:00:00'),
+(414, 419, 1, 1, '', '0000-00-00 00:00:00'),
+(415, 420, 1, 1, '', '0000-00-00 00:00:00'),
+(416, 421, 1, 1, '', '0000-00-00 00:00:00'),
+(417, 422, 1, 1, '', '0000-00-00 00:00:00'),
+(418, 423, 1, 1, '', '0000-00-00 00:00:00'),
+(419, 424, 1, 1, '', '0000-00-00 00:00:00'),
+(420, 425, 1, 1, '', '0000-00-00 00:00:00'),
+(421, 426, 1, 1, '', '0000-00-00 00:00:00'),
+(422, 427, 1, 1, '', '0000-00-00 00:00:00'),
+(423, 428, 1, 1, '', '0000-00-00 00:00:00'),
+(424, 429, 1, 1, '', '0000-00-00 00:00:00'),
+(425, 430, 1, 1, '', '0000-00-00 00:00:00'),
+(426, 431, 1, 1, '', '0000-00-00 00:00:00'),
+(427, 432, 1, 1, '', '0000-00-00 00:00:00'),
+(428, 433, 1, 1, '', '0000-00-00 00:00:00'),
+(429, 434, 1, 1, '', '0000-00-00 00:00:00'),
+(430, 435, 1, 1, '', '0000-00-00 00:00:00'),
+(431, 436, 1, 1, '', '0000-00-00 00:00:00'),
+(432, 437, 1, 1, '', '0000-00-00 00:00:00'),
+(433, 438, 1, 1, '', '0000-00-00 00:00:00'),
+(434, 439, 1, 1, '', '0000-00-00 00:00:00'),
+(435, 440, 1, 1, '', '0000-00-00 00:00:00'),
+(436, 441, 1, 1, '', '0000-00-00 00:00:00'),
+(437, 442, 1, 1, '', '0000-00-00 00:00:00'),
+(438, 443, 1, 1, '', '0000-00-00 00:00:00'),
+(439, 444, 1, 1, '', '0000-00-00 00:00:00'),
+(440, 445, 1, 1, '', '0000-00-00 00:00:00'),
+(441, 446, 1, 1, '', '0000-00-00 00:00:00'),
+(442, 447, 1, 1, '', '0000-00-00 00:00:00'),
+(443, 448, 1, 1, '', '0000-00-00 00:00:00'),
+(444, 449, 1, 1, '', '0000-00-00 00:00:00'),
+(445, 450, 1, 1, '', '0000-00-00 00:00:00'),
+(446, 451, 1, 1, '', '0000-00-00 00:00:00'),
+(447, 452, 1, 1, '', '0000-00-00 00:00:00'),
+(448, 453, 1, 1, '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -2808,15 +3664,16 @@ INSERT INTO `oc_order_history` (`order_history_id`, `order_id`, `order_status_id
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_option` (
-  `order_option_id` int(11) NOT NULL,
+  `order_option_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
   `product_option_id` int(11) NOT NULL,
   `product_option_value_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `value` text NOT NULL,
-  `type` varchar(32) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `type` varchar(32) NOT NULL,
+  PRIMARY KEY (`order_option_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2825,7 +3682,7 @@ CREATE TABLE IF NOT EXISTS `oc_order_option` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_product` (
-  `order_product_id` int(11) NOT NULL,
+  `order_product_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -2834,101 +3691,65 @@ CREATE TABLE IF NOT EXISTS `oc_order_product` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `reward` int(8) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+  `reward` int(8) NOT NULL,
+  PRIMARY KEY (`order_product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=457 ;
 
 --
 -- Дамп данных таблицы `oc_order_product`
 --
 
 INSERT INTO `oc_order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `model`, `quantity`, `price`, `total`, `tax`, `reward`) VALUES
-(1, 1, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(2, 2, 51, 'Bailey Button Yellow', '', 2000, '5800.0000', '11600000.0000', '0.0000', 0),
-(3, 3, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '17400000.0000', '0.0000', 0),
-(4, 4, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '17400000.0000', '0.0000', 0),
-(5, 5, 51, 'Bailey Button Yellow', '', 2000, '5800.0000', '29000000.0000', '0.0000', 0),
-(6, 6, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(7, 7, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(8, 8, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(9, 9, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(10, 10, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(11, 11, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(12, 12, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(13, 13, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(14, 14, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(15, 15, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(16, 16, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(17, 17, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(18, 18, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(19, 19, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(20, 20, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
-(21, 21, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
-(22, 22, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
-(23, 23, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
-(24, 24, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
-(25, 25, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
-(26, 26, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '17400000.0000', '0.0000', 0),
-(27, 27, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '17400000.0000', '0.0000', 0),
-(28, 28, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(29, 29, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(30, 30, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(31, 31, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(32, 32, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(33, 33, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(34, 34, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(35, 35, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
-(36, 36, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(37, 37, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(38, 38, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(39, 39, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(40, 40, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(41, 41, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(42, 42, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(43, 43, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(44, 44, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(45, 45, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(46, 46, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(47, 47, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(48, 48, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(49, 49, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(50, 50, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(51, 51, 56, 'Bailey Button White', '', 1000, '6600.0000', '0.0000', '0.0000', 0),
-(52, 52, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(53, 53, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(54, 54, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(55, 55, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(56, 56, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(57, 57, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(58, 58, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(59, 59, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(60, 60, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(61, 61, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(62, 62, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(63, 63, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(64, 64, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(65, 65, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(66, 66, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(67, 67, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(68, 68, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(69, 69, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(70, 70, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(71, 71, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(72, 72, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(73, 73, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(74, 74, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(75, 75, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(76, 76, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(77, 77, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(78, 78, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(79, 79, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(80, 80, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(81, 81, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(82, 82, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
-(83, 83, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(84, 84, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(85, 85, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
-(86, 86, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '4900000.0000', '0.0000', 0),
-(87, 87, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '4900000.0000', '0.0000', 0);
+(101, 98, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(102, 99, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(103, 100, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(104, 101, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(105, 102, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(106, 103, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(107, 104, 51, 'Bailey Button Yellow', '', 3, '5800.0000', '17400.0000', '0.0000', 0),
+(108, 105, 51, 'Bailey Button Yellow', '', 15, '5800.0000', '87000.0000', '0.0000', 0),
+(109, 106, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(110, 107, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(111, 108, 51, 'Bailey Button Yellow', '', 10, '5800.0000', '58000.0000', '0.0000', 0),
+(112, 109, 50, 'Bailey Button White Metallic', '', 990, '6460.0000', '6395400.0000', '0.0000', 0),
+(113, 110, 50, 'Bailey Button White Metallic', '', 10, '6460.0000', '64600.0000', '0.0000', 0),
+(114, 111, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(115, 112, 50, 'Bailey Button White Metallic', '', 18, '6460.0000', '116280.0000', '0.0000', 0),
+(116, 113, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(117, 114, 50, 'Bailey Button White Metallic', '', 100, '6460.0000', '646000.0000', '0.0000', 0),
+(118, 115, 50, 'Bailey Button White Metallic', '', 111, '6460.0000', '717060.0000', '0.0000', 0),
+(119, 116, 50, 'Bailey Button White Metallic', '', 111111, '6460.0000', '717777060.0000', '0.0000', 0),
+(120, 117, 50, 'Bailey Button White Metallic', '', 2, '6460.0000', '12920.0000', '0.0000', 0),
+(121, 118, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(122, 119, 50, 'Bailey Button White Metallic', '', 16, '6460.0000', '103360.0000', '0.0000', 0),
+(123, 120, 50, 'Bailey Button White Metallic', '', 2, '6460.0000', '12920.0000', '0.0000', 0),
+(124, 121, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(125, 122, 50, 'Bailey Button White Metallic', '', 15, '6460.0000', '96900.0000', '0.0000', 0),
+(126, 123, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(127, 124, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(128, 125, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(129, 126, 50, 'Bailey Button White Metallic', '', 15, '6460.0000', '96900.0000', '0.0000', 0),
+(130, 127, 50, 'Bailey Button White Metallic', '', 3, '6460.0000', '19380.0000', '0.0000', 0),
+(131, 128, 50, 'Bailey Button White Metallic', '', 2, '6460.0000', '12920.0000', '0.0000', 0),
+(132, 129, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(133, 130, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(134, 131, 50, 'Bailey Button White Metallic', '', 2, '6460.0000', '12920.0000', '0.0000', 0),
+(135, 132, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(136, 133, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(137, 134, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(138, 135, 50, 'Bailey Button White Metallic', '', 10, '6460.0000', '64600.0000', '0.0000', 0),
+(139, 136, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(140, 137, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(141, 138, 50, 'Bailey Button White Metallic', '', 20, '6460.0000', '129200.0000', '0.0000', 0),
+(142, 139, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(143, 140, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(144, 141, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(145, 142, 50, 'Bailey Button White Metallic', '', 15, '6460.0000', '96900.0000', '0.0000', 0),
+(146, 143, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(147, 144, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(148, 145, 50, 'Bailey Button White Metallic', '', 17, '6460.0000', '109820.0000', '0.0000', 0),
+(149, 146, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(150, 147, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0);
 
 -- --------------------------------------------------------
 
@@ -2937,7 +3758,7 @@ INSERT INTO `oc_order_product` (`order_product_id`, `order_id`, `product_id`, `n
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
-  `order_recurring_id` int(11) NOT NULL,
+  `order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `reference` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -2956,8 +3777,9 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
   `trial_duration` smallint(6) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`order_recurring_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2966,13 +3788,14 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_recurring_transaction` (
-  `order_recurring_transaction_id` int(11) NOT NULL,
+  `order_recurring_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_recurring_id` int(11) NOT NULL,
   `reference` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `amount` decimal(10,4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`order_recurring_transaction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -2981,10 +3804,11 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring_transaction` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_status` (
-  `order_status_id` int(11) NOT NULL,
+  `order_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`order_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Дамп данных таблицы `oc_order_status`
@@ -3010,13 +3834,15 @@ INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_total` (
-  `order_total_id` int(10) NOT NULL,
+  `order_total_id` int(10) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
   `title` varchar(255) NOT NULL,
   `value` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `sort_order` int(3) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL,
+  PRIMARY KEY (`order_total_id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=495 ;
 
 --
 -- Дамп данных таблицы `oc_order_total`
@@ -3147,7 +3973,376 @@ INSERT INTO `oc_order_total` (`order_total_id`, `order_id`, `code`, `title`, `va
 (122, 84, 'sub_total', 'Сумма', '0.0000', 1),
 (123, 85, 'sub_total', 'Сумма', '0.0000', 1),
 (124, 86, 'sub_total', 'Сумма', '4900000.0000', 1),
-(125, 87, 'sub_total', 'Сумма', '4900000.0000', 1);
+(125, 87, 'sub_total', 'Сумма', '4900000.0000', 1),
+(126, 0, 'sub_total', 'Сумма', '5800.0000', 1),
+(127, 0, 'sub_total', 'Сумма', '5800.0000', 1),
+(128, 0, 'sub_total', 'Сумма', '5800.0000', 1),
+(129, 88, 'sub_total', 'Сумма', '5800.0000', 1),
+(130, 89, 'sub_total', 'Сумма', '5800.0000', 1),
+(131, 90, 'sub_total', 'Сумма', '5800.0000', 1),
+(132, 91, 'sub_total', 'Сумма', '5800.0000', 1),
+(133, 92, 'sub_total', 'Сумма', '5800.0000', 1),
+(134, 93, 'sub_total', 'Сумма', '5800.0000', 1),
+(135, 94, 'sub_total', 'Сумма', '5800.0000', 1),
+(136, 95, 'sub_total', 'Сумма', '5800.0000', 1),
+(137, 96, 'sub_total', 'Сумма', '5800.0000', 1),
+(138, 97, 'sub_total', 'Сумма', '5800.0000', 1),
+(139, 98, 'sub_total', 'Сумма', '5800.0000', 1),
+(140, 99, 'sub_total', 'Сумма', '5800.0000', 1),
+(141, 100, 'sub_total', 'Сумма', '5800.0000', 1),
+(142, 101, 'sub_total', 'Сумма', '5800.0000', 1),
+(143, 102, 'sub_total', 'Сумма', '5800.0000', 1),
+(144, 103, 'sub_total', 'Сумма', '5800000.0000', 1),
+(145, 104, 'sub_total', 'Сумма', '17400.0000', 1),
+(146, 105, 'sub_total', 'Сумма', '87000.0000', 1),
+(147, 106, 'sub_total', 'Сумма', '5800.0000', 1),
+(148, 107, 'sub_total', 'Сумма', '5800.0000', 1),
+(149, 108, 'sub_total', 'Сумма', '58000.0000', 1),
+(150, 109, 'sub_total', 'Сумма', '6395400.0000', 1),
+(151, 110, 'sub_total', 'Сумма', '64600.0000', 1),
+(152, 111, 'sub_total', 'Сумма', '6460.0000', 1),
+(153, 112, 'sub_total', 'Сумма', '116280.0000', 1),
+(154, 113, 'sub_total', 'Сумма', '6460.0000', 1),
+(155, 114, 'sub_total', 'Сумма', '646000.0000', 1),
+(156, 115, 'sub_total', 'Сумма', '717060.0000', 1),
+(157, 116, 'sub_total', 'Сумма', '717777060.0000', 1),
+(158, 117, 'sub_total', 'Сумма', '12920.0000', 1),
+(159, 118, 'sub_total', 'Сумма', '6460.0000', 1),
+(160, 119, 'sub_total', 'Сумма', '103360.0000', 1),
+(161, 120, 'sub_total', 'Сумма', '12920.0000', 1),
+(162, 121, 'sub_total', 'Сумма', '6460.0000', 1),
+(163, 122, 'sub_total', 'Сумма', '96900.0000', 1),
+(164, 123, 'sub_total', 'Сумма', '6460.0000', 1),
+(165, 124, 'sub_total', 'Сумма', '6460.0000', 1),
+(166, 125, 'sub_total', 'Сумма', '6460.0000', 1),
+(167, 126, 'sub_total', 'Сумма', '96900.0000', 1),
+(168, 127, 'sub_total', 'Сумма', '19380.0000', 1),
+(169, 128, 'sub_total', 'Сумма', '12920.0000', 1),
+(170, 129, 'sub_total', 'Сумма', '6460.0000', 1),
+(171, 130, 'sub_total', 'Сумма', '6460.0000', 1),
+(172, 131, 'sub_total', 'Сумма', '12920.0000', 1),
+(173, 132, 'sub_total', 'Сумма', '6460.0000', 1),
+(174, 133, 'sub_total', 'Сумма', '6460.0000', 1),
+(175, 134, 'sub_total', 'Сумма', '6460.0000', 1),
+(176, 135, 'sub_total', 'Сумма', '64600.0000', 1),
+(177, 136, 'sub_total', 'Сумма', '6460.0000', 1),
+(178, 137, 'sub_total', 'Сумма', '6460.0000', 1),
+(179, 138, 'sub_total', 'Сумма', '129200.0000', 1),
+(180, 139, 'sub_total', 'Сумма', '6460.0000', 1),
+(181, 140, 'sub_total', 'Сумма', '6460.0000', 1),
+(182, 141, 'sub_total', 'Сумма', '6460.0000', 1),
+(183, 142, 'sub_total', 'Сумма', '96900.0000', 1),
+(184, 143, 'sub_total', 'Сумма', '6460.0000', 1),
+(185, 144, 'sub_total', 'Сумма', '6460.0000', 1),
+(186, 145, 'sub_total', 'Сумма', '109820.0000', 1),
+(187, 146, 'sub_total', 'Сумма', '6460.0000', 1),
+(188, 147, 'sub_total', 'Сумма', '6460.0000', 1),
+(189, 148, 'sub_total', 'Сумма', '11600000.0000', 1),
+(190, 149, 'sub_total', 'Сумма', '11600000.0000', 1),
+(191, 150, 'sub_total', 'Сумма', '5800.0000', 1),
+(192, 151, 'sub_total', 'Сумма', '5800.0000', 1),
+(193, 152, 'sub_total', 'Сумма', '5800.0000', 1),
+(194, 153, 'sub_total', 'Сумма', '87000.0000', 1),
+(195, 154, 'sub_total', 'Сумма', '5800.0000', 1),
+(196, 155, 'sub_total', 'Сумма', '5800.0000', 1),
+(197, 156, 'sub_total', 'Сумма', '5499020.0000', 1),
+(198, 157, 'sub_total', 'Сумма', '5499020.0000', 1),
+(199, 158, 'sub_total', 'Сумма', '104400.0000', 1),
+(200, 159, 'sub_total', 'Сумма', '5800.0000', 1),
+(201, 160, 'sub_total', 'Сумма', '5800.0000', 1),
+(202, 161, 'sub_total', 'Сумма', '643800.0000', 1),
+(203, 162, 'sub_total', 'Сумма', '5800.0000', 1),
+(204, 163, 'sub_total', 'Сумма', '5800.0000', 1),
+(205, 164, 'sub_total', 'Сумма', '5800.0000', 1),
+(206, 165, 'sub_total', 'Сумма', '5800.0000', 1),
+(207, 166, 'sub_total', 'Сумма', '81200.0000', 1),
+(208, 167, 'sub_total', 'Сумма', '5800.0000', 1),
+(209, 168, 'sub_total', 'Сумма', '6460.0000', 1),
+(210, 169, 'sub_total', 'Сумма', '6460.0000', 1),
+(211, 170, 'sub_total', 'Сумма', '109820.0000', 1),
+(212, 171, 'sub_total', 'Сумма', '6460.0000', 1),
+(213, 172, 'sub_total', 'Сумма', '6460.0000', 1),
+(214, 173, 'sub_total', 'Сумма', '6460.0000', 1),
+(215, 174, 'sub_total', 'Сумма', '6460.0000', 1),
+(216, 175, 'sub_total', 'Сумма', '64600.0000', 1),
+(217, 176, 'sub_total', 'Сумма', '6460.0000', 1),
+(218, 177, 'sub_total', 'Сумма', '64600.0000', 1),
+(219, 178, 'sub_total', 'Сумма', '6460.0000', 1),
+(220, 179, 'sub_total', 'Сумма', '6530000.0000', 1),
+(221, 180, 'sub_total', 'Сумма', '6530000.0000', 1),
+(222, 181, 'sub_total', 'Сумма', '6530000.0000', 1),
+(223, 182, 'sub_total', 'Сумма', '6600.0000', 1),
+(224, 183, 'sub_total', 'Сумма', '638000.0000', 1),
+(225, 184, 'sub_total', 'Сумма', '1298000.0000', 1),
+(226, 185, 'sub_total', 'Сумма', '1298000.0000', 1),
+(227, 186, 'sub_total', 'Сумма', '6465800.0000', 1),
+(228, 187, 'sub_total', 'Сумма', '6465800.0000', 1),
+(229, 188, 'sub_total', 'Сумма', '1240000.0000', 1),
+(230, 189, 'sub_total', 'Сумма', '1240000.0000', 1),
+(231, 190, 'sub_total', 'Сумма', '6443800.0000', 1),
+(232, 191, 'sub_total', 'Сумма', '732600.0000', 1),
+(233, 192, 'sub_total', 'Сумма', '6600.0000', 1),
+(234, 193, 'sub_total', 'Сумма', '732600.0000', 1),
+(235, 194, 'sub_total', 'Сумма', '72600.0000', 1),
+(236, 195, 'sub_total', 'Сумма', '666600.0000', 1),
+(237, 196, 'sub_total', 'Сумма', '6600.0000', 1),
+(238, 197, 'sub_total', 'Сумма', '6600.0000', 1),
+(239, 198, 'sub_total', 'Сумма', '5800.0000', 1),
+(240, 199, 'sub_total', 'Сумма', '5800.0000', 1),
+(241, 200, 'sub_total', 'Сумма', '98600.0000', 1),
+(242, 201, 'sub_total', 'Сумма', '116000.0000', 1),
+(243, 202, 'sub_total', 'Сумма', '116000.0000', 1),
+(244, 203, 'sub_total', 'Сумма', '11600.0000', 1),
+(245, 204, 'sub_total', 'Сумма', '11600.0000', 1),
+(246, 205, 'sub_total', 'Сумма', '17400.0000', 1),
+(247, 206, 'sub_total', 'Сумма', '23200.0000', 1),
+(248, 207, 'sub_total', 'Сумма', '29000.0000', 1),
+(249, 208, 'sub_total', 'Сумма', '34800.0000', 1),
+(250, 209, 'sub_total', 'Сумма', '5800.0000', 1),
+(251, 210, 'sub_total', 'Сумма', '5800.0000', 1),
+(252, 211, 'sub_total', 'Сумма', '98600.0000', 1),
+(253, 212, 'sub_total', 'Сумма', '5800.0000', 1),
+(254, 213, 'sub_total', 'Сумма', '104400.0000', 1),
+(255, 214, 'sub_total', 'Сумма', '643800.0000', 1),
+(256, 215, 'sub_total', 'Сумма', '5800.0000', 1),
+(257, 216, 'sub_total', 'Сумма', '5800.0000', 1),
+(258, 217, 'sub_total', 'Сумма', '98600.0000', 1),
+(259, 218, 'sub_total', 'Сумма', '5800.0000', 1),
+(260, 219, 'sub_total', 'Сумма', '11600.0000', 1),
+(261, 220, 'sub_total', 'Сумма', '1160000.0000', 1),
+(262, 221, 'sub_total', 'Сумма', '1160000.0000', 1),
+(263, 222, 'sub_total', 'Сумма', '5800.0000', 1),
+(264, 223, 'sub_total', 'Сумма', '5800.0000', 1),
+(265, 224, 'sub_total', 'Сумма', '5800.0000', 1),
+(266, 225, 'sub_total', 'Сумма', '5800.0000', 1),
+(267, 226, 'sub_total', 'Сумма', '5800.0000', 1),
+(268, 227, 'sub_total', 'Сумма', '5800.0000', 1),
+(269, 228, 'sub_total', 'Сумма', '5800.0000', 1),
+(270, 229, 'sub_total', 'Сумма', '63800.0000', 1),
+(271, 230, 'sub_total', 'Сумма', '5800.0000', 1),
+(272, 231, 'sub_total', 'Сумма', '110200.0000', 1),
+(273, 232, 'sub_total', 'Сумма', '110200.0000', 1),
+(274, 233, 'sub_total', 'Сумма', '5800.0000', 1),
+(275, 234, 'sub_total', 'Сумма', '5800.0000', 1),
+(276, 235, 'sub_total', 'Сумма', '92800.0000', 1),
+(277, 236, 'sub_total', 'Сумма', '5800.0000', 1),
+(278, 237, 'sub_total', 'Сумма', '110200.0000', 1),
+(279, 238, 'sub_total', 'Сумма', '104400.0000', 1),
+(280, 239, 'sub_total', 'Сумма', '5800.0000', 1),
+(281, 240, 'sub_total', 'Сумма', '5800.0000', 1),
+(282, 241, 'sub_total', 'Сумма', '29000.0000', 1),
+(283, 242, 'sub_total', 'Сумма', '580000.0000', 1),
+(284, 243, 'sub_total', 'Сумма', '5800.0000', 1),
+(285, 244, 'sub_total', 'Сумма', '91000.0000', 1),
+(286, 245, 'sub_total', 'Сумма', '91000.0000', 1),
+(287, 246, 'sub_total', 'Сумма', '6534000.0000', 1),
+(288, 247, 'sub_total', 'Сумма', '1273000.0000', 1),
+(289, 248, 'sub_total', 'Сумма', '1273000.0000', 1),
+(290, 249, 'sub_total', 'Сумма', '1273000.0000', 1),
+(291, 250, 'sub_total', 'Сумма', '1900000.0000', 1),
+(292, 251, 'sub_total', 'Сумма', '1900000.0000', 1),
+(293, 252, 'sub_total', 'Сумма', '1900000.0000', 1),
+(294, 253, 'sub_total', 'Сумма', '5800.0000', 1),
+(295, 254, 'sub_total', 'Сумма', '5800.0000', 1),
+(296, 255, 'sub_total', 'Сумма', '11600.0000', 1),
+(297, 256, 'sub_total', 'Сумма', '11600.0000', 1),
+(298, 257, 'sub_total', 'Сумма', '11600.0000', 1),
+(299, 258, 'sub_total', 'Сумма', '11600.0000', 1),
+(300, 259, 'sub_total', 'Сумма', '6600.0000', 1),
+(301, 260, 'sub_total', 'Сумма', '1820000.0000', 1),
+(302, 261, 'sub_total', 'Сумма', '1820000.0000', 1),
+(303, 262, 'sub_total', 'Сумма', '1820000.0000', 1),
+(304, 263, 'sub_total', 'Сумма', '5800.0000', 1),
+(305, 264, 'sub_total', 'Сумма', '5800.0000', 1),
+(306, 265, 'sub_total', 'Сумма', '5800.0000', 1),
+(307, 266, 'sub_total', 'Сумма', '5800.0000', 1),
+(308, 267, 'sub_total', 'Сумма', '87000.0000', 1),
+(309, 268, 'sub_total', 'Сумма', '5800.0000', 1),
+(310, 269, 'sub_total', 'Сумма', '5800.0000', 1),
+(311, 270, 'sub_total', 'Сумма', '104400.0000', 1),
+(312, 271, 'sub_total', 'Сумма', '5800.0000', 1),
+(313, 272, 'sub_total', 'Сумма', '104400.0000', 1),
+(314, 273, 'sub_total', 'Сумма', '5800.0000', 1),
+(315, 274, 'sub_total', 'Сумма', '5800.0000', 1),
+(316, 275, 'sub_total', 'Сумма', '232000.0000', 1),
+(317, 276, 'sub_total', 'Сумма', '232000.0000', 1),
+(318, 277, 'sub_total', 'Сумма', '1287600.0000', 1),
+(319, 278, 'sub_total', 'Сумма', '1287600.0000', 1),
+(320, 279, 'sub_total', 'Сумма', '116000.0000', 1),
+(321, 280, 'sub_total', 'Сумма', '116000.0000', 1),
+(322, 281, 'sub_total', 'Сумма', '1160000.0000', 1),
+(323, 282, 'sub_total', 'Сумма', '1160000.0000', 1),
+(324, 283, 'sub_total', 'Сумма', '1160000.0000', 1),
+(325, 284, 'sub_total', 'Сумма', '1160000.0000', 1),
+(326, 285, 'sub_total', 'Сумма', '1160000.0000', 1),
+(327, 286, 'sub_total', 'Сумма', '1160000.0000', 1),
+(328, 287, 'sub_total', 'Сумма', '6600.0000', 1),
+(329, 288, 'sub_total', 'Сумма', '6600.0000', 1),
+(330, 289, 'sub_total', 'Сумма', '732600.0000', 1),
+(331, 290, 'sub_total', 'Сумма', '812000.0000', 1),
+(332, 291, 'sub_total', 'Сумма', '812000.0000', 1),
+(333, 292, 'sub_total', 'Сумма', '11600.0000', 1),
+(334, 293, 'sub_total', 'Сумма', '11600.0000', 1),
+(335, 294, 'sub_total', 'Сумма', '11600.0000', 1),
+(336, 295, 'sub_total', 'Сумма', '11600.0000', 1),
+(337, 296, 'sub_total', 'Сумма', '11600.0000', 1),
+(338, 297, 'sub_total', 'Сумма', '11600.0000', 1),
+(339, 298, 'sub_total', 'Сумма', '11600.0000', 1),
+(340, 299, 'sub_total', 'Сумма', '11600.0000', 1),
+(341, 300, 'sub_total', 'Сумма', '18200.0000', 1),
+(342, 301, 'sub_total', 'Сумма', '18200.0000', 1),
+(343, 302, 'sub_total', 'Сумма', '18200.0000', 1),
+(344, 303, 'sub_total', 'Сумма', '5800.0000', 1),
+(345, 304, 'sub_total', 'Сумма', '6600.0000', 1),
+(346, 305, 'sub_total', 'Сумма', '6600.0000', 1),
+(347, 306, 'sub_total', 'Сумма', '6600.0000', 1),
+(348, 307, 'sub_total', 'Сумма', '5800.0000', 1),
+(349, 308, 'sub_total', 'Сумма', '5800.0000', 1),
+(350, 309, 'sub_total', 'Сумма', '5800.0000', 1),
+(351, 310, 'sub_total', 'Сумма', '5800.0000', 1),
+(352, 311, 'sub_total', 'Сумма', '11600.0000', 1),
+(353, 312, 'sub_total', 'Сумма', '5800.0000', 1),
+(354, 313, 'sub_total', 'Сумма', '11600.0000', 1),
+(355, 314, 'sub_total', 'Сумма', '11600.0000', 1),
+(356, 315, 'sub_total', 'Сумма', '5800.0000', 1),
+(357, 316, 'sub_total', 'Сумма', '6600.0000', 1),
+(358, 317, 'sub_total', 'Сумма', '5800.0000', 1),
+(359, 318, 'sub_total', 'Сумма', '11600.0000', 1),
+(360, 319, 'sub_total', 'Сумма', '11600.0000', 1),
+(361, 320, 'sub_total', 'Сумма', '5800.0000', 1),
+(362, 321, 'sub_total', 'Сумма', '11600.0000', 1),
+(363, 322, 'sub_total', 'Сумма', '11600.0000', 1),
+(364, 323, 'sub_total', 'Сумма', '5800.0000', 1),
+(365, 324, 'sub_total', 'Сумма', '11600.0000', 1),
+(366, 325, 'sub_total', 'Сумма', '11600.0000', 1),
+(367, 326, 'sub_total', 'Сумма', '5800.0000', 1),
+(368, 327, 'sub_total', 'Сумма', '5800.0000', 1),
+(369, 328, 'sub_total', 'Сумма', '5800.0000', 1),
+(370, 329, 'sub_total', 'Сумма', '11600.0000', 1),
+(371, 330, 'sub_total', 'Сумма', '11600.0000', 1),
+(372, 331, 'sub_total', 'Сумма', '5800.0000', 1),
+(373, 332, 'sub_total', 'Сумма', '5800.0000', 1),
+(374, 333, 'sub_total', 'Сумма', '5800.0000', 1),
+(375, 334, 'sub_total', 'Сумма', '5800.0000', 1),
+(376, 335, 'sub_total', 'Сумма', '5800.0000', 1),
+(377, 336, 'sub_total', 'Сумма', '5800.0000', 1),
+(378, 337, 'sub_total', 'Сумма', '11600.0000', 1),
+(379, 338, 'sub_total', 'Сумма', '5800.0000', 1),
+(380, 339, 'sub_total', 'Сумма', '5800.0000', 1),
+(381, 340, 'sub_total', 'Сумма', '5800.0000', 1),
+(382, 341, 'sub_total', 'Сумма', '5800.0000', 1),
+(383, 342, 'sub_total', 'Сумма', '116000.0000', 1),
+(384, 343, 'sub_total', 'Сумма', '116000.0000', 1),
+(385, 344, 'sub_total', 'Сумма', '5800.0000', 1),
+(386, 345, 'sub_total', 'Сумма', '5800.0000', 1),
+(387, 346, 'sub_total', 'Сумма', '5800.0000', 1),
+(388, 347, 'sub_total', 'Сумма', '5800.0000', 1),
+(389, 348, 'sub_total', 'Сумма', '11600.0000', 1),
+(390, 349, 'sub_total', 'Сумма', '5800.0000', 1),
+(391, 350, 'sub_total', 'Сумма', '5800.0000', 1),
+(392, 351, 'sub_total', 'Сумма', '5800.0000', 1),
+(393, 352, 'sub_total', 'Сумма', '5800.0000', 1),
+(394, 353, 'sub_total', 'Сумма', '5800.0000', 1),
+(395, 354, 'sub_total', 'Сумма', '5800.0000', 1),
+(396, 355, 'sub_total', 'Сумма', '6600.0000', 1),
+(397, 356, 'sub_total', 'Сумма', '5800.0000', 1),
+(398, 357, 'sub_total', 'Сумма', '5800.0000', 1),
+(399, 358, 'sub_total', 'Сумма', '5800.0000', 1),
+(400, 359, 'sub_total', 'Сумма', '5800.0000', 1),
+(401, 360, 'sub_total', 'Сумма', '6600.0000', 1),
+(402, 361, 'sub_total', 'Сумма', '5800.0000', 1),
+(403, 362, 'sub_total', 'Сумма', '6600.0000', 1),
+(404, 363, 'sub_total', 'Сумма', '5800.0000', 1),
+(405, 364, 'sub_total', 'Сумма', '5800.0000', 1),
+(406, 365, 'sub_total', 'Сумма', '11600.0000', 1),
+(407, 366, 'sub_total', 'Сумма', '17400.0000', 1),
+(408, 367, 'sub_total', 'Сумма', '17400.0000', 1),
+(409, 368, 'sub_total', 'Сумма', '17400.0000', 1),
+(410, 369, 'sub_total', 'Сумма', '17400.0000', 1),
+(411, 370, 'sub_total', 'Сумма', '5800.0000', 1),
+(412, 371, 'sub_total', 'Сумма', '11600.0000', 1),
+(413, 372, 'sub_total', 'Сумма', '5800.0000', 1),
+(414, 373, 'sub_total', 'Сумма', '5800.0000', 1),
+(415, 374, 'sub_total', 'Сумма', '5800.0000', 1),
+(416, 375, 'sub_total', 'Сумма', '11600.0000', 1),
+(417, 376, 'sub_total', 'Сумма', '11600.0000', 1),
+(418, 377, 'sub_total', 'Сумма', '11600.0000', 1),
+(419, 378, 'sub_total', 'Сумма', '11600.0000', 1),
+(420, 379, 'sub_total', 'Сумма', '11600.0000', 1),
+(421, 380, 'sub_total', 'Сумма', '11600.0000', 1),
+(422, 381, 'sub_total', 'Сумма', '11600.0000', 1),
+(423, 382, 'sub_total', 'Сумма', '6380000.0000', 1),
+(424, 383, 'sub_total', 'Сумма', '6380000.0000', 1),
+(425, 384, 'sub_total', 'Сумма', '11600.0000', 1),
+(426, 385, 'sub_total', 'Сумма', '11600.0000', 1),
+(427, 386, 'sub_total', 'Сумма', '5800.0000', 1),
+(428, 387, 'sub_total', 'Сумма', '11600.0000', 1),
+(429, 388, 'sub_total', 'Сумма', '11600.0000', 1),
+(430, 389, 'sub_total', 'Сумма', '11600.0000', 1),
+(431, 390, 'sub_total', 'Сумма', '11600.0000', 1),
+(432, 391, 'sub_total', 'Сумма', '5800.0000', 1),
+(433, 392, 'sub_total', 'Сумма', '5800.0000', 1),
+(434, 393, 'sub_total', 'Сумма', '6600.0000', 1),
+(435, 394, 'sub_total', 'Сумма', '13200.0000', 1),
+(436, 395, 'sub_total', 'Сумма', '13200.0000', 1),
+(437, 396, 'sub_total', 'Сумма', '6600.0000', 1),
+(438, 397, 'sub_total', 'Сумма', '9100.0000', 1),
+(439, 398, 'sub_total', 'Сумма', '5800.0000', 1),
+(440, 399, 'sub_total', 'Сумма', '11600.0000', 1),
+(441, 400, 'sub_total', 'Сумма', '11600.0000', 1),
+(442, 401, 'sub_total', 'Сумма', '11600.0000', 1),
+(443, 402, 'sub_total', 'Сумма', '11600.0000', 1),
+(444, 403, 'sub_total', 'Сумма', '6600.0000', 1),
+(445, 404, 'sub_total', 'Сумма', '11600.0000', 1),
+(446, 405, 'sub_total', 'Сумма', '11600.0000', 1),
+(447, 406, 'sub_total', 'Сумма', '6600.0000', 1),
+(448, 407, 'sub_total', 'Сумма', '5800.0000', 1),
+(449, 408, 'sub_total', 'Сумма', '5800.0000', 1),
+(450, 409, 'sub_total', 'Сумма', '5800.0000', 1),
+(451, 410, 'sub_total', 'Сумма', '1160000.0000', 1),
+(452, 411, 'sub_total', 'Сумма', '1160000.0000', 1),
+(453, 412, 'sub_total', 'Сумма', '5800.0000', 1),
+(454, 413, 'sub_total', 'Сумма', '1160000.0000', 1),
+(455, 414, 'sub_total', 'Сумма', '1160000.0000', 1),
+(456, 415, 'sub_total', 'Сумма', '5800.0000', 1),
+(457, 416, 'sub_total', 'Сумма', '11600.0000', 1),
+(458, 417, 'sub_total', 'Сумма', '11600.0000', 1),
+(459, 418, 'sub_total', 'Сумма', '11600.0000', 1),
+(460, 419, 'sub_total', 'Сумма', '11600.0000', 1),
+(461, 420, 'sub_total', 'Сумма', '5800.0000', 1),
+(462, 421, 'sub_total', 'Сумма', '11600.0000', 1),
+(463, 422, 'sub_total', 'Сумма', '11600.0000', 1),
+(464, 423, 'sub_total', 'Сумма', '5800.0000', 1),
+(465, 424, 'sub_total', 'Сумма', '5800.0000', 1),
+(466, 425, 'sub_total', 'Сумма', '6600.0000', 1),
+(467, 426, 'sub_total', 'Сумма', '5800.0000', 1),
+(468, 427, 'sub_total', 'Сумма', '5800.0000', 1),
+(469, 428, 'sub_total', 'Сумма', '11600.0000', 1),
+(470, 429, 'sub_total', 'Сумма', '11600.0000', 1),
+(471, 430, 'sub_total', 'Сумма', '6600.0000', 1),
+(472, 431, 'sub_total', 'Сумма', '11600.0000', 1),
+(473, 432, 'sub_total', 'Сумма', '11600.0000', 1),
+(474, 433, 'sub_total', 'Сумма', '6600.0000', 1),
+(475, 434, 'sub_total', 'Сумма', '5800.0000', 1),
+(476, 435, 'sub_total', 'Сумма', '5800.0000', 1),
+(477, 436, 'sub_total', 'Сумма', '6600.0000', 1),
+(478, 437, 'sub_total', 'Сумма', '11600.0000', 1),
+(479, 438, 'sub_total', 'Сумма', '11600.0000', 1),
+(480, 439, 'sub_total', 'Сумма', '6600.0000', 1),
+(481, 440, 'sub_total', 'Сумма', '5800.0000', 1),
+(482, 441, 'sub_total', 'Сумма', '5800.0000', 1),
+(483, 442, 'sub_total', 'Сумма', '5800.0000', 1),
+(484, 443, 'sub_total', 'Сумма', '58000.0000', 1),
+(485, 444, 'sub_total', 'Сумма', '5800.0000', 1),
+(486, 445, 'sub_total', 'Сумма', '643800.0000', 1),
+(487, 446, 'sub_total', 'Сумма', '5800.0000', 1),
+(488, 447, 'sub_total', 'Сумма', '1160000.0000', 1),
+(489, 448, 'sub_total', 'Сумма', '1160000.0000', 1),
+(490, 449, 'sub_total', 'Сумма', '11600.0000', 1),
+(491, 450, 'sub_total', 'Сумма', '11600.0000', 1),
+(492, 451, 'sub_total', 'Сумма', '11600.0000', 1),
+(493, 452, 'sub_total', 'Сумма', '11600.0000', 1),
+(494, 453, 'sub_total', 'Сумма', '660000.0000', 1);
 
 -- --------------------------------------------------------
 
@@ -3156,7 +4351,7 @@ INSERT INTO `oc_order_total` (`order_total_id`, `order_id`, `code`, `title`, `va
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
-  `order_voucher_id` int(11) NOT NULL,
+  `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `voucher_id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -3167,8 +4362,9 @@ CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `amount` decimal(15,4) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `amount` decimal(15,4) NOT NULL,
+  PRIMARY KEY (`order_voucher_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3177,7 +4373,7 @@ CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product` (
-  `product_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
   `model` varchar(64) NOT NULL,
   `sku` varchar(64) NOT NULL,
   `upc` varchar(12) NOT NULL,
@@ -3207,8 +4403,9 @@ CREATE TABLE IF NOT EXISTS `oc_product` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `viewed` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
 
 --
 -- Дамп данных таблицы `oc_product`
@@ -3217,22 +4414,22 @@ CREATE TABLE IF NOT EXISTS `oc_product` (
 INSERT INTO `oc_product` (`product_id`, `model`, `sku`, `upc`, `ean`, `jan`, `isbn`, `mpn`, `location`, `quantity`, `stock_status_id`, `image`, `manufacturer_id`, `shipping`, `price`, `points`, `tax_class_id`, `date_available`, `weight`, `weight_class_id`, `length`, `width`, `height`, `length_class_id`, `subtract`, `minimum`, `sort_order`, `status`, `viewed`, `date_added`, `date_modified`) VALUES
 (66, 'Bailey Button White Metallic', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:02:35'),
 (63, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:02:57'),
-(64, 'Bailey Button Wheat', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:03:15'),
-(65, 'Bailey Button White', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 3, '2017-09-05 14:49:16', '2017-09-05 15:03:38'),
-(54, 'Bailey Button Black', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 229, '2017-08-18 15:00:48', '2017-08-23 16:12:04'),
+(64, 'Bailey Button Wheat', '', '', '', '', '', '', '', 2, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:03:15'),
+(65, 'Bailey Button White', '', '', '', '', '', '', '', 11, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 24, '2017-09-05 14:49:16', '2017-09-05 15:03:38'),
+(54, 'Bailey Button Black', '990-007', '', '', '', '', '', '', 999, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 229, '2017-08-18 15:00:48', '2017-08-23 16:12:04'),
 (55, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 28, '2017-08-18 15:04:32', '2017-08-23 17:35:01'),
-(56, 'Bailey Button White', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 50, '2017-08-18 15:17:27', '2017-08-22 16:00:26'),
+(56, 'Bailey Button White', '990-007', '', '', '', '', '', '', 19, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 102, '2017-08-18 15:17:27', '2017-08-22 16:00:26'),
 (57, 'Bailey Button Leather', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 3, '2017-08-18 15:19:46', '2017-08-22 15:52:16'),
 (58, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 28, '2017-08-18 19:17:06', '2017-08-23 17:33:55'),
 (59, 'Bailey Button Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:03:51'),
 (60, 'Bailey Button Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:04:02'),
 (61, 'Bailey Button Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:04:15'),
 (62, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:04:28'),
-(50, 'Bailey Button White Metallic', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 55, '2017-08-18 14:46:09', '2017-08-22 16:01:21'),
-(51, 'Bailey Button Yellow', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 138, '2017-08-18 14:50:16', '2017-08-22 16:02:07'),
+(50, 'Bailey Button White Metallic', '990-007', '', '', '', '', '', '', 18, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 217, '2017-08-18 14:46:09', '2017-08-22 16:01:21'),
+(51, 'Bailey Button Yellow', '990-007', '', '', '', '', '', '', 17, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 380, '2017-08-18 14:50:16', '2017-08-22 16:02:07'),
 (52, 'Bailey Button Grey', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 36, '2017-08-18 14:54:26', '2017-08-22 15:52:02'),
 (53, 'Bailey Button Wheat', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 2, '2017-08-18 14:58:45', '2017-08-22 15:59:06'),
-(67, 'Bailey Button Yellow', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 11, '2017-09-05 14:49:16', '2017-09-05 15:04:37');
+(67, 'Bailey Button Yellow', '', '', '', '', '', '', '', 17, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 132, '2017-09-05 14:49:16', '2017-09-05 15:04:37');
 
 -- --------------------------------------------------------
 
@@ -3244,7 +4441,8 @@ CREATE TABLE IF NOT EXISTS `oc_product_attribute` (
   `product_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` text NOT NULL
+  `text` text NOT NULL,
+  PRIMARY KEY (`product_id`,`attribute_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -3358,7 +4556,9 @@ CREATE TABLE IF NOT EXISTS `oc_product_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL
+  `meta_keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`product_id`,`language_id`),
+  KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -3392,15 +4592,17 @@ INSERT INTO `oc_product_description` (`product_id`, `language_id`, `name`, `desc
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_discount` (
-  `product_discount_id` int(11) NOT NULL,
+  `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   `quantity` int(4) NOT NULL DEFAULT '0',
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM AUTO_INCREMENT=450 DEFAULT CHARSET=utf8;
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`product_discount_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=450 ;
 
 --
 -- Дамп данных таблицы `oc_product_discount`
@@ -3418,7 +4620,8 @@ INSERT INTO `oc_product_discount` (`product_discount_id`, `product_id`, `custome
 
 CREATE TABLE IF NOT EXISTS `oc_product_filter` (
   `product_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL
+  `filter_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`filter_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -3660,11 +4863,13 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_image` (
-  `product_image_id` int(11) NOT NULL,
+  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=2496 DEFAULT CHARSET=utf8;
+  `sort_order` int(3) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_image_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2496 ;
 
 --
 -- Дамп данных таблицы `oc_product_image`
@@ -3711,12 +4916,13 @@ INSERT INTO `oc_product_image` (`product_image_id`, `product_id`, `image`, `sort
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_option` (
-  `product_option_id` int(11) NOT NULL,
+  `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
   `value` text NOT NULL,
-  `required` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=300 DEFAULT CHARSET=utf8;
+  `required` tinyint(1) NOT NULL,
+  PRIMARY KEY (`product_option_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=300 ;
 
 --
 -- Дамп данных таблицы `oc_product_option`
@@ -3803,7 +5009,7 @@ INSERT INTO `oc_product_option` (`product_option_id`, `product_id`, `option_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_option_value` (
-  `product_option_value_id` int(11) NOT NULL,
+  `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_option_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
@@ -3815,8 +5021,9 @@ CREATE TABLE IF NOT EXISTS `oc_product_option_value` (
   `points` int(8) NOT NULL,
   `points_prefix` varchar(1) NOT NULL,
   `weight` decimal(15,2) NOT NULL,
-  `weight_prefix` varchar(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=202 DEFAULT CHARSET=utf8;
+  `weight_prefix` varchar(1) NOT NULL,
+  PRIMARY KEY (`product_option_value_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=202 ;
 
 --
 -- Дамп данных таблицы `oc_product_option_value`
@@ -4015,7 +5222,8 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 CREATE TABLE IF NOT EXISTS `oc_product_recurring` (
   `product_id` int(11) NOT NULL,
   `recurring_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL
+  `customer_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -4026,7 +5234,8 @@ CREATE TABLE IF NOT EXISTS `oc_product_recurring` (
 
 CREATE TABLE IF NOT EXISTS `oc_product_related` (
   `product_id` int(11) NOT NULL,
-  `related_id` int(11) NOT NULL
+  `related_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`related_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -4036,11 +5245,12 @@ CREATE TABLE IF NOT EXISTS `oc_product_related` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_reward` (
-  `product_reward_id` int(11) NOT NULL,
+  `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL DEFAULT '0',
   `customer_group_id` int(11) NOT NULL DEFAULT '0',
-  `points` int(8) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM AUTO_INCREMENT=546 DEFAULT CHARSET=utf8;
+  `points` int(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_reward_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=546 ;
 
 -- --------------------------------------------------------
 
@@ -4049,14 +5259,16 @@ CREATE TABLE IF NOT EXISTS `oc_product_reward` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_special` (
-  `product_special_id` int(11) NOT NULL,
+  `product_special_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00'
-) ENGINE=MyISAM AUTO_INCREMENT=521 DEFAULT CHARSET=utf8;
+  `date_end` date NOT NULL DEFAULT '0000-00-00',
+  PRIMARY KEY (`product_special_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=521 ;
 
 --
 -- Дамп данных таблицы `oc_product_special`
@@ -4091,7 +5303,9 @@ INSERT INTO `oc_product_special` (`product_special_id`, `product_id`, `customer_
 CREATE TABLE IF NOT EXISTS `oc_product_to_category` (
   `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `main_category` tinyint(1) NOT NULL DEFAULT '0'
+  `main_category` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`,`category_id`),
+  KEY `category_id` (`category_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4188,7 +5402,8 @@ INSERT INTO `oc_product_to_category` (`product_id`, `category_id`, `main_categor
 
 CREATE TABLE IF NOT EXISTS `oc_product_to_download` (
   `product_id` int(11) NOT NULL,
-  `download_id` int(11) NOT NULL
+  `download_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`download_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -4200,7 +5415,8 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_download` (
 CREATE TABLE IF NOT EXISTS `oc_product_to_layout` (
   `product_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL
+  `layout_id` int(11) NOT NULL,
+  PRIMARY KEY (`product_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4235,7 +5451,8 @@ INSERT INTO `oc_product_to_layout` (`product_id`, `store_id`, `layout_id`) VALUE
 
 CREATE TABLE IF NOT EXISTS `oc_product_to_store` (
   `product_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL DEFAULT '0'
+  `store_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`product_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4269,7 +5486,7 @@ INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_recurring` (
-  `recurring_id` int(11) NOT NULL,
+  `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
   `price` decimal(10,4) NOT NULL,
   `frequency` enum('day','week','semi_month','month','year') NOT NULL,
   `duration` int(10) unsigned NOT NULL,
@@ -4280,8 +5497,9 @@ CREATE TABLE IF NOT EXISTS `oc_recurring` (
   `trial_duration` int(10) unsigned NOT NULL,
   `trial_cycle` int(10) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `sort_order` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `sort_order` int(11) NOT NULL,
+  PRIMARY KEY (`recurring_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4292,7 +5510,8 @@ CREATE TABLE IF NOT EXISTS `oc_recurring` (
 CREATE TABLE IF NOT EXISTS `oc_recurring_description` (
   `recurring_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`recurring_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -4302,7 +5521,7 @@ CREATE TABLE IF NOT EXISTS `oc_recurring_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return` (
-  `return_id` int(11) NOT NULL,
+  `return_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -4320,8 +5539,9 @@ CREATE TABLE IF NOT EXISTS `oc_return` (
   `comment` text,
   `date_ordered` date NOT NULL DEFAULT '0000-00-00',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`return_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4330,10 +5550,11 @@ CREATE TABLE IF NOT EXISTS `oc_return` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_action` (
-  `return_action_id` int(11) NOT NULL,
+  `return_action_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(64) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`return_action_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `oc_return_action`
@@ -4351,13 +5572,14 @@ INSERT INTO `oc_return_action` (`return_action_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_history` (
-  `return_history_id` int(11) NOT NULL,
+  `return_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `return_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL,
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`return_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4366,10 +5588,11 @@ CREATE TABLE IF NOT EXISTS `oc_return_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_reason` (
-  `return_reason_id` int(11) NOT NULL,
+  `return_reason_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(128) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`return_reason_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `oc_return_reason`
@@ -4388,10 +5611,11 @@ INSERT INTO `oc_return_reason` (`return_reason_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_status` (
-  `return_status_id` int(11) NOT NULL,
+  `return_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(128) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `name` varchar(128) NOT NULL,
+  PRIMARY KEY (`return_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Дамп данных таблицы `oc_return_status`
@@ -4409,7 +5633,7 @@ INSERT INTO `oc_return_status` (`return_status_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_review` (
-  `review_id` int(11) NOT NULL,
+  `review_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `author` varchar(64) NOT NULL,
@@ -4417,8 +5641,10 @@ CREATE TABLE IF NOT EXISTS `oc_review` (
   `rating` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`review_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4427,13 +5653,14 @@ CREATE TABLE IF NOT EXISTS `oc_review` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_setting` (
-  `setting_id` int(11) NOT NULL,
+  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(32) NOT NULL,
   `key` varchar(64) NOT NULL,
   `value` text NOT NULL,
-  `serialized` tinyint(1) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2253 DEFAULT CHARSET=utf8;
+  `serialized` tinyint(1) NOT NULL,
+  PRIMARY KEY (`setting_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2253 ;
 
 --
 -- Дамп данных таблицы `oc_setting`
@@ -4639,10 +5866,11 @@ INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `ser
 --
 
 CREATE TABLE IF NOT EXISTS `oc_stock_status` (
-  `stock_status_id` int(11) NOT NULL,
+  `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`stock_status_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `oc_stock_status`
@@ -4661,11 +5889,12 @@ INSERT INTO `oc_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_store` (
-  `store_id` int(11) NOT NULL,
+  `store_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `ssl` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `ssl` varchar(255) NOT NULL,
+  PRIMARY KEY (`store_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4674,12 +5903,13 @@ CREATE TABLE IF NOT EXISTS `oc_store` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_class` (
-  `tax_class_id` int(11) NOT NULL,
+  `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`tax_class_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `oc_tax_class`
@@ -4696,14 +5926,15 @@ INSERT INTO `oc_tax_class` (`tax_class_id`, `title`, `description`, `date_added`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rate` (
-  `tax_rate_id` int(11) NOT NULL,
+  `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,
   `geo_zone_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(32) NOT NULL,
   `rate` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `type` char(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`tax_rate_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
 
 --
 -- Дамп данных таблицы `oc_tax_rate`
@@ -4721,7 +5952,8 @@ INSERT INTO `oc_tax_rate` (`tax_rate_id`, `geo_zone_id`, `name`, `rate`, `type`,
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rate_to_customer_group` (
   `tax_rate_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL
+  `customer_group_id` int(11) NOT NULL,
+  PRIMARY KEY (`tax_rate_id`,`customer_group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4739,12 +5971,13 @@ INSERT INTO `oc_tax_rate_to_customer_group` (`tax_rate_id`, `customer_group_id`)
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rule` (
-  `tax_rule_id` int(11) NOT NULL,
+  `tax_rule_id` int(11) NOT NULL AUTO_INCREMENT,
   `tax_class_id` int(11) NOT NULL,
   `tax_rate_id` int(11) NOT NULL,
   `based` varchar(10) NOT NULL,
-  `priority` int(5) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+  `priority` int(5) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`tax_rule_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=129 ;
 
 --
 -- Дамп данных таблицы `oc_tax_rule`
@@ -4763,12 +5996,13 @@ INSERT INTO `oc_tax_rule` (`tax_rule_id`, `tax_class_id`, `tax_rate_id`, `based`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_theme` (
-  `theme_id` int(11) NOT NULL,
+  `theme_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `theme` varchar(64) NOT NULL,
   `route` varchar(64) NOT NULL,
-  `code` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `code` text NOT NULL,
+  PRIMARY KEY (`theme_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4777,13 +6011,14 @@ CREATE TABLE IF NOT EXISTS `oc_theme` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_translation` (
-  `translation_id` int(11) NOT NULL,
+  `translation_id` int(11) NOT NULL AUTO_INCREMENT,
   `store_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `value` text NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `value` text NOT NULL,
+  PRIMARY KEY (`translation_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4792,12 +6027,13 @@ CREATE TABLE IF NOT EXISTS `oc_translation` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_upload` (
-  `upload_id` int(11) NOT NULL,
+  `upload_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`upload_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4806,10 +6042,13 @@ CREATE TABLE IF NOT EXISTS `oc_upload` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_url_alias` (
-  `url_alias_id` int(11) NOT NULL,
+  `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,
   `query` varchar(255) NOT NULL,
-  `keyword` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8;
+  `keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`url_alias_id`),
+  KEY `query` (`query`),
+  KEY `keyword` (`keyword`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1016 ;
 
 --
 -- Дамп данных таблицы `oc_url_alias`
@@ -4859,13 +6098,13 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (982, 'information_id=4', 'o-nas'),
 (1005, 'product_id=61', 'bailey-button-leather-2'),
 (968, 'product_id=50', 'bailey-button-white-metallic'),
-(955, 'category_id=80', 'muzhskie-ugg'),
-(951, 'category_id=81', 'vysokie-ugg'),
-(954, 'category_id=82', 'korotkie-ugg'),
-(950, 'category_id=77', 'ugg-bailey-triplet'),
-(952, 'category_id=78', 'detskie-ugg'),
-(953, 'category_id=79', 'zhenskie-ugg'),
-(949, 'category_id=67', 'ugg-bailey-dylyn'),
+(1015, 'category_id=80', 'muzhskie-ugg'),
+(1011, 'category_id=81', 'vysokie-ugg'),
+(1014, 'category_id=82', 'korotkie-ugg'),
+(1010, 'category_id=77', 'ugg-bailey-triplet'),
+(1012, 'category_id=78', 'detskie-ugg'),
+(1013, 'category_id=79', 'zhenskie-ugg'),
+(1009, 'category_id=67', 'ugg-bailey-dylyn'),
 (1002, 'product_id=65', 'bailey-button-white-2'),
 (1003, 'product_id=59', 'bailey-button-black-2'),
 (1004, 'product_id=60', 'bailey-button-grey-2'),
@@ -4885,7 +6124,7 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (986, 'newsblog_article_id=6', 'Аrtem-Мoskva-6'),
 (985, 'newsblog_article_id=7', 'Аrtem-Мoskva-7'),
 (984, 'newsblog_article_id=8', 'Аrtem-Мoskva-8'),
-(958, 'category_id=83', 'all'),
+(1008, 'category_id=83', 'all'),
 (979, 'category_id=84', 'rasprodazha'),
 (996, 'information_id=5', 'contacts'),
 (997, 'product_id=66', 'bailey-button-white-metallic-2'),
@@ -4901,7 +6140,7 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_user` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_group_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
@@ -4913,8 +6152,9 @@ CREATE TABLE IF NOT EXISTS `oc_user` (
   `code` varchar(40) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Дамп данных таблицы `oc_user`
@@ -4930,10 +6170,11 @@ INSERT INTO `oc_user` (`user_id`, `user_group_id`, `username`, `password`, `salt
 --
 
 CREATE TABLE IF NOT EXISTS `oc_user_group` (
-  `user_group_id` int(11) NOT NULL,
+  `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) NOT NULL,
-  `permission` text NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+  `permission` text NOT NULL,
+  PRIMARY KEY (`user_group_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `oc_user_group`
@@ -4950,7 +6191,7 @@ INSERT INTO `oc_user_group` (`user_group_id`, `name`, `permission`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher` (
-  `voucher_id` int(11) NOT NULL,
+  `voucher_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
   `code` varchar(10) NOT NULL,
   `from_name` varchar(64) NOT NULL,
@@ -4961,8 +6202,9 @@ CREATE TABLE IF NOT EXISTS `oc_voucher` (
   `message` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`voucher_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4971,12 +6213,13 @@ CREATE TABLE IF NOT EXISTS `oc_voucher` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher_history` (
-  `voucher_history_id` int(11) NOT NULL,
+  `voucher_history_id` int(11) NOT NULL AUTO_INCREMENT,
   `voucher_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `date_added` datetime NOT NULL,
+  PRIMARY KEY (`voucher_history_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -4985,9 +6228,10 @@ CREATE TABLE IF NOT EXISTS `oc_voucher_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher_theme` (
-  `voucher_theme_id` int(11) NOT NULL,
-  `image` varchar(255) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`voucher_theme_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Дамп данных таблицы `oc_voucher_theme`
@@ -5007,7 +6251,8 @@ INSERT INTO `oc_voucher_theme` (`voucher_theme_id`, `image`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_voucher_theme_description` (
   `voucher_theme_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL
+  `name` varchar(32) NOT NULL,
+  PRIMARY KEY (`voucher_theme_id`,`language_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -5026,9 +6271,10 @@ INSERT INTO `oc_voucher_theme_description` (`voucher_theme_id`, `language_id`, `
 --
 
 CREATE TABLE IF NOT EXISTS `oc_weight_class` (
-  `weight_class_id` int(11) NOT NULL,
-  `value` decimal(15,2) NOT NULL DEFAULT '0.00'
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `value` decimal(15,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`weight_class_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Дамп данных таблицы `oc_weight_class`
@@ -5047,11 +6293,12 @@ INSERT INTO `oc_weight_class` (`weight_class_id`, `value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_weight_class_description` (
-  `weight_class_id` int(11) NOT NULL,
+  `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
   `language_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
-  `unit` varchar(4) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `unit` varchar(4) NOT NULL,
+  PRIMARY KEY (`weight_class_id`,`language_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `oc_weight_class_description`
@@ -5068,12 +6315,13 @@ INSERT INTO `oc_weight_class_description` (`weight_class_id`, `language_id`, `ti
 --
 
 CREATE TABLE IF NOT EXISTS `oc_zone` (
-  `zone_id` int(11) NOT NULL,
+  `zone_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=MyISAM AUTO_INCREMENT=4236 DEFAULT CHARSET=utf8;
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`zone_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4236 ;
 
 --
 -- Дамп данных таблицы `oc_zone`
@@ -6570,7 +7818,8 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1488, 99, 'Jammu and Kashmir', 'JA', 1),
 (1489, 99, 'Karnataka', 'KA', 1),
 (1490, 99, 'Kerala', 'KE', 1),
-(1491, 99, 'Lakshadweep Islands', 'LI', 1),
+(1491, 99, 'Lakshadweep Islands', 'LI', 1);
+INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1492, 99, 'Madhya Pradesh', 'MP', 1),
 (1493, 99, 'Maharashtra', 'MA', 1),
 (1494, 99, 'Manipur', 'MN', 1),
@@ -6619,8 +7868,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1537, 100, 'Yogyakarta', 'YO', 1),
 (1538, 101, 'Tehran', 'TEH', 1),
 (1539, 101, 'Qom', 'QOM', 1),
-(1540, 101, 'Markazi', 'MKZ', 1);
-INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+(1540, 101, 'Markazi', 'MKZ', 1),
 (1541, 101, 'Qazvin', 'QAZ', 1),
 (1542, 101, 'Gilan', 'GIL', 1),
 (1543, 101, 'Ardabil', 'ARD', 1),
@@ -7984,7 +9232,8 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2907, 186, 'Bel Ombre', 'BO', 1),
 (2908, 186, 'Cascade', 'CA', 1),
 (2909, 186, 'Glacis', 'GL', 1),
-(2910, 186, 'Grand'' Anse (on Mahe)', 'GM', 1),
+(2910, 186, 'Grand'' Anse (on Mahe)', 'GM', 1);
+INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2911, 186, 'Grand'' Anse (on Praslin)', 'GP', 1),
 (2912, 186, 'La Digue', 'DG', 1),
 (2913, 186, 'La Riviere Anglaise', 'RA', 1),
@@ -8088,8 +9337,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3011, 195, 'Segovia', 'SG', 1),
 (3012, 195, 'Sevilla', 'SV', 1),
 (3013, 195, 'Soria', 'SO', 1),
-(3014, 195, 'Tarragona', 'TA', 1);
-INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+(3014, 195, 'Tarragona', 'TA', 1),
 (3015, 195, 'Teruel', 'TE', 1),
 (3016, 195, 'Toledo', 'TO', 1),
 (3017, 195, 'Valencia', 'VC', 1),
@@ -9290,13 +10538,14 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_zone_to_geo_zone` (
-  `zone_to_geo_zone_id` int(11) NOT NULL,
+  `zone_to_geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(11) NOT NULL,
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `geo_zone_id` int(11) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`zone_to_geo_zone_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
 
 --
 -- Дамп данных таблицы `oc_zone_to_geo_zone`
@@ -9305,1391 +10554,6 @@ CREATE TABLE IF NOT EXISTS `oc_zone_to_geo_zone` (
 INSERT INTO `oc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id`, `geo_zone_id`, `date_added`, `date_modified`) VALUES
 (57, 176, 0, 3, '2015-11-11 15:56:24', '0000-00-00 00:00:00');
 
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `oc_address`
---
-ALTER TABLE `oc_address`
-  ADD PRIMARY KEY (`address_id`),
-  ADD KEY `customer_id` (`customer_id`);
-
---
--- Индексы таблицы `oc_affiliate`
---
-ALTER TABLE `oc_affiliate`
-  ADD PRIMARY KEY (`affiliate_id`);
-
---
--- Индексы таблицы `oc_affiliate_activity`
---
-ALTER TABLE `oc_affiliate_activity`
-  ADD PRIMARY KEY (`affiliate_activity_id`);
-
---
--- Индексы таблицы `oc_affiliate_login`
---
-ALTER TABLE `oc_affiliate_login`
-  ADD PRIMARY KEY (`affiliate_login_id`),
-  ADD KEY `email` (`email`),
-  ADD KEY `ip` (`ip`);
-
---
--- Индексы таблицы `oc_affiliate_transaction`
---
-ALTER TABLE `oc_affiliate_transaction`
-  ADD PRIMARY KEY (`affiliate_transaction_id`);
-
---
--- Индексы таблицы `oc_api`
---
-ALTER TABLE `oc_api`
-  ADD PRIMARY KEY (`api_id`);
-
---
--- Индексы таблицы `oc_api_ip`
---
-ALTER TABLE `oc_api_ip`
-  ADD PRIMARY KEY (`api_ip_id`);
-
---
--- Индексы таблицы `oc_api_session`
---
-ALTER TABLE `oc_api_session`
-  ADD PRIMARY KEY (`api_session_id`);
-
---
--- Индексы таблицы `oc_attribute`
---
-ALTER TABLE `oc_attribute`
-  ADD PRIMARY KEY (`attribute_id`);
-
---
--- Индексы таблицы `oc_attribute_description`
---
-ALTER TABLE `oc_attribute_description`
-  ADD PRIMARY KEY (`attribute_id`,`language_id`);
-
---
--- Индексы таблицы `oc_attribute_group`
---
-ALTER TABLE `oc_attribute_group`
-  ADD PRIMARY KEY (`attribute_group_id`);
-
---
--- Индексы таблицы `oc_attribute_group_description`
---
-ALTER TABLE `oc_attribute_group_description`
-  ADD PRIMARY KEY (`attribute_group_id`,`language_id`);
-
---
--- Индексы таблицы `oc_banner`
---
-ALTER TABLE `oc_banner`
-  ADD PRIMARY KEY (`banner_id`);
-
---
--- Индексы таблицы `oc_banner_image`
---
-ALTER TABLE `oc_banner_image`
-  ADD PRIMARY KEY (`banner_image_id`);
-
---
--- Индексы таблицы `oc_cart`
---
-ALTER TABLE `oc_cart`
-  ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`);
-
---
--- Индексы таблицы `oc_category`
---
-ALTER TABLE `oc_category`
-  ADD PRIMARY KEY (`category_id`),
-  ADD KEY `parent_id` (`parent_id`);
-
---
--- Индексы таблицы `oc_category_description`
---
-ALTER TABLE `oc_category_description`
-  ADD PRIMARY KEY (`category_id`,`language_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_category_filter`
---
-ALTER TABLE `oc_category_filter`
-  ADD PRIMARY KEY (`category_id`,`filter_id`);
-
---
--- Индексы таблицы `oc_category_path`
---
-ALTER TABLE `oc_category_path`
-  ADD PRIMARY KEY (`category_id`,`path_id`);
-
---
--- Индексы таблицы `oc_category_to_layout`
---
-ALTER TABLE `oc_category_to_layout`
-  ADD PRIMARY KEY (`category_id`,`store_id`);
-
---
--- Индексы таблицы `oc_category_to_store`
---
-ALTER TABLE `oc_category_to_store`
-  ADD PRIMARY KEY (`category_id`,`store_id`);
-
---
--- Индексы таблицы `oc_country`
---
-ALTER TABLE `oc_country`
-  ADD PRIMARY KEY (`country_id`);
-
---
--- Индексы таблицы `oc_coupon`
---
-ALTER TABLE `oc_coupon`
-  ADD PRIMARY KEY (`coupon_id`);
-
---
--- Индексы таблицы `oc_coupon_category`
---
-ALTER TABLE `oc_coupon_category`
-  ADD PRIMARY KEY (`coupon_id`,`category_id`);
-
---
--- Индексы таблицы `oc_coupon_history`
---
-ALTER TABLE `oc_coupon_history`
-  ADD PRIMARY KEY (`coupon_history_id`);
-
---
--- Индексы таблицы `oc_coupon_product`
---
-ALTER TABLE `oc_coupon_product`
-  ADD PRIMARY KEY (`coupon_product_id`);
-
---
--- Индексы таблицы `oc_currency`
---
-ALTER TABLE `oc_currency`
-  ADD PRIMARY KEY (`currency_id`);
-
---
--- Индексы таблицы `oc_customer`
---
-ALTER TABLE `oc_customer`
-  ADD PRIMARY KEY (`customer_id`);
-
---
--- Индексы таблицы `oc_customer_activity`
---
-ALTER TABLE `oc_customer_activity`
-  ADD PRIMARY KEY (`customer_activity_id`);
-
---
--- Индексы таблицы `oc_customer_group`
---
-ALTER TABLE `oc_customer_group`
-  ADD PRIMARY KEY (`customer_group_id`);
-
---
--- Индексы таблицы `oc_customer_group_description`
---
-ALTER TABLE `oc_customer_group_description`
-  ADD PRIMARY KEY (`customer_group_id`,`language_id`);
-
---
--- Индексы таблицы `oc_customer_history`
---
-ALTER TABLE `oc_customer_history`
-  ADD PRIMARY KEY (`customer_history_id`);
-
---
--- Индексы таблицы `oc_customer_ip`
---
-ALTER TABLE `oc_customer_ip`
-  ADD PRIMARY KEY (`customer_ip_id`),
-  ADD KEY `ip` (`ip`);
-
---
--- Индексы таблицы `oc_customer_login`
---
-ALTER TABLE `oc_customer_login`
-  ADD PRIMARY KEY (`customer_login_id`),
-  ADD KEY `email` (`email`),
-  ADD KEY `ip` (`ip`);
-
---
--- Индексы таблицы `oc_customer_online`
---
-ALTER TABLE `oc_customer_online`
-  ADD PRIMARY KEY (`ip`);
-
---
--- Индексы таблицы `oc_customer_reward`
---
-ALTER TABLE `oc_customer_reward`
-  ADD PRIMARY KEY (`customer_reward_id`);
-
---
--- Индексы таблицы `oc_customer_search`
---
-ALTER TABLE `oc_customer_search`
-  ADD PRIMARY KEY (`customer_search_id`);
-
---
--- Индексы таблицы `oc_customer_transaction`
---
-ALTER TABLE `oc_customer_transaction`
-  ADD PRIMARY KEY (`customer_transaction_id`);
-
---
--- Индексы таблицы `oc_customer_wishlist`
---
-ALTER TABLE `oc_customer_wishlist`
-  ADD PRIMARY KEY (`customer_id`,`product_id`);
-
---
--- Индексы таблицы `oc_custom_field`
---
-ALTER TABLE `oc_custom_field`
-  ADD PRIMARY KEY (`custom_field_id`);
-
---
--- Индексы таблицы `oc_custom_field_customer_group`
---
-ALTER TABLE `oc_custom_field_customer_group`
-  ADD PRIMARY KEY (`custom_field_id`,`customer_group_id`);
-
---
--- Индексы таблицы `oc_custom_field_description`
---
-ALTER TABLE `oc_custom_field_description`
-  ADD PRIMARY KEY (`custom_field_id`,`language_id`);
-
---
--- Индексы таблицы `oc_custom_field_value`
---
-ALTER TABLE `oc_custom_field_value`
-  ADD PRIMARY KEY (`custom_field_value_id`);
-
---
--- Индексы таблицы `oc_custom_field_value_description`
---
-ALTER TABLE `oc_custom_field_value_description`
-  ADD PRIMARY KEY (`custom_field_value_id`,`language_id`);
-
---
--- Индексы таблицы `oc_download`
---
-ALTER TABLE `oc_download`
-  ADD PRIMARY KEY (`download_id`);
-
---
--- Индексы таблицы `oc_download_description`
---
-ALTER TABLE `oc_download_description`
-  ADD PRIMARY KEY (`download_id`,`language_id`);
-
---
--- Индексы таблицы `oc_event`
---
-ALTER TABLE `oc_event`
-  ADD PRIMARY KEY (`event_id`);
-
---
--- Индексы таблицы `oc_extension`
---
-ALTER TABLE `oc_extension`
-  ADD PRIMARY KEY (`extension_id`);
-
---
--- Индексы таблицы `oc_filter`
---
-ALTER TABLE `oc_filter`
-  ADD PRIMARY KEY (`filter_id`);
-
---
--- Индексы таблицы `oc_filter_description`
---
-ALTER TABLE `oc_filter_description`
-  ADD PRIMARY KEY (`filter_id`,`language_id`);
-
---
--- Индексы таблицы `oc_filter_group`
---
-ALTER TABLE `oc_filter_group`
-  ADD PRIMARY KEY (`filter_group_id`);
-
---
--- Индексы таблицы `oc_filter_group_description`
---
-ALTER TABLE `oc_filter_group_description`
-  ADD PRIMARY KEY (`filter_group_id`,`language_id`);
-
---
--- Индексы таблицы `oc_geo_zone`
---
-ALTER TABLE `oc_geo_zone`
-  ADD PRIMARY KEY (`geo_zone_id`);
-
---
--- Индексы таблицы `oc_information`
---
-ALTER TABLE `oc_information`
-  ADD PRIMARY KEY (`information_id`);
-
---
--- Индексы таблицы `oc_information_description`
---
-ALTER TABLE `oc_information_description`
-  ADD PRIMARY KEY (`information_id`,`language_id`);
-
---
--- Индексы таблицы `oc_information_to_layout`
---
-ALTER TABLE `oc_information_to_layout`
-  ADD PRIMARY KEY (`information_id`,`store_id`);
-
---
--- Индексы таблицы `oc_information_to_store`
---
-ALTER TABLE `oc_information_to_store`
-  ADD PRIMARY KEY (`information_id`,`store_id`);
-
---
--- Индексы таблицы `oc_language`
---
-ALTER TABLE `oc_language`
-  ADD PRIMARY KEY (`language_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_layout`
---
-ALTER TABLE `oc_layout`
-  ADD PRIMARY KEY (`layout_id`);
-
---
--- Индексы таблицы `oc_layout_module`
---
-ALTER TABLE `oc_layout_module`
-  ADD PRIMARY KEY (`layout_module_id`);
-
---
--- Индексы таблицы `oc_layout_route`
---
-ALTER TABLE `oc_layout_route`
-  ADD PRIMARY KEY (`layout_route_id`);
-
---
--- Индексы таблицы `oc_length_class`
---
-ALTER TABLE `oc_length_class`
-  ADD PRIMARY KEY (`length_class_id`);
-
---
--- Индексы таблицы `oc_length_class_description`
---
-ALTER TABLE `oc_length_class_description`
-  ADD PRIMARY KEY (`length_class_id`,`language_id`);
-
---
--- Индексы таблицы `oc_location`
---
-ALTER TABLE `oc_location`
-  ADD PRIMARY KEY (`location_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_manufacturer`
---
-ALTER TABLE `oc_manufacturer`
-  ADD PRIMARY KEY (`manufacturer_id`);
-
---
--- Индексы таблицы `oc_manufacturer_description`
---
-ALTER TABLE `oc_manufacturer_description`
-  ADD PRIMARY KEY (`manufacturer_id`,`language_id`);
-
---
--- Индексы таблицы `oc_manufacturer_to_store`
---
-ALTER TABLE `oc_manufacturer_to_store`
-  ADD PRIMARY KEY (`manufacturer_id`,`store_id`);
-
---
--- Индексы таблицы `oc_marketing`
---
-ALTER TABLE `oc_marketing`
-  ADD PRIMARY KEY (`marketing_id`);
-
---
--- Индексы таблицы `oc_menu`
---
-ALTER TABLE `oc_menu`
-  ADD PRIMARY KEY (`menu_id`);
-
---
--- Индексы таблицы `oc_menu_description`
---
-ALTER TABLE `oc_menu_description`
-  ADD PRIMARY KEY (`menu_id`,`language_id`);
-
---
--- Индексы таблицы `oc_menu_module`
---
-ALTER TABLE `oc_menu_module`
-  ADD PRIMARY KEY (`menu_module_id`),
-  ADD KEY `menu_id` (`menu_id`);
-
---
--- Индексы таблицы `oc_modification`
---
-ALTER TABLE `oc_modification`
-  ADD PRIMARY KEY (`modification_id`);
-
---
--- Индексы таблицы `oc_module`
---
-ALTER TABLE `oc_module`
-  ADD PRIMARY KEY (`module_id`);
-
---
--- Индексы таблицы `oc_newsblog_article`
---
-ALTER TABLE `oc_newsblog_article`
-  ADD PRIMARY KEY (`article_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_attribute`
---
-ALTER TABLE `oc_newsblog_article_attribute`
-  ADD PRIMARY KEY (`article_id`,`attribute_id`,`language_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_description`
---
-ALTER TABLE `oc_newsblog_article_description`
-  ADD PRIMARY KEY (`article_id`,`language_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_newsblog_article_image`
---
-ALTER TABLE `oc_newsblog_article_image`
-  ADD PRIMARY KEY (`product_image_id`),
-  ADD KEY `article_id` (`article_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_related`
---
-ALTER TABLE `oc_newsblog_article_related`
-  ADD PRIMARY KEY (`article_id`,`related_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_to_category`
---
-ALTER TABLE `oc_newsblog_article_to_category`
-  ADD PRIMARY KEY (`article_id`,`category_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_to_layout`
---
-ALTER TABLE `oc_newsblog_article_to_layout`
-  ADD PRIMARY KEY (`article_id`,`store_id`);
-
---
--- Индексы таблицы `oc_newsblog_article_to_store`
---
-ALTER TABLE `oc_newsblog_article_to_store`
-  ADD PRIMARY KEY (`article_id`,`store_id`);
-
---
--- Индексы таблицы `oc_newsblog_category`
---
-ALTER TABLE `oc_newsblog_category`
-  ADD PRIMARY KEY (`category_id`),
-  ADD KEY `parent_id` (`parent_id`);
-
---
--- Индексы таблицы `oc_newsblog_category_description`
---
-ALTER TABLE `oc_newsblog_category_description`
-  ADD PRIMARY KEY (`category_id`,`language_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_newsblog_category_path`
---
-ALTER TABLE `oc_newsblog_category_path`
-  ADD PRIMARY KEY (`category_id`,`path_id`);
-
---
--- Индексы таблицы `oc_newsblog_category_to_layout`
---
-ALTER TABLE `oc_newsblog_category_to_layout`
-  ADD PRIMARY KEY (`category_id`,`store_id`);
-
---
--- Индексы таблицы `oc_newsblog_category_to_store`
---
-ALTER TABLE `oc_newsblog_category_to_store`
-  ADD PRIMARY KEY (`category_id`,`store_id`);
-
---
--- Индексы таблицы `oc_option`
---
-ALTER TABLE `oc_option`
-  ADD PRIMARY KEY (`option_id`);
-
---
--- Индексы таблицы `oc_option_description`
---
-ALTER TABLE `oc_option_description`
-  ADD PRIMARY KEY (`option_id`,`language_id`);
-
---
--- Индексы таблицы `oc_option_value`
---
-ALTER TABLE `oc_option_value`
-  ADD PRIMARY KEY (`option_value_id`);
-
---
--- Индексы таблицы `oc_option_value_description`
---
-ALTER TABLE `oc_option_value_description`
-  ADD PRIMARY KEY (`option_value_id`,`language_id`);
-
---
--- Индексы таблицы `oc_order`
---
-ALTER TABLE `oc_order`
-  ADD PRIMARY KEY (`order_id`);
-
---
--- Индексы таблицы `oc_order_custom_field`
---
-ALTER TABLE `oc_order_custom_field`
-  ADD PRIMARY KEY (`order_custom_field_id`);
-
---
--- Индексы таблицы `oc_order_history`
---
-ALTER TABLE `oc_order_history`
-  ADD PRIMARY KEY (`order_history_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Индексы таблицы `oc_order_option`
---
-ALTER TABLE `oc_order_option`
-  ADD PRIMARY KEY (`order_option_id`);
-
---
--- Индексы таблицы `oc_order_product`
---
-ALTER TABLE `oc_order_product`
-  ADD PRIMARY KEY (`order_product_id`);
-
---
--- Индексы таблицы `oc_order_recurring`
---
-ALTER TABLE `oc_order_recurring`
-  ADD PRIMARY KEY (`order_recurring_id`);
-
---
--- Индексы таблицы `oc_order_recurring_transaction`
---
-ALTER TABLE `oc_order_recurring_transaction`
-  ADD PRIMARY KEY (`order_recurring_transaction_id`);
-
---
--- Индексы таблицы `oc_order_status`
---
-ALTER TABLE `oc_order_status`
-  ADD PRIMARY KEY (`order_status_id`,`language_id`);
-
---
--- Индексы таблицы `oc_order_total`
---
-ALTER TABLE `oc_order_total`
-  ADD PRIMARY KEY (`order_total_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Индексы таблицы `oc_order_voucher`
---
-ALTER TABLE `oc_order_voucher`
-  ADD PRIMARY KEY (`order_voucher_id`);
-
---
--- Индексы таблицы `oc_product`
---
-ALTER TABLE `oc_product`
-  ADD PRIMARY KEY (`product_id`);
-
---
--- Индексы таблицы `oc_product_attribute`
---
-ALTER TABLE `oc_product_attribute`
-  ADD PRIMARY KEY (`product_id`,`attribute_id`,`language_id`);
-
---
--- Индексы таблицы `oc_product_description`
---
-ALTER TABLE `oc_product_description`
-  ADD PRIMARY KEY (`product_id`,`language_id`),
-  ADD KEY `name` (`name`);
-
---
--- Индексы таблицы `oc_product_discount`
---
-ALTER TABLE `oc_product_discount`
-  ADD PRIMARY KEY (`product_discount_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Индексы таблицы `oc_product_filter`
---
-ALTER TABLE `oc_product_filter`
-  ADD PRIMARY KEY (`product_id`,`filter_id`);
-
---
--- Индексы таблицы `oc_product_image`
---
-ALTER TABLE `oc_product_image`
-  ADD PRIMARY KEY (`product_image_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Индексы таблицы `oc_product_option`
---
-ALTER TABLE `oc_product_option`
-  ADD PRIMARY KEY (`product_option_id`);
-
---
--- Индексы таблицы `oc_product_option_value`
---
-ALTER TABLE `oc_product_option_value`
-  ADD PRIMARY KEY (`product_option_value_id`);
-
---
--- Индексы таблицы `oc_product_recurring`
---
-ALTER TABLE `oc_product_recurring`
-  ADD PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`);
-
---
--- Индексы таблицы `oc_product_related`
---
-ALTER TABLE `oc_product_related`
-  ADD PRIMARY KEY (`product_id`,`related_id`);
-
---
--- Индексы таблицы `oc_product_reward`
---
-ALTER TABLE `oc_product_reward`
-  ADD PRIMARY KEY (`product_reward_id`);
-
---
--- Индексы таблицы `oc_product_special`
---
-ALTER TABLE `oc_product_special`
-  ADD PRIMARY KEY (`product_special_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Индексы таблицы `oc_product_to_category`
---
-ALTER TABLE `oc_product_to_category`
-  ADD PRIMARY KEY (`product_id`,`category_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Индексы таблицы `oc_product_to_download`
---
-ALTER TABLE `oc_product_to_download`
-  ADD PRIMARY KEY (`product_id`,`download_id`);
-
---
--- Индексы таблицы `oc_product_to_layout`
---
-ALTER TABLE `oc_product_to_layout`
-  ADD PRIMARY KEY (`product_id`,`store_id`);
-
---
--- Индексы таблицы `oc_product_to_store`
---
-ALTER TABLE `oc_product_to_store`
-  ADD PRIMARY KEY (`product_id`,`store_id`);
-
---
--- Индексы таблицы `oc_recurring`
---
-ALTER TABLE `oc_recurring`
-  ADD PRIMARY KEY (`recurring_id`);
-
---
--- Индексы таблицы `oc_recurring_description`
---
-ALTER TABLE `oc_recurring_description`
-  ADD PRIMARY KEY (`recurring_id`,`language_id`);
-
---
--- Индексы таблицы `oc_return`
---
-ALTER TABLE `oc_return`
-  ADD PRIMARY KEY (`return_id`);
-
---
--- Индексы таблицы `oc_return_action`
---
-ALTER TABLE `oc_return_action`
-  ADD PRIMARY KEY (`return_action_id`,`language_id`);
-
---
--- Индексы таблицы `oc_return_history`
---
-ALTER TABLE `oc_return_history`
-  ADD PRIMARY KEY (`return_history_id`);
-
---
--- Индексы таблицы `oc_return_reason`
---
-ALTER TABLE `oc_return_reason`
-  ADD PRIMARY KEY (`return_reason_id`,`language_id`);
-
---
--- Индексы таблицы `oc_return_status`
---
-ALTER TABLE `oc_return_status`
-  ADD PRIMARY KEY (`return_status_id`,`language_id`);
-
---
--- Индексы таблицы `oc_review`
---
-ALTER TABLE `oc_review`
-  ADD PRIMARY KEY (`review_id`),
-  ADD KEY `product_id` (`product_id`);
-
---
--- Индексы таблицы `oc_setting`
---
-ALTER TABLE `oc_setting`
-  ADD PRIMARY KEY (`setting_id`);
-
---
--- Индексы таблицы `oc_stock_status`
---
-ALTER TABLE `oc_stock_status`
-  ADD PRIMARY KEY (`stock_status_id`,`language_id`);
-
---
--- Индексы таблицы `oc_store`
---
-ALTER TABLE `oc_store`
-  ADD PRIMARY KEY (`store_id`);
-
---
--- Индексы таблицы `oc_tax_class`
---
-ALTER TABLE `oc_tax_class`
-  ADD PRIMARY KEY (`tax_class_id`);
-
---
--- Индексы таблицы `oc_tax_rate`
---
-ALTER TABLE `oc_tax_rate`
-  ADD PRIMARY KEY (`tax_rate_id`);
-
---
--- Индексы таблицы `oc_tax_rate_to_customer_group`
---
-ALTER TABLE `oc_tax_rate_to_customer_group`
-  ADD PRIMARY KEY (`tax_rate_id`,`customer_group_id`);
-
---
--- Индексы таблицы `oc_tax_rule`
---
-ALTER TABLE `oc_tax_rule`
-  ADD PRIMARY KEY (`tax_rule_id`);
-
---
--- Индексы таблицы `oc_theme`
---
-ALTER TABLE `oc_theme`
-  ADD PRIMARY KEY (`theme_id`);
-
---
--- Индексы таблицы `oc_translation`
---
-ALTER TABLE `oc_translation`
-  ADD PRIMARY KEY (`translation_id`);
-
---
--- Индексы таблицы `oc_upload`
---
-ALTER TABLE `oc_upload`
-  ADD PRIMARY KEY (`upload_id`);
-
---
--- Индексы таблицы `oc_url_alias`
---
-ALTER TABLE `oc_url_alias`
-  ADD PRIMARY KEY (`url_alias_id`),
-  ADD KEY `query` (`query`),
-  ADD KEY `keyword` (`keyword`);
-
---
--- Индексы таблицы `oc_user`
---
-ALTER TABLE `oc_user`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Индексы таблицы `oc_user_group`
---
-ALTER TABLE `oc_user_group`
-  ADD PRIMARY KEY (`user_group_id`);
-
---
--- Индексы таблицы `oc_voucher`
---
-ALTER TABLE `oc_voucher`
-  ADD PRIMARY KEY (`voucher_id`);
-
---
--- Индексы таблицы `oc_voucher_history`
---
-ALTER TABLE `oc_voucher_history`
-  ADD PRIMARY KEY (`voucher_history_id`);
-
---
--- Индексы таблицы `oc_voucher_theme`
---
-ALTER TABLE `oc_voucher_theme`
-  ADD PRIMARY KEY (`voucher_theme_id`);
-
---
--- Индексы таблицы `oc_voucher_theme_description`
---
-ALTER TABLE `oc_voucher_theme_description`
-  ADD PRIMARY KEY (`voucher_theme_id`,`language_id`);
-
---
--- Индексы таблицы `oc_weight_class`
---
-ALTER TABLE `oc_weight_class`
-  ADD PRIMARY KEY (`weight_class_id`);
-
---
--- Индексы таблицы `oc_weight_class_description`
---
-ALTER TABLE `oc_weight_class_description`
-  ADD PRIMARY KEY (`weight_class_id`,`language_id`);
-
---
--- Индексы таблицы `oc_zone`
---
-ALTER TABLE `oc_zone`
-  ADD PRIMARY KEY (`zone_id`);
-
---
--- Индексы таблицы `oc_zone_to_geo_zone`
---
-ALTER TABLE `oc_zone_to_geo_zone`
-  ADD PRIMARY KEY (`zone_to_geo_zone_id`);
-
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для таблицы `oc_address`
---
-ALTER TABLE `oc_address`
-  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_affiliate`
---
-ALTER TABLE `oc_affiliate`
-  MODIFY `affiliate_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_affiliate_activity`
---
-ALTER TABLE `oc_affiliate_activity`
-  MODIFY `affiliate_activity_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_affiliate_login`
---
-ALTER TABLE `oc_affiliate_login`
-  MODIFY `affiliate_login_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_affiliate_transaction`
---
-ALTER TABLE `oc_affiliate_transaction`
-  MODIFY `affiliate_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_api`
---
-ALTER TABLE `oc_api`
-  MODIFY `api_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_api_ip`
---
-ALTER TABLE `oc_api_ip`
-  MODIFY `api_ip_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_api_session`
---
-ALTER TABLE `oc_api_session`
-  MODIFY `api_session_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_attribute`
---
-ALTER TABLE `oc_attribute`
-  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT для таблицы `oc_attribute_group`
---
-ALTER TABLE `oc_attribute_group`
-  MODIFY `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT для таблицы `oc_banner`
---
-ALTER TABLE `oc_banner`
-  MODIFY `banner_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT для таблицы `oc_banner_image`
---
-ALTER TABLE `oc_banner_image`
-  MODIFY `banner_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=113;
---
--- AUTO_INCREMENT для таблицы `oc_cart`
---
-ALTER TABLE `oc_cart`
-  MODIFY `cart_id` int(11) unsigned NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_category`
---
-ALTER TABLE `oc_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=85;
---
--- AUTO_INCREMENT для таблицы `oc_country`
---
-ALTER TABLE `oc_country`
-  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=258;
---
--- AUTO_INCREMENT для таблицы `oc_coupon`
---
-ALTER TABLE `oc_coupon`
-  MODIFY `coupon_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT для таблицы `oc_coupon_history`
---
-ALTER TABLE `oc_coupon_history`
-  MODIFY `coupon_history_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_coupon_product`
---
-ALTER TABLE `oc_coupon_product`
-  MODIFY `coupon_product_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_currency`
---
-ALTER TABLE `oc_currency`
-  MODIFY `currency_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `oc_customer`
---
-ALTER TABLE `oc_customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_activity`
---
-ALTER TABLE `oc_customer_activity`
-  MODIFY `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_group`
---
-ALTER TABLE `oc_customer_group`
-  MODIFY `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_customer_history`
---
-ALTER TABLE `oc_customer_history`
-  MODIFY `customer_history_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_ip`
---
-ALTER TABLE `oc_customer_ip`
-  MODIFY `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_login`
---
-ALTER TABLE `oc_customer_login`
-  MODIFY `customer_login_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_reward`
---
-ALTER TABLE `oc_customer_reward`
-  MODIFY `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_search`
---
-ALTER TABLE `oc_customer_search`
-  MODIFY `customer_search_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_customer_transaction`
---
-ALTER TABLE `oc_customer_transaction`
-  MODIFY `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_custom_field`
---
-ALTER TABLE `oc_custom_field`
-  MODIFY `custom_field_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_custom_field_value`
---
-ALTER TABLE `oc_custom_field_value`
-  MODIFY `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_download`
---
-ALTER TABLE `oc_download`
-  MODIFY `download_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_event`
---
-ALTER TABLE `oc_event`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_extension`
---
-ALTER TABLE `oc_extension`
-  MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
---
--- AUTO_INCREMENT для таблицы `oc_filter`
---
-ALTER TABLE `oc_filter`
-  MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
---
--- AUTO_INCREMENT для таблицы `oc_filter_group`
---
-ALTER TABLE `oc_filter_group`
-  MODIFY `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
---
--- AUTO_INCREMENT для таблицы `oc_geo_zone`
---
-ALTER TABLE `oc_geo_zone`
-  MODIFY `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `oc_information`
---
-ALTER TABLE `oc_information`
-  MODIFY `information_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT для таблицы `oc_language`
---
-ALTER TABLE `oc_language`
-  MODIFY `language_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT для таблицы `oc_layout`
---
-ALTER TABLE `oc_layout`
-  MODIFY `layout_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT для таблицы `oc_layout_module`
---
-ALTER TABLE `oc_layout_module`
-  MODIFY `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=135;
---
--- AUTO_INCREMENT для таблицы `oc_layout_route`
---
-ALTER TABLE `oc_layout_route`
-  MODIFY `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=74;
---
--- AUTO_INCREMENT для таблицы `oc_length_class`
---
-ALTER TABLE `oc_length_class`
-  MODIFY `length_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `oc_location`
---
-ALTER TABLE `oc_location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_manufacturer`
---
-ALTER TABLE `oc_manufacturer`
-  MODIFY `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT для таблицы `oc_marketing`
---
-ALTER TABLE `oc_marketing`
-  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_menu`
---
-ALTER TABLE `oc_menu`
-  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_modification`
---
-ALTER TABLE `oc_modification`
-  MODIFY `modification_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_module`
---
-ALTER TABLE `oc_module`
-  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
---
--- AUTO_INCREMENT для таблицы `oc_newsblog_article`
---
-ALTER TABLE `oc_newsblog_article`
-  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT для таблицы `oc_newsblog_article_image`
---
-ALTER TABLE `oc_newsblog_article_image`
-  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
---
--- AUTO_INCREMENT для таблицы `oc_newsblog_category`
---
-ALTER TABLE `oc_newsblog_category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_option`
---
-ALTER TABLE `oc_option`
-  MODIFY `option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT для таблицы `oc_option_value`
---
-ALTER TABLE `oc_option_value`
-  MODIFY `option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
---
--- AUTO_INCREMENT для таблицы `oc_order`
---
-ALTER TABLE `oc_order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
---
--- AUTO_INCREMENT для таблицы `oc_order_custom_field`
---
-ALTER TABLE `oc_order_custom_field`
-  MODIFY `order_custom_field_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_order_history`
---
-ALTER TABLE `oc_order_history`
-  MODIFY `order_history_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
---
--- AUTO_INCREMENT для таблицы `oc_order_option`
---
-ALTER TABLE `oc_order_option`
-  MODIFY `order_option_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_order_product`
---
-ALTER TABLE `oc_order_product`
-  MODIFY `order_product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
---
--- AUTO_INCREMENT для таблицы `oc_order_recurring`
---
-ALTER TABLE `oc_order_recurring`
-  MODIFY `order_recurring_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_order_recurring_transaction`
---
-ALTER TABLE `oc_order_recurring_transaction`
-  MODIFY `order_recurring_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_order_status`
---
-ALTER TABLE `oc_order_status`
-  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
---
--- AUTO_INCREMENT для таблицы `oc_order_total`
---
-ALTER TABLE `oc_order_total`
-  MODIFY `order_total_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=126;
---
--- AUTO_INCREMENT для таблицы `oc_order_voucher`
---
-ALTER TABLE `oc_order_voucher`
-  MODIFY `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_product`
---
-ALTER TABLE `oc_product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
---
--- AUTO_INCREMENT для таблицы `oc_product_discount`
---
-ALTER TABLE `oc_product_discount`
-  MODIFY `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=450;
---
--- AUTO_INCREMENT для таблицы `oc_product_image`
---
-ALTER TABLE `oc_product_image`
-  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2496;
---
--- AUTO_INCREMENT для таблицы `oc_product_option`
---
-ALTER TABLE `oc_product_option`
-  MODIFY `product_option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=300;
---
--- AUTO_INCREMENT для таблицы `oc_product_option_value`
---
-ALTER TABLE `oc_product_option_value`
-  MODIFY `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=202;
---
--- AUTO_INCREMENT для таблицы `oc_product_reward`
---
-ALTER TABLE `oc_product_reward`
-  MODIFY `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=546;
---
--- AUTO_INCREMENT для таблицы `oc_product_special`
---
-ALTER TABLE `oc_product_special`
-  MODIFY `product_special_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=521;
---
--- AUTO_INCREMENT для таблицы `oc_recurring`
---
-ALTER TABLE `oc_recurring`
-  MODIFY `recurring_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_return`
---
-ALTER TABLE `oc_return`
-  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_return_action`
---
-ALTER TABLE `oc_return_action`
-  MODIFY `return_action_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `oc_return_history`
---
-ALTER TABLE `oc_return_history`
-  MODIFY `return_history_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_return_reason`
---
-ALTER TABLE `oc_return_reason`
-  MODIFY `return_reason_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT для таблицы `oc_return_status`
---
-ALTER TABLE `oc_return_status`
-  MODIFY `return_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `oc_review`
---
-ALTER TABLE `oc_review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_setting`
---
-ALTER TABLE `oc_setting`
-  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2253;
---
--- AUTO_INCREMENT для таблицы `oc_stock_status`
---
-ALTER TABLE `oc_stock_status`
-  MODIFY `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT для таблицы `oc_store`
---
-ALTER TABLE `oc_store`
-  MODIFY `store_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_tax_class`
---
-ALTER TABLE `oc_tax_class`
-  MODIFY `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT для таблицы `oc_tax_rate`
---
-ALTER TABLE `oc_tax_rate`
-  MODIFY `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
---
--- AUTO_INCREMENT для таблицы `oc_tax_rule`
---
-ALTER TABLE `oc_tax_rule`
-  MODIFY `tax_rule_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=129;
---
--- AUTO_INCREMENT для таблицы `oc_theme`
---
-ALTER TABLE `oc_theme`
-  MODIFY `theme_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_translation`
---
-ALTER TABLE `oc_translation`
-  MODIFY `translation_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_upload`
---
-ALTER TABLE `oc_upload`
-  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_url_alias`
---
-ALTER TABLE `oc_url_alias`
-  MODIFY `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1008;
---
--- AUTO_INCREMENT для таблицы `oc_user`
---
-ALTER TABLE `oc_user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `oc_user_group`
---
-ALTER TABLE `oc_user_group`
-  MODIFY `user_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT для таблицы `oc_voucher`
---
-ALTER TABLE `oc_voucher`
-  MODIFY `voucher_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_voucher_history`
---
-ALTER TABLE `oc_voucher_history`
-  MODIFY `voucher_history_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `oc_voucher_theme`
---
-ALTER TABLE `oc_voucher_theme`
-  MODIFY `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT для таблицы `oc_weight_class`
---
-ALTER TABLE `oc_weight_class`
-  MODIFY `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT для таблицы `oc_weight_class_description`
---
-ALTER TABLE `oc_weight_class_description`
-  MODIFY `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT для таблицы `oc_zone`
---
-ALTER TABLE `oc_zone`
-  MODIFY `zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4236;
---
--- AUTO_INCREMENT для таблицы `oc_zone_to_geo_zone`
---
-ALTER TABLE `oc_zone_to_geo_zone`
-  MODIFY `zone_to_geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

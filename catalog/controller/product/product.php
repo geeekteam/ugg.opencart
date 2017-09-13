@@ -178,6 +178,9 @@ class ControllerProductProduct extends Controller {
 
         $data['quantity'] = $this->model_catalog_product->getProduct($product_id)['quantity'];
 
+        $data['date_modified'] = date($this->model_catalog_product->getProduct($product_id)['date_modified']);
+        $data['date_added'] = date($this->model_catalog_product->getProduct($product_id)['date_added']);
+
 		if ($product_info) {
 			$url = '';
 
@@ -664,7 +667,8 @@ class ControllerProductProduct extends Controller {
 				'author'     => $result['author'],
 				'text'       => nl2br($result['text']),
 				'rating'     => (int)$result['rating'],
-				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+				'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+				'date_modified' => date($this->language->get('date_format_short'), strtotime($result['date_modified'])),
 			);
 		}
 

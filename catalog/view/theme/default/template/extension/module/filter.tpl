@@ -1,9 +1,17 @@
 <div class="filter-aside">
     <div class="filter-aside-tt">
         <span>Фильтры</span>
+        <?php
+        $filter_pos = strpos($_SERVER['REQUEST_URI'], 'filter');
+        $uri = $_SERVER['REQUEST_URI'];
+        ?>
+        <?php if (strpbrk((substr($uri, $filter_pos)), '1234567890')!==false): ?>
         <button type="reset" class="js-reset-filter">
+        <?php else: ?>
+        <button type="reset" class="js-reset-filter hidden">
+        <?php endif; ?>
             <i class="icon"><img src="/image/delete-icon.png" alt=""></i>
-            <span>Сбросить</span>
+            <span>Сбросить все</span>
         </button>
     </div>
     <?php $i = 0; foreach($filter_groups as $filter_group):?>
@@ -11,9 +19,6 @@
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Основной цвет</span>
                 <ul class="list-filter-aside-color">
-<!--                        <pre>-->
-<!--                            --><?php //print_r($filter_group['filter']); ?>
-<!--                        </pre>-->
                     <?php foreach($filter_group['filter'] as $filter): ?>
                         <?php
                             $color_info = explode('|', $filter['name']);
@@ -40,7 +45,7 @@
                         <?php $i=0;?>
                     <?php endforeach;?>
                 </ul>
-                <span class="js-all-filters col-aside all-filters hidden">Все</span>
+                <span class="js-all-filters all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 3): ?>
             <div class="filter-aside-cont">
@@ -70,7 +75,7 @@
                         <?php $i=0;?>
                     <?php endforeach;?>
                 </ul>
-                <span class="col-aside js-all-filters all-filters hidden">Все</span>
+                <span class="js-all-filters all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 1): ?>
             <div class="filter-aside-cont">
@@ -100,7 +105,7 @@
                         <?php $i=0;?>
                     <?php endforeach;?>
                 </ul>
-                <span class="col-aside js-all-filters all-filters hidden">Все</span>
+                <span class="js-all-filters all-filters hidden">Все</span>
             </div>
         <?php elseif($filter_group['filter_group_id'] == 4): ?>
             <div class="filter-aside-cont">
@@ -130,7 +135,7 @@
                     <?php $i=0;?>
                     <?php endforeach;?>
                 </ul>
-                <span class="col-aside js-all-filters all-filters hidden">Все</span>
+                <span class="js-all-filters all-filters hidden">Все</span>
             </div>
         <?php endif;?>
     <?php endforeach;?>

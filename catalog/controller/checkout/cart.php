@@ -312,11 +312,11 @@ class ControllerCheckoutCart extends Controller {
 
             $product_options = $this->model_catalog_product->getProductOptions($this->request->post['product_id']);
 
-            foreach ($product_options as $product_option) {
-                if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
-                    $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
-                }
-            }
+//            foreach ($product_options as $product_option) {
+//                if ($product_option['required'] && empty($option[$product_option['product_option_id']])) {
+//                    $json['error']['option'][$product_option['product_option_id']] = sprintf($this->language->get('error_required'), $product_option['name']);
+//                }
+//            }
 
             if (isset($this->request->post['recurring_id'])) {
                 $recurring_id = $this->request->post['recurring_id'];

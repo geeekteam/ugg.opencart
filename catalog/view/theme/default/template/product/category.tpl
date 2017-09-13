@@ -14,6 +14,94 @@ echo $header;
                 <div class="aside-catalog">
                     <span class="tt-aside-catalog"><span>Каталог</span> <i class="icon"><img src="/image/icon-drop3.png" alt=""></i></span>
                     <div class="aside-catalog-bl">
+                        <div>
+                            <ul class="list-aside-catalog">
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'zhenskie-ugg')): ?>
+                                        <a class="active">
+                                            <i class="icon"> › </i>
+                                            <span>Женские УГГИ</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/zhenskie-ugg">
+                                            <i class="icon"> › </i>
+                                            <span>Женские УГГИ</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'muzhskie-ugg')): ?>
+                                        <a class="active">
+                                            <i class="icon"> › </i>
+                                            <span>Мужские УГГИ</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/muzhskie-ugg">
+                                            <i class="icon"> › </i>
+                                            <span>Мужские УГГИ</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'detskie-ugg')): ?>
+                                        <a class="active">
+                                            <i class="icon"> › </i>
+                                            <span>Детские УГГИ</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/detskie-ugg">
+                                            <i class="icon"> › </i>
+                                            <span>Детские УГГИ</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            </ul>
+
+                            <ul class="list-aside-catalog">
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'vysokie-ugg')): ?>
+                                        <a class="active">
+                                            <i class="icon"> › </i>
+                                            <span>Высокие UGG</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/vysokie-ugg">
+                                            <i class="icon"> › </i>
+                                            <span>Высокие UGG</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'korotkie-ugg')): ?>
+                                        <a class="active">
+                                            <i class="icon"> › </i>
+                                            <span>Короткие UGG</span>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="/korotkie-ugg">
+                                            <i class="icon"> › </i>
+                                            <span>Короткие UGG</span>
+                                        </a>
+                                    <?php endif; ?>
+                                </li>
+                            </ul>
+                            <ul class="list-aside-product">
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-dylyn')): ?>
+                                        <a class="active">UGG Bailey &amp; Dylyn</a>
+                                    <?php else: ?>
+                                        <a href="/ugg-bailey-dylyn">UGG Bailey &amp; Dylyn</a>
+                                    <?php endif; ?>
+                                </li>
+                                <li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-triplet')): ?>
+                                        <a class="active">UGG Bailey Triplet</a>
+                                    <?php else: ?>
+                                        <a href="/ugg-bailey-triplet">UGG Bailey Triplet</a>
+                                    <?php endif; ?>
+                                </li>
+                            </ul>
+                        </div>
                         <?=$column_left;?>
                     </div>
                 </div>
@@ -53,7 +141,9 @@ echo $header;
                     <?php $i++; endforeach;?>
                 </ul>
                 <h1 class="tt-cont js-category-title"><?=$heading_title;?></h1>
-                <p>Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.</p>
+                <div class="mobile-hidden">
+                    <?=$description;?>
+                </div>
                 <div class="number-product-bl js-sort">
                     <span class="number-product"><?=count($products);?> товаров</span>
                     <select class="js-sort">

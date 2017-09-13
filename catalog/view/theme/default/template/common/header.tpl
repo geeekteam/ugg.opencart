@@ -28,7 +28,7 @@
 
 <div id="wrapper">
     <form action="#" id="cartModal" class="cart-modal mfp-hide jqs-send-form">
-        <div class="product-info-icons hidden-devices">
+        <div class="product-info-icons">
             <div class="prod-icon-item">
                 <i class="icon icon-advantage4"></i>
                 <span class="prod-icon-name">
@@ -63,7 +63,7 @@
 
         <h2>Ваш заказ</h2>
         <div class="product-cart-table-wrapp">
-            <div class="prod-cart-table" id="cart">
+            <div class="prod-cart-table js-prod-cart-table" id="cart">
                 <div class="prod-cart-row hidden-mobile">
                     <div class="prod-cart-col t-col-1">Фото</div>
                     <div class="prod-cart-col t-col-2">Название</div>
@@ -79,15 +79,15 @@
                         <input type="hidden" class="js-hidden-input-product-size" name="products[<?=$cartItem['product_id']; ?>][product_size]">
                         <input type="hidden" class="js-hidden-input-give-some" name="products[<?=$cartItem['product_id']; ?>][give_some]">
                         <input type="hidden" class="js-hidden-input-product-quantity" value="<?=$product_quantity;?>">
-                        <div class="prod-cart-col t-col-1">
+                        <a href="<?=$product_href;?>" class="prod-cart-col t-col-1">
                             <span class="prod-cart-img"><img src="/image/<?=$cartItem['image']; ?>" alt=""></span>
-                        </div>
-                        <div class="prod-cart-col t-col-2">
+                        </a>
+                        <a href="<?=$product_href;?>" class="prod-cart-col t-col-2">
                             <span class="prod-cart-name"><?=$cartItem['name']; ?></span>
-                        </div>
+                        </a>
                         <div class="prod-cart-col t-col-3">
                             <div class="prod-cart-select-wrapp js-select-size">
-                                <select>
+                                <select class="">
                                     <?php foreach($cartItem['options'] as $option) : ?>
                                         <?php if($option['option_id'] == 14) : ?>
                                             <?php foreach($option['product_option_value'] as $optionValue) : ?>
@@ -106,7 +106,7 @@
                             <div class="prod-cart-check-wrapp js-give-some">
                                 <label>
                                     <input type="checkbox" value="привезите несколько">
-                                    <span>Не уверена в размере - привезите несколько</span>
+                                    <span class="js-give-some-text">Не уверена в размере - привезите несколько</span>
                                 </label>
                             </div>
                         </div>
@@ -474,13 +474,36 @@
 
         <div class="header-panel">
             <div class="container">
-                <ul class="head-nav">
-                    <li><a href="/o-nas">О нас</a></li>
-                    <li><a href="/dostavka-i-oplata">Доставка и оплата</a></li>
-                    <li><a href="/otzyvy">Отзывы</a></li>
-                    <li><a href="/vozvrat">Возврат</a></li>
-                    <li><a href="/contacts">Контакты</a></li>
-                </ul>
+                <div class="header-panel-top">
+                    <span class="header-panel-top__title">Дисконт-центр UGG Australia  №1 в России</span>
+                    <ul class="head-nav">
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'o-nas')): ?>
+                            <li><span>О нас</span></li>
+                        <?php else: ?>
+                            <li><a href="/o-nas">О нас</a></li>
+                        <?php endif; ?>
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'dostavka-i-oplata')): ?>
+                            <li><span>Доставка и оплата</span></li>
+                        <?php else: ?>
+                            <li><a href="/dostavka-i-oplata">Доставка и оплата</a></li>
+                        <?php endif; ?>
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'otzyvy')): ?>
+                            <li><span>Отзывы</span></li>
+                        <?php else: ?>
+                            <li><a href="/otzyvy">Отзывы</a></li>
+                        <?php endif; ?>
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'vozvrat')): ?>
+                            <li><span>Возврат</span></li>
+                        <?php else: ?>
+                            <li><a href="/vozvrat">Возврат</a></li>
+                        <?php endif; ?>
+                        <?php if (strpos($_SERVER['REQUEST_URI'], 'contacts')): ?>
+                            <li><span>Контакты</span></li>
+                        <?php else: ?>
+                            <li><a href="/contacts">Контакты</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -508,7 +531,7 @@
                     <div class="header-contact">Ежедневно 10:00 – 21:00 <span>8 (495) 256-01-63</span></div>
                 </div>
                 <div class="header-feedback">
-                    <a href="#feedback" class="feedback-link open-modal">
+                    <a href="#feedback" class="feedback-link open-modal mobile-hidden">
                         <i class="icon icon-phone"></i>
                         <span>Заказать звонок</span>
                     </a>
@@ -534,30 +557,89 @@
                 <div class="menu-open-wrapper">
                     <nav class="header-nav">
                         <ul class="menu">
-                            <li><a href="/rasprodazha">Распродажа</a></li>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'rasprodazha')): ?>
+                                <li><a class="active">Распродажа</a></li>
+                            <?php else: ?>
+                                <li><a href="/rasprodazha">Распродажа</a></li>
+                            <?php endif; ?>
                             <li class="menu-drop-down">
                                 <span class="menu-dd-open-link">
                                     <span>Женские Угги</span>
                                     <i class="arrow-corner-bottom"></i>
                                 </span>
                                 <ul>
-                                    <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
-                                    <li><a href="/ugg-bailey-triplet">UGG Bailey Triplet</a></li>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-dylyn')): ?>
+                                        <li><a class="active">Ugg Bailey & Dylyn</a></li>
+                                    <?php else: ?>
+                                        <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                                    <?php endif; ?>
+                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-triplet')): ?>
+                                        <li><a class="active">UGG Bailey Triplet</a></li>
+                                    <?php else: ?>
+                                        <li><a href="/ugg-bailey-triplet">UGG Bailey Triplet</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
-                            <li><a href="/korotkie-ugg">Короткие Угги</a></li>
-                            <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'korotkie-ugg')): ?>
+                                <li><a class="active">Короткие Угги</a></li>
+                            <?php else: ?>
+                                <li><a href="/korotkie-ugg">Короткие Угги</a></li>
+                            <?php endif; ?>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-dylyn')): ?>
+                                <li><a class="active">Ugg Bailey & Dylyn</a></li>
+                            <?php else: ?>
+                                <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                            <?php endif; ?>
                         </ul>
-                        <div class="search">
-                            <form action="/" method="get" class="js-search-form">
-                                <div class="search-inp">
-                                    <input type="hidden" name="route" value="product/search">
-                                    <input type="text" name="search" placeholder="Поиск">
-                                </div>
-                                <button type="button" class="btn-search"><i class="icon icon-search"></i></button>
-                            </form>
+                        <div class="search search-form">
+                            <div class="search-inp">
+                                <input type="text" name="search" placeholder="Поиск">
+                                <span class="search-close"></span>
+                            </div>
+                            <span class="btn-search"><i class="icon icon-search"></i></span>
                         </div>
+                        <ul class="head-nav-mobile">
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'o-nas')): ?>
+                                <li><span>О нас</span></li>
+                            <?php else: ?>
+                                <li><a href="/o-nas">О нас</a></li>
+                            <?php endif; ?>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'dostavka-i-oplata')): ?>
+                                <li><span>Доставка и оплата</span></li>
+                            <?php else: ?>
+                                <li><a href="/dostavka-i-oplata">Доставка и оплата</a></li>
+                            <?php endif; ?>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'otzyvy')): ?>
+                                <li><span>Отзывы</span></li>
+                            <?php else: ?>
+                                <li><a href="/otzyvy">Отзывы</a></li>
+                            <?php endif; ?>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'vozvrat')): ?>
+                                <li><span>Возврат</span></li>
+                            <?php else: ?>
+                                <li><a href="/vozvrat">Возврат</a></li>
+                            <?php endif; ?>
+                            <?php if (strpos($_SERVER['REQUEST_URI'], 'contacts')): ?>
+                                <li><span>Контакты</span></li>
+                            <?php else: ?>
+                                <li><a href="/contacts">Контакты</a></li>
+                            <?php endif; ?>
+                        </ul>
                     </nav>
+                    <div class="search-result-container">
+                        <div class="search-result">
+                            <div class="search-result-inner">
+                                <div class="template">
+                                    <a href="#">
+                                        <div class="search-result-image"><img></div>
+                                        <div class="search-result-name">
+                                            <span></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
