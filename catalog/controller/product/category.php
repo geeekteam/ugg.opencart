@@ -39,6 +39,8 @@ class ControllerProductCategory extends Controller {
 			$limit = $this->config->get($this->config->get('config_theme') . '_product_limit');
 		}
 
+		$limit = 999;
+
 		$data['breadcrumbs'] = array();
 
 		$data['breadcrumbs'][] = array(
@@ -139,6 +141,7 @@ class ControllerProductCategory extends Controller {
 			}
 
 			$data['description'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');
+			$data['description_bottom'] = html_entity_decode($category_info['description_bottom'], ENT_QUOTES, 'UTF-8');
 			$data['compare'] = $this->url->link('product/compare');
 
 			$url = '';
@@ -309,7 +312,7 @@ class ControllerProductCategory extends Controller {
 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.price&order=DESC' . $url)
 			);
 
-			if ($this->config->get('config_review_status')) {
+			/*if ($this->config->get('config_review_status')) {
 				$data['sorts'][] = array(
 					'text'  => $this->language->get('text_rating_desc'),
 					'value' => 'rating-DESC',
@@ -333,7 +336,7 @@ class ControllerProductCategory extends Controller {
 				'text'  => $this->language->get('text_model_desc'),
 				'value' => 'p.model-DESC',
 				'href'  => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '&sort=p.model&order=DESC' . $url)
-			);
+			);*/
 
 			$url = '';
 

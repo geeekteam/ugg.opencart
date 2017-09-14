@@ -424,3 +424,15 @@ admin\language\en-gb\extension\openbay.php
 admin\language\ru-ru\extension\openbay.php
 system\storage\modification\admin\controller\sale\order.php
 system\storage\modification\admin\view\template\sale\order_info.tpl
+admin\controller\extension\extension\theme.php
+admin\view\template\extension\extension\theme.tpl
+admin\controller\extension\theme\theme_default.php
+admin\view\template\extension\theme\theme_default.tpl
+admin\controller\extension\module\special.php
+admin\view\template\extension\module\special.tpl
+system\storage\modification\system\engine\action.php
+system\storage\modification\system\engine\loader.php
+system\storage\modification\system\library\config.php
+system\storage\modification\system\library\template\php.php
+system\storage\modification\system\library\language.php
+system\storage\modification\system\library\template\php.php

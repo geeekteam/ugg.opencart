@@ -27,9 +27,9 @@ function futureDate() {
     dateSpan.html(futureDate + '!').css('display', 'inline-block');
 }
 
-function sortAsc() {
+/*function sortAsc() {
     var $container = $('.js-sortable'),
-        $products = $container.find('.product-item');
+        $products = $container.find('.js-product-item');
 
     $products.sort(function (a, b) {
         var an = $(a).attr('data-price'),
@@ -44,7 +44,8 @@ function sortAsc() {
 
 function sortDesc() {
     var $container = $('.js-sortable'),
-        $products = $container.find('.product-item');
+        $products = $container.find('.js-product-item'),
+        $banner = $container.find('.banner-content');
 
     $products.sort(function (a, b) {
         var an = $(a).attr('data-price'),
@@ -55,6 +56,7 @@ function sortDesc() {
         return 0;
     });
     $products.detach().appendTo($container);
+    $banner.remove();
 }
 
 $('.js-sort').change(function () {
@@ -63,7 +65,7 @@ $('.js-sort').change(function () {
         sortAsc();
     if ($option.hasClass('js-sort-desc'))
         sortDesc();
-});
+});*/
 
 
 function scrollToTop() {
@@ -122,7 +124,7 @@ $(document).on('click', '.js-btn-buy', function (e) {
             option: {}
         };
 
-    $(this).closest('.product-item').find('.js-btn-buy span').html('загрузка...');
+    $(this).closest('.product-item').find('.js-btn-loading span').html('загрузка...');
     if ($(this).hasClass('js-size-label'))
         $(this).find('input.js-size').prop('checked', true);
     $('#input-phone').css('border', 'none');
@@ -145,7 +147,7 @@ $(document).on('click', '.js-btn-buy', function (e) {
                 preload = false;
                 totalPrice();
                 if (preload === false) {
-                    $('.js-btn-buy').find('span').html('купить сейчас');
+                    $('.js-btn-loading').find('span').html('купить сейчас');
                     $.magnificPopup.open({
                         items: {
                             src: '#cartModal'

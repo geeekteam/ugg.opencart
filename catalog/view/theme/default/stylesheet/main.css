@@ -3830,8 +3830,40 @@ button.mfp-close,
   cursor: pointer;
 }
 
+.list-shoe-height {
+  display: flex !important;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0 0 -10px -4px;
+  padding-bottom: 15px;
+}
+
+.list-shoe-height > .filter-item {
+  min-width: 33%;
+  padding: 0 0 10px 4px;
+  margin-top: 0;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.list-shoe-height > li > a,
+.list-shoe-height > li > label > a{
+  border: 1px solid #bbbfc2;
+  background-color: white;
+  text-decoration: none;
+  line-height: 34px;
+  display: block;
+  text-align: center;
+  color: black;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
 .list-size-filter > li > a:hover,
-.list-size-filter > li > label > a:hover{
+.list-size-filter > li > label > a:hover,
+.list-shoe-height > li > a:hover,
+.list-shoe-height > li > label > a:hover{
   text-decoration: none;
   background: #bbbfc2;
   color: #fff;
@@ -5567,7 +5599,7 @@ blockquote {
     padding-top: 51px;
   }
   .main-screen-cont {
-    padding: 25px 60px 3px 77px;
+    padding: 25px 60px 15px 77px;
   }
   .img-main-screen-product > span {
     right: 127px;

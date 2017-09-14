@@ -110,7 +110,7 @@
         <?php elseif($filter_group['filter_group_id'] == 4): ?>
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Высота обуви</span>
-                <ul class="list-size-filter">
+                <ul class="list-shoe-height">
                     <?php foreach($filter_group['filter'] as $filter): ?>
                     <?php
                         $height = explode('(', $filter['name']);

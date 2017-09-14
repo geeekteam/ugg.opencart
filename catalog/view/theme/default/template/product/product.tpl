@@ -64,6 +64,7 @@ echo $header;
                 <?php $i = 0; foreach ($breadcrumbs as $breadcrumb): ?>
                     <?php if ($i == 0):?>
                         <li><a href="/">Главная</a></li>
+                        <li><a href="<?php echo $category_href ?>"><?php echo $category ?></a></li>
                     <?php elseif ($last_elem !== $breadcrumb): ?>
                         <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
                     <?php elseif ($last_elem == $breadcrumb): ?>
@@ -76,14 +77,19 @@ echo $header;
                 <input type="hidden" name="product_id" value="<?=$product_id; ?>">
                 <div class="owl-slider-thumb-wrapp">
                     <div class="owl-slider-main owl-carousel owl-loaded owl-drag">
+                        <?php
+                        $discount_price = intval(str_replace(',', '', $special_price));
+                        $old_price = intval($default_price);
+                        ?>
                         <div>
                             <img src="<?php echo $thumb; ?>" alt="">
-                            <span class="product-item-sale"><?=$discount; ?></span>
+                            <span class="product-item-sale"><?=intval(100-($discount_price*100)/$old_price);?>%</span>
                         </div>
                         <?php foreach ($images as $image) : ?>
                             <div>
                                 <img src="<?=$image['thumb']; ?>">
-                                <span class="product-item-sale"><?=$discount; ?></span>
+
+                                <span class="product-item-sale"><?=intval(100-($discount_price*100)/$old_price);?>%</span>
                             </div>
                         <?php endforeach;?>
                     </div>
@@ -161,7 +167,7 @@ echo $header;
                                 </div>
                             <?php endif; ?>
                         <?php endforeach; ?>
-                        <a class="btn-lg btn btn-icon js-btn-buy">
+                        <a class="btn-lg btn btn-icon js-btn-buy js-btn-loading">
                             <span>купить сейчас</span>
                             <i class="icon"> › </i>
                         </a>

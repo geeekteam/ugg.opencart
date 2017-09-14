@@ -22,17 +22,15 @@
                                 <span class="new-price-item"><span><?=$product_price;?></span> руб</span>
                             <?php endif;?>
                         </div>
-                        <a href="#" class="btn btn-icon js-btn-buy">
+                        <a href="#" class="btn btn-icon js-btn-buy js-btn-loading">
                             <span>купить сейчас</span>
                             <i class="icon"> › </i>
                         </a>
-                        <?php foreach($options as $option):?>
-                            <?php if($option['option_id'] == 13):?>
-                                <?php if (!empty(($option['value']))):?>
-                                    <span class="product-item-sale"><?=$option['value'];?></span>
-                                <?php endif;?>
-                            <?php endif;?>
-                        <?php endforeach;?>
+                            <?php
+                            $discount_price = intval(str_replace(',', '', $product_special_price));
+                            $old_price = intval(str_replace(',', '', $product_price))
+                            ?>
+                            <span class="product-item-sale"><?=intval(100-($discount_price*100)/$old_price);?>%</span>
                     </form>
                 </li>
             <?php endforeach; ?>

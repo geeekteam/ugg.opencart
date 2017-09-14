@@ -1,7 +1,7 @@
 <?php foreach ($products as $product): ?>
     <?php
         foreach ($product['options'] as $option):
-            if (($option['option_id'] == 18)):
+            if (($option['option_id'] == 17)):
 
             $options = $product['options'];
             $product_name = $product['name'];
@@ -22,13 +22,11 @@
                         <input type="hidden" name="product_id" value="<?=$product['product_id']; ?>">
                         <span class="img-main-screen-product">
                             <img src="<?=($product['thumb']); ?>" alt="<?=($product['name']); ?>">
-                            <?php foreach($options as $option):?>
-                                <?php if($option['option_id'] == 13):?>
-                                    <?php if (!empty(($option['value']))):?>
-                                        <span>-<?=$option['value'];?></span>
-                                    <?php endif;?>
-                                <?php endif;?>
-                            <?php endforeach;?>
+                            <?php
+                            $discount_price = intval(str_replace(',', '', $product_special_price));
+                            $old_price = intval(str_replace(',', '', $product_price))
+                            ?>
+                            <span><?=intval(100-($discount_price*100)/$old_price);?>%</span>
                         </span>
                         <div class="main-screen-product-cont">
                             <span class="tt-main-screen-product-cont"><?=$product_name;?></span>
@@ -52,7 +50,7 @@
                                     <?php endif;?>
                                 <?php endforeach;?>
                             </div>
-                            <a href="#" class="btn btn-lg btn-icon js-btn-buy">
+                            <a href="#" class="btn btn-lg btn-icon js-btn-buy js-btn-loading">
                                 <span>купить сейчас</span>
                                 <i class="icon"> › </i>
                             </a>

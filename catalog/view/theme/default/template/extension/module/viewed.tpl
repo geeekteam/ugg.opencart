@@ -20,7 +20,7 @@
                                 <span class="new-price-item"><span><?=$default_price?></span> руб</span>
                             <?php endif; ?>
                         </div>
-                        <a href="#" class="btn btn-icon js-btn-buy">
+                        <a href="#" class="btn btn-icon js-btn-buy js-btn-loading">
                             <span>купить сейчас</span>
                             <i class="icon"> › </i>
                         </a>
