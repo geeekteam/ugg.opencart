@@ -124,7 +124,7 @@ $(document).on('click', '.js-btn-buy', function (e) {
             option: {}
         };
 
-    $(this).closest('.product-item').find('.js-btn-loading span').html('загрузка...');
+    $(this).closest('form').find('.js-btn-loading span').html('загрузка...');
     if ($(this).hasClass('js-size-label'))
         $(this).find('input.js-size').prop('checked', true);
     $('#input-phone').css('border', 'none');

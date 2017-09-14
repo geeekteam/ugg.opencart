@@ -64,7 +64,7 @@ echo $header;
                 <?php $i = 0; foreach ($breadcrumbs as $breadcrumb): ?>
                     <?php if ($i == 0):?>
                         <li><a href="/">Главная</a></li>
-                        <li><a href="<?php echo $category_href ?>"><?php echo $category ?></a></li>
+                        <li><a href="/all">Каталог</a></li>
                     <?php elseif ($last_elem !== $breadcrumb): ?>
                         <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
                     <?php elseif ($last_elem == $breadcrumb): ?>
@@ -254,7 +254,7 @@ echo $header;
                                         <span class="new-price-item"><span><?=$default_price?></span> руб</span>
                                     <?php endif; ?>
                                 </div>
-                                <a href="#" class="btn btn-icon js-btn-buy">
+                                <a href="#" class="btn btn-icon js-btn-buy js-btn-loading">
                                     <span>купить сейчас</span>
                                     <i class="icon"> › </i>
                                 </a>
