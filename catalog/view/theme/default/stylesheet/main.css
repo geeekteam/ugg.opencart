@@ -1376,6 +1376,23 @@ textarea {
   position: relative;
 }
 
+.menu-drop-down > ul > li > ul {
+  list-style-type: none;
+}
+
+.menu-drop-down > ul > li > ul > li {
+  margin-left: 10px;
+}
+
+.menu-drop-down > ul > li > ul > li > a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.menu-drop-down > ul > li > ul > li > a.active {
+  text-decoration: underline !important;
+}
+
 .menu-drop-down > ul > li > a {
   color: #fff;
   text-decoration: none;
@@ -1634,19 +1651,35 @@ textarea {
   }
   /* ------------------- menu drop down */
   .menu-drop-down:hover > ul {
-    display: block;
+    display: flex;
     position: absolute;
     top: 100%;
-    width: 270px;
+    width: 540px;
     text-align: left;
     background-color: #000;
     padding: 15px 0;
   }
   .menu-drop-down:hover > ul > li {
-    padding: 10px 20px;
     margin: 0;
+    flex-shrink: 0;
+    width: 270px;
   }
-  .menu-drop-down:hover > ul > li:hover {
+  .menu-drop-down:hover > ul > li > span {
+    color: #ffffff;
+  }
+  .menu-drop-down:hover > ul > li > ul {
+    list-style-type: none;
+  }
+  .menu-drop-down:hover > ul > li > ul > li {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 10px 20px;
+  }
+  .menu-drop-down:hover > ul > li > ul > li > a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+  .menu-drop-down:hover > ul > li > ul > li:hover {
     background-color: #e3c379;
   }
   .menu-drop-down:hover > ul > li:hover a {
@@ -3742,6 +3775,7 @@ button.mfp-close,
   height: 100%;
   width: 100%;
   border-radius: 50%;
+  border: 1px solid #c3c3c3;
 }
 
 .col1 {
@@ -4446,6 +4480,7 @@ blockquote {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  border: 1px solid #3c3c3c;
 }
 
 .col-aside1 {
@@ -4537,6 +4572,13 @@ blockquote {
   overflow: hidden;
   padding-top: 20px;
   margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.sorting {
+  margin-left: auto;
+  margin-right: 10px;
 }
 
 .number-product-bl .jcf-select {
@@ -5906,7 +5948,6 @@ a.t-col-2:hover {
 
 .search-result .search-result-inner > div {
   width: 25%;
-
   padding: 0 0 20px 20px;
 }
 .search-result .search-result-inner > div > a {
@@ -5964,12 +6005,6 @@ a.t-col-2:hover {
 }
 .search-close:after {
   transform: rotate(-45deg);
-}
-
-.mfp-s-loading  {
-  width: 100px;
-  height: 100px;
-  background-color: red;
 }
 
 /* overlay at start */

@@ -10,7 +10,7 @@ echo $header;
         <section class="section-inner">
             <div class="container group">
                 <div class="aside">
-                    <div class="aside-img hidden-devices"><img src="/image/aside-banner.jpg" alt=""></div>
+                    <div class="aside-img hidden-devices"><img src="<?php echo $thumb; ?>" alt=""></div>
                     <div class="aside-catalog">
                         <span class="tt-aside-catalog"><span>Каталог</span> <i class="icon"><img src="/image/icon-drop3.png" alt=""></i></span>
                         <div class="aside-catalog-bl">
@@ -235,7 +235,7 @@ echo $header;
                     </div>
                     <div class="number-product-bl js-sort">
                         <span class="number-product"><?=count($products);?> товаров</span>
-
+                        <span class="sorting">Сортировка:</span>
                         <select id="input-sort" class="form-control" onchange="location = this.value;">
                             <?php foreach ($sorts as $sorts) { ?>
                                 <?php if ($sorts['value'] == $sort . '-' . $order) { ?>
@@ -245,12 +245,6 @@ echo $header;
                                 <?php } ?>
                             <?php } ?>
                         </select>
-
-                        <!--<select class="js-sort">
-                            <option disabled selected>Сортировка</option>
-                            <option class="js-sort-asc">По возрастанию цены</option>
-                            <option class="js-sort-desc">По убыванию цены</option>
-                        </select>-->
                     </div>
                     <ul class="list-product js-sortable" data-category="<?=$heading_title;?>">
                         <?php foreach ($products as $k => $product):
@@ -303,7 +297,9 @@ echo $header;
                     <div class="content-txt">
                         <?=$description_bottom; ?>
                     </div>
-                    <?=$content_bottom;?>
+                    <?php if(count($products)<6): ?>
+                        <?=$content_bottom;?>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>

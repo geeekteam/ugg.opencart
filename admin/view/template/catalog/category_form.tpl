@@ -116,6 +116,7 @@
                     </div>
                     <?php } ?>
                   </div>
+                    <button onclick="addAllFilters()" type="button">Добавить все фильтры</button>
                 </div>
               </div>
               <div class="form-group">
@@ -258,6 +259,23 @@
         ckeditorInit('input-description<?php echo $language['language_id']; ?>', getURLVar('token'));
     <?php } ?>
   <?php } ?>
+
+
+      window.addAllFilters = function() {
+          $.ajax({
+              url: 'index.php?route=catalog/filter/all&token=<?php echo $token; ?>',
+              dataType: 'json',
+              success: function(json) {
+
+                  json.forEach(function (item) {
+                      $('#category-filter').append('<div id="category-filter' + item['filter_id'] + '"><i class="fa fa-minus-circle"></i> ' + item['name'] + '<input type="hidden" name="category_filter[]" value="' + item['filter_id'] + '" /></div>');
+                  });
+
+
+              }
+          });
+      }
+
   //--></script>
   <script type="text/javascript"><!--
 $('input[name=\'path\']').autocomplete({

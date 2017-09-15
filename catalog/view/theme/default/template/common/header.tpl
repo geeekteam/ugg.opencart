@@ -550,7 +550,7 @@
         <div class="head-menu">
             <div class="menu-icon-wrap">
             <span class="menu-icon">
-              <span></span>
+                <span></span>
             </span>
             </div>
             <div class="menu-wrapper-fixed">
@@ -568,16 +568,97 @@
                                     <i class="arrow-corner-bottom"></i>
                                 </span>
                                 <ul>
-                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-dylyn')): ?>
-                                        <li><a class="active">Ugg Bailey & Dylyn</a></li>
-                                    <?php else: ?>
-                                        <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
-                                    <?php endif; ?>
-                                    <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-triplet')): ?>
-                                        <li><a class="active">UGG Bailey Triplet</a></li>
-                                    <?php else: ?>
-                                        <li><a href="/ugg-bailey-triplet">UGG Bailey Triplet</a></li>
-                                    <?php endif; ?>
+                                    <li>
+                                        <span>Модели</span>
+                                        <ul>
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-jimmy-choo')): ?>
+                                                <li><a class="active">Ugg Jimmy Choo</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-jimmy-choo">Ugg Jimmy Choo</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-dylyn')): ?>
+                                                <li><a class="active">Ugg Bailey & Dylyn</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-bailey-dylyn">Ugg Bailey & Dylyn</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-button')): ?>
+                                                <li><a class="active">Ugg Bailey Button</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-bailey-button">Ugg Bailey Button</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-bailey-triplet')): ?>
+                                                <li><a class="active">Ugg Bailey Triplet</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-bailey-triplet">Ugg Bailey Triplet</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-classic-mini')): ?>
+                                                <li><a class="active">Ugg Classic Mini</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-classic-mini">Ugg Classic Mini</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-classic-short')): ?>
+                                                <li><a class="active">Ugg Classic Short</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-classic-short">Ugg Classic Short</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-classic-tall')): ?>
+                                                <li><a class="active">Ugg Classic Tall</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-classic-tall">Ugg Classic Tall</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-classic-tall')): ?>
+                                                <li><a class="active">Ugg Classic Tall</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-classic-tall">Ugg Classic Tall</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-mini-mailey-bow')): ?>
+                                                <li><a class="active">Ugg Mini Bailey Bow</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-mini-mailey-bow">Ugg Mini Bailey Bow</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-mini-fox-fur')): ?>
+                                                <li><a class="active">Ugg Mini Fox Fur</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-mini-fox-fur">Ugg Mini Fox Fur</a></li>
+                                            <?php endif; ?>
+
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'ugg-mocassin')): ?>
+                                                <li><a class="active">Ugg Mocassin</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/ugg-mocassin">Ugg Mocassin</a></li>
+                                            <?php endif; ?>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span>Категории</span>
+                                        <ul>
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'vysokie-ugg')): ?>
+                                                <li><a class="active">Высокие UGG</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/vysokie-ugg">Высокие UGG</a></li>
+                                            <?php endif; ?>
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'korotkie-ugg')): ?>
+                                                <li><a class="active">Короткие UGG</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/korotkie-ugg">Короткие UGG</a></li>
+                                            <?php endif; ?>
+                                            <?php if (strpos($_SERVER['REQUEST_URI'], 'uggi-mini')): ?>
+                                                <li><a class="active">Угги Мини</a></li>
+                                            <?php else: ?>
+                                                <li><a href="/uggi-mini">Угги Мини</a></li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             <?php if (strpos($_SERVER['REQUEST_URI'], 'korotkie-ugg')): ?>

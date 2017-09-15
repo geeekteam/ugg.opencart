@@ -474,13 +474,6 @@ $(document).on('click', '.js-delivery-default', function () {
  $btn.prop("type", "submit");
  });*/
 
-//Очистка поиска
-$('.search-close').on("click", function (e) {
-    $(this).siblings('input').val('');
-    $(this).closest('.search-form').removeClass('search-open');
-    $('.search-result').hide();
-});
-
 // Изменение типа дсставки и чекбокса "Привезти несколько размеров" внутри корзины при их выборе на странице товара
 function productOptions() {
     var $form = $('.jqs-send-form'),
@@ -648,6 +641,13 @@ $('.search-inp input').on('keydown', function () {
 
         }
     });
+});
+
+//Очистка поиска
+$('.search-close').on("click", function (e) {
+    $(this).siblings('input').val('');
+    $(this).closest('.search-form').removeClass('search-open');
+    $('.search-result').hide();
 });
 
 //Изменение тайтла категории при применении фильтров

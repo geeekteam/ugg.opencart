@@ -315,5 +315,5 @@ $(document).ready(function() {
 			$dropdown.on('click', '> li > a', $.proxy(this.click, this));
 			$this.after($dropdown);
 		});
-	}
+	};
 })(window.jQuery);

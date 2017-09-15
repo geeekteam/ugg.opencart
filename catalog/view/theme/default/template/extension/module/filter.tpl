@@ -15,7 +15,7 @@
         </button>
     </div>
     <?php $i = 0; foreach($filter_groups as $filter_group):?>
-        <?php if($filter_group['filter_group_id'] == 2):?>
+        <?php if($filter_group['filter_group_id'] == 2 && (count($filter_group['filter']) > 1)):?>
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Основной цвет</span>
                 <ul class="list-filter-aside-color">
@@ -47,7 +47,7 @@
                 </ul>
                 <span class="js-all-filters all-filters hidden">Все</span>
             </div>
-        <?php elseif($filter_group['filter_group_id'] == 3): ?>
+        <?php elseif($filter_group['filter_group_id'] == 3 && (count($filter_group['filter']) > 1)): ?>
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Материал</span>
                 <ul class="list-filter-material">
@@ -77,7 +77,7 @@
                 </ul>
                 <span class="js-all-filters all-filters hidden">Все</span>
             </div>
-        <?php elseif($filter_group['filter_group_id'] == 1): ?>
+        <?php elseif($filter_group['filter_group_id'] == 1 && (count($filter_group['filter']) > 1)): ?>
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Размер</span>
                 <ul class="list-size-filter">
@@ -107,7 +107,7 @@
                 </ul>
                 <span class="js-all-filters all-filters hidden">Все</span>
             </div>
-        <?php elseif($filter_group['filter_group_id'] == 4): ?>
+        <?php elseif($filter_group['filter_group_id'] == 4 && (count($filter_group['filter']) > 1)): ?>
             <div class="filter-aside-cont">
                 <span class="tt-filter-aside-cont">Высота обуви</span>
                 <ul class="list-shoe-height">

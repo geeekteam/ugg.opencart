@@ -21,7 +21,7 @@ class ControllerExtensionModuleSpecial extends Controller {
 			'sort'  => 'date_modified',
 			'order' => 'DESC',
 			'start' => 0,
-			'limit' => 1
+			'limit' => 9999
 		);
 
 		$results = $this->model_catalog_product->getProductSpecials($filter_data);

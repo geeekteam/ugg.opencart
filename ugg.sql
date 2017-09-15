@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.10
+-- version 4.4.15.7
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Сен 11 2017 г., 17:46
--- Версия сервера: 5.5.45
--- Версия PHP: 5.6.12
+-- Время создания: Сен 15 2017 г., 15:48
+-- Версия сервера: 5.5.50-log
+-- Версия PHP: 5.6.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- База данных: `ugg`
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `oc_address` (
-  `address_id` int(11) NOT NULL AUTO_INCREMENT,
+  `address_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,
@@ -38,10 +38,8 @@ CREATE TABLE IF NOT EXISTS `oc_address` (
   `postcode` varchar(10) NOT NULL,
   `country_id` int(11) NOT NULL DEFAULT '0',
   `zone_id` int(11) NOT NULL DEFAULT '0',
-  `custom_field` text NOT NULL,
-  PRIMARY KEY (`address_id`),
-  KEY `customer_id` (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `custom_field` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -50,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `oc_address` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate` (
-  `affiliate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_id` int(11) NOT NULL,
   `firstname` varchar(32) NOT NULL,
   `lastname` varchar(32) NOT NULL,
   `email` varchar(96) NOT NULL,
@@ -80,9 +78,8 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate` (
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `approved` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -91,14 +88,13 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_activity` (
-  `affiliate_activity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_activity_id` int(11) NOT NULL,
   `affiliate_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
   `data` text NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_activity_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -107,16 +103,13 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_activity` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_login` (
-  `affiliate_login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_login_id` int(11) NOT NULL,
   `email` varchar(96) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `total` int(4) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_login_id`),
-  KEY `email` (`email`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -125,14 +118,13 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_login` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_affiliate_transaction` (
-  `affiliate_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `affiliate_transaction_id` int(11) NOT NULL,
   `affiliate_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`affiliate_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -141,14 +133,13 @@ CREATE TABLE IF NOT EXISTS `oc_affiliate_transaction` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api` (
-  `api_id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `key` text NOT NULL,
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`api_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_api`
@@ -164,11 +155,10 @@ INSERT INTO `oc_api` (`api_id`, `name`, `key`, `status`, `date_added`, `date_mod
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api_ip` (
-  `api_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_ip_id` int(11) NOT NULL,
   `api_id` int(11) NOT NULL,
-  `ip` varchar(40) NOT NULL,
-  PRIMARY KEY (`api_ip_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `ip` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -177,16 +167,15 @@ CREATE TABLE IF NOT EXISTS `oc_api_ip` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_api_session` (
-  `api_session_id` int(11) NOT NULL AUTO_INCREMENT,
+  `api_session_id` int(11) NOT NULL,
   `api_id` int(11) NOT NULL,
   `token` varchar(32) NOT NULL,
   `session_id` varchar(32) NOT NULL,
   `session_name` varchar(32) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`api_session_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -195,11 +184,10 @@ CREATE TABLE IF NOT EXISTS `oc_api_session` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_attribute` (
-  `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
+  `attribute_id` int(11) NOT NULL,
   `attribute_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`attribute_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_attribute`
@@ -221,8 +209,7 @@ INSERT INTO `oc_attribute` (`attribute_id`, `attribute_group_id`, `sort_order`) 
 CREATE TABLE IF NOT EXISTS `oc_attribute_description` (
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`attribute_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -243,10 +230,9 @@ INSERT INTO `oc_attribute_description` (`attribute_id`, `language_id`, `name`) V
 --
 
 CREATE TABLE IF NOT EXISTS `oc_attribute_group` (
-  `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`attribute_group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `attribute_group_id` int(11) NOT NULL,
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_attribute_group`
@@ -264,8 +250,7 @@ INSERT INTO `oc_attribute_group` (`attribute_group_id`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_attribute_group_description` (
   `attribute_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`attribute_group_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -282,11 +267,10 @@ INSERT INTO `oc_attribute_group_description` (`attribute_group_id`, `language_id
 --
 
 CREATE TABLE IF NOT EXISTS `oc_banner` (
-  `banner_id` int(11) NOT NULL AUTO_INCREMENT,
+  `banner_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`banner_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `status` tinyint(1) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_banner`
@@ -304,15 +288,14 @@ INSERT INTO `oc_banner` (`banner_id`, `name`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_banner_image` (
-  `banner_image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `banner_image_id` int(11) NOT NULL,
   `banner_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
   `link` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`banner_image_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=113 ;
+  `sort_order` int(3) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=113 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_banner_image`
@@ -341,7 +324,7 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 --
 
 CREATE TABLE IF NOT EXISTS `oc_cart` (
-  `cart_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cart_id` int(11) unsigned NOT NULL,
   `api_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `session_id` varchar(32) NOT NULL,
@@ -349,18 +332,8 @@ CREATE TABLE IF NOT EXISTS `oc_cart` (
   `recurring_id` int(11) NOT NULL,
   `option` text NOT NULL,
   `quantity` int(5) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`cart_id`),
-  KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=412 ;
-
---
--- Дамп данных таблицы `oc_cart`
---
-
-INSERT INTO `oc_cart` (`cart_id`, `api_id`, `customer_id`, `session_id`, `product_id`, `recurring_id`, `option`, `quantity`, `date_added`) VALUES
-(410, 0, 0, 'kvkqd53fn7j3fjccgh717a2pi0', 51, 0, '{"242":"71"}', 1, '2017-09-11 20:36:30'),
-(411, 0, 0, 'kvkqd53fn7j3fjccgh717a2pi0', 51, 0, '{"242":"69"}', 1, '2017-09-11 20:36:32');
+  `date_added` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -369,7 +342,7 @@ INSERT INTO `oc_cart` (`cart_id`, `api_id`, `customer_id`, `session_id`, `produc
 --
 
 CREATE TABLE IF NOT EXISTS `oc_category` (
-  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `top` tinyint(1) NOT NULL,
@@ -377,25 +350,33 @@ CREATE TABLE IF NOT EXISTS `oc_category` (
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`category_id`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=85 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_category`
 --
 
 INSERT INTO `oc_category` (`category_id`, `image`, `parent_id`, `top`, `column`, `sort_order`, `status`, `date_added`, `date_modified`) VALUES
-(79, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:36:05', '2017-09-11 20:36:03'),
-(80, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:37:25', '2017-09-11 20:36:12'),
-(81, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:38:52', '2017-09-11 20:35:57'),
-(82, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:40:30', '2017-09-11 20:36:08'),
-(83, '', 0, 0, 1, 0, 1, '2017-08-22 15:22:58', '2017-09-11 20:35:16'),
-(84, '', 83, 0, 1, 0, 1, '2017-08-23 16:11:50', '2017-08-23 16:11:50'),
-(67, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:10:24', '2017-09-11 20:35:53'),
-(77, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:33:06', '2017-09-11 20:35:54'),
-(78, 'catalog/aside-banner.jpg', 83, 0, 1, 0, 1, '2017-08-18 14:34:43', '2017-09-11 20:36:00');
+(79, 'catalog/ugg/ugg_jenskie.png', 83, 0, 1, 1001, 1, '2017-08-18 14:36:05', '2017-09-15 15:38:54'),
+(80, 'catalog/ugg/ugg_mujskie.jpg', 83, 0, 1, 1002, 1, '2017-08-18 14:37:25', '2017-09-15 13:13:31'),
+(81, 'catalog/ugg/uggi-visokie.jpg', 83, 0, 1, 1004, 1, '2017-08-18 14:38:52', '2017-09-15 13:13:45'),
+(82, 'catalog/ugg/ugg-klassika.jpg', 83, 0, 1, 1005, 1, '2017-08-18 14:40:30', '2017-09-15 13:13:51'),
+(83, 'catalog/aside-banner.jpg', 0, 0, 1, 2000, 1, '2017-08-22 15:22:58', '2017-09-15 18:25:57'),
+(84, '', 83, 0, 1, 1000, 1, '2017-08-23 16:11:50', '2017-09-15 13:13:15'),
+(67, 'catalog/aside-banner.jpg', 83, 0, 1, 2002, 1, '2017-08-18 14:10:24', '2017-09-15 14:41:18'),
+(77, 'catalog/aside-banner.jpg', 83, 0, 1, 2004, 1, '2017-08-18 14:33:06', '2017-09-15 14:41:32'),
+(78, 'catalog/ugg/ugg_detskie.jpg', 83, 0, 1, 1003, 1, '2017-08-18 14:34:43', '2017-09-15 13:13:39'),
+(85, '', 83, 1, 1, 2003, 1, '2017-09-11 21:41:51', '2017-09-15 14:41:25'),
+(86, '', 83, 0, 1, 2005, 1, '2017-09-11 22:53:37', '2017-09-15 14:41:36'),
+(87, '', 83, 1, 1, 2006, 1, '2017-09-11 23:10:26', '2017-09-15 14:41:41'),
+(88, '', 83, 1, 1, 2007, 1, '2017-09-11 23:45:32', '2017-09-15 14:41:45'),
+(89, '', 83, 1, 1, 2010, 1, '2017-09-11 23:55:41', '2017-09-15 14:41:59'),
+(90, '', 83, 1, 1, 2009, 1, '2017-09-11 23:59:48', '2017-09-15 14:41:54'),
+(91, '', 83, 1, 1, 2011, 1, '2017-09-12 00:06:39', '2017-09-15 14:42:03'),
+(92, '', 83, 1, 1, 2001, 1, '2017-09-12 00:14:46', '2017-09-15 14:41:12'),
+(93, '', 83, 1, 1, 2008, 1, '2017-09-12 00:33:12', '2017-09-15 14:41:50'),
+(94, 'catalog/ugg/uggi-mini.jpg', 83, 0, 1, 1006, 1, '2017-09-12 10:04:50', '2017-09-15 13:13:58');
 
 -- --------------------------------------------------------
 
@@ -408,28 +389,37 @@ CREATE TABLE IF NOT EXISTS `oc_category_description` (
   `language_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
+  `description_bottom` text CHARACTER SET utf32 NOT NULL,
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`category_id`,`language_id`),
-  KEY `name` (`name`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_category_description`
 --
 
-INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `description`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(83, 1, 'Все товары', 'Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.', 'Все товары', 'Все товары', '', ''),
-(80, 1, 'Мужcкие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Мужcкие UGG', 'Мужcкие UGG', '', ''),
-(81, 1, 'Высокие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Высокие UGG', 'Высокие UGG', '', ''),
-(82, 1, 'Короткие UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Короткие UGG', 'Короткие UGG', '', ''),
-(77, 1, 'UGG Bailey Triplet', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'UGG Bailey Triplet', 'UGG Bailey Triplet', '', ''),
-(78, 1, 'Детские UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Детские UGG', 'Детские UGG', '', ''),
-(79, 1, 'Женские UGG', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Женские UGG', 'Женские UGG', '', ''),
-(67, 1, 'Ugg Bailey &amp; Dylyn', '&lt;p&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;br&gt;&lt;/p&gt;', 'Ugg Bailey &amp; Dylyn', 'Ugg Bailey &amp; Dylyn', '', ''),
-(84, 1, 'Распродажа', '', 'Распродажа', 'Распродажа', '', '');
+INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `description`, `description_bottom`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
+(79, 1, 'Женские UGG', '&lt;p&gt;Купить женские зимние Угги в интернет-магазине Ugg Australia в Москве со скидкой. Успевайте купить женские угги недорого, а также женские сапоги и ботинки Угг с мехом, обливные, высокие и низкие. Наш интернет-магазин предлгает Вам женские Ugg Australia кожанные и обливные, мокасины и домашние угги, классические зимние.&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Женские UGG', 'Женские UGG', '', ''),
+(85, 1, 'Ugg Bailey Button', '', '', 'Ugg Bailey Button', '', '', ''),
+(83, 1, 'Все товары', '&lt;p&gt;&lt;span style=&quot;font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;/span&gt;&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Все товары', 'Все товары', '', ''),
+(84, 1, 'Распродажа', '&lt;p&gt;&lt;span style=&quot;font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Постепенно желающих купить сапоги из овчины становится так много, что Брайан Смит решает основать собственную компанию по их производству. В 1980 году австралиец создает фирму Ugg Holdings Inc и одновременно регистрирует торговую марку «ugg boots». За первый сезон работы начинающий бизнесмен продает около пятидесяти пар овчинных сапог. История логотипа и торгового знака UGG Australia начинается чуть позже – в 1985 году, когда Смит подает соответствующую заявку на регистрацию.&lt;/span&gt;&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Распродажа', 'Распродажа', '', ''),
+(67, 1, 'Ugg Bailey &amp; Dylyn', '&lt;p&gt;&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Bailey &amp; Dylyn', 'Ugg Bailey &amp; Dylyn', '', ''),
+(86, 1, 'Ugg Classic Mini', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Classic Mini', '', '', ''),
+(87, 1, 'Ugg Classic Short', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Classic Short', '', '', ''),
+(88, 1, 'Ugg Classic Sparkless', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Classic Sparkless', '', '', ''),
+(89, 1, 'Ugg Mini Fox Fur', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Mini Fox Fur', '', '', ''),
+(90, 1, 'Ugg Mini Bailey Bow', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Mini Bailey Bow', '', '', ''),
+(91, 1, 'Ugg Mocassin', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Mocassin', '', '', ''),
+(92, 1, 'Ugg  Jimmy Choo', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg  Jimmy Choo', '', '', ''),
+(93, 1, 'Ugg Classic Tall', '', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Ugg Classic Tall', '', '', ''),
+(77, 1, 'UGG Bailey Triplet', '&lt;p&gt;&lt;br&gt;&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'UGG Bailey Triplet', 'UGG Bailey Triplet', '', ''),
+(81, 1, 'Высокие UGG', '&lt;p&gt;Купить угги на официальном сайте Ugg Australia из Австралии со скидкой более 40% недорого в интернет-магазине Угги в Москве. Успевайте купить высокие угги с пуговицами и кожаные.&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Высокие UGG', 'Высокие UGG', '', ''),
+(78, 1, 'Детские UGG', '&lt;p&gt;Купить детские Угги - отличное решение! Интернет-магазин Ugg Australia предлагает Вам купить детские натуральные угги для мальчиков и девочек недорого. Всегда в наличии детские размеры зимних уггов  с мехом.  Детские Угги - создадут неповторимое ощущение тепла и комфорта для ваших детей. Детские Ugg Australia!&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Детские UGG', 'Детские UGG', '', ''),
+(82, 1, 'Короткие UGG', '&lt;p&gt;Ugg Australia - Купить Угги Австралия классические короткие зимние с мехом в интернет-магазине Ugg Australia. Официальный сайт Угг Австралия предлагает Вам купить Угги со скидкой более 40%. Классические короткие угги - самая популярная модель уггов, купить короткие угги - отличное решение, они согреют вас холодной зимой.&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Короткие UGG', 'Короткие UGG', '', ''),
+(94, 1, 'Угги Мини', '&lt;p&gt;Купить угги короткие мини в интернет магазине Ugg Australia classic mini со скидкой более 40% можно только до конца этой недели - Успевайте! Официальный сайт Ugg Australia предлагает Вам купить оригинальные короткие мини Угги - Ugg Australia mini classic.&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Угги Мини', '', '', ''),
+(80, 1, 'Мужcкие UGG', '&lt;p&gt;Купить мужские угги дешево в интернет-магазине Ugg Australia в Москве со скидкой. Успевайте купить угги мужские Ugg Australia кожаные, мокасины,  домашние и зимние ботинки недорого в интернет-магазине Угг. Купить мужские Ugg Australia - отличное решение, о котором Вы точно не пожалеете, мужские угги согреют Вас зимой.&lt;/p&gt;', '&lt;p&gt;Официальный сайт Ugg Australia предлагает Вам купить угги оригинальные по низкой цене в нашем интернет-магазине Угг Австралия в Москве. Интернет-магазин Ugg Australia проводит распродажу уггов, вы можете купить угги в интернет-магазине и на Официальном сайте угг. Успевайте купить угги дешево и недорого, с наступаюим Новым Годом поздравляет Вас официальный сайт Угг Австралия!&lt;/p&gt;', 'Мужcкие UGG', 'Мужcкие UGG', '', '');
 
 -- --------------------------------------------------------
 
@@ -439,8 +429,7 @@ INSERT INTO `oc_category_description` (`category_id`, `language_id`, `name`, `de
 
 CREATE TABLE IF NOT EXISTS `oc_category_filter` (
   `category_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`filter_id`)
+  `filter_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -465,8 +454,6 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (67, 15),
 (67, 16),
 (67, 17),
-(67, 18),
-(67, 19),
 (67, 20),
 (67, 21),
 (67, 22),
@@ -497,8 +484,6 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (77, 15),
 (77, 16),
 (77, 17),
-(77, 18),
-(77, 19),
 (77, 20),
 (77, 21),
 (77, 22),
@@ -529,40 +514,12 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (78, 15),
 (78, 16),
 (78, 17),
-(78, 18),
-(78, 19),
 (78, 20),
 (78, 21),
 (78, 22),
 (78, 23),
 (78, 24),
 (78, 25),
-(79, 1),
-(79, 2),
-(79, 3),
-(79, 4),
-(79, 5),
-(79, 6),
-(79, 7),
-(79, 8),
-(79, 9),
-(79, 10),
-(79, 11),
-(79, 12),
-(79, 13),
-(79, 14),
-(79, 16),
-(79, 17),
-(79, 18),
-(79, 20),
-(79, 21),
-(79, 22),
-(79, 23),
-(79, 24),
-(79, 25),
-(79, 26),
-(79, 27),
-(79, 28),
 (80, 1),
 (80, 2),
 (80, 3),
@@ -580,8 +537,6 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (80, 15),
 (80, 16),
 (80, 17),
-(80, 18),
-(80, 19),
 (80, 20),
 (80, 21),
 (80, 22),
@@ -638,8 +593,6 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (82, 15),
 (82, 16),
 (82, 17),
-(82, 18),
-(82, 19),
 (82, 20),
 (82, 21),
 (82, 22),
@@ -670,8 +623,6 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (83, 15),
 (83, 16),
 (83, 17),
-(83, 18),
-(83, 19),
 (83, 20),
 (83, 21),
 (83, 22),
@@ -685,6 +636,8 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (83, 30),
 (83, 31),
 (83, 32),
+(83, 33),
+(83, 34),
 (84, 1),
 (84, 2),
 (84, 3),
@@ -711,7 +664,13 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 (84, 29),
 (84, 30),
 (84, 31),
-(84, 32);
+(84, 32),
+(92, 1),
+(92, 4),
+(92, 7),
+(92, 9),
+(92, 33),
+(92, 34);
 
 -- --------------------------------------------------------
 
@@ -722,8 +681,7 @@ INSERT INTO `oc_category_filter` (`category_id`, `filter_id`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_category_path` (
   `category_id` int(11) NOT NULL,
   `path_id` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`path_id`)
+  `level` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -747,7 +705,27 @@ INSERT INTO `oc_category_path` (`category_id`, `path_id`, `level`) VALUES
 (82, 82, 1),
 (78, 78, 1),
 (79, 79, 1),
-(83, 83, 0);
+(83, 83, 0),
+(85, 83, 0),
+(85, 85, 1),
+(86, 83, 0),
+(86, 86, 1),
+(87, 83, 0),
+(87, 87, 1),
+(88, 83, 0),
+(88, 88, 1),
+(89, 83, 0),
+(89, 89, 1),
+(90, 83, 0),
+(90, 90, 1),
+(91, 83, 0),
+(91, 91, 1),
+(92, 83, 0),
+(92, 92, 1),
+(93, 83, 0),
+(93, 93, 1),
+(94, 83, 0),
+(94, 94, 1);
 
 -- --------------------------------------------------------
 
@@ -758,8 +736,7 @@ INSERT INTO `oc_category_path` (`category_id`, `path_id`, `level`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_category_to_layout` (
   `category_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`store_id`)
+  `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -775,7 +752,17 @@ INSERT INTO `oc_category_to_layout` (`category_id`, `store_id`, `layout_id`) VAL
 (77, 0, 0),
 (67, 0, 0),
 (84, 0, 0),
-(81, 0, 0);
+(81, 0, 0),
+(85, 0, 0),
+(86, 0, 0),
+(87, 0, 0),
+(88, 0, 0),
+(89, 0, 0),
+(90, 0, 0),
+(91, 0, 0),
+(92, 0, 0),
+(93, 0, 0),
+(94, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -785,8 +772,7 @@ INSERT INTO `oc_category_to_layout` (`category_id`, `store_id`, `layout_id`) VAL
 
 CREATE TABLE IF NOT EXISTS `oc_category_to_store` (
   `category_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`store_id`)
+  `store_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -802,7 +788,17 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 (81, 0),
 (82, 0),
 (83, 0),
-(84, 0);
+(84, 0),
+(85, 0),
+(86, 0),
+(87, 0),
+(88, 0),
+(89, 0),
+(90, 0),
+(91, 0),
+(92, 0),
+(93, 0),
+(94, 0);
 
 -- --------------------------------------------------------
 
@@ -811,15 +807,14 @@ INSERT INTO `oc_category_to_store` (`category_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_country` (
-  `country_id` int(11) NOT NULL AUTO_INCREMENT,
+  `country_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `iso_code_2` varchar(2) NOT NULL,
   `iso_code_3` varchar(3) NOT NULL,
   `address_format` text NOT NULL,
   `postcode_required` tinyint(1) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`country_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=258 ;
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM AUTO_INCREMENT=258 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_country`
@@ -1089,7 +1084,7 @@ INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `add
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon` (
-  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `code` varchar(20) NOT NULL,
   `type` char(1) NOT NULL,
@@ -1102,9 +1097,8 @@ CREATE TABLE IF NOT EXISTS `oc_coupon` (
   `uses_total` int(11) NOT NULL,
   `uses_customer` varchar(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`coupon_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_coupon`
@@ -1123,8 +1117,7 @@ INSERT INTO `oc_coupon` (`coupon_id`, `name`, `code`, `type`, `discount`, `logge
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_category` (
   `coupon_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  PRIMARY KEY (`coupon_id`,`category_id`)
+  `category_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1134,14 +1127,13 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_category` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_history` (
-  `coupon_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_history_id` int(11) NOT NULL,
   `coupon_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`coupon_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1150,11 +1142,10 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_coupon_product` (
-  `coupon_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_product_id` int(11) NOT NULL,
   `coupon_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  PRIMARY KEY (`coupon_product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `product_id` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1163,7 +1154,7 @@ CREATE TABLE IF NOT EXISTS `oc_coupon_product` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_currency` (
-  `currency_id` int(11) NOT NULL AUTO_INCREMENT,
+  `currency_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
   `code` varchar(3) NOT NULL,
   `symbol_left` varchar(12) NOT NULL,
@@ -1171,9 +1162,8 @@ CREATE TABLE IF NOT EXISTS `oc_currency` (
   `decimal_place` char(1) NOT NULL,
   `value` float(15,8) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`currency_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_currency`
@@ -1189,7 +1179,7 @@ INSERT INTO `oc_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbo
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
   `language_id` int(11) NOT NULL,
@@ -1211,9 +1201,8 @@ CREATE TABLE IF NOT EXISTS `oc_customer` (
   `safe` tinyint(1) NOT NULL,
   `token` text NOT NULL,
   `code` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1222,14 +1211,13 @@ CREATE TABLE IF NOT EXISTS `oc_customer` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_activity` (
-  `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_activity_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `key` varchar(64) NOT NULL,
   `data` text NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_activity_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1238,11 +1226,10 @@ CREATE TABLE IF NOT EXISTS `oc_customer_activity` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_group` (
-  `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_group_id` int(11) NOT NULL,
   `approval` int(1) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`customer_group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_customer_group`
@@ -1261,8 +1248,7 @@ CREATE TABLE IF NOT EXISTS `oc_customer_group_description` (
   `customer_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`customer_group_id`,`language_id`)
+  `description` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1279,12 +1265,11 @@ INSERT INTO `oc_customer_group_description` (`customer_group_id`, `language_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_history` (
-  `customer_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_history_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1293,13 +1278,11 @@ CREATE TABLE IF NOT EXISTS `oc_customer_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_ip` (
-  `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_ip_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_ip_id`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1308,16 +1291,13 @@ CREATE TABLE IF NOT EXISTS `oc_customer_ip` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_login` (
-  `customer_login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_login_id` int(11) NOT NULL,
   `email` varchar(96) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `total` int(4) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`customer_login_id`),
-  KEY `email` (`email`),
-  KEY `ip` (`ip`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1330,8 +1310,7 @@ CREATE TABLE IF NOT EXISTS `oc_customer_online` (
   `customer_id` int(11) NOT NULL,
   `url` text NOT NULL,
   `referer` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`ip`)
+  `date_added` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1341,14 +1320,13 @@ CREATE TABLE IF NOT EXISTS `oc_customer_online` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_reward` (
-  `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_reward_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL DEFAULT '0',
   `order_id` int(11) NOT NULL DEFAULT '0',
   `description` text NOT NULL,
   `points` int(8) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_reward_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1357,7 +1335,7 @@ CREATE TABLE IF NOT EXISTS `oc_customer_reward` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_search` (
-  `customer_search_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_search_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -1367,9 +1345,8 @@ CREATE TABLE IF NOT EXISTS `oc_customer_search` (
   `description` tinyint(1) NOT NULL,
   `products` int(11) NOT NULL,
   `ip` varchar(40) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_search_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1378,14 +1355,13 @@ CREATE TABLE IF NOT EXISTS `oc_customer_search` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_customer_transaction` (
-  `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_transaction_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1396,8 +1372,7 @@ CREATE TABLE IF NOT EXISTS `oc_customer_transaction` (
 CREATE TABLE IF NOT EXISTS `oc_customer_wishlist` (
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`customer_id`,`product_id`)
+  `date_added` datetime NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1407,15 +1382,14 @@ CREATE TABLE IF NOT EXISTS `oc_customer_wishlist` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_custom_field` (
-  `custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
+  `custom_field_id` int(11) NOT NULL,
   `type` varchar(32) NOT NULL,
   `value` text NOT NULL,
   `validation` varchar(255) NOT NULL,
   `location` varchar(7) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`custom_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1426,8 +1400,7 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field` (
 CREATE TABLE IF NOT EXISTS `oc_custom_field_customer_group` (
   `custom_field_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
-  `required` tinyint(1) NOT NULL,
-  PRIMARY KEY (`custom_field_id`,`customer_group_id`)
+  `required` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1439,8 +1412,7 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_customer_group` (
 CREATE TABLE IF NOT EXISTS `oc_custom_field_description` (
   `custom_field_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`custom_field_id`,`language_id`)
+  `name` varchar(128) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1450,11 +1422,10 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_custom_field_value` (
-  `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT,
+  `custom_field_value_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`custom_field_value_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1466,8 +1437,7 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_value_description` (
   `custom_field_value_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`custom_field_value_id`,`language_id`)
+  `name` varchar(128) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1477,12 +1447,11 @@ CREATE TABLE IF NOT EXISTS `oc_custom_field_value_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_download` (
-  `download_id` int(11) NOT NULL AUTO_INCREMENT,
+  `download_id` int(11) NOT NULL,
   `filename` varchar(160) NOT NULL,
   `mask` varchar(128) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`download_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1493,8 +1462,7 @@ CREATE TABLE IF NOT EXISTS `oc_download` (
 CREATE TABLE IF NOT EXISTS `oc_download_description` (
   `download_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`download_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -1504,14 +1472,13 @@ CREATE TABLE IF NOT EXISTS `oc_download_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_event` (
-  `event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
   `trigger` text NOT NULL,
   `action` text NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`event_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_event`
@@ -1527,11 +1494,10 @@ INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `date
 --
 
 CREATE TABLE IF NOT EXISTS `oc_extension` (
-  `extension_id` int(11) NOT NULL AUTO_INCREMENT,
+  `extension_id` int(11) NOT NULL,
   `type` varchar(32) NOT NULL,
-  `code` varchar(32) NOT NULL,
-  PRIMARY KEY (`extension_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+  `code` varchar(32) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_extension`
@@ -1579,11 +1545,10 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_filter` (
-  `filter_id` int(11) NOT NULL AUTO_INCREMENT,
+  `filter_id` int(11) NOT NULL,
   `filter_group_id` int(11) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`filter_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_filter`
@@ -1592,11 +1557,11 @@ CREATE TABLE IF NOT EXISTS `oc_filter` (
 INSERT INTO `oc_filter` (`filter_id`, `filter_group_id`, `sort_order`) VALUES
 (32, 1, 14),
 (31, 1, 13),
-(3, 2, 0),
-(4, 2, 0),
-(5, 2, 0),
-(6, 2, 0),
 (7, 2, 0),
+(6, 2, 0),
+(5, 2, 0),
+(4, 2, 0),
+(3, 2, 0),
 (14, 3, 0),
 (13, 3, 0),
 (12, 3, 0),
@@ -1604,11 +1569,10 @@ INSERT INTO `oc_filter` (`filter_id`, `filter_group_id`, `sort_order`) VALUES
 (10, 3, 0),
 (9, 3, 0),
 (8, 3, 0),
-(15, 4, 0),
-(16, 4, 1),
+(34, 2, 0),
 (17, 4, 2),
-(18, 4, 3),
-(19, 4, 4),
+(16, 4, 1),
+(15, 4, 0),
 (30, 1, 12),
 (29, 1, 11),
 (28, 1, 10),
@@ -1621,7 +1585,8 @@ INSERT INTO `oc_filter` (`filter_id`, `filter_group_id`, `sort_order`) VALUES
 (21, 1, 3),
 (20, 1, 2),
 (1, 1, 0),
-(2, 1, 1);
+(2, 1, 1),
+(33, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -1633,8 +1598,7 @@ CREATE TABLE IF NOT EXISTS `oc_filter_description` (
   `filter_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `filter_group_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`filter_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1643,18 +1607,15 @@ CREATE TABLE IF NOT EXISTS `oc_filter_description` (
 
 INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_id`, `name`) VALUES
 (31, 1, 1, '42,5'),
-(4, 1, 2, 'Коричневый|#943f00'),
-(5, 1, 2, 'Серый|#adadad'),
+(6, 1, 2, 'Синий|#0a43a3'),
+(7, 1, 2, 'Черный|#333333'),
 (12, 1, 3, 'Твинфейс'),
 (11, 1, 3, 'Замша'),
 (10, 1, 3, 'Овчина'),
 (9, 1, 3, 'Кожа'),
 (8, 1, 3, 'EVA'),
-(15, 1, 4, '9'),
-(16, 1, 4, '10'),
-(17, 1, 4, '11'),
-(18, 1, 4, '12'),
-(19, 1, 4, '13'),
+(16, 1, 4, 'Низкие'),
+(15, 1, 4, 'Высокие'),
 (32, 1, 1, '43'),
 (30, 1, 1, '42'),
 (29, 1, 1, '41,5'),
@@ -1666,14 +1627,17 @@ INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_i
 (23, 1, 1, '38,5'),
 (22, 1, 1, '38'),
 (21, 1, 1, '37,5'),
-(3, 1, 2, 'Бежевый|#d4b69a'),
-(6, 1, 2, 'Синий|#0a43a3'),
-(7, 1, 2, 'Черный|#333333'),
+(5, 1, 2, 'Серый|#adadad'),
 (13, 1, 3, 'UGGPURE'),
 (14, 1, 3, 'Защита от воды'),
 (20, 1, 1, '37'),
 (1, 1, 1, '36'),
-(2, 1, 1, '36,5');
+(2, 1, 1, '36,5'),
+(4, 1, 2, 'Коричневый|#943f00'),
+(3, 1, 2, 'Бежевый|#d4b69a'),
+(33, 1, 2, 'Желтый|#feef00'),
+(17, 1, 4, 'Мини'),
+(34, 1, 2, 'Белый|#fff');
 
 -- --------------------------------------------------------
 
@@ -1682,10 +1646,9 @@ INSERT INTO `oc_filter_description` (`filter_id`, `language_id`, `filter_group_i
 --
 
 CREATE TABLE IF NOT EXISTS `oc_filter_group` (
-  `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`filter_group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+  `filter_group_id` int(11) NOT NULL,
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_filter_group`
@@ -1706,8 +1669,7 @@ INSERT INTO `oc_filter_group` (`filter_group_id`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_filter_group_description` (
   `filter_group_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`filter_group_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1727,13 +1689,12 @@ INSERT INTO `oc_filter_group_description` (`filter_group_id`, `language_id`, `na
 --
 
 CREATE TABLE IF NOT EXISTS `oc_geo_zone` (
-  `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
+  `geo_zone_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
   `date_modified` datetime NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`geo_zone_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_geo_zone`
@@ -1749,12 +1710,11 @@ INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_information` (
-  `information_id` int(11) NOT NULL AUTO_INCREMENT,
+  `information_id` int(11) NOT NULL,
   `bottom` int(1) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`information_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_information`
@@ -1780,8 +1740,7 @@ CREATE TABLE IF NOT EXISTS `oc_information_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`information_id`,`language_id`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1803,8 +1762,7 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 CREATE TABLE IF NOT EXISTS `oc_information_to_layout` (
   `information_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`information_id`,`store_id`)
+  `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1825,8 +1783,7 @@ INSERT INTO `oc_information_to_layout` (`information_id`, `store_id`, `layout_id
 
 CREATE TABLE IF NOT EXISTS `oc_information_to_store` (
   `information_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  PRIMARY KEY (`information_id`,`store_id`)
+  `store_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -1846,17 +1803,15 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_language` (
-  `language_id` int(11) NOT NULL AUTO_INCREMENT,
+  `language_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `code` varchar(5) NOT NULL,
   `locale` varchar(255) NOT NULL,
   `image` varchar(64) NOT NULL,
   `directory` varchar(32) NOT NULL,
   `sort_order` int(3) NOT NULL DEFAULT '0',
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`language_id`),
-  KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `status` tinyint(1) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_language`
@@ -1872,10 +1827,9 @@ INSERT INTO `oc_language` (`language_id`, `name`, `code`, `locale`, `image`, `di
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout` (
-  `layout_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`layout_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+  `layout_id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout`
@@ -1903,13 +1857,12 @@ INSERT INTO `oc_layout` (`layout_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout_module` (
-  `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `layout_module_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `code` varchar(64) NOT NULL,
   `position` varchar(14) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`layout_module_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=177 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout_module`
@@ -1921,21 +1874,27 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (20, 5, '0', 'column_left', 2),
 (69, 10, 'affiliate', 'column_right', 1),
 (68, 6, 'account', 'column_right', 1),
-(119, 1, 'html.39', 'content_top', 7),
-(117, 1, 'categoryproducts.37', 'content_top', 5),
-(118, 1, 'categoryproducts.38', 'content_top', 6),
-(116, 1, 'categoryproducts.36', 'content_top', 4),
-(115, 1, 'html.35', 'content_top', 3),
-(114, 1, 'html.34', 'content_top', 2),
-(113, 1, 'html.33', 'content_top', 1),
-(112, 1, 'special.32', 'content_top', 0),
-(120, 1, 'html.40', 'content_top', 8),
-(136, 3, 'html.41', 'content_bottom', 0),
+(172, 1, 'categoryproducts.56', 'content_top', 10),
+(171, 1, 'categoryproducts.55', 'content_top', 9),
+(170, 1, 'categoryproducts.54', 'content_top', 8),
+(169, 1, 'categoryproducts.52', 'content_top', 7),
+(168, 1, 'categoryproducts.51', 'content_top', 6),
 (126, 2, 'viewed.42', 'column_left', 0),
-(135, 3, 'filter', 'column_left', 1),
+(147, 3, 'filter', 'column_left', 1),
 (132, 11, 'html.44', 'column_left', 0),
 (133, 11, 'html.45', 'content_bottom', 0),
-(134, 8, 'html.44', 'column_left', 0);
+(134, 8, 'html.44', 'column_left', 0),
+(148, 3, 'categoryproducts.46', 'content_bottom', 0),
+(173, 1, 'categoryproducts.53', 'content_top', 11),
+(167, 1, 'categoryproducts.49', 'content_top', 5),
+(166, 1, 'categoryproducts.48', 'content_top', 4),
+(165, 1, 'categoryproducts.50', 'content_top', 3),
+(164, 1, 'html.35', 'content_top', 2),
+(163, 1, 'html.33', 'content_top', 1),
+(162, 1, 'special.32', 'content_top', 0),
+(174, 1, 'categoryproducts.57', 'content_top', 12),
+(175, 1, 'html.39', 'content_top', 13),
+(176, 1, 'html.40', 'content_top', 14);
 
 -- --------------------------------------------------------
 
@@ -1944,12 +1903,11 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 --
 
 CREATE TABLE IF NOT EXISTS `oc_layout_route` (
-  `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,
+  `layout_route_id` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `route` varchar(64) NOT NULL,
-  PRIMARY KEY (`layout_route_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=75 ;
+  `route` varchar(64) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_layout_route`
@@ -1958,8 +1916,8 @@ CREATE TABLE IF NOT EXISTS `oc_layout_route` (
 INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `route`) VALUES
 (38, 6, 0, 'account/%'),
 (17, 10, 0, 'affiliate/%'),
-(74, 3, 0, 'product/category'),
-(63, 1, 0, 'common/home'),
+(78, 3, 0, 'product/category'),
+(80, 1, 0, 'common/home'),
 (67, 2, 0, 'product/product'),
 (72, 11, 0, 'information/information'),
 (23, 7, 0, 'checkout/%'),
@@ -1977,10 +1935,9 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 --
 
 CREATE TABLE IF NOT EXISTS `oc_length_class` (
-  `length_class_id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` decimal(15,2) NOT NULL,
-  PRIMARY KEY (`length_class_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `length_class_id` int(11) NOT NULL,
+  `value` decimal(15,2) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_length_class`
@@ -2001,8 +1958,7 @@ CREATE TABLE IF NOT EXISTS `oc_length_class_description` (
   `length_class_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
-  `unit` varchar(4) NOT NULL,
-  PRIMARY KEY (`length_class_id`,`language_id`)
+  `unit` varchar(4) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2020,7 +1976,7 @@ INSERT INTO `oc_length_class_description` (`length_class_id`, `language_id`, `ti
 --
 
 CREATE TABLE IF NOT EXISTS `oc_location` (
-  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `location_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `address` text NOT NULL,
   `telephone` varchar(32) NOT NULL,
@@ -2028,10 +1984,8 @@ CREATE TABLE IF NOT EXISTS `oc_location` (
   `geocode` varchar(32) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `open` text NOT NULL,
-  `comment` text NOT NULL,
-  PRIMARY KEY (`location_id`),
-  KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `comment` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2040,12 +1994,11 @@ CREATE TABLE IF NOT EXISTS `oc_location` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_manufacturer` (
-  `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `manufacturer_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`manufacturer_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2061,8 +2014,7 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`manufacturer_id`,`language_id`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2073,8 +2025,7 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_description` (
 
 CREATE TABLE IF NOT EXISTS `oc_manufacturer_to_store` (
   `manufacturer_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  PRIMARY KEY (`manufacturer_id`,`store_id`)
+  `store_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2084,14 +2035,13 @@ CREATE TABLE IF NOT EXISTS `oc_manufacturer_to_store` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_marketing` (
-  `marketing_id` int(11) NOT NULL AUTO_INCREMENT,
+  `marketing_id` int(11) NOT NULL,
   `name` varchar(32) NOT NULL,
   `description` text NOT NULL,
   `code` varchar(64) NOT NULL,
   `clicks` int(5) NOT NULL DEFAULT '0',
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`marketing_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2100,14 +2050,13 @@ CREATE TABLE IF NOT EXISTS `oc_marketing` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_menu` (
-  `menu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `type` varchar(6) NOT NULL,
   `link` varchar(255) NOT NULL,
   `sort_order` int(3) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `status` tinyint(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2118,8 +2067,7 @@ CREATE TABLE IF NOT EXISTS `oc_menu` (
 CREATE TABLE IF NOT EXISTS `oc_menu_description` (
   `menu_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`menu_id`,`language_id`)
+  `name` varchar(64) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2132,9 +2080,7 @@ CREATE TABLE IF NOT EXISTS `oc_menu_module` (
   `menu_module_id` int(11) NOT NULL,
   `menu_id` int(11) NOT NULL,
   `code` varchar(64) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`menu_module_id`),
-  KEY `menu_id` (`menu_id`)
+  `sort_order` int(3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2144,7 +2090,7 @@ CREATE TABLE IF NOT EXISTS `oc_menu_module` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_modification` (
-  `modification_id` int(11) NOT NULL AUTO_INCREMENT,
+  `modification_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `code` varchar(64) NOT NULL,
   `author` varchar(64) NOT NULL,
@@ -2152,9 +2098,8 @@ CREATE TABLE IF NOT EXISTS `oc_modification` (
   `link` varchar(255) NOT NULL,
   `xml` mediumtext NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`modification_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_modification`
@@ -2170,12 +2115,11 @@ INSERT INTO `oc_modification` (`modification_id`, `name`, `code`, `author`, `ver
 --
 
 CREATE TABLE IF NOT EXISTS `oc_module` (
-  `module_id` int(11) NOT NULL AUTO_INCREMENT,
+  `module_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `setting` text NOT NULL,
-  PRIMARY KEY (`module_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=46 ;
+  `setting` text NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_module`
@@ -2183,20 +2127,30 @@ CREATE TABLE IF NOT EXISTS `oc_module` (
 
 INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 (29, 'Карусель на главной странице', 'carousel', '{"name":"Карусель на главной странице","banner_id":"8","width":"130","height":"100","status":"1"}'),
-(32, 'Главная - Баннер', 'special', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","limit":"0","width":"280","height":"280","status":"1"}'),
+(32, 'Главная - Баннер', 'special', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","limit":"0","width":"455","height":"450","status":"1"}'),
 (33, 'Информация о продукции ', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f \\u043e \\u043f\\u0440\\u043e\\u0434\\u0443\\u043a\\u0446\\u0438\\u0438 ","module_description":{"1":{"title":"","description":"&lt;section class=&quot;product-info-section&quot;&gt;\\r\\n    &lt;div class=&quot;container&quot;&gt;\\r\\n        &lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage1&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442 \\u043f\\u0440\\u0438 \\u043c\\u0438\\u043d\\u0443\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0438 \\u043f\\u043b\\u044e\\u0441\\u043e\\u0432\\u044b\\u0445 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0430\\u0445&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage2&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u0430\\u0435\\u043c \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435 10 \\u043b\\u0435\\u0442&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043e\\u043b\\u044c\\u0448\\u0435 50 000 \\u0434\\u043e\\u0432\\u043e\\u043b\\u044c\\u043d\\u044b\\u0445 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0435\\u0439&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n                &lt;i class=&quot;icon icon-advantage3&quot;&gt;&lt;\\/i&gt;\\r\\n                &lt;div class=&quot;prod-icon-name&quot;&gt;\\r\\n                    &lt;span&gt;\\u041f\\u0440\\u044f\\u043c\\u044b\\u0435 \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0438 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0410\\u0443\\u0442\\u0435\\u043d\\u0442\\u0438\\u0447\\u043d\\u044b\\u0435 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0440\\u043e\\u0434\\u0438\\u043d\\u044b \\u0443\\u0433\\u0433\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/section&gt;\\r\\n"}},"status":"1"}'),
-(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;Ugg Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=9&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=10&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=11&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=12&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=13&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=14&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot; class=&quot;col1&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=4&quot; class=&quot;col2&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=5&quot; class=&quot;col3&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=6&quot; class=&quot;col4&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=7&quot; class=&quot;col5&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=1&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=2&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=20&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=21&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=22&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=23&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=24&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=25&quot;&gt;39.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=26&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=28&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=30&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
+(34, 'Главная - Фильтр', 'html', '{"name":"\\u0413\\u043b\\u0430\\u0432\\u043d\\u0430\\u044f - \\u0424\\u0438\\u043b\\u044c\\u0442\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;filter&quot;&gt;\\r\\n        &lt;div class=&quot;filter-cont&quot;&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/rasprodazha&quot;&gt;\\u0420\\u0430\\u0441\\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 UGG&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 UGG&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/uggi-mini&quot;&gt;\\u0423\\u0433\\u0433\\u0438 \\u041c\\u0438\\u043d\\u0438&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u041e\\u0414\\u0415\\u041b\\u0418&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;Ugg Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-button&quot;&gt;Ugg Bailey Button&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;Ugg Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-classic-mini&quot;&gt;Ugg Classic Mini&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-classic-short&quot;&gt;Ugg Classic Short&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkless&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-classic-tall&quot;&gt;Ugg Classic Tall&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-mini-mailey-bow&quot;&gt;Ugg Mini Bailey Bow&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-mini-fox-fur&quot;&gt;Ugg Mini Fox Fur&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/ugg-mocassin&quot;&gt;Ugg Mocassin&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u041c\\u0410\\u0422\\u0415\\u0420\\u0418\\u0410\\u041b&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-link-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot;&gt;Eva&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=9&quot;&gt;\\u041a\\u043e\\u0436\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=10&quot;&gt;\\u041e\\u0432\\u0447\\u0438\\u043d\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=11&quot;&gt;\\u0417\\u0430\\u043c\\u0448\\u0430&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=12&quot;&gt;\\u0422\\u0432\\u0438\\u043d\\u0444\\u0435\\u0439\\u0441&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=13&quot;&gt;UGGPURE&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=14&quot;&gt;\\u0417\\u0430\\u0449\\u0438\\u0442\\u0430 \\u043e\\u0442 \\u0432\\u043e\\u0434\\u044b&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n            &lt;div class=&quot;filter-bl&quot;&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0426\\u0412\\u0415\\u0422\\u0410&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-color&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=3&quot; style=&quot;background-color:#d4b69a;&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=4&quot; style=&quot;background-color:#943f00;&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=5&quot; style=&quot;background-color:#adadad;&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=6&quot; style=&quot;background-color:#0a43a3;&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=7&quot; style=&quot;background-color:#333333 ;&quot;&gt;&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n                &lt;span class=&quot;tt-filter&quot;&gt;\\u0420\\u0430\\u0437\\u043c\\u0435\\u0440&lt;\\/span&gt;\\r\\n                &lt;ul class=&quot;list-size-filter&quot;&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=1&quot;&gt;36&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=2&quot;&gt;36,5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=20&quot;&gt;37&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=21&quot;&gt;37.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=22&quot;&gt;38&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=23&quot;&gt;38.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=24&quot;&gt;39&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=25&quot;&gt;39.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=26&quot;&gt;40&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=27&quot;&gt;40.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=28&quot;&gt;41&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=29&quot;&gt;41.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=30&quot;&gt;42&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=31&quot;&gt;42.5&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                    &lt;li&gt;&lt;a href=&quot;\\/all&amp;amp;filter=32&quot;&gt;43&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n                &lt;\\/ul&gt;\\r\\n            &lt;\\/div&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;span class=&quot;filter-btn&quot;&gt;&lt;span&gt;&lt;\\/span&gt;&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"0"}'),
 (35, 'Баннер', 'html', '{"name":"\\u0411\\u0430\\u043d\\u043d\\u0435\\u0440","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;banner-cont&quot;&gt;\\r\\n        &lt;span class=&quot;banner-cont-ic&quot;&gt;\\r\\n            &lt;i class=&quot;icon icon-price&quot;&gt;&lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0414\\u0430\\u0440\\u0438\\u043c \\u043f\\u043e\\u0434\\u0430\\u0440\\u043e\\u043a \\u043a\\u0430\\u0436\\u0434\\u043e\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u0443 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n        &lt;span class=&quot;banner-cont-txt&quot;&gt;&lt;span&gt;\\u0441\\u0442\\u0438\\u043b\\u044c\\u043d\\u044b\\u0435 \\u043f\\u0435\\u0440\\u0447\\u0430\\u0442\\u043a\\u0438,&lt;\\/span&gt; \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0434\\u043e\\u043f\\u043e\\u043b\\u043d\\u044f\\u0442 \\u0412\\u0430\\u0448 \\u043e\\u0431\\u0440\\u0430\\u0437&lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
-(36, 'UGG Bailey Triplet', 'categoryproducts', '{"name":"UGG Bailey Triplet","product":["77"],"limit":"4","width":"200","height":"200","status":"1"}'),
-(37, 'Ugg Bailey &amp; Dylyn', 'categoryproducts', '{"name":"Ugg Bailey &amp; Dylyn","product":["67"],"limit":"4","width":"200","height":"200","status":"1"}'),
-(38, 'Высокие UGG', 'categoryproducts', '{"name":"\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 UGG","product":["81"],"limit":"4","width":"200","height":"200","status":"1"}'),
-(39, 'Почему клиенты выбирают нас', 'html', '{"name":"\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;why-we&quot;&gt;\\r\\n        &lt;h2&gt;\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441&lt;\\/h2&gt;\\r\\n        &lt;ul class=&quot;list-why-we&quot;&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u044d\\u043a\\u043e\\u043b\\u043e\\u0433\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438&lt;\\/span&gt; \\u0447\\u0438\\u0441\\u0442\\u043e\\u0433\\u043e \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b\\u0430&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041c\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u043c \\u0434\\u0443\\u0431\\u043b\\u0435\\u043d\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c, \\u0438\\u0437\\u0433\\u043e\\u0442\\u043e\\u0432\\u043b\\u0435\\u043d\\u043d\\u0443\\u044e \\u043f\\u043e \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438. \\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u0442\\u0435\\u0440\\u043c\\u043e\\u0440\\u0435\\u0433\\u0443\\u043b\\u0438\\u0440\\u0443\\u044e\\u0449\\u0438\\u043c \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432\\u0430\\u043c \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b, \\u0432 \\u0443\\u0433\\u0433\\u0430\\u0445 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u043f\\u0440\\u0438 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0435 \\u043e\\u0442 -33 \\u0434\\u043e +23 \\u0433\\u0440\\u0430\\u0434\\u0443\\u0441\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0428\\u0438\\u0440\\u043e\\u043a\\u0438\\u0439&lt;\\/span&gt; \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0440\\u044f\\u0434&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0412 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043d\\u0430\\u0439\\u0434\\u0435\\u0442\\u0435 \\u043a\\u043b\\u0430\\u0441\\u0441\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0443\\u0434\\u043b\\u0438\\u043d\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0434\\u0435\\u043a\\u043e\\u0440\\u0430\\u0442\\u0438\\u0432\\u043d\\u044b\\u043c\\u0438 \\u043f\\u0440\\u044f\\u0436\\u043a\\u0430\\u043c\\u0438, \\u0440\\u0435\\u043c\\u043d\\u044f\\u043c\\u0438 \\u0438 \\u0448\\u043d\\u0443\\u0440\\u043e\\u0432\\u043a\\u043e\\u0439, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438, \\u0443\\u043a\\u0440\\u0430\\u0448\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0442\\u0440\\u0430\\u0437\\u0430\\u043c\\u0438.&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img3.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041f\\u0440\\u043e\\u0444\\u0435\\u0441\\u0441\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u0430\\u044f \\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0430\\u0446\\u0438\\u044f \\u043f\\u043e \\u043b\\u044e\\u0431\\u044b\\u043c \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441\\u0430\\u043c&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u043d\\u0438\\u043a\\u0438 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430 \\u0440\\u0430\\u0441\\u0441\\u043a\\u0430\\u0436\\u0443\\u0442 \\u0412\\u0430\\u043c \\u0432\\u0441\\u0435 \\u043e \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0441\\u0442\\u0432\\u0430 \\u0443\\u0433\\u0433, \\u043e\\u0431 \\u0443\\u0445\\u043e\\u0434\\u0435 \\u0437\\u0430 \\u043d\\u0438\\u043c\\u0438, \\u043f\\u043e\\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u0434\\u043e\\u0431\\u0440\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c. \\u041c\\u044b \\u0437\\u043d\\u0430\\u0435\\u043c \\u043e \\u043b\\u0435\\u0433\\u0435\\u043d\\u0434\\u0430\\u0440\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0432\\u0441\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img4.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041b\\u0443\\u0447\\u0448\\u0438\\u0435 \\u0446\\u0435\\u043d\\u044b \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u043f\\u0440\\u044f\\u043c\\u044b\\u043c \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430\\u043c \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438 \\u043d\\u0430\\u043c \\u0443\\u0434\\u0430\\u0435\\u0442\\u0441\\u044f \\u043f\\u043e\\u0434\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u0442\\u044c \\u043e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0446\\u0435\\u043d\\u044b: \\u0432 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u0438\\u0442\\u044c \\u0441\\u0435\\u0431\\u0435 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n        &lt;\\/ul&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
-(40, 'Текст перед футером', 'html', '{"name":"\\u0422\\u0435\\u043a\\u0441\\u0442 \\u043f\\u0435\\u0440\\u0435\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;txt-about-prod&quot;&gt;\\r\\n        &lt;div&gt;\\r\\n            &lt;span&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438&lt;\\/span&gt;\\r\\n            &lt;p&gt;\\u0411\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland, \\u0438\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0432 1902 \\u0433\\u043e\\u0434\\u0443, \\u2014 \\u044d\\u0442\\u043e \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u043d\\u0438\\u0435 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u0446\\u0435\\u0434\\u0435\\u043d\\u0442\\u043d\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0438 \\u043d\\u0435\\u043f\\u0440\\u0435\\u0432\\u0437\\u043e\\u0439\\u0434\\u0435\\u043d\\u043d\\u043e\\u0433\\u043e \\u0441\\u0442\\u0438\\u043b\\u044f. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435, \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0434\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443 \\u043c\\u0438\\u0440\\u0443. \\u041a\\u043e\\u043d\\u0435\\u0447\\u043d\\u043e, \\u0432 \\u0420\\u043e\\u0441\\u0441\\u0438\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0434\\u0430\\u0432\\u043d\\u043e, \\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043e\\u043a \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0432\\u0435\\u0434\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432, \\u0432\\u0435\\u0434\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u043c\\u043d\\u043e\\u0433\\u043e \\u043b\\u0435\\u0442 \\u0437\\u043d\\u0430\\u044e\\u0442 \\u0438 \\u043b\\u044e\\u0431\\u044f\\u0442 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0435.&lt;\\/p&gt;\\r\\n        &lt;\\/div&gt;\\r\\n        &lt;div&gt;\\r\\n            &lt;p&gt;\\u0415\\u0441\\u043b\\u0438 \\u0440\\u0430\\u043d\\u044c\\u0448\\u0435 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432\\u044b\\u043f\\u0443\\u0441\\u043a\\u0430\\u043b\\u0430\\u0441\\u044c \\u0438\\u0441\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u043b\\u044f \\u043f\\u0440\\u0435\\u0434\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 \\u0441\\u0438\\u043b\\u044c\\u043d\\u043e\\u0433\\u043e \\u043f\\u043e\\u043b\\u0430, \\u0442\\u043e \\u0441\\u0435\\u0439\\u0447\\u0430\\u0441 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430\\u043c \\u0434\\u043e\\u0441\\u0442\\u0443\\u043f\\u043d\\u044b \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0440\\u0430\\u0437\\u043b\\u0438\\u0447\\u043d\\u044b\\u0445 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439. \\u0414\\u0430\\u043d\\u043d\\u044b\\u0439 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e \\u0441\\u0432\\u043e\\u0435\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f \\u0438\\u043a\\u043e\\u043d\\u0430 \\u0441\\u0442\\u0438\\u043b\\u044f: \\u043e\\u0441\\u0435\\u043d\\u043d\\u0438\\u0435 \\u0438 \\u0437\\u0438\\u043c\\u043d\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland \\u043f\\u0440\\u0435\\u043a\\u0440\\u0430\\u0441\\u043d\\u043e \\u0443\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u043f\\u0443\\u0441\\u043a\\u0430\\u044e\\u0442 \\u0432\\u043b\\u0430\\u0433\\u0443, \\u043e\\u0442\\u043b\\u0438\\u0447\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u0443\\u0441\\u0442\\u043e\\u0439\\u0447\\u0438\\u0432\\u043e\\u0441\\u0442\\u044c\\u044e \\u0438 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u044f\\u044f \\u0441\\u0432\\u043e\\u0438\\u043c \\u0432\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0441\\u0442\\u0430\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043c\\u043e\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 \\u0432 \\u043b\\u044e\\u0431\\u044b\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445. \\u041a\\u043e\\u043c\\u0443-\\u0442\\u043e \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044b\\u0435 \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 Timberland \\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c\\u0441\\u044f \\u0433\\u0440\\u0443\\u0431\\u043e\\u0432\\u0430\\u0442\\u044b\\u043c\\u0438, \\u043d\\u043e \\u0434\\u0430\\u043c\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0445\\u043e\\u0442\\u044f\\u0442 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e\\u0432\\u0430\\u0442\\u044c \\u0441\\u0435\\u0431\\u044f \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u0432 \\u043b\\u044e\\u0431\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443, \\u043f\\u0440\\u0435\\u0434\\u043f\\u043e\\u0447\\u0438\\u0442\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b. \\u0422\\u0430\\u043a\\u0430\\u044f \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u043b\\u0430 \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u0441\\u043f\\u0440\\u043e\\u0441, \\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0435\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434: \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0438\\u0445 \\u043d\\u0435 \\u0441\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u043d\\u0438\\u043a\\u0430\\u043a\\u043e\\u0433\\u043e \\u0442\\u0440\\u0443\\u0434\\u0430.&lt;\\/p&gt;\\r\\n        &lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
-(41, 'Категория - Текст над футером', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f - \\u0422\\u0435\\u043a\\u0441\\u0442 \\u043d\\u0430\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;content-txt&quot;&gt;\\r\\n            &lt;span&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438&lt;\\/span&gt;\\r\\n            &lt;p&gt;\\u0411\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland, \\u0438\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u043d\\u0430\\u0447\\u0430\\u043b\\u0430\\u0441\\u044c \\u0432 1902 \\u0433\\u043e\\u0434\\u0443, \\u2014 \\u044d\\u0442\\u043e \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u043d\\u0438\\u0435 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u0446\\u0435\\u0434\\u0435\\u043d\\u0442\\u043d\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0438 \\u043d\\u0435\\u043f\\u0440\\u0435\\u0432\\u0437\\u043e\\u0439\\u0434\\u0435\\u043d\\u043d\\u043e\\u0433\\u043e \\u0441\\u0442\\u0438\\u043b\\u044f. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435, \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0434\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u043e \\u0432\\u0441\\u0435\\u043c\\u0443 \\u043c\\u0438\\u0440\\u0443. \\u041a\\u043e\\u043d\\u0435\\u0447\\u043d\\u043e, \\u0432 \\u0420\\u043e\\u0441\\u0441\\u0438\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0434\\u0430\\u0432\\u043d\\u043e, \\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043e\\u043a \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0432\\u0435\\u0434\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432, \\u0432\\u0435\\u0434\\u044c \\u044d\\u0442\\u043e\\u0442 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u043c\\u043d\\u043e\\u0433\\u043e \\u043b\\u0435\\u0442 \\u0437\\u043d\\u0430\\u044e\\u0442 \\u0438 \\u043b\\u044e\\u0431\\u044f\\u0442 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0435.&lt;\\/p&gt;\\r\\n            &lt;p&gt;\\u0415\\u0441\\u043b\\u0438 \\u0440\\u0430\\u043d\\u044c\\u0448\\u0435 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0432\\u044b\\u043f\\u0443\\u0441\\u043a\\u0430\\u043b\\u0430\\u0441\\u044c \\u0438\\u0441\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u043b\\u044f \\u043f\\u0440\\u0435\\u0434\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 \\u0441\\u0438\\u043b\\u044c\\u043d\\u043e\\u0433\\u043e \\u043f\\u043e\\u043b\\u0430, \\u0442\\u043e \\u0441\\u0435\\u0439\\u0447\\u0430\\u0441 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430\\u043c \\u0434\\u043e\\u0441\\u0442\\u0443\\u043f\\u043d\\u044b \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434 \\u0440\\u0430\\u0437\\u043b\\u0438\\u0447\\u043d\\u044b\\u0445 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439. \\u0414\\u0430\\u043d\\u043d\\u044b\\u0439 \\u0431\\u0440\\u0435\\u043d\\u0434 \\u2014 \\u044d\\u0442\\u043e \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e \\u0441\\u0432\\u043e\\u0435\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f \\u0438\\u043a\\u043e\\u043d\\u0430 \\u0441\\u0442\\u0438\\u043b\\u044f: \\u043e\\u0441\\u0435\\u043d\\u043d\\u0438\\u0435 \\u0438 \\u0437\\u0438\\u043c\\u043d\\u0438\\u0435 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 Timberland \\u043f\\u0440\\u0435\\u043a\\u0440\\u0430\\u0441\\u043d\\u043e \\u0443\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0438 \\u043d\\u0435 \\u043f\\u0440\\u043e\\u043f\\u0443\\u0441\\u043a\\u0430\\u044e\\u0442 \\u0432\\u043b\\u0430\\u0433\\u0443, \\u043e\\u0442\\u043b\\u0438\\u0447\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u0443\\u0441\\u0442\\u043e\\u0439\\u0447\\u0438\\u0432\\u043e\\u0441\\u0442\\u044c\\u044e \\u0438 \\u0444\\u0443\\u043d\\u043a\\u0446\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u044f\\u044f \\u0441\\u0432\\u043e\\u0438\\u043c \\u0432\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0441\\u0442\\u0430\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043c\\u043e\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 \\u0432 \\u043b\\u044e\\u0431\\u044b\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445. \\u041a\\u043e\\u043c\\u0443-\\u0442\\u043e \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044b\\u0435 \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 Timberland \\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c\\u0441\\u044f \\u0433\\u0440\\u0443\\u0431\\u043e\\u0432\\u0430\\u0442\\u044b\\u043c\\u0438, \\u043d\\u043e \\u0434\\u0430\\u043c\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u0445\\u043e\\u0442\\u044f\\u0442 \\u0447\\u0443\\u0432\\u0441\\u0442\\u0432\\u043e\\u0432\\u0430\\u0442\\u044c \\u0441\\u0435\\u0431\\u044f \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u0432 \\u043b\\u044e\\u0431\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443, \\u043f\\u0440\\u0435\\u0434\\u043f\\u043e\\u0447\\u0438\\u0442\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0436\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0442\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434\\u044b. \\u0422\\u0430\\u043a\\u0430\\u044f \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u043b\\u0430 \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u0441\\u043f\\u0440\\u043e\\u0441, \\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0435\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u0431\\u043e\\u0442\\u0438\\u043d\\u043a\\u0438 \\u0422\\u0438\\u043c\\u0431\\u0435\\u0440\\u043b\\u0435\\u043d\\u0434: \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0438\\u0445 \\u043d\\u0435 \\u0441\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u043d\\u0438\\u043a\\u0430\\u043a\\u043e\\u0433\\u043e \\u0442\\u0440\\u0443\\u0434\\u0430.&lt;\\/p&gt;\\r\\n          &lt;\\/div&gt;\\r\\n"}},"status":"1"}'),
+(49, 'UGG Bailey Triplet', 'categoryproducts', '{"name":"UGG Bailey Triplet","product":["77"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(50, 'Ugg Bailey &amp; Dylyn', 'categoryproducts', '{"name":"Ugg Bailey &amp; Dylyn","product":["67"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(48, 'Ugg Bailey Button', 'categoryproducts', '{"name":"Ugg Bailey Button","product":["85"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(39, 'Почему клиенты выбирают нас', 'html', '{"name":"\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441","module_description":{"1":{"title":"","description":"&lt;div class=&quot;container&quot;&gt;\\r\\n    &lt;div class=&quot;why-we&quot;&gt;\\r\\n        &lt;h2&gt;\\u041f\\u043e\\u0447\\u0435\\u043c\\u0443 \\u043a\\u043b\\u0438\\u0435\\u043d\\u0442\\u044b \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442 \\u043d\\u0430\\u0441&lt;\\/h2&gt;\\r\\n        &lt;ul class=&quot;list-why-we&quot;&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0423\\u0433\\u0433\\u0438 \\u0438\\u0437 \\u044d\\u043a\\u043e\\u043b\\u043e\\u0433\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438&lt;\\/span&gt; \\u0447\\u0438\\u0441\\u0442\\u043e\\u0433\\u043e \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b\\u0430&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u041c\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u043c \\u0434\\u0443\\u0431\\u043b\\u0435\\u043d\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c, \\u0438\\u0437\\u0433\\u043e\\u0442\\u043e\\u0432\\u043b\\u0435\\u043d\\u043d\\u0443\\u044e \\u043f\\u043e \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438. \\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u0442\\u0435\\u0440\\u043c\\u043e\\u0440\\u0435\\u0433\\u0443\\u043b\\u0438\\u0440\\u0443\\u044e\\u0449\\u0438\\u043c \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432\\u0430\\u043c \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b, \\u0432 \\u0443\\u0433\\u0433\\u0430\\u0445 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e \\u043f\\u0440\\u0438 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0435 \\u043e\\u0442 -33 \\u0434\\u043e +23 \\u0433\\u0440\\u0430\\u0434\\u0443\\u0441\\u043e\\u0432&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;&lt;span&gt;\\u0428\\u0438\\u0440\\u043e\\u043a\\u0438\\u0439&lt;\\/span&gt; \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0440\\u044f\\u0434&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0412 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043d\\u0430\\u0439\\u0434\\u0435\\u0442\\u0435 \\u043a\\u043b\\u0430\\u0441\\u0441\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0435 \\u0438 \\u0443\\u0434\\u043b\\u0438\\u043d\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441 \\u0434\\u0435\\u043a\\u043e\\u0440\\u0430\\u0442\\u0438\\u0432\\u043d\\u044b\\u043c\\u0438 \\u043f\\u0440\\u044f\\u0436\\u043a\\u0430\\u043c\\u0438, \\u0440\\u0435\\u043c\\u043d\\u044f\\u043c\\u0438 \\u0438 \\u0448\\u043d\\u0443\\u0440\\u043e\\u0432\\u043a\\u043e\\u0439, \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438, \\u0443\\u043a\\u0440\\u0430\\u0448\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0442\\u0440\\u0430\\u0437\\u0430\\u043c\\u0438.&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img3.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041f\\u0440\\u043e\\u0444\\u0435\\u0441\\u0441\\u0438\\u043e\\u043d\\u0430\\u043b\\u044c\\u043d\\u0430\\u044f \\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0430\\u0446\\u0438\\u044f \\u043f\\u043e \\u043b\\u044e\\u0431\\u044b\\u043c \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441\\u0430\\u043c&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0420\\u0430\\u0431\\u043e\\u0442\\u043d\\u0438\\u043a\\u0438 \\u043d\\u0430\\u0448\\u0435\\u0433\\u043e \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430 \\u0440\\u0430\\u0441\\u0441\\u043a\\u0430\\u0436\\u0443\\u0442 \\u0412\\u0430\\u043c \\u0432\\u0441\\u0435 \\u043e \\u0442\\u0435\\u0445\\u043d\\u043e\\u043b\\u043e\\u0433\\u0438\\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0441\\u0442\\u0432\\u0430 \\u0443\\u0433\\u0433, \\u043e\\u0431 \\u0443\\u0445\\u043e\\u0434\\u0435 \\u0437\\u0430 \\u043d\\u0438\\u043c\\u0438, \\u043f\\u043e\\u043c\\u043e\\u0433\\u0443\\u0442 \\u043f\\u043e\\u0434\\u043e\\u0431\\u0440\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c. \\u041c\\u044b \\u0437\\u043d\\u0430\\u0435\\u043c \\u043e \\u043b\\u0435\\u0433\\u0435\\u043d\\u0434\\u0430\\u0440\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0432\\u0441\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n            &lt;li&gt;\\r\\n                &lt;span class=&quot;img-why-we&quot;&gt;&lt;img src=&quot;\\/image\\/why-we-img4.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n                &lt;div class=&quot;cont-list-why-we&quot;&gt;\\r\\n                    &lt;span class=&quot;tt-why-we&quot;&gt;\\u041b\\u0443\\u0447\\u0448\\u0438\\u0435 \\u0446\\u0435\\u043d\\u044b \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435&lt;\\/span&gt;\\r\\n                    &lt;p&gt;\\u0411\\u043b\\u0430\\u0433\\u043e\\u0434\\u0430\\u0440\\u044f \\u043f\\u0440\\u044f\\u043c\\u044b\\u043c \\u043f\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430\\u043c \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438 \\u043d\\u0430\\u043c \\u0443\\u0434\\u0430\\u0435\\u0442\\u0441\\u044f \\u043f\\u043e\\u0434\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u0442\\u044c \\u043e\\u043f\\u0442\\u0438\\u043c\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0446\\u0435\\u043d\\u044b: \\u0432 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0412\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u0438\\u0442\\u044c \\u0441\\u0435\\u0431\\u0435 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435!&lt;\\/p&gt;\\r\\n                &lt;\\/div&gt;\\r\\n            &lt;\\/li&gt;\\r\\n        &lt;\\/ul&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}');
+INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
+(40, 'Текст перед футером', 'html', '{"name":"\\u0422\\u0435\\u043a\\u0441\\u0442 \\u043f\\u0435\\u0440\\u0435\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"\\r\\n    \\r\\n&lt;div class=&quot;container&quot;&gt;\\r\\n&lt;div class=&quot;txt-about-prod&quot;&gt;\\r\\n&lt;p&gt;&lt;b&gt;\\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 - \\u0430\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438  &lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt; \\u0423\\u0433\\u0433\\u0438 \\u2013 \\u043c\\u044f\\u0433\\u043a\\u0438\\u0435 \\u0443\\u0434\\u043e\\u0431\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 \\u0438\\u0437 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b \\u2013 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u044b\\u0439 \\u0442\\u0440\\u0435\\u043d\\u0434 \\u0441\\u043e\\u0432\\u0440\\u0435\\u043c\\u0435\\u043d\\u043d\\u043e\\u0439 \\u043c\\u043e\\u0434\\u044b. \\u041d\\u0430 \\u0437\\u0432\\u0430\\u043d\\u0438\\u0435 \\u00ab\\u043f\\u0435\\u0440\\u0432\\u043e\\u043e\\u0442\\u043a\\u0440\\u044b\\u0432\\u0430\\u0442\\u0435\\u043b\\u044f\\u00bb \\u044d\\u0442\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043f\\u0440\\u0435\\u0442\\u0435\\u043d\\u0434\\u0443\\u044e\\u0442 \\u043e\\u0434\\u043d\\u043e\\u0432\\u0440\\u0435\\u043c\\u0435\\u043d\\u043d\\u043e \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u044f \\u0438 \\u041d\\u043e\\u0432\\u0430\\u044f \\u0417\\u0435\\u043b\\u0430\\u043d\\u0434\\u0438\\u044f. \\u0412 \\u043e\\u0431\\u0435\\u0438\\u0445 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0430\\u0445 \\u0443\\u0433\\u0433\\u0438 \\u043f\\u043e\\u043b\\u044c\\u0437\\u0443\\u044e\\u0442\\u0441\\u044f \\u0431\\u043e\\u043b\\u044c\\u0448\\u043e\\u0439 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e. \\u041e\\u0434\\u043d\\u0438\\u0445 \\u0442\\u043e\\u043b\\u044c\\u043a\\u043e \\u0442\\u043e\\u0440\\u0433\\u043e\\u0432\\u044b\\u0445 \\u043c\\u0430\\u0440\\u043e\\u043a \\u0434\\u0430\\u043d\\u043d\\u043e\\u0433\\u043e \\u0432\\u0438\\u0434\\u0430 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043d\\u0430\\u0441\\u0447\\u0438\\u0442\\u044b\\u0432\\u0430\\u0435\\u0442\\u0441\\u044f \\u043e\\u043a\\u043e\\u043b\\u043e 70. \\u041c\\u0430\\u0440\\u043a\\u0438\\u0440\\u043e\\u0432\\u043a\\u0430 \\u00abugg australi\\u0430\\u00bb \\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u0430 \\u0441\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u0432\\u043e \\u0432\\u0441\\u0435\\u043c \\u043c\\u0438\\u0440\\u0435, \\u0430 \\u043f\\u043e \\u0437\\u0430\\u043f\\u0440\\u043e\\u0441\\u0430\\u043c \\u00ab\\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 ugg\\u00bb \\u043f\\u043e\\u0438\\u0441\\u043a\\u043e\\u0432\\u0438\\u043a\\u0438 \\u0432\\u044b\\u0434\\u0430\\u044e\\u0442 \\u043d\\u0435 \\u043c\\u0435\\u043d\\u0435\\u0435 \\u0441\\u043e\\u0442\\u043d\\u0438 \\u0440\\u0435\\u0441\\u0443\\u0440\\u0441\\u043e\\u0432.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0418\\u0441\\u0442\\u043e\\u0440\\u0438\\u044f \\u0443\\u0433\\u0433\\u0438&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0418\\u0437\\u043d\\u0430\\u0447\\u0430\\u043b\\u044c\\u043d\\u043e \\u0443\\u0433\\u0433\\u0438 \\u043d\\u043e\\u0441\\u0438\\u043b\\u0438 \\u0444\\u0435\\u0440\\u043c\\u0435\\u0440\\u044b. \\u0412 \\u044d\\u0442\\u043e\\u0439 \\u0442\\u0435\\u043f\\u043b\\u043e\\u0439 \\u043c\\u044f\\u0433\\u043a\\u043e\\u0439 \\u0438 \\u043f\\u0440\\u0430\\u043a\\u0442\\u0438\\u0447\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043e\\u043d\\u0438 \\u043f\\u0430\\u0441\\u043b\\u0438 \\u0441\\u043a\\u043e\\u0442, \\u043e\\u0431\\u0440\\u0430\\u0431\\u0430\\u0442\\u044b\\u0432\\u0430\\u043b\\u0438 \\u043f\\u043e\\u043b\\u044f. \\u041f\\u043e\\u0437\\u0436\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u043e\\u0446\\u0435\\u043d\\u0438\\u043b\\u0438 \\u0432\\u043e\\u0435\\u043d\\u043d\\u044b\\u0435. \\u0412 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 \\u0431\\u044b\\u043b\\u0438 \\u043e\\u0431\\u0443\\u0442\\u044b \\u043b\\u0435\\u0442\\u0447\\u0438\\u043a\\u0438 \\u0432\\u0440\\u0435\\u043c\\u0435\\u043d \\u041f\\u0435\\u0440\\u0432\\u043e\\u0439 \\u043c\\u0438\\u0440\\u043e\\u0432\\u043e\\u0439 \\u0432\\u043e\\u0439\\u043d\\u044b. \\u041d\\u043e \\u0441\\u0430\\u043c\\u043e\\u0435 \\u043d\\u0435\\u043e\\u0436\\u0438\\u0434\\u0430\\u043d\\u043d\\u043e\\u0435 \\u043f\\u0440\\u0438\\u043c\\u0435\\u043d\\u0435\\u043d\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0430\\u043c \\u043d\\u0430\\u0448\\u043b\\u0438 \\u0441\\u0435\\u0440\\u0444\\u0435\\u0440\\u044b. \\u041e\\u043d\\u0438 \\u0441\\u0442\\u0430\\u043b\\u0438 \\u0440\\u0430\\u0437\\u0433\\u0443\\u043b\\u0438\\u0432\\u0430\\u0442\\u044c \\u0432 \\u043d\\u0438\\u0445 \\u043f\\u043e \\u043f\\u043b\\u044f\\u0436\\u0443! \\u0412 \\u0421\\u0428\\u0410 \\u044d\\u0442\\u0430 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0440\\u0430\\u0441\\u043f\\u0440\\u043e\\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u043b\\u0430\\u0441\\u044c \\u0432 \\u043a\\u043e\\u043d\\u0446\\u0435 70-\\u0445 \\u0433\\u043e\\u0434\\u043e\\u0432. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 ugg \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0447\\u044c \\u043a\\u0430\\u0436\\u0434\\u044b\\u0439 \\u0432\\u0442\\u043e\\u0440\\u043e\\u0439 \\u0430\\u043c\\u0435\\u0440\\u0438\\u043a\\u0430\\u043d\\u0435\\u0446. \\u041d\\u0435\\u043c\\u0430\\u043b\\u0443\\u044e \\u0440\\u043e\\u043b\\u044c \\u0432 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u0438\\u0437\\u0430\\u0446\\u0438\\u0438 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0441\\u044b\\u0433\\u0440\\u0430\\u043b \\u0441\\u0435\\u0440\\u0438\\u0430\\u043b \\u00ab\\u0421\\u0435\\u043a\\u0441 \\u0432 \\u0431\\u043e\\u043b\\u044c\\u0448\\u043e\\u043c \\u0433\\u043e\\u0440\\u043e\\u0434\\u0435\\u00bb. \\u0413\\u0435\\u0440\\u043e\\u0438\\u043d\\u044f \\u0421\\u0430\\u0440\\u044b \\u0414\\u0436\\u0435\\u0441\\u0438\\u043a\\u0438 \\u041f\\u0430\\u0440\\u043a\\u0435\\u0440 \\u0432 \\u043d\\u0435\\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0445 \\u0441\\u0446\\u0435\\u043d\\u0430\\u0445 \\u0449\\u0435\\u0433\\u043e\\u043b\\u044f\\u043b\\u0430 \\u0432 \\u0443\\u0433\\u0433\\u0430\\u0445, \\u0447\\u0435\\u043c, \\u0431\\u0435\\u0437\\u0443\\u0441\\u043b\\u043e\\u0432\\u043d\\u043e, \\u043f\\u043e\\u0434\\u043d\\u044f\\u043b\\u0430 \\u0438\\u0445 \\u0440\\u0435\\u0439\\u0442\\u0438\\u043d\\u0433 \\u0441\\u0440\\u0435\\u0434\\u0438 \\u0441\\u0432\\u043e\\u0438\\u0445 \\u043f\\u043e\\u043a\\u043b\\u043e\\u043d\\u043d\\u0438\\u043a\\u043e\\u0432.   &lt;\\/p&gt; \\r\\n\\r\\n&lt;p&gt;\\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u0443\\u0433\\u0433\\u0438 \\u0440\\u0430\\u0441\\u043f\\u0440\\u043e\\u0441\\u0442\\u0440\\u0430\\u043d\\u0435\\u043d\\u044b \\u0432\\u043e \\u0432\\u0441\\u0435\\u043c \\u043c\\u0438\\u0440\\u0435 \\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u044f\\u0442\\u0441\\u044f \\u0432\\u043e \\u043c\\u043d\\u043e\\u0433\\u0438\\u0445 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0430\\u0445. \\u041f\\u0440\\u0430\\u0432\\u0434\\u0430, \\u0420\\u043e\\u0441\\u0441\\u0438\\u044f \\u043f\\u043e\\u043a\\u0430 \\u043d\\u0435 \\u043e\\u0442\\u043d\\u043e\\u0441\\u0438\\u0442\\u0441\\u044f \\u043a \\u0441\\u043f\\u0438\\u0441\\u043a\\u0443 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u0435\\u0439 ugg. \\u041c\\u043e\\u0441\\u043a\\u0432\\u0430, \\u0442\\u0435\\u043c \\u043d\\u0435 \\u043c\\u0435\\u043d\\u0435\\u0435, \\u043e\\u0447\\u0435\\u043d\\u044c \\u043b\\u044e\\u0431\\u0438\\u0442 \\u044d\\u0442\\u0443 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c. \\u041e\\u0434\\u043d\\u0430\\u043a\\u043e \\u043d\\u0435 \\u0443 \\u0432\\u0441\\u0435\\u0445 \\u043f\\u0440\\u043e\\u0434\\u0430\\u0432\\u0446\\u043e\\u0432,  \\u043a \\u0441\\u043e\\u0436\\u0430\\u043b\\u0435\\u043d\\u0438\\u044e, \\u044d\\u0442\\u043e\\u0442 \\u0442\\u043e\\u0432\\u0430\\u0440 \\u0432\\u044b\\u0441\\u043e\\u043a\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430. \\u041f\\u0440\\u0438 \\u0432\\u044b\\u0431\\u043e\\u0440\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0433 \\u043e\\u0447\\u0435\\u043d\\u044c \\u0432\\u0430\\u0436\\u043d\\u043e \\u043e\\u0431\\u0440\\u0430\\u0449\\u0430\\u0442\\u044c \\u0432\\u043d\\u0438\\u043c\\u0430\\u043d\\u0438\\u0435 \\u043d\\u0430 \\u043c\\u0430\\u0440\\u043a\\u0438\\u0440\\u043e\\u0432\\u043a\\u0443 \\u0443\\u0433\\u0433\\u0438 (ugg), \\u0441\\u0442\\u0440\\u0430\\u043d\\u0443 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044f, \\u0442\\u043e\\u0440\\u0433\\u043e\\u0432\\u0443\\u044e \\u043c\\u0430\\u0440\\u043a\\u0443.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0412 \\u043d\\u0430\\u0448\\u0435\\u043c \\u043a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433\\u0435 \\u043c\\u044b \\u043e\\u0442\\u043e\\u0431\\u0440\\u0430\\u043b\\u0438 \\u0434\\u043b\\u044f \\u0432\\u0430\\u0441 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0442\\u043e\\u043b\\u044c\\u043a\\u043e \\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u044b\\u0445 \\u0442\\u043e\\u0440\\u0433\\u043e\\u0432\\u044b\\u0445 \\u043c\\u0430\\u0440\\u043e\\u043a \\u2013 \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u00abugg Australia\\u00bb. \\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0442\\u0430\\u043a\\u0438\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 \\u043c\\u043e\\u0436\\u043d\\u043e \\u043d\\u0435 \\u0432 \\u043a\\u0430\\u0436\\u0434\\u043e\\u043c \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435. \\u0421 \\u043d\\u0430\\u0448\\u0435\\u0439 \\u043e\\u0431\\u0443\\u0432\\u044c\\u044e \\u0432\\u044b \\u043d\\u0435 \\u0438\\u0441\\u043f\\u044b\\u0442\\u0430\\u0435\\u0442\\u0435 \\u043f\\u0440\\u043e\\u0431\\u043b\\u0435\\u043c \\u0441 \\u044d\\u043a\\u0441\\u043f\\u043b\\u0443\\u0430\\u0442\\u0430\\u0446\\u0438\\u0435\\u0439. \\u0413\\u043b\\u0430\\u0432\\u043d\\u043e\\u0435 \\u2013 \\u043f\\u0440\\u0430\\u0432\\u0438\\u043b\\u044c\\u043d\\u043e \\u0432\\u044b\\u0431\\u0440\\u0430\\u0442\\u044c \\u043f\\u043e\\u0434\\u0445\\u043e\\u0434\\u044f\\u0449\\u0443\\u044e \\u043f\\u0430\\u0440\\u0443.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0421\\u0435\\u043a\\u0440\\u0435\\u0442\\u044b \\u0432\\u044b\\u0431\\u043e\\u0440\\u0430 \\u0443\\u0433\\u0433\\u0438 (ugg Australia)&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;\\u0420\\u043e\\u0441\\u0441\\u0438\\u0439\\u0441\\u043a\\u0438\\u0435 \\u043f\\u043e\\u0442\\u0440\\u0435\\u0431\\u0438\\u0442\\u0435\\u043b\\u0438 \\u043f\\u0440\\u0438\\u0432\\u044b\\u043a\\u043b\\u0438 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u044c \\u0442\\u0435\\u043f\\u043b\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c \\u00ab\\u0441 \\u0437\\u0430\\u043f\\u0430\\u0441\\u043e\\u043c\\u00bb, \\u0447\\u0442\\u043e\\u0431\\u044b \\u043f\\u043e\\u0434\\u0434\\u0435\\u0442\\u044c \\u0448\\u0435\\u0440\\u0441\\u0442\\u044f\\u043d\\u043e\\u0439 \\u043d\\u043e\\u0441\\u043e\\u043a. \\u0414\\u043b\\u044f \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a \\u0443\\u0433\\u0433\\u0438 \\u044d\\u0442\\u043e\\u0433\\u043e \\u043d\\u0435 \\u0442\\u0440\\u0435\\u0431\\u0443\\u0435\\u0442\\u0441\\u044f.  Ugg (australia \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b) \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u044f\\u0442\\u0441\\u044f \\u0438\\u0437 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b. \\u041c\\u0435\\u0445 \\u043e\\u0431\\u0435\\u0441\\u043f\\u0435\\u0447\\u0438\\u0432\\u0430\\u0435\\u0442 \\u043e\\u0442\\u043b\\u0438\\u0447\\u043d\\u044b\\u0439 \\u0442\\u0435\\u043f\\u043b\\u043e\\u043e\\u0431\\u043c\\u0435\\u043d, \\u0441\\u043e\\u0445\\u0440\\u0430\\u043d\\u044f\\u0435\\u0442 \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0443, \\u0431\\u043b\\u0438\\u0437\\u043a\\u0443\\u044e \\u043a \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0435 \\u0442\\u0435\\u043b\\u0430, \\u0437\\u0430 \\u0441\\u0447\\u0435\\u0442 \\u0447\\u0435\\u0433\\u043e \\u043d\\u043e\\u0433\\u0430 \\u043d\\u0435 \\u043f\\u043e\\u0442\\u0435\\u0435\\u0442 \\u0438 \\u043d\\u0435 \\u043c\\u0435\\u0440\\u0437\\u043d\\u0435\\u0442. \\u0423\\u0433\\u0433\\u0438 \\u0434\\u0435\\u0440\\u0436\\u0430\\u0442 \\u0442\\u0435\\u043f\\u043b\\u043e \\u0434\\u0430\\u0436\\u0435 \\u043f\\u0440\\u0438 \\u0434\\u043e\\u0441\\u0442\\u0430\\u0442\\u043e\\u0447\\u043d\\u043e \\u043d\\u0438\\u0437\\u043a\\u0438\\u0445  \\u0442\\u0435\\u043c\\u043f\\u0435\\u0440\\u0430\\u0442\\u0443\\u0440\\u0430\\u0445 \\u043e\\u043a\\u0440\\u0443\\u0436\\u0430\\u044e\\u0449\\u0435\\u0439 \\u0441\\u0440\\u0435\\u0434\\u044b. \\u0422\\u0430\\u043a \\u0447\\u0442\\u043e, \\u0435\\u0441\\u043b\\u0438 \\u0432\\u044b \\u0445\\u043e\\u0442\\u0438\\u0442\\u0435 \\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u043d\\u0430\\u0434\\u0435\\u0436\\u043d\\u0443\\u044e \\u0442\\u0435\\u043f\\u043b\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c \\u0434\\u043b\\u044f \\u0441\\u0443\\u0440\\u043e\\u0432\\u043e\\u0439 \\u0440\\u0443\\u0441\\u0441\\u043a\\u043e\\u0439 \\u0437\\u0438\\u043c\\u044b, \\u0432\\u0430\\u043c \\u0441\\u0442\\u043e\\u0438\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 (ugg Australia). \\u0415\\u0434\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u044b\\u043c \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u0435\\u043c, \\u043f\\u0440\\u0438 \\u043a\\u043e\\u0442\\u043e\\u0440\\u043e\\u043c \\u0442\\u0435\\u043f\\u043b\\u043e\\u0438\\u0437\\u043e\\u043b\\u044f\\u0446\\u0438\\u043e\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432\\u0430 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b \\u0441\\u043d\\u0438\\u0436\\u0430\\u044e\\u0442\\u0441\\u044f, \\u044f\\u0432\\u043b\\u044f\\u0435\\u0442\\u0441\\u044f \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u0430\\u044f \\u0432\\u043b\\u0430\\u0436\\u043d\\u043e\\u0441\\u0442\\u044c.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0427\\u0430\\u0449\\u0435 \\u0432\\u0441\\u0435\\u0433\\u043e \\u0443\\u0433\\u0433\\u0438 \\u043d\\u043e\\u0441\\u044f\\u0442 \\u0431\\u0435\\u0437 \\u0442\\u0435\\u043f\\u043b\\u043e\\u0433\\u043e \\u043d\\u043e\\u0441\\u043a\\u0430, \\u0438 \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u044e\\u0442\\u0441\\u044f \\u043e\\u043d\\u0438 \\u0440\\u0430\\u0437\\u043c\\u0435\\u0440 \\u0432 \\u0440\\u0430\\u0437\\u043c\\u0435\\u0440. \\u041c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b, \\u0438\\u0437 \\u043a\\u043e\\u0442\\u043e\\u0440\\u043e\\u0433\\u043e \\u0448\\u044c\\u044e\\u0442\\u0441\\u044f \\u0443\\u0433\\u0433\\u0438, \\u2013 \\u0434\\u043e\\u0441\\u0442\\u0430\\u0442\\u043e\\u0447\\u043d\\u043e \\u043f\\u043b\\u043e\\u0442\\u043d\\u044b\\u0439, \\u0445\\u043e\\u0440\\u043e\\u0448\\u043e \\u0434\\u0435\\u0440\\u0436\\u0438\\u0442 \\u0444\\u043e\\u0440\\u043c\\u0443 \\u043f\\u0440\\u0438 \\u0445\\u043e\\u0434\\u044c\\u0431\\u0435. \\u041f\\u044f\\u0442\\u043a\\u0430 \\u0443\\u043f\\u043b\\u043e\\u0442\\u043d\\u0435\\u043d\\u0430 \\u0434\\u043e\\u043f\\u043e\\u043b\\u043d\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e.  \\u041f\\u043e\\u0434\\u043e\\u0448\\u0432\\u0430 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0441\\u044f \\u0438\\u0437 \\u043a\\u0430\\u0443\\u0447\\u0443\\u043a\\u0430, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0439 \\u043f\\u043e\\u0432\\u044b\\u0448\\u0430\\u0435\\u0442 \\u0438\\u0437\\u043d\\u043e\\u0441\\u043e\\u0441\\u0442\\u043e\\u0439\\u043a\\u043e\\u0441\\u0442\\u044c \\u043e\\u0431\\u0443\\u0432\\u0438. \\u0423\\u0433\\u0433\\u0438 \\u043e\\u0441\\u043e\\u0431\\u0435\\u043d\\u043d\\u043e \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u044b \\u0441\\u0440\\u0435\\u0434\\u0438 \\u043f\\u0440\\u0438\\u0432\\u0435\\u0440\\u0436\\u0435\\u043d\\u0446\\u0435\\u0432 \\u0430\\u043a\\u0442\\u0438\\u0432\\u043d\\u043e\\u0433\\u043e \\u043e\\u0431\\u0440\\u0430\\u0437\\u0430 \\u0436\\u0438\\u0437\\u043d\\u0438. \\u042d\\u0442\\u0438 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 \\u2013 \\u043b\\u0443\\u0447\\u0448\\u0438\\u0439 \\u0432\\u0430\\u0440\\u0438\\u0430\\u043d\\u0442 \\u0434\\u043b\\u044f \\u043f\\u0443\\u0442\\u0435\\u0448\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u0438\\u043a\\u043e\\u0432 \\u0438 \\u0441\\u043f\\u043e\\u0440\\u0442\\u0441\\u043c\\u0435\\u043d\\u043e\\u0432. \\u0413\\u043b\\u0430\\u043c\\u0443\\u0440\\u043d\\u044b\\u0435 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u044b, \\u0436\\u0435\\u043b\\u0430\\u044e\\u0449\\u0438\\u0435 \\u0441\\u043c\\u0435\\u043d\\u0438\\u0442\\u044c \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0439 \\u043a\\u0430\\u0431\\u043b\\u0443\\u043a \\u043d\\u0430 \\u0443\\u0434\\u043e\\u0431\\u043d\\u0443\\u044e \\u043f\\u043b\\u043e\\u0441\\u043a\\u0443\\u044e \\u043f\\u043e\\u0434\\u043e\\u0448\\u0432\\u0443, \\u0442\\u0430\\u043a\\u0436\\u0435 \\u0441\\u0442\\u0440\\u0435\\u043c\\u044f\\u0442\\u0441\\u044f \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 (\\u0438\\u043c\\u0435\\u043d\\u043d\\u043e ugg Australia \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b!) \\u0438 \\u0441\\u0442\\u0430\\u0440\\u0430\\u044e\\u0442\\u0441\\u044f \\u0438\\u0437\\u0431\\u0435\\u0433\\u0430\\u0442\\u044c \\u043f\\u043e\\u0434\\u0434\\u0435\\u043b\\u043e\\u043a.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0423\\u0433\\u0433\\u0438 \\u0432 \\u043c\\u043e\\u0434\\u0435!&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u041f\\u0440\\u043e\\u0438\\u0441\\u0445\\u043e\\u0436\\u0434\\u0435\\u043d\\u0438\\u0435 \\u0443\\u0433\\u0433, \\u0438\\u0445 \\u043f\\u0440\\u043e\\u0441\\u0442\\u043e\\u0432\\u0430\\u0442\\u044b\\u0439 \\u0432\\u043d\\u0435\\u0448\\u043d\\u0438\\u0439 \\u0432\\u0438\\u0434 \\u0434\\u0430\\u043b \\u043f\\u043e\\u0432\\u043e\\u0434 \\u043c\\u043d\\u043e\\u0433\\u0438\\u043c \\u0441\\u043e\\u043c\\u043d\\u0435\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u0432 \\u0442\\u043e\\u043c, \\u0447\\u0442\\u043e \\u044d\\u0442\\u0430 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0431\\u0443\\u0434\\u0435\\u0442 \\u0432\\u043e\\u0441\\u0442\\u0440\\u0435\\u0431\\u043e\\u0432\\u0430\\u043d\\u0430 \\u0432\\u044b\\u0441\\u043e\\u043a\\u043e\\u0439 \\u043c\\u043e\\u0434\\u043e\\u0439. \\u041d\\u043e \\u044d\\u0442\\u043e \\u043e\\u043a\\u0430\\u0437\\u0430\\u043b\\u043e\\u0441\\u044c \\u0441\\u043e\\u0432\\u0441\\u0435\\u043c \\u043d\\u0435 \\u0442\\u0430\\u043a! \\u0418\\u043c\\u0435\\u043d\\u043d\\u043e \\u0441\\u043f\\u043e\\u0440\\u0442\\u0438\\u0432\\u043d\\u043e-\\u043d\\u0435\\u0431\\u0440\\u0435\\u0436\\u043d\\u044b\\u0439 \\u0432\\u0438\\u0434 \\u0443\\u0433\\u0433 \\u043e\\u0431\\u0435\\u0441\\u043f\\u0435\\u0447\\u0438\\u043b \\u0438\\u043c \\u043d\\u0435\\u0432\\u0435\\u0440\\u043e\\u044f\\u0442\\u043d\\u0443\\u044e \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c. \\u0412\\u043e\\u043f\\u0440\\u0435\\u043a\\u0438 \\u043e\\u0436\\u0438\\u0434\\u0430\\u043d\\u0438\\u044f\\u043c, \\u043f\\u0440\\u043e\\u0441\\u0442\\u044b\\u0435 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438 \\u0441\\u043e\\u0447\\u0435\\u0442\\u0430\\u044e\\u0442 \\u0441\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043d\\u0435 \\u0442\\u043e\\u043b\\u044c\\u043a\\u043e \\u0441 \\u0434\\u0435\\u043c\\u043e\\u043a\\u0440\\u0430\\u0442\\u0438\\u0447\\u043d\\u044b\\u043c\\u0438 \\u0434\\u0436\\u0438\\u043d\\u0441\\u0430\\u043c\\u0438, \\u0448\\u043e\\u0440\\u0442\\u0430\\u043c\\u0438, \\u0441\\u043f\\u043e\\u0440\\u0442\\u0438\\u0432\\u043d\\u044b\\u043c\\u0438 \\u043a\\u043e\\u0441\\u0442\\u044e\\u043c\\u0430\\u043c\\u0438, \\u043d\\u043e \\u0438 \\u0441 \\u043f\\u0440\\u0435\\u0442\\u0435\\u043d\\u0446\\u0438\\u043e\\u0437\\u043d\\u044b\\u043c\\u0438 \\u043f\\u043b\\u0430\\u0442\\u044c\\u044f\\u043c\\u0438, \\u044e\\u0431\\u043a\\u0430\\u043c\\u0438, \\u0434\\u0438\\u0437\\u0430\\u0439\\u043d\\u0435\\u0440\\u0441\\u043a\\u043e\\u0439 \\u043e\\u0434\\u0435\\u0436\\u0434\\u043e\\u0439. \\u0416\\u0435\\u043d\\u0449\\u0438\\u043d\\u044b \\u0438 \\u043c\\u0443\\u0436\\u0447\\u0438\\u043d\\u044b, \\u0432\\u0437\\u0440\\u043e\\u0441\\u043b\\u044b\\u0435, \\u043f\\u043e\\u0434\\u0440\\u043e\\u0441\\u0442\\u043a\\u0438 \\u0438 \\u0434\\u0435\\u0442\\u0438 \\u2013 \\u0432\\u0441\\u0435 \\u043d\\u043e\\u0441\\u044f\\u0442 ugg Australia. \\u0421\\u0430\\u0439\\u0442\\u044b \\u043e \\u043c\\u043e\\u0434\\u0435 \\u0438 \\u043a\\u0440\\u0430\\u0441\\u043e\\u0442\\u0435 \\u0447\\u0430\\u0441\\u0442\\u0435\\u043d\\u044c\\u043a\\u043e \\u0440\\u0430\\u0437\\u043c\\u0435\\u0449\\u0430\\u044e\\u0442 \\u0440\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0430\\u0446\\u0438\\u0438 \\u043f\\u043e \\u0438\\u0441\\u043f\\u043e\\u043b\\u044c\\u0437\\u043e\\u0432\\u0430\\u043d\\u0438\\u044e \\u044d\\u0442\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0434\\u043b\\u044f \\u0441\\u043e\\u0437\\u0434\\u0430\\u043d\\u0438\\u044f \\u0441\\u0430\\u043c\\u044b\\u0445 \\u0440\\u0430\\u0437\\u043d\\u044b\\u0445 \\u043e\\u0431\\u0440\\u0430\\u0437\\u043e\\u0432. \\u041c\\u043d\\u043e\\u0433\\u0438\\u0435 \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u044b \\u043f\\u043e\\u0441\\u0435\\u0449\\u0430\\u044e\\u0442 \\u043d\\u0435 \\u043e\\u0434\\u0438\\u043d \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0432 \\u043f\\u043e\\u0438\\u0441\\u043a\\u0430\\u0445 ugg Australia \\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442. \\u0412 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0434\\u0430\\u043d\\u043d\\u0430\\u044f \\u0442\\u043e\\u0440\\u0433\\u043e\\u0432\\u0430\\u044f \\u043c\\u0430\\u0440\\u043a\\u0430 \\u0431\\u044c\\u0435\\u0442 \\u0440\\u0435\\u043a\\u043e\\u0440\\u0434\\u044b \\u043f\\u043e \\u043f\\u043e\\u0442\\u0440\\u0435\\u0431\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u043e\\u0439 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u0438.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u041b\\u0443\\u0447\\u0448\\u0430\\u044f \\u0440\\u0435\\u043a\\u043b\\u0430\\u043c\\u0430 \\u0434\\u043b\\u044f \\u0443\\u0433\\u0433 (ugg) \\u2013 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442. \\u041a\\u0440\\u043e\\u043c\\u0435 \\u0442\\u043e\\u0433\\u043e, \\u0438\\u0445 \\u0430\\u043a\\u0442\\u0438\\u0432\\u043d\\u043e \\u043f\\u0440\\u043e\\u0434\\u0432\\u0438\\u0433\\u0430\\u044e\\u0442 \\u0437\\u043d\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u043e\\u0441\\u0442\\u0438, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u043f\\u043e\\u043a\\u0430\\u0437\\u044b\\u0432\\u0430\\u044e\\u0442\\u0441\\u044f \\u0432 \\u0443\\u0433\\u0433\\u0430\\u0445 \\u043d\\u0430 \\u0441\\u0432\\u0435\\u0442\\u0441\\u043a\\u0438\\u0445 \\u0440\\u0430\\u0443\\u0442\\u0430\\u0445. \\u0421\\u0440\\u0435\\u0434\\u0438 \\u043d\\u0438\\u0445 \\u0443\\u0436\\u0435 \\u0443\\u043f\\u043e\\u043c\\u044f\\u043d\\u0443\\u0442\\u0430\\u044f \\u043d\\u0430\\u043c\\u0438 \\u0421\\u0430\\u0440\\u0430 \\u0414\\u0436\\u0435\\u0441\\u0441\\u0438\\u043a\\u0430 \\u041f\\u0430\\u0440\\u043a\\u0435\\u0440, \\u041f\\u044d\\u0440\\u0438\\u0441 \\u0425\\u0438\\u043b\\u0442\\u043e\\u043d, \\u0413\\u0432\\u0438\\u043d\\u0435\\u0442 \\u041f\\u044d\\u043b\\u0442\\u0440\\u043e\\u0443, \\u0416\\u0438\\u0437\\u0435\\u043b\\u044c \\u0411\\u044e\\u043d\\u0434\\u0445\\u0435\\u043d, \\u041f\\u0430\\u043c\\u0435\\u043b\\u0430 \\u0410\\u043d\\u0434\\u0435\\u0440\\u0441\\u043e\\u043d, \\u041e\\u043f\\u0440\\u0430 \\u0423\\u0438\\u043d\\u0444\\u0440\\u0438, \\u041a\\u0435\\u0439\\u0442 \\u041c\\u043e\\u0441\\u0441, \\u0411\\u0435\\u0439\\u043e\\u043d\\u0441\\u0435 \\u0438 \\u043c\\u043d\\u043e\\u0433\\u0438\\u0435 \\u0434\\u0440\\u0443\\u0433\\u0438\\u0435.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0412\\u0441\\u0435 \\u0431\\u043e\\u043b\\u0435\\u0435 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u044b\\u043c\\u0438 \\u0441\\u0442\\u0430\\u043d\\u043e\\u0432\\u044f\\u0442\\u0441\\u044f \\u043d\\u0435 \\u043f\\u0440\\u043e\\u0441\\u0442\\u044b\\u0435 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a, \\u0430  \\u0434\\u0438\\u0437\\u0430\\u0439\\u043d\\u0435\\u0440\\u0441\\u043a\\u0438\\u0435 ugg australia. \\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u0441\\u043e \\u0441\\u0442\\u0440\\u0430\\u0437\\u0430\\u043c\\u0438, \\u043b\\u0435\\u0442\\u043d\\u0430\\u043c\\u0438, \\u043f\\u0430\\u0439\\u0435\\u0442\\u043a\\u0430\\u043c\\u0438, \\u0432\\u044b\\u0448\\u0438\\u0432\\u043a\\u043e\\u0439 \\u0438 \\u0434\\u0440\\u0443\\u0433\\u0438\\u043c\\u0438 \\u0434\\u0435\\u043a\\u043e\\u0440\\u0430\\u0442\\u0438\\u0432\\u043d\\u044b\\u043c\\u0438 \\u044d\\u043b\\u0435\\u043c\\u0435\\u043d\\u0442\\u0430\\u043c\\u0438 \\u0441\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f \\u043c\\u043e\\u0436\\u0435\\u0442 \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u0438\\u0442\\u044c \\u0441\\u0435\\u0431\\u0435 \\u043b\\u044e\\u0431\\u0430\\u044f \\u043c\\u043e\\u0434\\u043d\\u0438\\u0446\\u0430. \\u0426\\u0432\\u0435\\u0442\\u043e\\u0432\\u0430\\u044f \\u0433\\u0430\\u043c\\u043c\\u0430 \\u0442\\u0430\\u043a\\u0438\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a \\u2013 \\u0441\\u0430\\u043c\\u0430\\u044f \\u0440\\u0430\\u0437\\u043d\\u043e\\u043e\\u0431\\u0440\\u0430\\u0437\\u043d\\u0430\\u044f: \\u043e\\u0442 \\u043a\\u043b\\u0430\\u0441\\u0441\\u0438\\u0447\\u0435\\u0441\\u043a\\u0438\\u0445 \\u0431\\u0435\\u043b\\u044b\\u0445, \\u0447\\u0435\\u0440\\u043d\\u044b\\u0445 \\u0438 \\u043a\\u043e\\u0440\\u0438\\u0447\\u043d\\u0435\\u0432\\u044b\\u0445 \\u043e\\u0442\\u0442\\u0435\\u043d\\u043a\\u043e\\u0432, \\u0434\\u043e \\u044f\\u0440\\u043a\\u0438\\u0445 \\u043a\\u0440\\u0430\\u0441\\u043d\\u044b\\u0445, \\u0436\\u0435\\u043b\\u0442\\u044b\\u0445, \\u0437\\u0435\\u043b\\u0435\\u043d\\u044b\\u0445 \\u0438 \\u0444\\u0438\\u043e\\u043b\\u0435\\u0442\\u043e\\u0432\\u044b\\u0445. \\u041a\\u0440\\u043e\\u043c\\u0435 \\u0442\\u043e\\u0433\\u043e, \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0438 \\u043c\\u043e\\u0433\\u0443\\u0442 \\u0432\\u044b\\u0431\\u0440\\u0430\\u0442\\u044c \\u0437\\u0430\\u043c\\u0448\\u0435\\u0432\\u044b\\u0435 \\u0438\\u043b\\u0438 \\u043e\\u0431\\u043b\\u0438\\u0432\\u043d\\u044b\\u0435 ugg.  \\u041c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u044b \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u044e\\u0442 \\u043e\\u0431\\u0430 \\u0432\\u0430\\u0440\\u0438\\u0430\\u043d\\u0442\\u0430 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u041a\\u0430\\u043a \\u0443\\u0445\\u0430\\u0436\\u0438\\u0432\\u0430\\u0442\\u044c \\u0437\\u0430 \\u0443\\u0433\\u0433\\u0430\\u043c\\u0438&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0423\\u0433\\u0433\\u0438 (\\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b) \\u0442\\u0440\\u0435\\u0431\\u0443\\u044e\\u0442 \\u043e\\u0441\\u043e\\u0431\\u043e\\u0433\\u043e \\u0443\\u0445\\u043e\\u0434\\u0430. \\u042d\\u0442\\u0443 \\u043e\\u0431\\u0443\\u0432\\u044c \\u0441\\u043b\\u0435\\u0434\\u0443\\u0435\\u0442 \\u0431\\u0435\\u0440\\u0435\\u0447\\u044c \\u043e\\u0442 \\u043b\\u0438\\u0448\\u043d\\u0435\\u0439 \\u0432\\u043b\\u0430\\u0436\\u043d\\u043e\\u0441\\u0442\\u0438. \\u0412 \\u0434\\u043e\\u0436\\u0434\\u043b\\u0438\\u0432\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443 \\u0443\\u0433\\u0433\\u0438 \\u0432\\u043e\\u043e\\u0431\\u0449\\u0435 \\u043b\\u0443\\u0447\\u0448\\u0435 \\u043d\\u0435 \\u043d\\u043e\\u0441\\u0438\\u0442\\u044c. \\u0412 \\u043e\\u0431\\u044b\\u0447\\u043d\\u0443\\u044e \\u043f\\u043e\\u0433\\u043e\\u0434\\u0443 \\u043e\\u0431\\u0440\\u0430\\u0431\\u0430\\u0442\\u044b\\u0432\\u0430\\u0439\\u0442\\u0435 \\u0438\\u0445 \\u0432\\u043e\\u0434\\u043e\\u043e\\u0442\\u0442\\u0430\\u043b\\u043a\\u0438\\u0432\\u0430\\u044e\\u0449\\u0438\\u043c\\u0438 \\u0441\\u0440\\u0435\\u0434\\u0441\\u0442\\u0432\\u0430\\u043c\\u0438.  \\u0415\\u0441\\u043b\\u0438 \\u0432\\u0441\\u0435 \\u0436\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u043f\\u0440\\u043e\\u043c\\u043e\\u043a\\u043b\\u0438, \\u043d\\u0435 \\u0441\\u0443\\u0448\\u0438\\u0442\\u0435 \\u0438\\u0445 \\u043d\\u0430 \\u0431\\u0430\\u0442\\u0430\\u0440\\u0435\\u0435, \\u0438\\u043d\\u0430\\u0447\\u0435 \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b \\u0434\\u0435\\u0444\\u043e\\u0440\\u043c\\u0438\\u0440\\u0443\\u0435\\u0442\\u0441\\u044f \\u0438 \\u043e\\u043d\\u0438 \\u043f\\u043e\\u0442\\u0435\\u0440\\u044f\\u044e\\u0442 \\u0441\\u0432\\u043e\\u044e \\u0444\\u043e\\u0440\\u043c\\u0443. \\u041e\\u0441\\u0442\\u0430\\u0432\\u044c\\u0442\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u0432 \\u0442\\u0435\\u043f\\u043b\\u043e\\u043c \\u043f\\u0440\\u043e\\u0432\\u0435\\u0442\\u0440\\u0438\\u0432\\u0430\\u0435\\u043c\\u043e\\u043c \\u043f\\u043e\\u043c\\u0435\\u0449\\u0435\\u043d\\u0438\\u0438 \\u0434\\u043e \\u043f\\u043e\\u043b\\u043d\\u043e\\u0433\\u043e \\u0432\\u044b\\u0441\\u044b\\u0445\\u0430\\u043d\\u0438\\u044f.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0423\\u0445\\u043e\\u0434 \\u0437\\u0430 \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u043c\\u0438 ugg \\u0410ustralia \\u0441\\u043b\\u0435\\u0434\\u0443\\u0435\\u0442 \\u043e\\u0441\\u0443\\u0449\\u0435\\u0441\\u0442\\u0432\\u043b\\u044f\\u0442\\u044c \\u0441 \\u043f\\u043e\\u043c\\u043e\\u0449\\u044c\\u044e \\u043c\\u044f\\u0433\\u043a\\u043e\\u0433\\u043e \\u043f\\u043e\\u0440\\u043e\\u043b\\u043e\\u043d\\u0430 \\u0438\\u043b\\u0438 \\u0432\\u0430\\u0442\\u043d\\u044b\\u0445 \\u0434\\u0438\\u0441\\u043a\\u043e\\u0432.  \\u0418\\u0437\\u043b\\u0438\\u0448\\u043a\\u0438 \\u0432\\u043b\\u0430\\u0433\\u0438 \\u043c\\u043e\\u0436\\u043d\\u043e \\u0443\\u0434\\u0430\\u043b\\u0438\\u0442\\u044c \\u0431\\u0443\\u043c\\u0430\\u0436\\u043d\\u044b\\u043c\\u0438 \\u0441\\u0430\\u043b\\u0444\\u0435\\u0442\\u043a\\u0430\\u043c\\u0438. \\u0421\\u043f\\u0435\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0441\\u0440\\u0435\\u0434\\u0441\\u0442\\u0432\\u0430 \\u0434\\u043b\\u044f \\u043e\\u0447\\u0438\\u0449\\u0435\\u043d\\u0438\\u044f \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043a\\u043e\\u0436\\u0438 \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u044e\\u0442 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043b\\u043e\\u043d\\u044b. \\u0412\\u043b\\u0430\\u0434\\u0435\\u043b\\u044c\\u0446\\u0430\\u043c \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a \\u0441\\u0442\\u043e\\u0438\\u0442 \\u043f\\u0440\\u043e\\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0438\\u0440\\u043e\\u0432\\u0430\\u0442\\u044c\\u0441\\u044f \\u043f\\u043e \\u044d\\u0442\\u043e\\u043c\\u0443 \\u043f\\u043e\\u0432\\u043e\\u0434\\u0443 \\u0441 \\u043f\\u0440\\u043e\\u0434\\u0430\\u0432\\u0446\\u0430\\u043c\\u0438. \\u0414\\u043b\\u044f \\u0443\\u0445\\u043e\\u0434\\u0430 \\u0437\\u0430 \\u0443\\u0433\\u0433\\u0430\\u043c\\u0438 (ugg australia) \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043c\\u043e\\u0436\\u0435\\u0442 \\u043f\\u0440\\u0435\\u0434\\u043b\\u043e\\u0436\\u0438\\u0442\\u044c \\u0441\\u043f\\u0440\\u0435\\u0438 \\u0438 \\u043a\\u0440\\u0435\\u043c\\u0430, \\u0430 \\u0442\\u0430\\u043a\\u0436\\u0435 \\u0432\\u043e\\u0434\\u043e\\u043e\\u0442\\u0442\\u0430\\u043b\\u043a\\u0438\\u0432\\u0430\\u044e\\u0449\\u0438\\u0435 \\u044d\\u043c\\u0443\\u043b\\u044c\\u0441\\u0438\\u0438. \\u0414\\u043b\\u044f \\u043e\\u0431\\u0440\\u0430\\u0431\\u043e\\u0442\\u043a\\u0438 \\u0443\\u0433\\u0433 \\u043f\\u043e\\u0434\\u043e\\u0439\\u0434\\u0443\\u0442 \\u0442\\u0430\\u043a\\u0436\\u0435 \\u043b\\u044e\\u0431\\u044b\\u0435 \\u0441\\u0440\\u0435\\u0434\\u0441\\u0442\\u0432\\u0430, \\u043f\\u0440\\u0435\\u0434\\u043d\\u0430\\u0437\\u043d\\u0430\\u0447\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0434\\u043b\\u044f \\u0437\\u0430\\u043c\\u0448\\u0438. \\u0421\\u043e\\u0431\\u043b\\u044e\\u0434\\u0435\\u043d\\u0438\\u0435 \\u0432\\u044b\\u0448\\u0435\\u043f\\u0435\\u0440\\u0435\\u0447\\u0438\\u0441\\u043b\\u0435\\u043d\\u043d\\u044b\\u0445 \\u043d\\u0435\\u0445\\u0438\\u0442\\u0440\\u044b\\u0445 \\u043f\\u0440\\u0430\\u0432\\u0438\\u043b \\u043f\\u043e\\u0437\\u0432\\u043e\\u043b\\u0438\\u0442 \\u043d\\u0430\\u0434\\u043e\\u043b\\u0433\\u043e \\u0441\\u043e\\u0445\\u0440\\u0430\\u043d\\u0438\\u0442\\u044c \\u043e\\u0442\\u043b\\u0438\\u0447\\u043d\\u044b\\u0439 \\u0432\\u043d\\u0435\\u0448\\u043d\\u0438\\u0439 \\u0432\\u0438\\u0434 \\u0432\\u0430\\u0448\\u0438\\u0445 \\u043b\\u044e\\u0431\\u0438\\u043c\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0413\\u0434\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c ugg? \\u0410\\u0434\\u0440\\u0435\\u0441\\u0430 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u043e\\u0432 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0423\\u0433\\u0433\\u0438 (ugg australia \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435) \\u0432\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u043c \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435. \\u041c\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u043c \\u0431\\u043e\\u043b\\u044c\\u0448\\u043e\\u0439 \\u0432\\u044b\\u0431\\u043e\\u0440 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0430\\u043f\\u043e\\u0436\\u0435\\u043a. \\u0423 \\u043d\\u0430\\u0441 \\u0432\\u044b \\u0441\\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 (ugg) \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u043e. \\u041c\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u043c \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u0443\\u044e \\u043e\\u0431\\u0443\\u0432\\u044c \\u0431\\u0435\\u0437 \\u043f\\u0435\\u0440\\u0435\\u043f\\u043b\\u0430\\u0442\\u044b, \\u0441\\u043e\\u0445\\u0440\\u0430\\u043d\\u044f\\u044f \\u0440\\u0435\\u0430\\u043b\\u044c\\u043d\\u0443\\u044e \\u0446\\u0435\\u043d\\u0443. \\u041f\\u0440\\u0438 \\u0432\\u044b\\u0431\\u043e\\u0440\\u0435 \\u0442\\u043e\\u0439 \\u0438\\u043b\\u0438 \\u0438\\u043d\\u043e\\u0439 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0438 \\u0441\\u043b\\u0435\\u0434\\u0443\\u0435\\u0442 \\u043f\\u043e\\u043c\\u043d\\u0438\\u0442\\u044c, \\u0447\\u0442\\u043e \\u043e\\u0431\\u0443\\u0432\\u044c \\u0438\\u0437 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b \\u043d\\u0435 \\u043c\\u043e\\u0436\\u0435\\u0442 \\u0431\\u044b\\u0442\\u044c \\u0441\\u043b\\u0438\\u0448\\u043a\\u043e\\u043c \\u0434\\u0435\\u0448\\u0435\\u0432\\u043e\\u0439. \\u0421\\u0435\\u0433\\u043e\\u0434\\u043d\\u044f ugg australia \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u044b \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u044e\\u0442 \\u0432 \\u0441\\u0430\\u043c\\u044b\\u0445 \\u0440\\u0430\\u0437\\u043d\\u044b\\u0445 \\u0446\\u0435\\u043d\\u043e\\u0432\\u044b\\u0445 \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\\u0445. \\u0418 \\u0447\\u0442\\u043e\\u0431\\u044b \\u043d\\u0435 \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u043f\\u043e\\u0434\\u0434\\u0435\\u043b\\u043a\\u0443, \\u0440\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c \\u0432\\u0430\\u043c \\u043d\\u0435 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u044c \\u0442\\u043e\\u0432\\u0430\\u0440 \\u043f\\u043e \\u043f\\u043e\\u0434\\u043e\\u0437\\u0440\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e  \\u043d\\u0438\\u0437\\u043a\\u043e\\u0439 \\u0446\\u0435\\u043d\\u0435. \\u0415\\u0441\\u043b\\u0438 \\u0432\\u0430\\u043c \\u043d\\u0443\\u0436\\u0435\\u043d \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0443\\u0433\\u0433\\u0438 (ugg) \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435, \\u0430\\u0434\\u0440\\u0435\\u0441\\u0430 \\u0432\\u044b \\u043b\\u0435\\u0433\\u043a\\u043e \\u043d\\u0430\\u0439\\u0434\\u0435\\u0442\\u0435, \\u0441\\u0434\\u0435\\u043b\\u0430\\u0432 \\u0441\\u043e\\u043e\\u0442\\u0432\\u0435\\u0442\\u0441\\u0442\\u0432\\u0443\\u044e\\u0449\\u0438\\u0439 \\u0437\\u0430\\u043f\\u0440\\u043e\\u0441 \\u0432 \\u043f\\u043e\\u0438\\u0441\\u043a\\u043e\\u0432\\u0438\\u043a\\u0435.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u041d\\u0430\\u0441\\u0442\\u043e\\u044f\\u0449\\u0438\\u0445 ugg australia \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043d\\u0435 \\u0442\\u0430\\u043a \\u0443\\u0436 \\u043c\\u043d\\u043e\\u0433\\u043e, \\u043f\\u043e\\u044d\\u0442\\u043e\\u043c\\u0443 \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u043b\\u0443\\u0447\\u0448\\u0435 \\u0441\\u0440\\u0430\\u0437\\u0443 \\u043d\\u0435 \\u0440\\u0430\\u0441\\u0441\\u043c\\u0430\\u0442\\u0440\\u0438\\u0432\\u0430\\u0442\\u044c \\u043a\\u0430\\u043a \\u0432\\u0430\\u0440\\u0438\\u0430\\u043d\\u0442 \\u0434\\u043b\\u044f \\u043f\\u043e\\u043a\\u0443\\u043f\\u043a\\u0438.  \\u00ab\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435\\u00bb \\u0443\\u0433\\u0433\\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u044f\\u0442\\u0441\\u044f \\u0438\\u0437 \\u0432\\u044b\\u0441\\u043e\\u043a\\u043e\\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u043e\\u0439 \\u043e\\u0432\\u0447\\u0438\\u043d\\u044b, \\u0438 \\u0441\\u0442\\u043e\\u0438\\u043c\\u043e\\u0441\\u0442\\u044c \\u0442\\u0430\\u043a\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0441\\u0440\\u0430\\u0432\\u043d\\u0438\\u043c\\u0430 \\u0441\\u043e \\u0441\\u0442\\u043e\\u0438\\u043c\\u043e\\u0441\\u0442\\u044c\\u044e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u043e\\u0439 \\u043a\\u043e\\u0436\\u0430\\u043d\\u043e\\u0439 \\u0437\\u0438\\u043c\\u043d\\u0435\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u0441 \\u043c\\u0435\\u0445\\u043e\\u043c \\u0438\\u0437\\u0432\\u0435\\u0441\\u0442\\u043d\\u044b\\u0445 \\u0442\\u043e\\u0440\\u0433\\u043e\\u0432\\u044b\\u0445 \\u043c\\u0430\\u0440\\u043e\\u043a. \\u041d\\u043e, \\u0432 \\u043e\\u0442\\u043b\\u0438\\u0447\\u0438\\u0435 \\u043e\\u0442 \\u043f\\u043e\\u0441\\u043b\\u0435\\u0434\\u043d\\u0435\\u0439, \\u0443\\u0433\\u0433\\u0438 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043f\\u043e\\u043b\\u044c\\u0437\\u0443\\u044e\\u0442\\u0441\\u044f \\u0432\\u0441\\u0435 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0435\\u0439 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u043e\\u0441\\u0442\\u044c\\u044e \\u0437\\u0430 \\u0441\\u0447\\u0435\\u0442 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0445 \\u0442\\u0435\\u043f\\u043b\\u043e\\u0438\\u0437\\u043e\\u043b\\u044f\\u0446\\u0438\\u043e\\u043d\\u043d\\u044b\\u0445 \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432 \\u0438 \\u043f\\u043e\\u0432\\u044b\\u0448\\u0435\\u043d\\u043d\\u043e\\u0439 \\u043a\\u043e\\u043c\\u0444\\u043e\\u0440\\u0442\\u043d\\u043e\\u0441\\u0442\\u0438.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u041a\\u0430\\u043a \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u044f\\u0442\\u0441\\u044f \\u0443\\u0433\\u0433\\u0438 (ugg)?&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;\\u0423\\u0433\\u0433\\u0438 \\u0441 \\u043c\\u0435\\u0445\\u043e\\u043c \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u044f\\u0442\\u0441\\u044f \\u0438\\u0437 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u043e\\u0439 \\u0448\\u043a\\u0443\\u0440\\u044b, \\u043a\\u043e\\u0442\\u043e\\u0440\\u0430\\u044f \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u0438\\u0442 \\u043d\\u0435\\u0441\\u043a\\u043e\\u043b\\u044c\\u043a\\u043e \\u044d\\u0442\\u0430\\u043f\\u043e\\u0432 \\u043e\\u0431\\u0440\\u0430\\u0431\\u043e\\u0442\\u043a\\u0438. \\u0421\\u043d\\u0430\\u0447\\u0430\\u043b\\u0430 \\u0448\\u043a\\u0443\\u0440\\u0443 \\u0434\\u0443\\u0431\\u044f\\u0442 \\u0432 \\u0442\\u0435\\u0447\\u0435\\u043d\\u0438\\u0435 16 \\u0447\\u0430\\u0441\\u043e\\u0432. \\u0414\\u043b\\u044f \\u044d\\u0442\\u043e\\u0433\\u043e \\u0435\\u0435 \\u0437\\u0430\\u043c\\u0430\\u0447\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0432 \\u0445\\u043e\\u043b\\u043e\\u0434\\u043d\\u043e\\u0439 \\u0432\\u043e\\u0434\\u0435. \\u0422\\u0430\\u043a\\u0438\\u043c \\u043e\\u0431\\u0440\\u0430\\u0437\\u043e\\u043c, \\u0438\\u0437\\u0431\\u0430\\u0432\\u043b\\u044f\\u044e\\u0442\\u0441\\u044f \\u043e\\u0442 \\u0433\\u0440\\u044f\\u0437\\u0438 \\u0438 \\u0441\\u043e\\u043b\\u0438. \\u0417\\u0430\\u0442\\u0435\\u043c \\u0448\\u043a\\u0443\\u0440\\u044b \\u0448\\u043b\\u0438\\u0444\\u0443\\u044e\\u0442, \\u0443\\u0434\\u0430\\u043b\\u044f\\u044f \\u043e\\u0441\\u0442\\u0430\\u0442\\u043a\\u0438 \\u0436\\u0438\\u0440\\u0430, \\u0435\\u0449\\u0435 \\u0440\\u0430\\u0437 \\u043f\\u0440\\u043e\\u043c\\u044b\\u0432\\u0430\\u044e\\u0442, \\u043d\\u0430 \\u044d\\u0442\\u043e\\u0442 \\u0440\\u0430\\u0437 \\u0432 \\u0442\\u0435\\u043f\\u043b\\u043e\\u0439 \\u0432\\u043e\\u0434\\u0435 \\u0441 \\u043f\\u0440\\u0438\\u043c\\u0435\\u043d\\u0435\\u043d\\u0438\\u0435\\u043c \\u0430\\u043a\\u0442\\u0438\\u0432\\u043d\\u044b\\u0445 \\u043c\\u043e\\u044e\\u0449\\u0438\\u0445 \\u0432\\u0435\\u0449\\u0435\\u0441\\u0442\\u0432. \\u0428\\u043a\\u0443\\u0440\\u044b \\u00ab\\u043f\\u0440\\u043e\\u0441\\u043b\\u0430\\u0438\\u0432\\u0430\\u044e\\u0442\\u00bb \\u0434\\u043e pH 2,8-3. \\u0418\\u043c\\u0435\\u043d\\u043d\\u043e \\u043f\\u0440\\u0438 \\u0442\\u0430\\u043a\\u0438\\u0445 \\u043f\\u043e\\u043a\\u0430\\u0437\\u0430\\u0442\\u0435\\u043b\\u044f\\u0445 pH \\u0434\\u0443\\u0431\\u0438\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0432\\u0435\\u0449\\u0435\\u0441\\u0442\\u0432\\u0430 \\u0431\\u0435\\u0441\\u043f\\u0440\\u0435\\u043f\\u044f\\u0442\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u043e \\u043f\\u0440\\u043e\\u043d\\u0438\\u043a\\u0430\\u044e\\u0442 \\u0432 \\u0442\\u043a\\u0430\\u043d\\u0438. \\u00ab\\u041f\\u0440\\u043e\\u0441\\u043e\\u043b\\u00bb \\u043e\\u0441\\u0443\\u0449\\u0435\\u0441\\u0442\\u0432\\u043b\\u044f\\u0435\\u0442\\u0441\\u044f \\u0432 \\u0441\\u043f\\u0435\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u043e\\u043c \\u0440\\u0430\\u0441\\u0442\\u0432\\u043e\\u0440\\u0435 \\u0441\\u043e\\u043b\\u0435\\u0439 \\u0445\\u0440\\u043e\\u043c\\u0430 \\u0438 \\u043a\\u0438\\u0441\\u043b\\u043e\\u0442.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0414\\u0430\\u043b\\u0435\\u0435 \\u0448\\u0435\\u0440\\u0441\\u0442\\u044c \\u043a\\u0440\\u0430\\u0441\\u044f\\u0442, \\u043e\\u0431\\u0440\\u0430\\u0431\\u0430\\u0442\\u044b\\u0432\\u0430\\u044e\\u0442 \\u044d\\u043c\\u0443\\u043b\\u044c\\u0441\\u0438\\u043e\\u043d\\u043d\\u044b\\u043c \\u043c\\u0430\\u0441\\u043b\\u043e\\u043c \\u0438 \\u043e\\u0442\\u043f\\u0440\\u0430\\u0432\\u043b\\u044f\\u044e\\u0442 \\u043d\\u0430 \\u043f\\u0440\\u043e\\u0441\\u0443\\u0448\\u043a\\u0443. \\u041f\\u043e\\u0441\\u043b\\u0435 \\u044d\\u0442\\u043e\\u0433\\u043e \\u0448\\u043a\\u0443\\u0440\\u0430 \\u0433\\u043e\\u0442\\u043e\\u0432\\u043a\\u0430 \\u043a \\u0432\\u044b\\u0434\\u0435\\u043b\\u043a\\u0435. \\u0415\\u0435 \\u0432\\u044b\\u0434\\u0435\\u0440\\u0436\\u0438\\u0432\\u0430\\u044e\\u0442 \\u0432\\u043e \\u0432\\u043b\\u0430\\u0436\\u043d\\u043e\\u043c \\u043f\\u043e\\u043c\\u0435\\u0449\\u0435\\u043d\\u0438\\u0438 \\u0434\\u043b\\u044f \\u043f\\u0440\\u0438\\u0434\\u0430\\u043d\\u0438\\u044f \\u043c\\u044f\\u0433\\u043a\\u043e\\u0441\\u0442\\u0438 \\u0438 \\u044d\\u043b\\u0430\\u0441\\u0442\\u0438\\u0447\\u043d\\u043e\\u0441\\u0442\\u0438, \\u0430 \\u043f\\u043e\\u0442\\u043e\\u043c  \\u043f\\u0440\\u043e\\u0433\\u043e\\u043d\\u044f\\u044e\\u0442 \\u0447\\u0435\\u0440\\u0435\\u0437 \\u0441\\u043f\\u0435\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0438\\u0433\\u043e\\u043b\\u044c\\u0447\\u0430\\u0442\\u044b\\u0439 \\u043f\\u0440\\u0435\\u0441\\u0441, \\u0441 \\u043f\\u043e\\u043c\\u043e\\u0449\\u044c\\u044e \\u043a\\u043e\\u0442\\u043e\\u0440\\u043e\\u0433\\u043e \\u0443\\u0434\\u0430\\u043b\\u044f\\u044e\\u0442\\u0441\\u044f \\u043e\\u0441\\u0442\\u0430\\u0442\\u043a\\u0438 \\u043f\\u043e\\u0431\\u043e\\u0447\\u043d\\u044b\\u0445 \\u044d\\u043b\\u0435\\u043c\\u0435\\u043d\\u0442\\u043e\\u0432. \\u041a\\u043e\\u0436\\u0430 \\u0440\\u0430\\u0437\\u0440\\u0435\\u0437\\u0430\\u0435\\u0442\\u0441\\u044f  \\u043d\\u0430 \\u0440\\u043e\\u0432\\u043d\\u044b\\u0435 \\u043f\\u043e\\u043b\\u043e\\u0441\\u044b, \\u0435\\u0435 \\u0442\\u043e\\u043b\\u0449\\u0438\\u043d\\u0430 \\u0432\\u044b\\u0440\\u0430\\u0432\\u043d\\u0438\\u0432\\u0430\\u0435\\u0442\\u0441\\u044f \\u043f\\u0440\\u0435\\u0441\\u0441\\u043e\\u043c. \\u041d\\u0430\\u0441\\u0442\\u043e\\u044f\\u0449\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u0441\\u0448\\u0438\\u0442\\u044b \\u0438\\u0437 \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b\\u0430, \\u0442\\u043e\\u043b\\u0449\\u0438\\u043d\\u0430 \\u043a\\u043e\\u0442\\u043e\\u0440\\u043e\\u0433\\u043e \\u043d\\u0435 \\u043f\\u0440\\u0435\\u0432\\u044b\\u0448\\u0430\\u0435\\u0442 12-14 \\u043c\\u043c. \\u0414\\u0430\\u043b\\u0435\\u0435 \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b \\u043f\\u043e\\u0441\\u0442\\u0443\\u043f\\u0430\\u0435\\u0442 \\u043d\\u0430  \\u0440\\u0430\\u0441\\u043a\\u0440\\u043e\\u0439, \\u043f\\u0440\\u0438 \\u043a\\u043e\\u0442\\u043e\\u0440\\u043e\\u043c \\u0443\\u0447\\u0438\\u0442\\u044b\\u0432\\u0430\\u0435\\u0442\\u0441\\u044f \\u0440\\u0430\\u0437\\u043c\\u0435\\u0440 \\u0443\\u0433\\u0433.&lt;\\/p&gt;\\r\\n\\r\\n &lt;p&gt;\\u041f\\u043e\\u0448\\u0438\\u0432 \\u0437\\u0430\\u0433\\u043e\\u0442\\u043e\\u0432\\u043e\\u043a \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0441\\u044f \\u0448\\u0432\\u0435\\u0439\\u043d\\u044b\\u043c\\u0438 \\u043c\\u0430\\u0448\\u0438\\u043d\\u0430\\u043c\\u0438. \\u0417\\u0430\\u0442\\u0435\\u043c \\u043a \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043f\\u0440\\u0438\\u043a\\u043b\\u0435\\u0438\\u0432\\u0430\\u044e\\u0442\\u0441\\u044f \\u043f\\u043e\\u0434\\u043e\\u0448\\u0432\\u0430, \\u0443\\u0442\\u0435\\u043f\\u043b\\u0438\\u0442\\u0435\\u043b\\u044c, \\u043f\\u043e\\u0434\\u043a\\u043b\\u0430\\u0434\\u043e\\u0447\\u043d\\u044b\\u0439 \\u043c\\u0430\\u0442\\u0435\\u0440\\u0438\\u0430\\u043b. \\u041d\\u0430 \\u0437\\u0430\\u043a\\u043b\\u044e\\u0447\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u044b\\u0445 \\u044d\\u0442\\u0430\\u043f\\u0430\\u0445 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0441\\u0442\\u0432\\u0430 \\u043d\\u0430\\u0442\\u0443\\u0440\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u044f\\u0442 \\u0441\\u0442\\u0440\\u043e\\u0433\\u0438\\u0439 \\u043a\\u043e\\u043d\\u0442\\u0440\\u043e\\u043b\\u044c \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430. \\u041d\\u0430\\u043a\\u043e\\u043d\\u0435\\u0446 \\u043e\\u0431\\u0443\\u0432\\u044c \\u043f\\u043e\\u0441\\u0442\\u0443\\u043f\\u0430\\u0435\\u0442 \\u0432 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u044b. \\u0412 \\u043f\\u0435\\u0440\\u0438\\u043e\\u0434 \\u0441\\u043a\\u0438\\u0434\\u043e\\u043a \\u0438 \\u0430\\u043a\\u0446\\u0438\\u0439 \\u043c\\u043e\\u0436\\u043d\\u043e \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u0441\\u0440\\u0430\\u0432\\u043d\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0434\\u0435\\u0448\\u0435\\u0432\\u044b\\u0435 \\u0443\\u0433\\u0433\\u0438. \\u0420\\u0430\\u0441\\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0430 \\u0437\\u0438\\u043c\\u043d\\u0435\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438 \\u043e\\u0431\\u044b\\u0447\\u043d\\u043e \\u043f\\u0440\\u043e\\u0445\\u043e\\u0434\\u0438\\u0442 \\u0432 \\u0444\\u0435\\u0432\\u0440\\u0430\\u043b\\u0435 \\u2013 \\u0432 \\u043a\\u043e\\u043d\\u0446\\u0435 \\u0441\\u0435\\u0437\\u043e\\u043d\\u0430. \\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u043e \\u0432 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u043c\\u043e\\u0436\\u043d\\u043e \\u0442\\u0430\\u043a\\u0436\\u0435 \\u0432 \\u043f\\u0435\\u0440\\u0438\\u043e\\u0434 \\u043f\\u0440\\u0435\\u0434\\u043f\\u0440\\u0430\\u0437\\u0434\\u043d\\u0438\\u0447\\u043d\\u044b\\u0445 \\u0430\\u043a\\u0446\\u0438\\u0439.&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0423\\u0433\\u0433\\u0438: \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n \\r\\n\\r\\n&lt;p&gt;\\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043c\\u043e\\u0436\\u043d\\u043e \\u043a\\u0430\\u043a \\u0432 \\u043e\\u0431\\u0443\\u0432\\u043d\\u044b\\u0445 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0430\\u0445 \\u0438 \\u0441\\u0430\\u043b\\u043e\\u043d\\u0430\\u0445, \\u0442\\u0430\\u043a \\u0438 \\u0447\\u0435\\u0440\\u0435\\u0437 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442. \\u0412\\u0442\\u043e\\u0440\\u043e\\u0439 \\u0432\\u0430\\u0440\\u0438\\u0430\\u043d\\u0442 \\u0441\\u0442\\u0430\\u043d\\u043e\\u0432\\u0438\\u0442\\u0441\\u044f \\u0432\\u0441\\u0435 \\u0431\\u043e\\u043b\\u0435\\u0435 \\u043f\\u043e\\u043f\\u0443\\u043b\\u044f\\u0440\\u043d\\u044b\\u043c. \\u041f\\u0440\\u0438\\u0447\\u0435\\u043c \\u0434\\u043b\\u044f \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0442\\u0435\\u043d\\u0438\\u044f \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u043e\\u0439 \\u043e\\u0431\\u0443\\u0432\\u0438, \\u0432\\u043e\\u0432\\u0441\\u0435 \\u043d\\u0435\\u043e\\u0431\\u044f\\u0437\\u0430\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0438\\u0441\\u043a\\u0430\\u0442\\u044c \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0443\\u0433\\u0433\\u0438  \\u0432 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438 \\u0438\\u043b\\u0438 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0443\\u0433\\u0433 (\\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u044f).&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt; \\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 ugg australia (\\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b) \\u043c\\u043e\\u0436\\u043d\\u043e \\u0447\\u0435\\u0440\\u0435\\u0437 \\u043e\\u0442\\u0435\\u0447\\u0435\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u044b\\u0435 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u0440\\u0435\\u0441\\u0443\\u0440\\u0441\\u044b. \\u0421\\u043b\\u043e\\u0436\\u0438\\u0432\\u0448\\u0438\\u0439\\u0441\\u044f \\u0441\\u0442\\u0435\\u0440\\u0435\\u043e\\u0442\\u0438\\u043f \\u043e \\u0442\\u043e\\u043c, \\u0447\\u0442\\u043e \\u043e\\u0431\\u0443\\u0432\\u044c \\u043d\\u0430\\u0434\\u043e \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0442\\u0430\\u0442\\u044c \\u043d\\u0435\\u043f\\u0440\\u0435\\u043c\\u0435\\u043d\\u043d\\u043e \\u0432 \\u0441\\u0430\\u043b\\u043e\\u043d\\u0435, \\u0430 \\u0434\\u0438\\u0441\\u0442\\u0430\\u043d\\u0446\\u0438\\u043e\\u043d\\u043d\\u0430\\u044f \\u043f\\u043e\\u043a\\u0443\\u043f\\u043a\\u0430 \\u043c\\u043e\\u0436\\u0435\\u0442 \\u0441\\u0442\\u0430\\u0442\\u044c \\u043d\\u0435\\u0443\\u0434\\u0430\\u0447\\u043d\\u043e\\u0439 \\u0438\\u0437-\\u0437\\u0430 \\u043d\\u0435\\u043f\\u0440\\u0430\\u0432\\u0438\\u043b\\u044c\\u043d\\u043e \\u043f\\u043e\\u0434\\u043e\\u0431\\u0440\\u0430\\u043d\\u043d\\u043e\\u0433\\u043e \\u0440\\u0430\\u0437\\u043c\\u0435\\u0440\\u0430, \\u0434\\u0430\\u0432\\u043d\\u043e \\u0440\\u0430\\u0437\\u0440\\u0443\\u0448\\u0435\\u043d. \\u041a\\u0430\\u043a \\u043f\\u0440\\u0430\\u0432\\u0438\\u043b\\u043e, \\u0432 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u043c\\u043e\\u0436\\u043d\\u043e \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0438 \\u0438 \\u043f\\u0440\\u0438 \\u044d\\u0442\\u043e\\u043c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c \\u0441\\u0440\\u0430\\u0437\\u0443 \\u043d\\u0435\\u0441\\u043a\\u043e\\u043b\\u044c\\u043a\\u043e \\u0440\\u0430\\u0437\\u043c\\u0435\\u0440\\u043e\\u0432 \\u0438 \\u043c\\u043e\\u0434\\u0435\\u043b\\u0435\\u0439 \\u043d\\u0430 \\u043f\\u0440\\u0438\\u043c\\u0435\\u0440\\u043a\\u0443. \\u0410 \\u0432\\u044b\\u0431\\u0438\\u0440\\u0430\\u0442\\u044c \\u0432 \\u0434\\u043e\\u043c\\u0430\\u0448\\u043d\\u0438\\u0445 \\u0443\\u0441\\u043b\\u043e\\u0432\\u0438\\u044f\\u0445 \\u043e\\u0447\\u0435\\u043d\\u044c \\u0447\\u0430\\u0441\\u0442\\u043e \\u043a\\u0443\\u0434\\u0430 \\u0443\\u0434\\u043e\\u0431\\u043d\\u0435\\u0435 \\u0438 \\u043f\\u0440\\u0438\\u044f\\u0442\\u043d\\u0435\\u0435, \\u0447\\u0435\\u043c \\u0432 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435. \\u0415\\u0434\\u0438\\u043d\\u0441\\u0442\\u0432\\u0435\\u043d\\u043d\\u044b\\u0439 \\u043c\\u0438\\u043d\\u0443\\u0441 \\u2013 \\u043f\\u0440\\u0438 \\u0434\\u0438\\u0441\\u0442\\u0430\\u043d\\u0446\\u0438\\u043e\\u043d\\u043d\\u043e\\u043c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0435 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u043d\\u0435 \\u0434\\u0430\\u0435\\u0442 \\u0432\\u043e\\u0437\\u043c\\u043e\\u0436\\u043d\\u043e\\u0441\\u0442\\u0438 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u044e \\u043f\\u043e\\u0442\\u0440\\u043e\\u0433\\u0430\\u0442\\u044c \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c, \\u0437\\u0430\\u0442\\u043e  \\u043c\\u043e\\u0436\\u043d\\u043e \\u0440\\u0430\\u0441\\u0441\\u043c\\u043e\\u0442\\u0440\\u0435\\u0442\\u044c   \\u0441\\u043e  \\u0432\\u0441\\u0435\\u0445 \\u0441\\u0442\\u043e\\u0440\\u043e\\u043d \\u0443\\u0433\\u0433\\u0438 \\u043d\\u0430 \\u0444\\u043e\\u0442\\u043e \\u0432\\u044b\\u0441\\u043e\\u043a\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430.  &lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0418\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u0440\\u0435\\u0441\\u0443\\u0440\\u0441\\u044b \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u044e\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0442\\u043e\\u0432\\u0430\\u0440\\u044b \\u0441 \\u0434\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u043e\\u0439 \\u043d\\u0430 \\u0434\\u043e\\u043c. \\u0415\\u0441\\u043b\\u0438 \\u0432\\u044b \\u0440\\u0435\\u0448\\u0438\\u043b\\u0438 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438, \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u043f\\u0440\\u0435\\u0434\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u0432\\u0430\\u043c \\u0432\\u043e\\u0437\\u043c\\u043e\\u0436\\u043d\\u043e\\u0441\\u0442\\u044c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430\\u0442\\u044c \\u043d\\u0435\\u0441\\u043a\\u043e\\u043b\\u044c\\u043a\\u043e \\u043f\\u0430\\u0440. \\u041a\\u0443\\u0440\\u044c\\u0435\\u0440 \\u0434\\u043e\\u0441\\u0442\\u0430\\u0432\\u0438\\u0442 \\u0437\\u0430\\u043a\\u0430\\u0437 \\u0432 \\u0443\\u0434\\u043e\\u0431\\u043d\\u043e\\u0435 \\u0432\\u0440\\u0435\\u043c\\u044f \\u043f\\u043e \\u0443\\u043a\\u0430\\u0437\\u0430\\u043d\\u043d\\u043e\\u043c\\u0443 \\u0430\\u0434\\u0440\\u0435\\u0441\\u0443 \\u0438 \\u043f\\u043e\\u0434\\u043e\\u0436\\u0434\\u0435\\u0442, \\u043f\\u043e\\u043a\\u0430 \\u0432\\u044b \\u043f\\u043e\\u0434\\u0431\\u0435\\u0440\\u0435\\u0442\\u0435 \\u043d\\u0430\\u0438\\u0431\\u043e\\u043b\\u0435\\u0435 \\u0443\\u0434\\u043e\\u0431\\u043d\\u0443\\u044e \\u0434\\u043b\\u044f \\u0441\\u0435\\u0431\\u044f \\u043c\\u043e\\u0434\\u0435\\u043b\\u044c.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u041d\\u0430\\u0448 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0442\\u0430\\u043a\\u0436\\u0435 \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u0442 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 (\\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b - ugg  australia!) \\u0441 \\u0434\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u043e\\u0439 \\u043d\\u0430 \\u0434\\u043e\\u043c. \\u0412\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u0441\\u0434\\u0435\\u043b\\u0430\\u0442\\u044c \\u0437\\u0430\\u043a\\u0430\\u0437, \\u043f\\u043e\\u0437\\u0432\\u043e\\u043d\\u0438\\u0432 \\u043d\\u0430\\u0448\\u0438\\u043c \\u043c\\u0435\\u043d\\u0435\\u0434\\u0436\\u0435\\u0440\\u0430\\u043c \\u0438\\u043b\\u0438 \\u0441 \\u043f\\u043e\\u043c\\u043e\\u0449\\u044c\\u044e \\u044d\\u043b\\u0435\\u043a\\u0442\\u0440\\u043e\\u043d\\u043d\\u043e\\u0439 \\u043a\\u043e\\u0440\\u0437\\u0438\\u043d\\u044b. \\u041a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 (ugg australia \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b!) \\u043c\\u043e\\u0436\\u043d\\u043e \\u043d\\u0430 \\u043d\\u0430\\u0448\\u0435\\u043c \\u0441\\u0430\\u0439\\u0442\\u0435 \\u0432\\u0441\\u0435\\u0433\\u043e \\u0437\\u0430 \\u043f\\u0430\\u0440\\u0443 \\u043a\\u043b\\u0438\\u043a\\u043e\\u0432. \\u041f\\u043e\\u0441\\u043b\\u0435 \\u043e\\u0444\\u043e\\u0440\\u043c\\u043b\\u0435\\u043d\\u0438\\u044f \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430 \\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0430\\u043d\\u0442 \\u043e\\u0431\\u044f\\u0437\\u0430\\u0442\\u0435\\u043b\\u044c\\u043d\\u043e \\u0441\\u0432\\u044f\\u0436\\u0435\\u0442\\u0441\\u044f \\u0441 \\u0432\\u0430\\u043c\\u0438, \\u0443\\u0442\\u043e\\u0447\\u043d\\u0438\\u0442 \\u0437\\u0430\\u043a\\u0430\\u0437 \\u0438 \\u043d\\u0430\\u043b\\u0438\\u0447\\u0438\\u0435 \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u043a\\u043b\\u0430\\u0434\\u0435, \\u0430 \\u0442\\u0430\\u043a\\u0436\\u0435 \\u0443\\u0434\\u043e\\u0431\\u043d\\u043e\\u0435 \\u0432\\u0440\\u0435\\u043c\\u044f \\u0434\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0438.&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;&lt;b&gt;\\u0423\\u0433\\u0433\\u0438 \\u043e\\u0442\\u0437\\u044b\\u0432\\u044b&lt;\\/b&gt;&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u0413\\u0434\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435? \\u0413\\u0434\\u0435 \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u0443\\u0433\\u0433\\u0438 \\u0434\\u0435\\u0448\\u0435\\u0432\\u043e? \\u041a\\u0430\\u043a\\u043e\\u0432\\u044b \\u043e\\u0442\\u0437\\u044b\\u0432\\u044b \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0435\\u0439? \\u042d\\u0442\\u0438 \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441\\u044b \\u0447\\u0430\\u0449\\u0435 \\u0432\\u0441\\u0435\\u0433\\u043e \\u0432\\u043e\\u043b\\u043d\\u0443\\u044e\\u0442 \\u0442\\u0435\\u0445, \\u043a\\u0442\\u043e \\u043f\\u043b\\u0430\\u043d\\u0438\\u0440\\u0443\\u0435\\u0442 \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u043e\\u0432\\u0447\\u0438\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0430\\u043f\\u043e\\u0436\\u043a\\u0438. \\u041f\\u0440\\u043e\\u0430\\u043d\\u0430\\u043b\\u0438\\u0437\\u0438\\u0440\\u043e\\u0432\\u0430\\u0432 \\u043c\\u043d\\u0435\\u043d\\u0438\\u044f \\u0438 \\u043e\\u0442\\u0437\\u044b\\u0432\\u044b \\u043b\\u044e\\u0434\\u0435\\u0439, \\u043a\\u043e\\u0442\\u043e\\u0440\\u044b\\u0435 \\u043d\\u043e\\u0441\\u044f\\u0442 \\u0443\\u0433\\u0433\\u0438 \\u0443\\u0436\\u0435 \\u043d\\u0435 \\u043e\\u0434\\u0438\\u043d \\u0441\\u0435\\u0437\\u043e\\u043d, \\u043c\\u044b \\u043f\\u0440\\u0438\\u0448\\u043b\\u0438 \\u043a \\u0432\\u044b\\u0432\\u043e\\u0434\\u0443, \\u0447\\u0442\\u043e \\u0430\\u0431\\u0441\\u043e\\u043b\\u044e\\u0442\\u043d\\u043e\\u0435 \\u0431\\u043e\\u043b\\u044c\\u0448\\u0438\\u043d\\u0441\\u0442\\u0432\\u043e \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0435\\u0439 \\u043e\\u0441\\u0442\\u0430\\u043b\\u0438\\u0441\\u044c \\u0434\\u043e\\u0432\\u043e\\u043b\\u044c\\u043d\\u044b \\u043e\\u0431\\u0443\\u0432\\u044c\\u044e. \\u0421\\u0440\\u0435\\u0434\\u0438 \\u043f\\u0440\\u0435\\u0438\\u043c\\u0443\\u0449\\u0435\\u0441\\u0442\\u0432   \\u0443\\u0433\\u0433 \\u043f\\u043e\\u043a\\u0443\\u043f\\u0430\\u0442\\u0435\\u043b\\u0438 \\u043e\\u0442\\u043c\\u0435\\u0447\\u0430\\u044e\\u0442 \\u0438\\u0445 \\u0443\\u0434\\u043e\\u0431\\u0441\\u0442\\u0432\\u043e \\u0438 \\u0432\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 \\u0442\\u0435\\u043f\\u043b\\u043e\\u0438\\u0437\\u043e\\u043b\\u044f\\u0446\\u0438\\u043e\\u043d\\u043d\\u044b\\u0435 \\u0441\\u0432\\u043e\\u0439\\u0441\\u0442\\u0432\\u0430. \\u041c\\u043d\\u043e\\u0433\\u0438\\u0435 \\u0441\\u043e\\u0432\\u0435\\u0442\\u0443\\u044e\\u0442 \\u0434\\u0430\\u0436\\u0435 \\u043f\\u0440\\u0438\\u043e\\u0431\\u0440\\u0435\\u0441\\u0442\\u0438 \\u0434\\u043e\\u043c\\u0430\\u0448\\u043d\\u0438\\u0435 \\u0443\\u0433\\u0433\\u0438, \\u0442\\u0430\\u043a \\u043a\\u0430\\u043a \\u043e\\u043d\\u0438 \\u0441 \\u0443\\u0441\\u043f\\u0435\\u0445\\u043e\\u043c \\u043c\\u043e\\u0433\\u0443\\u0442 \\u0437\\u0430\\u043c\\u0435\\u043d\\u0438\\u0442\\u044c \\u0442\\u0435\\u043f\\u043b\\u044b\\u0435 \\u0442\\u0430\\u043f\\u043e\\u0447\\u043a\\u0438. \\u041a\\u0440\\u043e\\u043c\\u0435 \\u0442\\u043e\\u0433\\u043e, \\u043f\\u043e\\u0442\\u0440\\u0435\\u0431\\u0438\\u0442\\u0435\\u043b\\u0438 \\u043e\\u0442\\u043c\\u0435\\u0447\\u0430\\u044e\\u0442, \\u0447\\u0442\\u043e \\u0435\\u0441\\u043b\\u0438 \\u0432\\u044b \\u0445\\u043e\\u0442\\u0438\\u0442\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u0441 \\u043c\\u0435\\u0445\\u043e\\u043c \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u0438\\u0435, \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u2013 \\u043b\\u0443\\u0447\\u0448\\u0438\\u0439 \\u0432\\u0430\\u0440\\u0438\\u0430\\u043d\\u0442. \\u0418\\u043c\\u0435\\u043d\\u043d\\u043e \\u0434\\u0438\\u0441\\u0442\\u0430\\u043d\\u0446\\u0438\\u043e\\u043d\\u043d\\u0430\\u044f \\u043f\\u043e\\u043a\\u0443\\u043f\\u043a\\u0430 \\u0432\\u043e\\u0437\\u043c\\u043e\\u0436\\u043d\\u0430 \\u0441 \\u0445\\u043e\\u0440\\u043e\\u0448\\u0438\\u043c\\u0438 \\u0441\\u043a\\u0438\\u0434\\u043a\\u0430\\u043c\\u0438!&lt;\\/p&gt;\\r\\n\\r\\n&lt;p&gt;\\u041d\\u0430\\u0448 \\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d \\u0443\\u0433\\u0433\\u0438 \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435 \\u043f\\u0440\\u043e\\u0434\\u0430\\u0435\\u0442 \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u043e, \\u043e\\u0434\\u043d\\u0430\\u043a\\u043e \\u0432\\u0441\\u0435\\u0433\\u0434\\u0430 \\u043d\\u0435\\u0438\\u0437\\u043c\\u0435\\u043d\\u043d\\u043e \\u0432\\u044b\\u0441\\u043e\\u043a\\u043e\\u0433\\u043e \\u043a\\u0430\\u0447\\u0435\\u0441\\u0442\\u0432\\u0430. \\u0415\\u0441\\u043b\\u0438 \\u0443 \\u0432\\u0430\\u0441 \\u043f\\u043e\\u044f\\u0432\\u044f\\u0442\\u0441\\u044f \\u0434\\u043e\\u043f\\u043e\\u043b\\u043d\\u0438\\u0442\\u0435\\u043b\\u044c\\u043d\\u044b\\u0435 \\u0432\\u043e\\u043f\\u0440\\u043e\\u0441\\u044b, \\u0437\\u0432\\u043e\\u043d\\u0438\\u0442\\u0435, \\u043a\\u043e\\u043d\\u0441\\u0443\\u043b\\u044c\\u0442\\u0430\\u043d\\u0442\\u044b \\u0432\\u0441\\u0435\\u0433\\u0434\\u0430 \\u0433\\u043e\\u0442\\u043e\\u0432\\u044b \\u043d\\u0430 \\u043d\\u0438\\u0445 \\u043e\\u0442\\u0432\\u0435\\u0442\\u0438\\u0442\\u044c. &lt;\\/p&gt;\\r\\n&lt;\\/div&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}');
+INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
+(41, 'Категория - Текст над футером', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f - \\u0422\\u0435\\u043a\\u0441\\u0442 \\u043d\\u0430\\u0434 \\u0444\\u0443\\u0442\\u0435\\u0440\\u043e\\u043c","module_description":{"1":{"title":"","description":"&lt;div class=&quot;content-txt&quot;&gt;\\r\\n            \\r\\n            \\r\\n&lt;p&gt;\\r\\n\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 Ugg Australia \\u043f\\u0440\\u0435\\u0434\\u043b\\u0430\\u0433\\u0430\\u0435\\u0442 \\u0412\\u0430\\u043c \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u043e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435 \\u043f\\u043e \\u043d\\u0438\\u0437\\u043a\\u043e\\u0439 \\u0446\\u0435\\u043d\\u0435 \\u0432 \\u043d\\u0430\\u0448\\u0435\\u043c \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0423\\u0433\\u0433 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u044f \\u0432 \\u041c\\u043e\\u0441\\u043a\\u0432\\u0435. \\u0418\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d Ugg Australia \\u043f\\u0440\\u043e\\u0432\\u043e\\u0434\\u0438\\u0442 \\u0440\\u0430\\u0441\\u043f\\u0440\\u043e\\u0434\\u0430\\u0436\\u0443 \\u0443\\u0433\\u0433\\u043e\\u0432, \\u0432\\u044b \\u043c\\u043e\\u0436\\u0435\\u0442\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u0432 \\u0438\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442-\\u043c\\u0430\\u0433\\u0430\\u0437\\u0438\\u043d\\u0435 \\u0438 \\u043d\\u0430 \\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u043e\\u043c \\u0441\\u0430\\u0439\\u0442\\u0435 \\u0443\\u0433\\u0433. \\u0423\\u0441\\u043f\\u0435\\u0432\\u0430\\u0439\\u0442\\u0435 \\u043a\\u0443\\u043f\\u0438\\u0442\\u044c \\u0443\\u0433\\u0433\\u0438 \\u0434\\u0435\\u0448\\u0435\\u0432\\u043e \\u0438 \\u043d\\u0435\\u0434\\u043e\\u0440\\u043e\\u0433\\u043e, \\u0441 \\u043d\\u0430\\u0441\\u0442\\u0443\\u043f\\u0430\\u044e\\u0438\\u043c \\u041d\\u043e\\u0432\\u044b\\u043c \\u0413\\u043e\\u0434\\u043e\\u043c \\u043f\\u043e\\u0437\\u0434\\u0440\\u0430\\u0432\\u043b\\u044f\\u0435\\u0442 \\u0412\\u0430\\u0441 \\u043e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 \\u0423\\u0433\\u0433 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u044f!&lt;\\/p&gt;\\r\\n          &lt;\\/div&gt;\\r\\n"}},"status":"1"}'),
 (42, 'Товар - Вы смотрели', 'viewed', '{"name":"\\u0422\\u043e\\u0432\\u0430\\u0440 - \\u0412\\u044b \\u0441\\u043c\\u043e\\u0442\\u0440\\u0435\\u043b\\u0438","limit":"4","width":"200","height":"200","status":"1"}'),
 (43, 'Категория - Меню в сайдбаре', 'html', '{"name":"\\u041a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f - \\u041c\\u0435\\u043d\\u044e \\u0432 \\u0441\\u0430\\u0439\\u0434\\u0431\\u0430\\u0440\\u0435","module_description":{"1":{"title":"","description":"&lt;ul class=&quot;list-aside-catalog&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/zhenskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0416\\u0435\\u043d\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/muzhskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u041c\\u0443\\u0436\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/detskie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0414\\u0435\\u0442\\u0441\\u043a\\u0438\\u0435 \\u0423\\u0413\\u0413\\u0418&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;\\r\\n\\r\\n&lt;ul class=&quot;list-aside-catalog&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/vysokie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u0412\\u044b\\u0441\\u043e\\u043a\\u0438\\u0435 UGG&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/korotkie-ugg&quot;&gt;\\r\\n            &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n            &lt;span&gt;\\u041a\\u043e\\u0440\\u043e\\u0442\\u043a\\u0438\\u0435 UGG&lt;\\/span&gt;\\r\\n        &lt;\\/a&gt;\\r\\n    &lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;\\r\\n\\r\\n&lt;ul class=&quot;list-aside-product&quot;&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-dylyn&quot;&gt;UGG Bailey &amp;amp; Dylyn&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n    &lt;li&gt;&lt;a href=&quot;\\/ugg-bailey-triplet&quot;&gt;UGG Bailey Triplet&lt;\\/a&gt;&lt;\\/li&gt;\\r\\n&lt;\\/ul&gt;"}},"status":"1"}'),
 (44, 'Информация - Баннер слева', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f - \\u0411\\u0430\\u043d\\u043d\\u0435\\u0440 \\u0441\\u043b\\u0435\\u0432\\u0430","module_description":{"1":{"title":"","description":"&lt;div class=&quot;aside-banner&quot;&gt;\\r\\n    &lt;div class=&quot;banner-tt&quot;&gt;\\r\\n        &lt;span&gt;\\u041a\\u041b\\u0410\\u0421\\u0421\\u0418\\u0427\\u0415\\u0421\\u041a\\u0418\\u0415 UGG Bailey&lt;\\/span&gt;\\r\\n        &lt;div&gt;&lt;span&gt;\\u0434\\u043e&lt;\\/span&gt; \\u0421\\u043a\\u0438\\u0434\\u043a\\u0430 &lt;span&gt;50%&lt;\\/span&gt;&lt;\\/div&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;a href=&quot;\\/all&quot; class=&quot;btn btn-icon&quot;&gt;\\r\\n        &lt;span&gt;\\u0432 \\u043a\\u0430\\u0442\\u0430\\u043b\\u043e\\u0433&lt;\\/span&gt;\\r\\n        &lt;i class=&quot;icon&quot;&gt; \\u203a &lt;\\/i&gt;\\r\\n    &lt;\\/a&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
-(45, 'Информация - Контент под информацией', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f - \\u041a\\u043e\\u043d\\u0442\\u0435\\u043d\\u0442 \\u043f\\u043e\\u0434 \\u0438\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u0435\\u0439","module_description":{"1":{"title":"","description":"&lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage4&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0414\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430 &lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0432 \\u0434\\u0435\\u043d\\u044c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage5&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0412\\u043e\\u0437\\u0432\\u0440\\u0430\\u0442&lt;\\/span&gt;\\r\\n            &lt;span&gt;365 \\u0434\\u043d\\u0435\\u0439 &lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage6&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0413\\u0430\\u0440\\u0430\\u043d\\u0442\\u0438\\u044f&lt;\\/span&gt;\\r\\n            &lt;span&gt;60 \\u0434\\u043d\\u0435\\u0439&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-logo&quot;&gt;&lt;img src=&quot;\\/image\\/logo-header.png&quot; alt=&quot;&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt; \\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435&lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0423\\u0413\\u0413\\u0418 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;\\r\\n&lt;div class=&quot;prod-img-content&quot;&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}');
+(45, 'Информация - Контент под информацией', 'html', '{"name":"\\u0418\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u044f - \\u041a\\u043e\\u043d\\u0442\\u0435\\u043d\\u0442 \\u043f\\u043e\\u0434 \\u0438\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u0435\\u0439","module_description":{"1":{"title":"","description":"&lt;div class=&quot;product-info-icons hidden-devices&quot;&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage4&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0414\\u043e\\u0441\\u0442\\u0430\\u0432\\u043a\\u0430 &lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0432 \\u0434\\u0435\\u043d\\u044c \\u0437\\u0430\\u043a\\u0430\\u0437\\u0430&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage5&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0412\\u043e\\u0437\\u0432\\u0440\\u0430\\u0442&lt;\\/span&gt;\\r\\n            &lt;span&gt;365 \\u0434\\u043d\\u0435\\u0439 &lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-advantage6&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt;\\u0413\\u0430\\u0440\\u0430\\u043d\\u0442\\u0438\\u044f&lt;\\/span&gt;\\r\\n            &lt;span&gt;60 \\u0434\\u043d\\u0435\\u0439&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n    &lt;div class=&quot;prod-icon-item&quot;&gt;\\r\\n        &lt;i class=&quot;icon icon-logo&quot;&gt;&lt;img src=&quot;\\/image\\/logo-header.png&quot; alt=&quot;&quot;&gt;&lt;\\/i&gt;\\r\\n        &lt;span class=&quot;prod-icon-name&quot;&gt;\\r\\n            &lt;span&gt; \\u041e\\u0440\\u0438\\u0433\\u0438\\u043d\\u0430\\u043b\\u044c\\u043d\\u044b\\u0435&lt;\\/span&gt;\\r\\n            &lt;span&gt;\\u0423\\u0413\\u0413\\u0418 \\u0438\\u0437 \\u0410\\u0432\\u0441\\u0442\\u0440\\u0430\\u043b\\u0438\\u0438&lt;\\/span&gt;\\r\\n        &lt;\\/span&gt;\\r\\n    &lt;\\/div&gt;\\r\\n&lt;\\/div&gt;\\r\\n&lt;div class=&quot;prod-img-content&quot;&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img1.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n    &lt;span&gt;&lt;img src=&quot;\\/image\\/uggy-img2.jpg&quot; alt=&quot;&quot;&gt;&lt;\\/span&gt;\\r\\n&lt;\\/div&gt;"}},"status":"1"}'),
+(46, 'Вам также может понравиться', 'categoryproducts', '{"name":"\\u0412\\u0430\\u043c \\u0442\\u0430\\u043a\\u0436\\u0435 \\u043c\\u043e\\u0436\\u0435\\u0442 \\u043f\\u043e\\u043d\\u0440\\u0430\\u0432\\u0438\\u0442\\u044c\\u0441\\u044f","product":["83"],"limit":"12","width":"200","height":"200","status":"1"}'),
+(51, 'Ugg Classic Mini', 'categoryproducts', '{"name":"Ugg Classic Mini","product":["86"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(52, 'Ugg Classic Short', 'categoryproducts', '{"name":"Ugg Classic Short","product":["87"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(53, 'Ugg Mini Fox Fur', 'categoryproducts', '{"name":"Ugg Mini Fox Fur","product":["89"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(54, 'Ugg Classic Tall', 'categoryproducts', '{"name":"Ugg Classic Tall","product":["93"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(55, 'Ugg Jimmy Choo', 'categoryproducts', '{"name":"Ugg Jimmy Choo","product":["92"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(56, 'Ugg Mini Bailey Bow', 'categoryproducts', '{"name":"Ugg Mini Bailey Bow","product":["90"],"limit":"100","width":"200","height":"200","status":"1"}'),
+(57, 'Ugg Mocassin', 'categoryproducts', '{"name":"Ugg Mocassin","product":["91"],"limit":"100","width":"200","height":"200","status":"1"}');
 
 -- --------------------------------------------------------
 
@@ -2205,16 +2159,15 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article` (
-  `article_id` int(11) NOT NULL AUTO_INCREMENT,
+  `article_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `date_available` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `viewed` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`article_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_newsblog_article`
@@ -2240,8 +2193,7 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_attribute` (
   `article_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  PRIMARY KEY (`article_id`,`attribute_id`,`language_id`)
+  `text` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2260,9 +2212,7 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`article_id`,`language_id`),
-  KEY `name` (`name`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2286,13 +2236,11 @@ INSERT INTO `oc_newsblog_article_description` (`article_id`, `language_id`, `nam
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_image` (
-  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_image_id` int(11) NOT NULL,
   `article_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_image_id`),
-  KEY `article_id` (`article_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=41 ;
+  `sort_order` int(3) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_newsblog_article_image`
@@ -2317,8 +2265,7 @@ INSERT INTO `oc_newsblog_article_image` (`product_image_id`, `article_id`, `imag
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_related` (
   `article_id` int(11) NOT NULL,
   `related_id` int(11) NOT NULL,
-  `type` int(1) NOT NULL,
-  PRIMARY KEY (`article_id`,`related_id`)
+  `type` int(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2330,9 +2277,7 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_article_related` (
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_category` (
   `article_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `main_category` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`article_id`,`category_id`),
-  KEY `category_id` (`category_id`)
+  `main_category` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2358,8 +2303,7 @@ INSERT INTO `oc_newsblog_article_to_category` (`article_id`, `category_id`, `mai
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_layout` (
   `article_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`article_id`,`store_id`)
+  `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2384,8 +2328,7 @@ INSERT INTO `oc_newsblog_article_to_layout` (`article_id`, `store_id`, `layout_i
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_article_to_store` (
   `article_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`article_id`,`store_id`)
+  `store_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2409,17 +2352,15 @@ INSERT INTO `oc_newsblog_article_to_store` (`article_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category` (
-  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   `parent_id` int(11) NOT NULL DEFAULT '0',
   `sort_order` int(3) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL,
   `date_added` datetime NOT NULL,
   `date_modified` datetime NOT NULL,
-  `settings` text NOT NULL,
-  PRIMARY KEY (`category_id`),
-  KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `settings` text NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_newsblog_category`
@@ -2442,9 +2383,7 @@ CREATE TABLE IF NOT EXISTS `oc_newsblog_category_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`category_id`,`language_id`),
-  KEY `name` (`name`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2463,8 +2402,7 @@ INSERT INTO `oc_newsblog_category_description` (`category_id`, `language_id`, `n
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_path` (
   `category_id` int(11) NOT NULL,
   `path_id` int(11) NOT NULL,
-  `level` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`path_id`)
+  `level` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2483,8 +2421,7 @@ INSERT INTO `oc_newsblog_category_path` (`category_id`, `path_id`, `level`) VALU
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_to_layout` (
   `category_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`store_id`)
+  `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2502,8 +2439,7 @@ INSERT INTO `oc_newsblog_category_to_layout` (`category_id`, `store_id`, `layout
 
 CREATE TABLE IF NOT EXISTS `oc_newsblog_category_to_store` (
   `category_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL,
-  PRIMARY KEY (`category_id`,`store_id`)
+  `store_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2520,11 +2456,10 @@ INSERT INTO `oc_newsblog_category_to_store` (`category_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_option` (
-  `option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `option_id` int(11) NOT NULL,
   `type` varchar(32) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`option_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_option`
@@ -2534,7 +2469,8 @@ INSERT INTO `oc_option` (`option_id`, `type`, `sort_order`) VALUES
 (13, 'text', 0),
 (14, 'radio', 0),
 (15, 'checkbox', 0),
-(16, 'radio', 0);
+(16, 'radio', 0),
+(17, 'text', 0);
 
 -- --------------------------------------------------------
 
@@ -2545,8 +2481,7 @@ INSERT INTO `oc_option` (`option_id`, `type`, `sort_order`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_option_description` (
   `option_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`option_id`,`language_id`)
+  `name` varchar(128) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2557,7 +2492,8 @@ INSERT INTO `oc_option_description` (`option_id`, `language_id`, `name`) VALUES
 (13, 1, 'Скидка'),
 (14, 1, 'Размер'),
 (15, 1, 'Привезти несколько размеров'),
-(16, 1, 'Доставка');
+(16, 1, 'Доставка'),
+(17, 1, 'Показывать на главной');
 
 -- --------------------------------------------------------
 
@@ -2566,12 +2502,11 @@ INSERT INTO `oc_option_description` (`option_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_option_value` (
-  `option_value_id` int(11) NOT NULL AUTO_INCREMENT,
+  `option_value_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
   `image` varchar(255) NOT NULL,
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`option_value_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_option_value`
@@ -2607,8 +2542,7 @@ CREATE TABLE IF NOT EXISTS `oc_option_value_description` (
   `option_value_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`option_value_id`,`language_id`)
+  `name` varchar(128) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -2642,7 +2576,7 @@ INSERT INTO `oc_option_value_description` (`option_value_id`, `language_id`, `op
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
   `invoice_no` int(11) NOT NULL DEFAULT '0',
   `invoice_prefix` varchar(26) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
@@ -2702,9 +2636,8 @@ CREATE TABLE IF NOT EXISTS `oc_order` (
   `user_agent` varchar(255) NOT NULL,
   `accept_language` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=454 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=469 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_order`
@@ -2838,9 +2771,9 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 (125, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:01', '2017-09-08 11:40:01'),
 (126, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:07', '2017-09-08 11:40:07'),
 (127, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:45', '2017-09-08 11:40:45'),
-(128, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:51', '2017-09-08 11:40:51');
+(128, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:40:51', '2017-09-08 11:40:51'),
+(129, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:42:14', '2017-09-08 11:42:14');
 INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
-(129, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:42:14', '2017-09-08 11:42:14'),
 (130, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:43:59', '2017-09-08 11:43:59'),
 (131, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (000) 000-00-00', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:44:17', '2017-09-08 11:44:17'),
 (132, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 11:44:47', '2017-09-08 11:44:47'),
@@ -2961,12 +2894,12 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 (247, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
 (248, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
 (249, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:08', '2017-09-08 13:19:08'),
-(250, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56');
-INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
+(250, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56'),
 (251, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56'),
 (252, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:19:56', '2017-09-08 13:19:56'),
 (253, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:21:01', '2017-09-08 13:21:01'),
-(254, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:24', '2017-09-08 13:23:24'),
+(254, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:24', '2017-09-08 13:23:24');
+INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
 (255, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:35', '2017-09-08 13:23:35'),
 (256, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:23:35', '2017-09-08 13:23:35'),
 (257, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 13:24:40', '2017-09-08 13:24:40'),
@@ -3084,15 +3017,15 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 (369, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:20:34', '2017-09-08 15:20:34'),
 (370, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (555) 555-55-55', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:20:43', '2017-09-08 15:20:43'),
 (371, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:12', '2017-09-08 15:21:12'),
-(372, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:22', '2017-09-08 15:21:22');
-INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
+(372, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (666) 666-66-66', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:22', '2017-09-08 15:21:22'),
 (373, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (777) 777-77-77', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:21:29', '2017-09-08 15:21:29'),
 (374, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:06', '2017-09-08 15:22:06'),
 (375, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:17', '2017-09-08 15:22:17'),
 (376, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:17', '2017-09-08 15:22:17'),
 (377, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:53', '2017-09-08 15:22:53'),
 (378, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:22:53', '2017-09-08 15:22:53'),
-(379, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:27', '2017-09-08 15:24:27'),
+(379, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:27', '2017-09-08 15:24:27');
+INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, `store_name`, `store_url`, `customer_id`, `customer_group_id`, `firstname`, `lastname`, `email`, `telephone`, `fax`, `custom_field`, `payment_firstname`, `payment_lastname`, `payment_company`, `payment_address_1`, `payment_address_2`, `payment_city`, `payment_postcode`, `payment_country`, `payment_country_id`, `payment_zone`, `payment_zone_id`, `payment_address_format`, `payment_custom_field`, `payment_method`, `payment_code`, `shipping_firstname`, `shipping_lastname`, `shipping_company`, `shipping_address_1`, `shipping_address_2`, `shipping_city`, `shipping_postcode`, `shipping_country`, `shipping_country_id`, `shipping_zone`, `shipping_zone_id`, `shipping_address_format`, `shipping_custom_field`, `shipping_method`, `shipping_code`, `comment`, `total`, `order_status_id`, `affiliate_id`, `commission`, `marketing_id`, `tracking`, `language_id`, `currency_id`, `currency_code`, `currency_value`, `ip`, `forwarded_ip`, `user_agent`, `accept_language`, `date_added`, `date_modified`) VALUES
 (380, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:27', '2017-09-08 15:24:27'),
 (381, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (888) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:24:38', '2017-09-08 15:24:38'),
 (382, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'по Москве', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 15:25:02', '2017-09-08 15:25:02'),
@@ -3166,7 +3099,22 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 (450, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:00', '2017-09-08 16:10:00'),
 (451, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:24', '2017-09-08 16:10:24'),
 (452, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:24', '2017-09-08 16:10:24'),
-(453, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:40', '2017-09-08 16:10:40');
+(453, 0, 'INV-2013-00', 0, '', '', 0, 1, '', '', '', '+7 (111) 111-11-11', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', '', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-08 16:10:40', '2017-09-08 16:10:40'),
+(454, 0, 'INV-2013-00', 0, '', '', 0, 1, 'stas', '', '', '+7 (324) 234-32-43', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 36 , Не уверена в размере - привезите несколько', '12920.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 19:12:13', '2017-09-13 19:12:13'),
+(455, 0, 'INV-2013-00', 0, '', '', 0, 1, 'stas', '', '', '+7 (324) 234-32-43', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 36 , Не уверена в размере - привезите несколько', '12920.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 19:12:13', '2017-09-13 19:12:13'),
+(456, 0, 'INV-2013-00', 0, '', '', 0, 1, 'steas', '', '', '+7 (222) 222-22-22', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 36 , Не уверена в размере - привезите несколько', '6380.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 19:13:38', '2017-09-13 19:13:38'),
+(457, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: , Не уверена в размере - привезите несколько', '0.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 20:13:16', '2017-09-13 20:13:16'),
+(458, 0, 'INV-2013-00', 0, '', '', 0, 1, 'sets', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 42,5 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 20:30:34', '2017-09-13 20:30:34'),
+(459, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 41,5 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 20:51:44', '2017-09-13 20:51:44'),
+(460, 0, 'INV-2013-00', 0, '', '', 0, 1, '9890', '', '', '+7 (988) 888-88-88', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 41,5 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 20:52:30', '2017-09-13 20:52:30'),
+(461, 0, 'INV-2013-00', 0, '', '', 0, 1, '9', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 41,5 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 20:53:41', '2017-09-13 20:53:41'),
+(462, 0, 'INV-2013-00', 0, '', '', 0, 1, '4534', '', '', '+7 (345) 345-34-53', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 43 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 21:03:21', '2017-09-13 21:03:21'),
+(463, 0, 'INV-2013-00', 0, '', '', 0, 1, '980980', '', '', '+7 (999) 999-99-99', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 41,5 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 21:06:07', '2017-09-13 21:06:07'),
+(464, 0, 'INV-2013-00', 0, '', '', 0, 1, '78qweqw', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по России, размер: 41,5 , Не уверена в размере - привезите несколько', '24760.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 21:16:38', '2017-09-13 21:16:38'),
+(465, 0, 'INV-2013-00', 0, '', '', 0, 1, '78qweqw', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по России, размер: 36 , Не уверена в размере - привезите несколько', '24760.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-13 21:16:38', '2017-09-13 21:16:38'),
+(466, 0, 'INV-2013-00', 0, '', '', 0, 1, 'asdasd', '', '', '+7 (123) 123-12-31', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 36 , Не уверена в размере - привезите несколько', '12000.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-14 08:36:57', '2017-09-14 08:36:57'),
+(467, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 38 , Не уверена в размере - привезите несколько', '58060.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-14 16:31:03', '2017-09-14 16:31:03'),
+(468, 0, 'INV-2013-00', 0, '', '', 0, 1, 'test', '', '', '+7 (333) 333-33-33', '', '[]', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'code', '', '', '', '', '', '', '', 'Russian Federation', 176, '', 0, '', '[]', '', 'flat.flat', 'Доставка: по Москве, размер: 42,5 , Не уверена в размере - привезите несколько', '58060.0000', 1, 0, '0.0000', 0, '', 1, 4, 'RUB', '1.00000000', '', '', '', '', '2017-09-14 16:31:03', '2017-09-14 16:31:03');
 
 -- --------------------------------------------------------
 
@@ -3175,16 +3123,15 @@ INSERT INTO `oc_order` (`order_id`, `invoice_no`, `invoice_prefix`, `store_id`, 
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_custom_field` (
-  `order_custom_field_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_custom_field_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `custom_field_id` int(11) NOT NULL,
   `custom_field_value_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `value` text NOT NULL,
   `type` varchar(32) NOT NULL,
-  `location` varchar(16) NOT NULL,
-  PRIMARY KEY (`order_custom_field_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `location` varchar(16) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3193,15 +3140,13 @@ CREATE TABLE IF NOT EXISTS `oc_order_custom_field` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_history` (
-  `order_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_history_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `order_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`order_history_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=449 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=464 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_order_history`
@@ -3655,7 +3600,22 @@ INSERT INTO `oc_order_history` (`order_history_id`, `order_id`, `order_status_id
 (445, 450, 1, 1, '', '0000-00-00 00:00:00'),
 (446, 451, 1, 1, '', '0000-00-00 00:00:00'),
 (447, 452, 1, 1, '', '0000-00-00 00:00:00'),
-(448, 453, 1, 1, '', '0000-00-00 00:00:00');
+(448, 453, 1, 1, '', '0000-00-00 00:00:00'),
+(449, 454, 1, 1, '', '0000-00-00 00:00:00'),
+(450, 455, 1, 1, '', '0000-00-00 00:00:00'),
+(451, 456, 1, 1, '', '0000-00-00 00:00:00'),
+(452, 457, 1, 1, '', '0000-00-00 00:00:00'),
+(453, 458, 1, 1, '', '0000-00-00 00:00:00'),
+(454, 459, 1, 1, '', '0000-00-00 00:00:00'),
+(455, 460, 1, 1, '', '0000-00-00 00:00:00'),
+(456, 461, 1, 1, '', '0000-00-00 00:00:00'),
+(457, 462, 1, 1, '', '0000-00-00 00:00:00'),
+(458, 463, 1, 1, '', '0000-00-00 00:00:00'),
+(459, 464, 1, 1, '', '0000-00-00 00:00:00'),
+(460, 465, 1, 1, '', '0000-00-00 00:00:00'),
+(461, 466, 1, 1, '', '0000-00-00 00:00:00'),
+(462, 467, 1, 1, '', '0000-00-00 00:00:00'),
+(463, 468, 1, 1, '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -3664,16 +3624,15 @@ INSERT INTO `oc_order_history` (`order_history_id`, `order_id`, `order_status_id
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_option` (
-  `order_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_option_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `order_product_id` int(11) NOT NULL,
   `product_option_id` int(11) NOT NULL,
   `product_option_value_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `value` text NOT NULL,
-  `type` varchar(32) NOT NULL,
-  PRIMARY KEY (`order_option_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `type` varchar(32) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3682,7 +3641,7 @@ CREATE TABLE IF NOT EXISTS `oc_order_option` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_product` (
-  `order_product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_product_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -3691,15 +3650,114 @@ CREATE TABLE IF NOT EXISTS `oc_order_product` (
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `total` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `tax` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `reward` int(8) NOT NULL,
-  PRIMARY KEY (`order_product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=457 ;
+  `reward` int(8) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=472 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_order_product`
 --
 
 INSERT INTO `oc_order_product` (`order_product_id`, `order_id`, `product_id`, `name`, `model`, `quantity`, `price`, `total`, `tax`, `reward`) VALUES
+(1, 1, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(2, 2, 51, 'Bailey Button Yellow', '', 2000, '5800.0000', '11600000.0000', '0.0000', 0),
+(3, 3, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '17400000.0000', '0.0000', 0),
+(4, 4, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '17400000.0000', '0.0000', 0),
+(5, 5, 51, 'Bailey Button Yellow', '', 2000, '5800.0000', '29000000.0000', '0.0000', 0),
+(6, 6, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(7, 7, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(8, 8, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(9, 9, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(10, 10, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(11, 11, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(12, 12, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(13, 13, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(14, 14, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(15, 15, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(16, 16, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(17, 17, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(18, 18, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(19, 19, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(20, 20, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '34800000.0000', '0.0000', 0),
+(21, 21, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
+(22, 22, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
+(23, 23, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
+(24, 24, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
+(25, 25, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '23200000.0000', '0.0000', 0),
+(26, 26, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '17400000.0000', '0.0000', 0),
+(27, 27, 51, 'Bailey Button Yellow', '', 3000, '5800.0000', '17400000.0000', '0.0000', 0),
+(28, 28, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(29, 29, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(30, 30, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(31, 31, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(32, 32, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(33, 33, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(34, 34, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(35, 35, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '5800000.0000', '0.0000', 0),
+(36, 36, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(37, 37, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(38, 38, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(39, 39, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(40, 40, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(41, 41, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(42, 42, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(43, 43, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(44, 44, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(45, 45, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(46, 46, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(47, 47, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(48, 48, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(49, 49, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(50, 50, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(51, 51, 56, 'Bailey Button White', '', 1000, '6600.0000', '0.0000', '0.0000', 0),
+(52, 52, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(53, 53, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(54, 54, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(55, 55, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(56, 56, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(57, 57, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(58, 58, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(59, 59, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(60, 60, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(61, 61, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(62, 62, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(63, 63, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(64, 64, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(65, 65, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(66, 66, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(67, 67, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(68, 68, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(69, 69, 58, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(70, 70, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(71, 71, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(72, 72, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(73, 73, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(74, 74, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(75, 75, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(76, 76, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(77, 77, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(78, 78, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(79, 79, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(80, 80, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(81, 81, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(82, 82, 57, 'Bailey Button Leather', '', 1000, '5800.0000', '0.0000', '0.0000', 0),
+(83, 83, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(84, 84, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(85, 85, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '0.0000', '0.0000', 0),
+(86, 86, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '4900000.0000', '0.0000', 0),
+(87, 87, 55, 'Bailey Button Rust', '', 1000, '4900.0000', '4900000.0000', '0.0000', 0),
+(88, 0, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(89, 0, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(90, 0, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(91, 88, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(92, 89, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(93, 90, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(94, 91, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(95, 92, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(96, 93, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(97, 94, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(98, 95, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(99, 96, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(100, 97, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
 (101, 98, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
 (102, 99, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
 (103, 100, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
@@ -3749,7 +3807,328 @@ INSERT INTO `oc_order_product` (`order_product_id`, `order_id`, `product_id`, `n
 (147, 144, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
 (148, 145, 50, 'Bailey Button White Metallic', '', 17, '6460.0000', '109820.0000', '0.0000', 0),
 (149, 146, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
-(150, 147, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0);
+(150, 147, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(151, 148, 51, 'Bailey Button Yellow', '', 1000, '5800.0000', '11600000.0000', '0.0000', 0),
+(152, 149, 67, 'Bailey Button Yellow', '', 1000, '5800.0000', '11600000.0000', '0.0000', 0),
+(153, 150, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(154, 151, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(155, 152, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(156, 153, 67, 'Bailey Button Yellow', '', 15, '5800.0000', '87000.0000', '0.0000', 0),
+(157, 154, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(158, 155, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(159, 156, 50, 'Bailey Button White Metallic', '', 17, '6460.0000', '5499020.0000', '0.0000', 0),
+(160, 157, 64, 'Bailey Button Wheat', '', 998, '5400.0000', '5499020.0000', '0.0000', 0),
+(161, 158, 51, 'Bailey Button Yellow', '', 18, '5800.0000', '104400.0000', '0.0000', 0),
+(162, 159, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(163, 160, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(164, 161, 51, 'Bailey Button Yellow', '', 111, '5800.0000', '643800.0000', '0.0000', 0),
+(165, 162, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(166, 163, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(167, 164, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(168, 165, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(169, 166, 51, 'Bailey Button Yellow', '', 14, '5800.0000', '81200.0000', '0.0000', 0),
+(170, 167, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(171, 168, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(172, 169, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(173, 170, 50, 'Bailey Button White Metallic', '', 17, '6460.0000', '109820.0000', '0.0000', 0),
+(174, 171, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(175, 172, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(176, 173, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(177, 174, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(178, 175, 50, 'Bailey Button White Metallic', '', 10, '6460.0000', '64600.0000', '0.0000', 0),
+(179, 176, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(180, 177, 50, 'Bailey Button White Metallic', '', 10, '6460.0000', '64600.0000', '0.0000', 0),
+(181, 178, 50, 'Bailey Button White Metallic', '', 1, '6460.0000', '6460.0000', '0.0000', 0),
+(182, 179, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '6530000.0000', '0.0000', 0),
+(183, 180, 56, 'Bailey Button White', '', 985, '6600.0000', '6530000.0000', '0.0000', 0),
+(184, 181, 67, 'Bailey Button Yellow', '', 3, '5800.0000', '6530000.0000', '0.0000', 0),
+(185, 182, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(186, 183, 51, 'Bailey Button Yellow', '', 110, '5800.0000', '638000.0000', '0.0000', 0),
+(187, 184, 56, 'Bailey Button White', '', 100, '6600.0000', '1298000.0000', '0.0000', 0),
+(188, 185, 67, 'Bailey Button Yellow', '', 110, '5800.0000', '1298000.0000', '0.0000', 0),
+(189, 186, 56, 'Bailey Button White', '', 100, '6600.0000', '6465800.0000', '0.0000', 0),
+(190, 187, 67, 'Bailey Button Yellow', '', 1001, '5800.0000', '6465800.0000', '0.0000', 0),
+(191, 188, 56, 'Bailey Button White', '', 100, '6600.0000', '1240000.0000', '0.0000', 0),
+(192, 189, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1240000.0000', '0.0000', 0),
+(193, 190, 67, 'Bailey Button Yellow', '', 1111, '5800.0000', '6443800.0000', '0.0000', 0),
+(194, 191, 56, 'Bailey Button White', '', 111, '6600.0000', '732600.0000', '0.0000', 0),
+(195, 192, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(196, 193, 56, 'Bailey Button White', '', 111, '6600.0000', '732600.0000', '0.0000', 0),
+(197, 194, 56, 'Bailey Button White', '', 11, '6600.0000', '72600.0000', '0.0000', 0),
+(198, 195, 56, 'Bailey Button White', '', 101, '6600.0000', '666600.0000', '0.0000', 0),
+(199, 196, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(200, 197, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(201, 198, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(202, 199, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(203, 200, 51, 'Bailey Button Yellow', '', 17, '5800.0000', '98600.0000', '0.0000', 0),
+(204, 201, 51, 'Bailey Button Yellow', '', 20, '5800.0000', '116000.0000', '0.0000', 0),
+(205, 202, 51, 'Bailey Button Yellow', '', 20, '5800.0000', '116000.0000', '0.0000', 0),
+(206, 203, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(207, 204, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(208, 205, 51, 'Bailey Button Yellow', '', 3, '5800.0000', '17400.0000', '0.0000', 0),
+(209, 206, 51, 'Bailey Button Yellow', '', 4, '5800.0000', '23200.0000', '0.0000', 0),
+(210, 207, 51, 'Bailey Button Yellow', '', 5, '5800.0000', '29000.0000', '0.0000', 0),
+(211, 208, 51, 'Bailey Button Yellow', '', 6, '5800.0000', '34800.0000', '0.0000', 0),
+(212, 209, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(213, 210, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(214, 211, 51, 'Bailey Button Yellow', '', 17, '5800.0000', '98600.0000', '0.0000', 0),
+(215, 212, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(216, 213, 51, 'Bailey Button Yellow', '', 18, '5800.0000', '104400.0000', '0.0000', 0),
+(217, 214, 51, 'Bailey Button Yellow', '', 111, '5800.0000', '643800.0000', '0.0000', 0),
+(218, 215, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(219, 216, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(220, 217, 51, 'Bailey Button Yellow', '', 17, '5800.0000', '98600.0000', '0.0000', 0),
+(221, 218, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(222, 219, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(223, 220, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(224, 221, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(225, 222, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(226, 223, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(227, 224, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(228, 225, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(229, 226, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(230, 227, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(231, 228, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(232, 229, 51, 'Bailey Button Yellow', '', 11, '5800.0000', '63800.0000', '0.0000', 0),
+(233, 230, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(234, 231, 51, 'Bailey Button Yellow', '', 19, '5800.0000', '110200.0000', '0.0000', 0),
+(235, 232, 51, 'Bailey Button Yellow', '', 19, '5800.0000', '110200.0000', '0.0000', 0),
+(236, 233, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(237, 234, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(238, 235, 51, 'Bailey Button Yellow', '', 16, '5800.0000', '92800.0000', '0.0000', 0),
+(239, 236, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(240, 237, 51, 'Bailey Button Yellow', '', 19, '5800.0000', '110200.0000', '0.0000', 0),
+(241, 238, 51, 'Bailey Button Yellow', '', 18, '5800.0000', '104400.0000', '0.0000', 0),
+(242, 239, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(243, 240, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(244, 241, 51, 'Bailey Button Yellow', '', 5, '5800.0000', '29000.0000', '0.0000', 0),
+(245, 242, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '580000.0000', '0.0000', 0),
+(246, 243, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(247, 244, 56, 'Bailey Button White', '', 5, '6600.0000', '91000.0000', '0.0000', 0),
+(248, 245, 67, 'Bailey Button Yellow', '', 10, '5800.0000', '91000.0000', '0.0000', 0),
+(249, 246, 65, 'Bailey Button White', '', 990, '6600.0000', '6534000.0000', '0.0000', 0),
+(250, 247, 56, 'Bailey Button White', '', 100, '6600.0000', '1273000.0000', '0.0000', 0),
+(251, 248, 65, 'Bailey Button White', '', 5, '6600.0000', '1273000.0000', '0.0000', 0),
+(252, 249, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1273000.0000', '0.0000', 0),
+(253, 250, 56, 'Bailey Button White', '', 100, '6600.0000', '1900000.0000', '0.0000', 0),
+(254, 251, 65, 'Bailey Button White', '', 100, '6600.0000', '1900000.0000', '0.0000', 0),
+(255, 252, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1900000.0000', '0.0000', 0),
+(256, 253, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(257, 254, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(258, 255, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(259, 256, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(260, 257, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(261, 258, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(262, 259, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(263, 260, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1820000.0000', '0.0000', 0),
+(264, 261, 56, 'Bailey Button White', '', 100, '6600.0000', '1820000.0000', '0.0000', 0),
+(265, 262, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1820000.0000', '0.0000', 0),
+(266, 263, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(267, 264, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(268, 265, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(269, 266, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(270, 267, 67, 'Bailey Button Yellow', '', 15, '5800.0000', '87000.0000', '0.0000', 0),
+(271, 268, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(272, 269, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(273, 270, 67, 'Bailey Button Yellow', '', 18, '5800.0000', '104400.0000', '0.0000', 0),
+(274, 271, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(275, 272, 67, 'Bailey Button Yellow', '', 18, '5800.0000', '104400.0000', '0.0000', 0),
+(276, 273, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(277, 274, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(278, 275, 51, 'Bailey Button Yellow', '', 20, '5800.0000', '232000.0000', '0.0000', 0),
+(279, 276, 67, 'Bailey Button Yellow', '', 20, '5800.0000', '232000.0000', '0.0000', 0),
+(280, 277, 51, 'Bailey Button Yellow', '', 111, '5800.0000', '1287600.0000', '0.0000', 0),
+(281, 278, 67, 'Bailey Button Yellow', '', 111, '5800.0000', '1287600.0000', '0.0000', 0),
+(282, 279, 51, 'Bailey Button Yellow', '', 10, '5800.0000', '116000.0000', '0.0000', 0),
+(283, 280, 67, 'Bailey Button Yellow', '', 10, '5800.0000', '116000.0000', '0.0000', 0),
+(284, 281, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(285, 282, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(286, 283, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(287, 284, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(288, 285, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(289, 286, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(290, 287, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(291, 288, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(292, 289, 65, 'Bailey Button White', '', 111, '6600.0000', '732600.0000', '0.0000', 0),
+(293, 290, 51, 'Bailey Button Yellow', '', 120, '5800.0000', '812000.0000', '0.0000', 0),
+(294, 291, 67, 'Bailey Button Yellow', '', 20, '5800.0000', '812000.0000', '0.0000', 0),
+(295, 292, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(296, 293, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(297, 294, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(298, 295, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(299, 296, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(300, 297, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(301, 298, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(302, 299, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(303, 300, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '18200.0000', '0.0000', 0),
+(304, 301, 56, 'Bailey Button White', '', 1, '6600.0000', '18200.0000', '0.0000', 0),
+(305, 302, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '18200.0000', '0.0000', 0),
+(306, 303, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(307, 304, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(308, 305, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(309, 306, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(310, 307, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(311, 308, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(312, 309, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(313, 310, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(314, 311, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(315, 312, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(316, 313, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(317, 314, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(318, 315, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(319, 316, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(320, 317, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(321, 318, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(322, 319, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(323, 320, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(324, 321, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(325, 322, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(326, 323, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(327, 324, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(328, 325, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(329, 326, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(330, 327, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(331, 328, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(332, 329, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(333, 330, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(334, 331, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(335, 332, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(336, 333, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(337, 334, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(338, 335, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(339, 336, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(340, 337, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(341, 338, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(342, 339, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(343, 340, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(344, 341, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(345, 342, 51, 'Bailey Button Yellow', '', 10, '5800.0000', '116000.0000', '0.0000', 0),
+(346, 343, 67, 'Bailey Button Yellow', '', 10, '5800.0000', '116000.0000', '0.0000', 0),
+(347, 344, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(348, 345, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(349, 346, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(350, 347, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(351, 348, 67, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(352, 349, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(353, 350, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(354, 351, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(355, 352, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(356, 353, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(357, 354, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(358, 355, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(359, 356, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(360, 357, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(361, 358, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(362, 359, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(363, 360, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(364, 361, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(365, 362, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(366, 363, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(367, 364, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(368, 365, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(369, 366, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '17400.0000', '0.0000', 0),
+(370, 367, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '17400.0000', '0.0000', 0),
+(371, 368, 51, 'Bailey Button Yellow', '', 2, '5800.0000', '17400.0000', '0.0000', 0),
+(372, 369, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '17400.0000', '0.0000', 0),
+(373, 370, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(374, 371, 67, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(375, 372, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(376, 373, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(377, 374, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(378, 375, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(379, 376, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(380, 377, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(381, 378, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(382, 379, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(383, 380, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(384, 381, 67, 'Bailey Button Yellow', '', 2, '5800.0000', '11600.0000', '0.0000', 0),
+(385, 382, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '6380000.0000', '0.0000', 0),
+(386, 383, 67, 'Bailey Button Yellow', '', 1000, '5800.0000', '6380000.0000', '0.0000', 0),
+(387, 384, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(388, 385, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(389, 386, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(390, 387, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(391, 388, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(392, 389, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(393, 390, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(394, 391, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(395, 392, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(396, 393, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(397, 394, 56, 'Bailey Button White', '', 2, '6600.0000', '13200.0000', '0.0000', 0),
+(398, 395, 65, 'Bailey Button White', '', 2, '6600.0000', '13200.0000', '0.0000', 0),
+(399, 396, 65, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(400, 397, 54, 'Bailey Button Black', '', 1, '9100.0000', '9100.0000', '0.0000', 0),
+(401, 398, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(402, 399, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(403, 400, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(404, 401, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(405, 402, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(406, 403, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(407, 404, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(408, 405, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(409, 406, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(410, 407, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(411, 408, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(412, 409, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(413, 410, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(414, 411, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(415, 412, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(416, 413, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(417, 414, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(418, 415, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(419, 416, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(420, 417, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(421, 418, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(422, 419, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(423, 420, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(424, 421, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(425, 422, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(426, 423, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(427, 424, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(428, 425, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(429, 426, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(430, 427, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(431, 428, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(432, 429, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(433, 430, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(434, 431, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(435, 432, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(436, 433, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(437, 434, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(438, 435, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(439, 436, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(440, 437, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(441, 438, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(442, 439, 56, 'Bailey Button White', '', 1, '6600.0000', '6600.0000', '0.0000', 0),
+(443, 440, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(444, 441, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(445, 442, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(446, 443, 67, 'Bailey Button Yellow', '', 10, '5800.0000', '58000.0000', '0.0000', 0),
+(447, 444, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(448, 445, 51, 'Bailey Button Yellow', '', 111, '5800.0000', '643800.0000', '0.0000', 0),
+(449, 446, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '5800.0000', '0.0000', 0),
+(450, 447, 51, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(451, 448, 67, 'Bailey Button Yellow', '', 100, '5800.0000', '1160000.0000', '0.0000', 0),
+(452, 449, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(453, 450, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(454, 451, 51, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(455, 452, 67, 'Bailey Button Yellow', '', 1, '5800.0000', '11600.0000', '0.0000', 0),
+(456, 453, 56, 'Bailey Button White', '', 100, '6600.0000', '660000.0000', '0.0000', 0),
+(457, 454, 132, 'Classic Tall Brown Leather', '', 1, '6460.0000', '12920.0000', '0.0000', 0),
+(458, 455, 133, 'Classic Tall Brown', '', 1, '6460.0000', '12920.0000', '0.0000', 0),
+(459, 456, 80, 'Bailey Button Triplet Black', '', 1, '6380.0000', '6380.0000', '0.0000', 0),
+(460, 457, 80, 'Bailey Button Triplet Black', '', 1, '6380.0000', '0.0000', '0.0000', 0),
+(461, 458, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(462, 459, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(463, 460, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(464, 461, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(465, 462, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(466, 463, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(467, 464, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '24760.0000', '0.0000', 0),
+(468, 465, 81, 'Bailey Button Triplet Grey', '', 2, '6380.0000', '24760.0000', '0.0000', 0),
+(469, 466, 71, 'Bailey Button Black Brilliant', '', 1, '12000.0000', '12000.0000', '0.0000', 0),
+(470, 467, 81, 'Bailey Button Triplet Grey', '', 1, '6380.0000', '58060.0000', '0.0000', 0),
+(471, 468, 108, 'Ugg Classic Sparkles Dark Black', '', 2, '6460.0000', '58060.0000', '0.0000', 0);
 
 -- --------------------------------------------------------
 
@@ -3758,7 +4137,7 @@ INSERT INTO `oc_order_product` (`order_product_id`, `order_id`, `product_id`, `n
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
-  `order_recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_recurring_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `reference` varchar(255) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -3777,9 +4156,8 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
   `trial_duration` smallint(6) NOT NULL,
   `trial_price` decimal(10,4) NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`order_recurring_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3788,14 +4166,13 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_recurring_transaction` (
-  `order_recurring_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_recurring_transaction_id` int(11) NOT NULL,
   `order_recurring_id` int(11) NOT NULL,
   `reference` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `amount` decimal(10,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`order_recurring_transaction_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -3804,11 +4181,10 @@ CREATE TABLE IF NOT EXISTS `oc_order_recurring_transaction` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_status` (
-  `order_status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_status_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`order_status_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+  `name` varchar(32) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_order_status`
@@ -3834,15 +4210,13 @@ INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_total` (
-  `order_total_id` int(10) NOT NULL AUTO_INCREMENT,
+  `order_total_id` int(10) NOT NULL,
   `order_id` int(11) NOT NULL,
   `code` varchar(32) NOT NULL,
   `title` varchar(255) NOT NULL,
   `value` decimal(15,4) NOT NULL DEFAULT '0.0000',
-  `sort_order` int(3) NOT NULL,
-  PRIMARY KEY (`order_total_id`),
-  KEY `order_id` (`order_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=495 ;
+  `sort_order` int(3) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=525 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_order_total`
@@ -4342,7 +4716,37 @@ INSERT INTO `oc_order_total` (`order_total_id`, `order_id`, `code`, `title`, `va
 (491, 450, 'sub_total', 'Сумма', '11600.0000', 1),
 (492, 451, 'sub_total', 'Сумма', '11600.0000', 1),
 (493, 452, 'sub_total', 'Сумма', '11600.0000', 1),
-(494, 453, 'sub_total', 'Сумма', '660000.0000', 1);
+(494, 453, 'sub_total', 'Сумма', '660000.0000', 1),
+(495, 454, 'sub_total', 'Сумма', '12920.0000', 1),
+(496, 454, 'total', 'Итого', '12920.0000', 9),
+(497, 455, 'sub_total', 'Сумма', '12920.0000', 1),
+(498, 455, 'total', 'Итого', '12920.0000', 9),
+(499, 456, 'sub_total', 'Сумма', '6380.0000', 1),
+(500, 456, 'total', 'Итого', '6380.0000', 9),
+(501, 457, 'sub_total', 'Сумма', '0.0000', 1),
+(502, 457, 'total', 'Итого', '0.0000', 9),
+(503, 458, 'sub_total', 'Сумма', '12000.0000', 1),
+(504, 458, 'total', 'Итого', '12000.0000', 9),
+(505, 459, 'sub_total', 'Сумма', '12000.0000', 1),
+(506, 459, 'total', 'Итого', '12000.0000', 9),
+(507, 460, 'sub_total', 'Сумма', '12000.0000', 1),
+(508, 460, 'total', 'Итого', '12000.0000', 9),
+(509, 461, 'sub_total', 'Сумма', '12000.0000', 1),
+(510, 461, 'total', 'Итого', '12000.0000', 9),
+(511, 462, 'sub_total', 'Сумма', '12000.0000', 1),
+(512, 462, 'total', 'Итого', '12000.0000', 9),
+(513, 463, 'sub_total', 'Сумма', '12000.0000', 1),
+(514, 463, 'total', 'Итого', '12000.0000', 9),
+(515, 464, 'sub_total', 'Сумма', '24760.0000', 1),
+(516, 464, 'total', 'Итого', '24760.0000', 9),
+(517, 465, 'sub_total', 'Сумма', '24760.0000', 1),
+(518, 465, 'total', 'Итого', '24760.0000', 9),
+(519, 466, 'sub_total', 'Сумма', '12000.0000', 1),
+(520, 466, 'total', 'Итого', '12000.0000', 9),
+(521, 467, 'sub_total', 'Сумма', '58060.0000', 1),
+(522, 467, 'total', 'Итого', '58060.0000', 9),
+(523, 468, 'sub_total', 'Сумма', '58060.0000', 1),
+(524, 468, 'total', 'Итого', '58060.0000', 9);
 
 -- --------------------------------------------------------
 
@@ -4351,7 +4755,7 @@ INSERT INTO `oc_order_total` (`order_total_id`, `order_id`, `code`, `title`, `va
 --
 
 CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
-  `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_voucher_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `voucher_id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -4362,9 +4766,8 @@ CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
   `to_email` varchar(96) NOT NULL,
   `voucher_theme_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `amount` decimal(15,4) NOT NULL,
-  PRIMARY KEY (`order_voucher_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `amount` decimal(15,4) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -4373,7 +4776,7 @@ CREATE TABLE IF NOT EXISTS `oc_order_voucher` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product` (
-  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL,
   `model` varchar(64) NOT NULL,
   `sku` varchar(64) NOT NULL,
   `upc` varchar(12) NOT NULL,
@@ -4403,33 +4806,84 @@ CREATE TABLE IF NOT EXISTS `oc_product` (
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `viewed` int(5) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product`
 --
 
 INSERT INTO `oc_product` (`product_id`, `model`, `sku`, `upc`, `ean`, `jan`, `isbn`, `mpn`, `location`, `quantity`, `stock_status_id`, `image`, `manufacturer_id`, `shipping`, `price`, `points`, `tax_class_id`, `date_available`, `weight`, `weight_class_id`, `length`, `width`, `height`, `length_class_id`, `subtract`, `minimum`, `sort_order`, `status`, `viewed`, `date_added`, `date_modified`) VALUES
-(66, 'Bailey Button White Metallic', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:02:35'),
-(63, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:02:57'),
-(64, 'Bailey Button Wheat', '', '', '', '', '', '', '', 2, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:03:15'),
-(65, 'Bailey Button White', '', '', '', '', '', '', '', 11, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 24, '2017-09-05 14:49:16', '2017-09-05 15:03:38'),
-(54, 'Bailey Button Black', '990-007', '', '', '', '', '', '', 999, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 229, '2017-08-18 15:00:48', '2017-08-23 16:12:04'),
-(55, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 28, '2017-08-18 15:04:32', '2017-08-23 17:35:01'),
-(56, 'Bailey Button White', '990-007', '', '', '', '', '', '', 19, 7, 'catalog/ugg/product7.jpg', 0, 1, '11000.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 102, '2017-08-18 15:17:27', '2017-08-22 16:00:26'),
-(57, 'Bailey Button Leather', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 3, '2017-08-18 15:19:46', '2017-08-22 15:52:16'),
-(58, 'Bailey Button Rust', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 28, '2017-08-18 19:17:06', '2017-08-23 17:33:55'),
-(59, 'Bailey Button Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product3.jpg', 0, 1, '14200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:03:51'),
-(60, 'Bailey Button Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:04:02'),
-(61, 'Bailey Button Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product8.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-05 15:04:15'),
-(62, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product6.jpg', 0, 1, '12800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 4, '2017-09-05 14:49:16', '2017-09-05 15:04:28'),
-(50, 'Bailey Button White Metallic', '990-007', '', '', '', '', '', '', 18, 7, 'catalog/ugg/bailey-button-white-metallic-1.jpg', 0, 1, '10500.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 217, '2017-08-18 14:46:09', '2017-08-22 16:01:21'),
-(51, 'Bailey Button Yellow', '990-007', '', '', '', '', '', '', 17, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 380, '2017-08-18 14:50:16', '2017-08-22 16:02:07'),
-(52, 'Bailey Button Grey', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product4.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 36, '2017-08-18 14:54:26', '2017-08-22 15:52:02'),
-(53, 'Bailey Button Wheat', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/product5.jpg', 0, 1, '12200.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 2, '2017-08-18 14:58:45', '2017-08-22 15:59:06'),
-(67, 'Bailey Button Yellow', '', '', '', '', '', '', '', 17, 7, 'catalog/ugg/product-img1.png', 0, 1, '10100.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 132, '2017-09-05 14:49:16', '2017-09-05 15:04:37');
+(72, 'Bailey Button Brown Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/43.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 10, 1, 0, '2017-09-11 22:15:47', '2017-09-12 10:39:04'),
+(73, ' Bailey Button Fancy Brown', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/44.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 11, 1, 1, '2017-09-11 22:17:49', '2017-09-14 16:32:23'),
+(74, 'Bailey Button Fancy Chestnut', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/45.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 12, 1, 1, '2017-09-11 22:20:05', '2017-09-12 10:35:36'),
+(75, 'Bailey Button Gold', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/46.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 13, 1, 0, '2017-09-11 22:25:14', '2017-09-12 10:39:22'),
+(54, 'Bailey Button Bow Black', '990-007', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/1.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 231, '2017-08-18 15:00:48', '2017-09-14 13:02:05'),
+(80, 'Bailey Button Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/6.1.jpg', 0, 1, '15700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 18, 1, 21, '2017-09-11 22:40:21', '2017-09-15 16:57:33'),
+(76, 'Bailey Button Grey Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/47.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 14, 1, 0, '2017-09-11 22:30:17', '2017-09-12 10:15:16'),
+(57, 'Bailey Button Wheat', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/9.1.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 6, 1, 3, '2017-08-18 15:19:46', '2017-09-12 10:16:48'),
+(79, 'Bailey Button White', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/50.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 17, 1, 1, '2017-09-11 22:35:32', '2017-09-12 10:35:59'),
+(59, 'Bailey Button Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/3.1.jpg', 0, 1, '13670.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 1, '2017-09-05 14:49:16', '2017-09-12 10:38:12'),
+(60, 'Bailey Button Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/5.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 0, '2017-09-05 14:49:16', '2017-09-12 10:14:49'),
+(81, 'Bailey Button Triplet Grey', '', '', '', '', '', '', '', 999, 7, 'catalog/ugg/7.1.jpg', 0, 1, '15700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 19, 1, 18, '2017-09-11 22:42:48', '2017-09-14 13:02:39'),
+(78, 'Bailey Button Wheat Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/49.1.jpg', 0, 1, '9800.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 16, 1, 0, '2017-09-11 22:33:58', '2017-09-12 10:17:04'),
+(71, 'Bailey Button Black Brilliant', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/42.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 9, 1, 0, '2017-09-11 22:12:41', '2017-09-14 13:01:55'),
+(70, 'Bailey Button Yellow', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/57.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 8, 1, 0, '2017-09-11 22:08:38', '2017-09-12 10:17:45'),
+(52, 'Bailey Button Brown', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/4.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 1, 1, 36, '2017-08-18 14:54:26', '2017-09-12 10:38:50'),
+(77, 'Bailey Button Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/48.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 1, 1, 15, 1, 0, '2017-09-11 22:31:47', '2017-09-12 10:15:39'),
+(69, 'Bailey Button White Metallic', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/10.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 7, 1, 0, '2017-09-11 22:04:31', '2017-09-12 10:17:33'),
+(68, 'Bailey Button Black Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/2.1.jpg', 0, 1, '13670.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 1, 1, 1, '2017-09-11 21:51:07', '2017-09-12 10:34:02'),
+(82, 'Classic Mini Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/13.1.jpg', 0, 1, '11700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 23, 1, 0, '2017-09-11 22:44:33', '2017-09-12 10:18:40'),
+(83, 'Dylyn &amp; Blaise Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/59.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 21, 1, 8, '2017-09-11 22:47:04', '2017-09-12 10:25:14'),
+(84, 'Dylyn &amp; Blaise Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/60.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 22, 1, 1, '2017-09-11 22:50:17', '2017-09-12 10:25:33'),
+(86, 'Classic Mini Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/12.1.jpg', 0, 1, '11700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 23, 1, 1, '2017-09-11 23:01:13', '2017-09-12 10:18:18'),
+(87, 'Classic Mini Black Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/14.1.jpg', 0, 1, '11700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 24, 1, 0, '2017-09-11 23:03:56', '2017-09-12 10:18:53'),
+(88, 'Classic Mini Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/15.1.jpg', 0, 1, '11700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 25, 1, 0, '2017-09-11 23:06:10', '2017-09-12 10:19:19'),
+(89, 'Classic Mini Blue', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/51.1.jpg', 0, 1, '11700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 26, 1, 0, '2017-09-11 23:08:01', '2017-09-12 10:19:06'),
+(90, 'Classic Short Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/21.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 27, 1, 0, '2017-09-11 23:10:53', '2017-09-12 10:19:38'),
+(91, 'Classic Short Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/20.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 28, 1, 0, '2017-09-11 23:12:48', '2017-09-12 10:20:01'),
+(92, 'Classic Short Black Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/19.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 29, 1, 0, '2017-09-11 23:14:33', '2017-09-12 10:20:18'),
+(93, 'Classic Short Brown', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/18.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 30, 1, 0, '2017-09-11 23:16:04', '2017-09-12 10:20:56'),
+(94, 'Classic Short Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/17.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 31, 1, 0, '2017-09-11 23:17:31', '2017-09-12 10:22:45'),
+(95, 'Classic Short Silver', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/16.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 32, 1, 0, '2017-09-11 23:19:24', '2017-09-12 10:23:02'),
+(96, 'UGG Mini Fox Fur Biege', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/31.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 33, 1, 0, '2017-09-11 23:20:56', '2017-09-12 10:29:15'),
+(97, 'UGG Mini Fox Fur Black Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/32.1.jpeg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 34, 1, 0, '2017-09-11 23:22:42', '2017-09-12 10:29:28'),
+(98, 'UGG Mini Fox Fur Brown замша', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/34.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 35, 1, 0, '2017-09-11 23:25:15', '2017-09-12 10:29:57'),
+(99, 'UGG Mini Fox Fur Brown', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/33.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 36, 1, 0, '2017-09-11 23:27:55', '2017-09-12 10:29:41'),
+(100, 'UGG Mini Fox Fur Chocolate Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/35.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 36, 1, 0, '2017-09-11 23:29:17', '2017-09-12 10:32:34'),
+(101, 'UGG Mini Fox Fur Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/36.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 38, 1, 0, '2017-09-11 23:30:37', '2017-09-12 10:32:23'),
+(102, 'UGG Mini Fox Fur Grey Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/37.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 39, 1, 0, '2017-09-11 23:32:30', '2017-09-12 10:32:09'),
+(103, 'Classic Short Blue', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/52.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 40, 1, 0, '2017-09-11 23:34:19', '2017-09-12 10:20:39'),
+(104, 'Classic Short Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/53.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 41, 1, 0, '2017-09-11 23:36:07', '2017-09-12 10:21:15'),
+(105, 'Classic Short Metallic Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/54.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 42, 1, 0, '2017-09-11 23:37:28', '2017-09-12 10:22:12'),
+(106, 'Classic Short Metallic Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/55.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 43, 1, 1, '2017-09-11 23:39:46', '2017-09-12 10:36:32'),
+(107, 'Classic Short White', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/56.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 44, 1, 0, '2017-09-11 23:41:22', '2017-09-12 10:23:26'),
+(108, 'Ugg Classic Sparkles Dark Black', '', '', '', '', '', '', '', 998, 7, 'catalog/ugg/25.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 45, 1, 4, '2017-09-11 23:45:48', '2017-09-12 10:25:59'),
+(109, 'Ugg Classic Sparkles Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/61.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 46, 1, 0, '2017-09-11 23:48:09', '2017-09-12 10:25:46'),
+(110, 'Ugg Short Sparkles Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/70.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 47, 1, 0, '2017-09-11 23:49:20', '2017-09-12 10:30:52'),
+(111, 'Ugg Short Sparkles Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/71.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 48, 1, 0, '2017-09-11 23:51:39', '2017-09-12 10:30:41'),
+(112, 'Ugg Short Sparkles Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/72.1.jpg', 0, 1, '13700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 49, 1, 0, '2017-09-11 23:52:44', '2017-09-12 10:30:29'),
+(113, 'UGG Mini Bailey Bow Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/28.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 50, 1, 0, '2017-09-12 00:00:27', '2017-09-12 10:28:22'),
+(114, 'UGG Mini Bailey Bow Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/29.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 51, 1, 0, '2017-09-12 00:03:15', '2017-09-12 10:28:48'),
+(115, 'UGG Mini Bailey Bow Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/30.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 52, 1, 0, '2017-09-12 00:03:20', '2017-09-12 10:29:00'),
+(116, 'UGG Mocassins Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/38.1.jpg', 0, 1, '14700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 53, 1, 0, '2017-09-12 00:06:45', '2017-09-12 10:31:55'),
+(117, 'UGG Mocassins Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/39.1.jpg', 0, 1, '14700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 54, 1, 0, '2017-09-12 00:09:44', '2017-09-12 10:31:43'),
+(118, 'UGG Mocassins Blue', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/40.1.jpg', 0, 1, '14700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 55, 1, 0, '2017-09-12 00:11:01', '2017-09-12 10:31:23'),
+(119, 'UGG Mocassins Red', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/41.1.jpg', 0, 1, '14700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 56, 1, 1, '2017-09-12 00:12:14', '2017-09-12 10:31:09'),
+(120, 'UGG Jimmy Choo Short Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/26.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 57, 1, 0, '2017-09-12 00:15:10', '2017-09-12 10:26:43'),
+(121, 'UGG Jimmy Choo Starlit Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/27.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 58, 1, 0, '2017-09-12 00:17:26', '2017-09-12 10:27:25'),
+(122, 'UGG Jimmy Choo Mandah Gold', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/62.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 59, 1, 0, '2017-09-12 00:20:22', '2017-09-12 10:26:14'),
+(123, 'UGG Jimmy Choo Mandah Silver', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/63.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 60, 1, 0, '2017-09-12 00:22:11', '2017-09-12 10:26:27'),
+(124, 'UGG Jimmy Choo Short Grey', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/64.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 61, 1, 0, '2017-09-12 00:23:45', '2017-09-12 10:26:59'),
+(125, 'UGG Jimmy Choo Short Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/65.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 62, 1, 0, '2017-09-12 00:26:07', '2017-09-12 10:27:13'),
+(126, 'UGG Jimmy Choo Starlit Black', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/66.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 63, 1, 0, '2017-09-12 00:27:43', '2017-09-12 10:27:39'),
+(127, 'UGG Jimmy Choo Starlit Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/67.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 64, 1, 0, '2017-09-12 00:29:26', '2017-09-12 10:27:52'),
+(128, 'UGG Jimmy Choo Starlit Rust', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/68.1.jpg', 0, 1, '12700.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 65, 1, 0, '2017-09-12 00:30:50', '2017-09-12 10:28:07'),
+(129, 'Classic Tall Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/22.1.jpg', 0, 1, '14300.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 67, 1, 0, '2017-09-12 00:32:30', '2017-09-12 10:23:43'),
+(130, 'Classic Tall Beige', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/23.1.jpg', 0, 1, '14300.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 68, 1, 1, '2017-09-12 00:35:27', '2017-09-12 10:23:58'),
+(131, 'Classic Tall Black Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/57.1.jpg', 0, 1, '14300.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 69, 1, 1, '2017-09-12 00:37:37', '2017-09-12 10:24:10'),
+(132, 'Classic Tall Brown Leather', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/58.1.jpg', 0, 1, '14300.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 70, 1, 3, '2017-09-12 00:38:58', '2017-09-14 13:04:05'),
+(133, 'Classic Tall Brown', '', '', '', '', '', '', '', 1000, 7, 'catalog/ugg/24.1.jpg', 0, 1, '14300.0000', 0, 0, '2017-08-18', '0.00', 1, '0.00', '0.00', '0.00', 1, 0, 1, 69, 1, 1, '2017-09-12 00:39:21', '2017-09-14 13:03:58');
 
 -- --------------------------------------------------------
 
@@ -4441,8 +4895,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_attribute` (
   `product_id` int(11) NOT NULL,
   `attribute_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  PRIMARY KEY (`product_id`,`attribute_id`,`language_id`)
+  `text` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4450,96 +4903,356 @@ CREATE TABLE IF NOT EXISTS `oc_product_attribute` (
 --
 
 INSERT INTO `oc_product_attribute` (`product_id`, `attribute_id`, `language_id`, `text`) VALUES
-(54, 13, 1, 'Замша'),
-(54, 12, 1, 'Весна-лето'),
-(54, 16, 1, '13 мм'),
-(54, 15, 1, 'Полиуретан'),
 (54, 14, 1, 'Искусственная кожа'),
+(54, 15, 1, 'Полиуретан'),
+(54, 16, 1, '13 мм'),
 (52, 14, 1, 'Мех'),
 (52, 12, 1, 'Зима'),
 (52, 13, 1, 'Замша, защита от воды'),
 (57, 14, 1, 'Мех'),
-(57, 12, 1, 'Весна-осень'),
 (57, 13, 1, 'Замша'),
-(55, 13, 1, 'Мех'),
-(55, 14, 1, 'Кожа'),
-(55, 15, 1, 'Полиуретан'),
+(76, 13, 1, 'Замша, защита от воды'),
+(76, 12, 1, 'Зима'),
 (52, 15, 1, 'Резина'),
-(52, 16, 1, '10 мм'),
 (57, 15, 1, 'Полиуретан'),
-(57, 16, 1, '10 мм'),
-(58, 14, 1, 'Овчина'),
-(58, 15, 1, 'Полиуретан'),
-(58, 16, 1, '13 мм'),
-(53, 14, 1, 'Мех'),
-(53, 13, 1, 'Кожа'),
-(53, 16, 1, '13 мм'),
-(53, 15, 1, 'Полиуретан'),
-(53, 12, 1, 'Весна-осень'),
-(58, 13, 1, 'Кожа'),
-(58, 12, 1, 'Зима'),
-(56, 14, 1, 'Замша'),
-(56, 13, 1, 'Кожа'),
-(56, 16, 1, '13 мм'),
-(56, 15, 1, 'Полиуретан'),
-(56, 12, 1, 'Зима'),
-(50, 14, 1, 'Мех'),
-(50, 13, 1, 'Замша'),
-(50, 16, 1, '13 мм'),
-(50, 15, 1, 'Полиуретан'),
-(50, 12, 1, 'Зима'),
-(51, 14, 1, 'Замша'),
-(51, 13, 1, 'Мех'),
-(51, 16, 1, '12 мм'),
-(51, 15, 1, 'Полиуретан'),
-(51, 12, 1, 'Зима'),
-(55, 12, 1, 'Зима'),
-(55, 16, 1, '9 мм'),
-(59, 14, 1, 'Искусственная кожа'),
-(59, 13, 1, 'Замша'),
-(59, 12, 1, 'Весна-лето'),
-(60, 14, 1, 'Мех'),
-(60, 13, 1, 'Замша, защита от воды'),
-(60, 12, 1, 'Зима'),
-(61, 14, 1, 'Мех'),
-(61, 13, 1, 'Замша'),
-(61, 12, 1, 'Весна-осень'),
-(62, 14, 1, 'Кожа'),
-(62, 13, 1, 'Мех'),
-(62, 12, 1, 'Зима'),
-(63, 13, 1, 'Кожа'),
-(63, 14, 1, 'Овчина'),
-(63, 15, 1, 'Полиуретан'),
-(64, 14, 1, 'Мех'),
-(64, 13, 1, 'Кожа'),
-(64, 12, 1, 'Весна-осень'),
-(65, 13, 1, 'Кожа'),
-(65, 14, 1, 'Замша'),
-(65, 15, 1, 'Полиуретан'),
-(66, 15, 1, 'Полиуретан'),
-(66, 14, 1, 'Мех'),
-(66, 13, 1, 'Замша'),
-(66, 12, 1, 'Зима'),
-(67, 15, 1, 'Полиуретан'),
-(67, 14, 1, 'Замша'),
-(67, 13, 1, 'Мех'),
-(67, 12, 1, 'Зима'),
-(66, 16, 1, '13 мм'),
-(63, 12, 1, 'Зима'),
-(63, 16, 1, '13 мм'),
-(64, 15, 1, 'Полиуретан'),
-(64, 16, 1, '13 мм'),
-(65, 12, 1, 'Зима'),
-(65, 16, 1, '13 мм'),
+(75, 12, 1, 'Весна-осень'),
+(73, 13, 1, 'Замша'),
+(73, 12, 1, 'Весна-осень'),
+(77, 13, 1, 'Замша, защита от воды'),
+(72, 13, 1, 'Замша'),
+(72, 14, 1, 'Мех'),
+(72, 15, 1, 'Полиуретан'),
+(71, 14, 1, 'Мех'),
+(71, 13, 1, 'Замша'),
+(71, 12, 1, 'Весна-осень'),
+(72, 16, 1, '10 мм'),
+(70, 15, 1, 'Полиуретан'),
+(70, 16, 1, '10 мм'),
+(89, 16, 1, '10 мм'),
 (59, 15, 1, 'Полиуретан'),
+(59, 14, 1, 'Искусственная кожа'),
+(60, 14, 1, 'Мех'),
+(76, 16, 1, '10 мм'),
+(76, 15, 1, 'Резина'),
+(75, 13, 1, 'Замша'),
+(75, 14, 1, 'Мех'),
+(75, 15, 1, 'Полиуретан'),
+(75, 16, 1, '10 мм'),
+(74, 13, 1, 'Замша'),
+(74, 14, 1, 'Мех'),
+(74, 15, 1, 'Полиуретан'),
+(72, 12, 1, 'Весна-осень'),
+(71, 16, 1, '10 мм'),
+(71, 15, 1, 'Полиуретан'),
+(70, 13, 1, 'Замша'),
+(70, 12, 1, 'Весна-осень'),
+(69, 12, 1, 'Весна-осень'),
+(69, 13, 1, 'Замша'),
+(69, 14, 1, 'Мех'),
+(69, 15, 1, 'Полиуретан'),
+(69, 16, 1, '10 мм'),
 (59, 16, 1, '13 мм'),
 (60, 15, 1, 'Резина'),
+(76, 14, 1, 'Мех'),
+(74, 12, 1, 'Весна-осень'),
+(70, 14, 1, 'Мех'),
+(54, 12, 1, 'Весна-лето'),
+(54, 13, 1, 'Замша'),
+(59, 13, 1, 'Замша'),
+(59, 12, 1, 'Весна-лето'),
+(68, 16, 1, '13 мм'),
+(68, 15, 1, 'Полиуретан'),
+(68, 14, 1, 'Искусственная кожа'),
+(68, 12, 1, 'Весна-лето'),
+(68, 13, 1, 'Кожа'),
 (60, 16, 1, '10 мм'),
-(61, 15, 1, 'Полиуретан'),
-(61, 16, 1, '10 мм'),
-(62, 15, 1, 'Полиуретан'),
-(62, 16, 1, '9 мм'),
-(67, 16, 1, '12 мм');
+(60, 13, 1, 'Замша, защита от воды'),
+(60, 12, 1, 'Зима'),
+(52, 16, 1, '10 мм'),
+(74, 16, 1, '10 мм'),
+(73, 14, 1, 'Мех'),
+(57, 12, 1, 'Весна-осень'),
+(77, 14, 1, 'Мех'),
+(77, 15, 1, 'Резина'),
+(77, 16, 1, '10 мм'),
+(77, 12, 1, 'Зима'),
+(78, 13, 1, 'Замша'),
+(78, 14, 1, 'Мех'),
+(78, 15, 1, 'Полиуретан'),
+(78, 12, 1, 'Весна-осень'),
+(79, 16, 1, '10 мм'),
+(79, 15, 1, 'Полиуретан'),
+(79, 13, 1, 'Замша'),
+(79, 14, 1, 'Мех'),
+(80, 14, 1, 'Искусственная кожа'),
+(80, 13, 1, 'Замша'),
+(80, 12, 1, 'Весна-лето'),
+(83, 12, 1, 'Весна-лето'),
+(81, 14, 1, 'Мех'),
+(81, 15, 1, 'Резина'),
+(81, 13, 1, 'Замша, защита от воды'),
+(81, 12, 1, 'Зима'),
+(57, 16, 1, '10 мм'),
+(82, 13, 1, 'Замша'),
+(82, 14, 1, 'Мех'),
+(82, 15, 1, 'Полиуретан'),
+(82, 16, 1, '10 мм'),
+(83, 16, 1, '13 мм'),
+(83, 13, 1, 'Замша'),
+(83, 14, 1, 'Искусственная кожа'),
+(83, 15, 1, 'Полиуретан'),
+(84, 13, 1, 'Замша'),
+(84, 14, 1, 'Искусственная кожа'),
+(84, 15, 1, 'Полиуретан'),
+(84, 12, 1, 'Весна-лето'),
+(86, 13, 1, 'Замша'),
+(86, 14, 1, 'Мех'),
+(86, 15, 1, 'Полиуретан'),
+(81, 16, 1, '10 мм'),
+(87, 16, 1, '10 мм'),
+(86, 16, 1, '10 мм'),
+(87, 15, 1, 'Полиуретан'),
+(87, 14, 1, 'Мех'),
+(87, 12, 1, 'Весна-осень'),
+(87, 13, 1, 'Замша'),
+(82, 12, 1, 'Весна-осень'),
+(88, 13, 1, 'Замша'),
+(88, 14, 1, 'Мех'),
+(88, 15, 1, 'Полиуретан'),
+(88, 12, 1, 'Весна-осень'),
+(86, 12, 1, 'Весна-осень'),
+(89, 13, 1, 'Замша'),
+(89, 14, 1, 'Мех'),
+(89, 15, 1, 'Полиуретан'),
+(89, 12, 1, 'Весна-осень'),
+(90, 16, 1, '10 мм'),
+(90, 15, 1, 'Полиуретан'),
+(90, 13, 1, 'Замша'),
+(90, 14, 1, 'Мех'),
+(91, 13, 1, 'Замша'),
+(91, 14, 1, 'Мех'),
+(91, 15, 1, 'Полиуретан'),
+(91, 12, 1, 'Весна-осень'),
+(90, 12, 1, 'Весна-осень'),
+(92, 13, 1, 'Замша'),
+(92, 14, 1, 'Мех'),
+(92, 15, 1, 'Полиуретан'),
+(92, 12, 1, 'Весна-осень'),
+(93, 13, 1, 'Замша'),
+(93, 14, 1, 'Мех'),
+(93, 15, 1, 'Полиуретан'),
+(93, 12, 1, 'Весна-осень'),
+(94, 13, 1, 'Замша'),
+(94, 14, 1, 'Мех'),
+(94, 15, 1, 'Полиуретан'),
+(94, 12, 1, 'Весна-осень'),
+(95, 13, 1, 'Замша'),
+(95, 14, 1, 'Мех'),
+(95, 15, 1, 'Полиуретан'),
+(95, 12, 1, 'Весна-осень'),
+(96, 16, 1, '10 мм'),
+(96, 15, 1, 'Полиуретан'),
+(96, 13, 1, 'Замша'),
+(96, 14, 1, 'Мех'),
+(97, 16, 1, '10 мм'),
+(97, 15, 1, 'Полиуретан'),
+(97, 13, 1, 'Замша'),
+(97, 14, 1, 'Мех'),
+(98, 12, 1, 'Весна-осень'),
+(98, 13, 1, 'Замша'),
+(98, 14, 1, 'Мех'),
+(98, 15, 1, 'Полиуретан'),
+(98, 16, 1, '10 мм'),
+(99, 16, 1, '10 мм'),
+(99, 15, 1, 'Полиуретан'),
+(99, 13, 1, 'Замша'),
+(99, 14, 1, 'Мех'),
+(100, 16, 1, '10 мм'),
+(100, 15, 1, 'Полиуретан'),
+(100, 13, 1, 'Замша'),
+(100, 14, 1, 'Мех'),
+(101, 16, 1, '10 мм'),
+(101, 15, 1, 'Полиуретан'),
+(101, 13, 1, 'Замша'),
+(101, 14, 1, 'Мех'),
+(102, 16, 1, '10 мм'),
+(102, 15, 1, 'Полиуретан'),
+(102, 13, 1, 'Замша'),
+(102, 14, 1, 'Мех'),
+(103, 13, 1, 'Замша'),
+(103, 14, 1, 'Мех'),
+(103, 15, 1, 'Полиуретан'),
+(103, 12, 1, 'Весна-осень'),
+(104, 13, 1, 'Замша'),
+(104, 14, 1, 'Мех'),
+(104, 15, 1, 'Полиуретан'),
+(104, 12, 1, 'Весна-осень'),
+(105, 12, 1, 'Весна-осень'),
+(105, 13, 1, 'Замша'),
+(105, 14, 1, 'Мех'),
+(105, 15, 1, 'Полиуретан'),
+(105, 16, 1, '10 мм'),
+(106, 16, 1, '10 мм'),
+(106, 15, 1, 'Полиуретан'),
+(106, 13, 1, 'Замша'),
+(106, 14, 1, 'Мех'),
+(107, 12, 1, 'Весна-осень'),
+(107, 13, 1, 'Замша'),
+(107, 14, 1, 'Мех'),
+(107, 15, 1, 'Полиуретан'),
+(107, 16, 1, '10 мм'),
+(108, 16, 1, '10 мм'),
+(108, 15, 1, 'Полиуретан'),
+(108, 13, 1, 'Замша'),
+(108, 14, 1, 'Мех'),
+(109, 16, 1, '10 мм'),
+(109, 15, 1, 'Полиуретан'),
+(109, 13, 1, 'Замша'),
+(109, 14, 1, 'Мех'),
+(110, 13, 1, 'Замша'),
+(110, 14, 1, 'Мех'),
+(110, 15, 1, 'Полиуретан'),
+(110, 12, 1, 'Весна-осень'),
+(109, 12, 1, 'Весна-осень'),
+(108, 12, 1, 'Весна-осень'),
+(111, 13, 1, 'Замша'),
+(111, 14, 1, 'Мех'),
+(111, 15, 1, 'Полиуретан'),
+(111, 12, 1, 'Весна-осень'),
+(112, 13, 1, 'Замша'),
+(112, 14, 1, 'Мех'),
+(112, 15, 1, 'Полиуретан'),
+(112, 12, 1, 'Весна-осень'),
+(96, 12, 1, 'Весна-осень'),
+(97, 12, 1, 'Весна-осень'),
+(99, 12, 1, 'Весна-осень'),
+(100, 12, 1, 'Весна-осень'),
+(101, 12, 1, 'Весна-осень'),
+(102, 12, 1, 'Весна-осень'),
+(113, 13, 1, 'Замша'),
+(113, 14, 1, 'Мех'),
+(113, 15, 1, 'Полиуретан'),
+(113, 12, 1, 'Весна-осень'),
+(114, 13, 1, 'Замша'),
+(114, 14, 1, 'Мех'),
+(114, 15, 1, 'Полиуретан'),
+(115, 13, 1, 'Замша'),
+(115, 14, 1, 'Мех'),
+(115, 15, 1, 'Полиуретан'),
+(114, 12, 1, 'Весна-осень'),
+(115, 12, 1, 'Весна-осень'),
+(116, 16, 1, '10 мм'),
+(116, 15, 1, 'Полиуретан'),
+(116, 13, 1, 'Замша'),
+(116, 14, 1, 'Мех'),
+(116, 12, 1, 'Весна-осень'),
+(117, 13, 1, 'Замша'),
+(117, 14, 1, 'Мех'),
+(117, 15, 1, 'Полиуретан'),
+(117, 12, 1, 'Весна-осень'),
+(118, 13, 1, 'Замша'),
+(118, 14, 1, 'Мех'),
+(118, 15, 1, 'Полиуретан'),
+(118, 12, 1, 'Весна-осень'),
+(119, 13, 1, 'Замша'),
+(119, 14, 1, 'Мех'),
+(119, 15, 1, 'Полиуретан'),
+(119, 12, 1, 'Весна-осень'),
+(120, 16, 1, '10 мм'),
+(120, 15, 1, 'Полиуретан'),
+(120, 13, 1, 'Замша'),
+(120, 14, 1, 'Мех'),
+(121, 16, 1, '10 мм'),
+(121, 15, 1, 'Полиуретан'),
+(121, 13, 1, 'Замша'),
+(121, 14, 1, 'Мех'),
+(120, 12, 1, 'Весна-осень'),
+(122, 16, 1, '10 мм'),
+(122, 15, 1, 'Полиуретан'),
+(122, 13, 1, 'Замша'),
+(122, 14, 1, 'Мех'),
+(123, 16, 1, '10 мм'),
+(123, 15, 1, 'Полиуретан'),
+(123, 13, 1, 'Замша'),
+(123, 14, 1, 'Мех'),
+(124, 13, 1, 'Замша'),
+(124, 14, 1, 'Мех'),
+(124, 15, 1, 'Полиуретан'),
+(124, 12, 1, 'Весна-осень'),
+(122, 12, 1, 'Весна-осень'),
+(123, 12, 1, 'Весна-осень'),
+(121, 12, 1, 'Весна-осень'),
+(125, 13, 1, 'Замша'),
+(125, 14, 1, 'Мех'),
+(125, 15, 1, 'Полиуретан'),
+(125, 12, 1, 'Весна-осень'),
+(126, 13, 1, 'Замша'),
+(126, 14, 1, 'Мех'),
+(126, 15, 1, 'Полиуретан'),
+(126, 12, 1, 'Весна-осень'),
+(127, 13, 1, 'Замша'),
+(127, 14, 1, 'Мех'),
+(127, 15, 1, 'Полиуретан'),
+(127, 12, 1, 'Весна-осень'),
+(128, 13, 1, 'Замша'),
+(128, 14, 1, 'Мех'),
+(128, 15, 1, 'Полиуретан'),
+(128, 12, 1, 'Весна-осень'),
+(129, 16, 1, '10 мм'),
+(129, 15, 1, 'Полиуретан'),
+(129, 13, 1, 'Замша'),
+(129, 14, 1, 'Мех'),
+(130, 13, 1, 'Замша'),
+(130, 14, 1, 'Мех'),
+(130, 15, 1, 'Полиуретан'),
+(129, 12, 1, 'Весна-осень'),
+(130, 12, 1, 'Весна-осень'),
+(131, 13, 1, 'Замша'),
+(131, 14, 1, 'Мех'),
+(131, 15, 1, 'Полиуретан'),
+(131, 12, 1, 'Весна-осень'),
+(132, 15, 1, 'Полиуретан'),
+(132, 14, 1, 'Мех'),
+(132, 13, 1, 'Замша'),
+(133, 16, 1, '10 мм'),
+(133, 15, 1, 'Полиуретан'),
+(133, 13, 1, 'Замша'),
+(133, 14, 1, 'Мех'),
+(132, 16, 1, '10 мм'),
+(78, 16, 1, '10 мм'),
+(79, 12, 1, 'Весна-осень'),
+(88, 16, 1, '10 мм'),
+(91, 16, 1, '10 мм'),
+(92, 16, 1, '10 мм'),
+(103, 16, 1, '10 мм'),
+(93, 16, 1, '10 мм'),
+(104, 16, 1, '10 мм'),
+(106, 12, 1, 'Весна-осень'),
+(94, 16, 1, '10 мм'),
+(95, 16, 1, '10 мм'),
+(130, 16, 1, '10 мм'),
+(131, 16, 1, '10 мм'),
+(133, 12, 1, 'Весна-осень'),
+(132, 12, 1, 'Весна-осень'),
+(84, 16, 1, '13 мм'),
+(124, 16, 1, '10 мм'),
+(125, 16, 1, '10 мм'),
+(126, 16, 1, '10 мм'),
+(127, 16, 1, '10 мм'),
+(128, 16, 1, '10 мм'),
+(113, 16, 1, '10 мм'),
+(114, 16, 1, '10 мм'),
+(115, 16, 1, '10 мм'),
+(112, 16, 1, '10 мм'),
+(111, 16, 1, '10 мм'),
+(110, 16, 1, '10 мм'),
+(119, 16, 1, '10 мм'),
+(118, 16, 1, '10 мм'),
+(117, 16, 1, '10 мм'),
+(73, 15, 1, 'Полиуретан'),
+(73, 16, 1, '10 мм'),
+(80, 15, 1, 'Полиуретан'),
+(80, 16, 1, '13 мм');
 
 -- --------------------------------------------------------
 
@@ -4556,9 +5269,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_description` (
   `meta_title` varchar(255) NOT NULL,
   `meta_h1` varchar(255) NOT NULL,
   `meta_description` varchar(255) NOT NULL,
-  `meta_keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`product_id`,`language_id`),
-  KEY `name` (`name`)
+  `meta_keyword` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4566,24 +5277,76 @@ CREATE TABLE IF NOT EXISTS `oc_product_description` (
 --
 
 INSERT INTO `oc_product_description` (`product_id`, `language_id`, `name`, `description`, `tag`, `meta_title`, `meta_h1`, `meta_description`, `meta_keyword`) VALUES
-(53, 1, 'Bailey Button Wheat', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Wheat', 'Bailey Button Wheat', '', ''),
-(51, 1, 'Bailey Button Yellow', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Yellow', 'Bailey Button Yellow', '', ''),
-(54, 1, 'Bailey Button Black', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Black', 'Bailey Button Black', '', ''),
-(55, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(56, 1, 'Bailey Button White', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White', 'Bailey Button White', '', ''),
-(58, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(57, 1, 'Bailey Button Leather', 'Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.\r\n\r\nЕсли раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.', '', 'Bailey Button Leather', 'Bailey Button Leather', '', ''),
-(59, 1, 'Bailey Button Black', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Black', 'Bailey Button Black', '', ''),
-(60, 1, 'Bailey Button Grey', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Grey', 'Bailey Button Grey', '', ''),
-(61, 1, 'Bailey Button Leather', 'Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.\r\n\r\nЕсли раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.', '', 'Bailey Button Leather', 'Bailey Button Leather', '', ''),
-(62, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(63, 1, 'Bailey Button Rust', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
-(64, 1, 'Bailey Button Wheat', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Wheat', 'Bailey Button Wheat', '', ''),
-(65, 1, 'Bailey Button White', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White', 'Bailey Button White', '', ''),
-(66, 1, 'Bailey Button White Metallic', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White Metallic', 'Bailey Button White Metallic', '', ''),
-(67, 1, 'Bailey Button Yellow', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Yellow', 'Bailey Button Yellow', '', ''),
-(50, 1, 'Bailey Button White Metallic', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button White Metallic', 'Bailey Button White Metallic', '', ''),
-(52, 1, 'Bailey Button Grey', '&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Мужские беговые кроссовки Nike Air Max 2017 с верхом Flymesh, бесшовной конструкцией и полноразмерной амортизирующей вставкой Max Air обеспечивают поддержку и вентиляцию именно там, где это нужно.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin-top: 20px; margin-bottom: 20px; font-family: GOTHIC, Arial, sans-serif; font-size: 14px;&quot;&gt;Если раньше обувь Тимберленд выпускалась исключительно для представителей сильного пола, то сейчас модницам доступны женские ботинки Тимберленд различных моделей. Данный бренд — это не просто своеобразная икона стиля: осенние и зимние ботинки Timberland прекрасно удерживают тепло и не пропускают влагу, отличаются повышенной устойчивостью и функциональностью, позволяя своим владельцам оставаться мобильными в любых условиях. Кому-то знаменитые женские Timberland могут показаться грубоватыми, но дамы, которые хотят чувствовать себя комфортно в любую погоду, предпочитают купить женские тимберленды. Такая популярность обусловила и высокий спрос, и предложение на ботинки Тимберленд: купить в Москве их не составит никакого труда.&lt;/p&gt;', '', 'Bailey Button Grey', 'Bailey Button Grey', '', '');
+(103, 1, 'Classic Short Blue', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Blue', 'Classic Short Blue', '', ''),
+(104, 1, 'Classic Short Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Grey', 'Classic Short Grey', '', ''),
+(105, 1, 'Classic Short Metallic Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Metallic Beige', 'Classic Short Metallic Beige', '', ''),
+(106, 1, 'Classic Short Metallic Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Metallic Grey', 'Classic Short Metallic Grey', '', ''),
+(107, 1, 'Classic Short White', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short White', 'Classic Short White', '', ''),
+(121, 1, 'UGG Jimmy Choo Starlit Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Starlit Beige', 'UGG Jimmy Choo Starlit Beige', '', ''),
+(77, 1, 'Bailey Button Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Rust', 'Bailey Button Rust', '', ''),
+(78, 1, 'Bailey Button Wheat Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Wheat Leather', 'Bailey Button Wheat Leather', '', ''),
+(79, 1, 'Bailey Button White', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button White', 'Bailey Button White', '', ''),
+(80, 1, 'Bailey Button Triplet Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-triplet&quot;&gt;Bailey Triplet&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Triplet Black', 'Bailey Button Triplet Black', '', ''),
+(82, 1, 'Classic Mini Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-mini&quot;&gt;Classic Mini&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натуральным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Mini Black', 'Classic Mini Black', '', ''),
+(88, 1, 'Classic Mini Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-mini&quot;&gt;Classic Mini&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натуральным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Mini Grey', 'Classic Mini Grey', '', ''),
+(54, 1, 'Bailey Button Bow Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Bow Black', 'Bailey Button Bow Black', '', ''),
+(122, 1, 'UGG Jimmy Choo Mandah Gold', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Mandah Gold', 'UGG Jimmy Choo Mandah Gold', '', ''),
+(123, 1, 'UGG Jimmy Choo Mandah Silver', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Mandah Silver', 'UGG Jimmy Choo Mandah Silver', '', ''),
+(124, 1, 'UGG Jimmy Choo Short Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Short Grey', 'UGG Jimmy Choo Short Grey', '', ''),
+(125, 1, 'UGG Jimmy Choo Short Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Short Rust', 'UGG Jimmy Choo Short Rust', '', ''),
+(126, 1, 'UGG Jimmy Choo Starlit Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Starlit Black', 'UGG Jimmy Choo Starlit Black', '', ''),
+(89, 1, 'Classic Mini Blue', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-mini&quot;&gt;Classic Mini&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натуральным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Mini Blue', 'Classic Mini Blue', '', ''),
+(90, 1, 'Classic Short Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Beige', 'Classic Short Beige', '', ''),
+(91, 1, 'Classic Short Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Black', 'Classic Short Black', '', ''),
+(92, 1, 'Classic Short Black Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Black Leather', 'Classic Short Black Leather', '', ''),
+(93, 1, 'Classic Short Brown', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Brown', 'Classic Short Brown', '', ''),
+(94, 1, 'Classic Short Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Rust', 'Classic Short Rust', '', ''),
+(95, 1, 'Classic Short Silver', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Short Silver', 'Classic Short Silver', '', ''),
+(96, 1, 'UGG Mini Fox Fur Biege', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Biege', 'UGG Mini Fox Fur Biege', '', ''),
+(97, 1, 'UGG Mini Fox Fur Black Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Black Leather', 'UGG Mini Fox Fur Black Leather', '', ''),
+(98, 1, 'UGG Mini Fox Fur Brown замша', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Brown замша', 'UGG Mini Fox Fur Brown замша', '', ''),
+(57, 1, 'Bailey Button Wheat', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Wheat', 'Bailey Button Wheat', '', ''),
+(131, 1, 'Classic Tall Black Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-tall&quot;&gt;Classic Tall&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Tall Black Leather', 'Classic Tall Black Leather', '', ''),
+(132, 1, 'Classic Tall Brown Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-tall&quot;&gt;Classic Tall&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Tall Brown Leather', 'Classic Tall Brown Leather', '', ''),
+(133, 1, 'Classic Tall Brown', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-tall&quot;&gt;Classic Tall&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Tall Brown', 'Classic Tall Brown', '', ''),
+(59, 1, 'Bailey Button Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Black', 'Bailey Button Black', '', ''),
+(68, 1, 'Bailey Button Black Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Black Leather', 'Bailey Button Black Leather', '', ''),
+(60, 1, 'Bailey Button Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Grey', 'Bailey Button Grey', '', ''),
+(127, 1, 'UGG Jimmy Choo Starlit Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Starlit Leather', 'UGG Jimmy Choo Starlit Leather', '', ''),
+(128, 1, 'UGG Jimmy Choo Starlit Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Starlit Rust', 'UGG Jimmy Choo Starlit Rust', '', ''),
+(129, 1, 'Classic Tall Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-tall&quot;&gt;Classic Tall&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Tall Beige', 'Classic Tall Beige', '', ''),
+(130, 1, 'Classic Tall Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-tall&quot;&gt;Classic Tall&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Tall Black', 'Classic Tall Black', '', ''),
+(112, 1, 'Ugg Short Sparkles Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkles&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Ugg Short Sparkles Grey', 'Ugg Short Sparkles Grey', '', ''),
+(113, 1, 'UGG Mini Bailey Bow Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mini-mailey-bow&quot;&gt; Mini Bailey Bow&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Bailey Bow Beige', 'UGG Mini Bailey Bow Beige', '', ''),
+(114, 1, 'UGG Mini Bailey Bow Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mini-mailey-bow&quot;&gt; Mini Bailey Bow&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Bailey Bow Black', 'UGG Mini Bailey Bow Black', '', ''),
+(115, 1, 'UGG Mini Bailey Bow Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mini-mailey-bow&quot;&gt; Mini Bailey Bow&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Bailey Bow Rust', 'UGG Mini Bailey Bow Rust', '', ''),
+(116, 1, 'UGG Mocassins Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mocassin&quot;&gt;Ugg Mocassin&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mocassins Beige', 'UGG Mocassins Beige', '', ''),
+(117, 1, 'UGG Mocassins Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mocassin&quot;&gt;Ugg Mocassin&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mocassins Black', 'UGG Mocassins Black', '', ''),
+(118, 1, 'UGG Mocassins Blue', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mocassin&quot;&gt;Ugg Mocassin&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mocassins Blue', 'UGG Mocassins Blue', '', ''),
+(119, 1, 'UGG Mocassins Red', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-mocassin&quot;&gt;Ugg Mocassin&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mocassins Red', 'UGG Mocassins Red', '', ''),
+(120, 1, 'UGG Jimmy Choo Short Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-jimmy-choo&quot;&gt;Ugg Jimmy Choo&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Jimmy Choo Short Black', 'UGG Jimmy Choo Short Black', '', ''),
+(108, 1, 'Ugg Classic Sparkles Dark Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkles&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Ugg Classic Sparkles Dark Black', 'Ugg Classic Sparkles Dark Black', '', ''),
+(109, 1, 'Ugg Classic Sparkles Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkles&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Ugg Classic Sparkles Black', 'Ugg Classic Sparkles Black', '', ''),
+(110, 1, 'Ugg Short Sparkles Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkles&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Ugg Short Sparkles Beige', 'Ugg Short Sparkles Beige', '', ''),
+(111, 1, 'Ugg Short Sparkles Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-sparkless&quot;&gt;Ugg Classic Sparkles&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Ugg Short Sparkles Black', 'Ugg Short Sparkles Black', '', ''),
+(99, 1, 'UGG Mini Fox Fur Brown', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Brown', 'UGG Mini Fox Fur Brown', '', ''),
+(100, 1, 'UGG Mini Fox Fur Chocolate Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Chocolate Leather', 'UGG Mini Fox Fur Chocolate Leather', '', ''),
+(101, 1, 'UGG Mini Fox Fur Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Grey', 'UGG Mini Fox Fur Grey', '', ''),
+(102, 1, 'UGG Mini Fox Fur Grey Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-short&quot;&gt;Classic Short&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'UGG Mini Fox Fur Grey Leather', 'UGG Mini Fox Fur Grey Leather', '', ''),
+(83, 1, 'Dylyn &amp; Blaise Black', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-dylyn&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Dylyn &amp; Blaise Black', 'Dylyn &amp; Blaise Black', '', ''),
+(84, 1, 'Dylyn &amp; Blaise Rust', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-dylyn&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Dylyn &amp; Blaise Rust', 'Dylyn &amp; Blaise Rust', '', ''),
+(86, 1, 'Classic Mini Beige', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-mini&quot;&gt;Classic Mini&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натуральным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Mini Beige', 'Classic Mini Beige', '', ''),
+(87, 1, 'Classic Mini Black Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-classic-mini&quot;&gt;Classic Mini&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натуральным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Classic Mini Black Leather', 'Classic Mini Black Leather', '', ''),
+(69, 1, 'Bailey Button White Metallic', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button White Metallic', 'Bailey Button White Metallic', '', ''),
+(70, 1, 'Bailey Button Yellow', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Yellow', 'Bailey Button Yellow', '', ''),
+(71, 1, 'Bailey Button Black Brilliant', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Black Brilliant', 'Bailey Button Black Brilliant', '', ''),
+(72, 1, 'Bailey Button Brown Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Brown Leather', 'Bailey Button Brown Leather', '', ''),
+(73, 1, ' Bailey Button Fancy Brown', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', ' Bailey Button Fancy Brown', ' Bailey Button Fancy Brown', '', ''),
+(74, 1, 'Bailey Button Fancy Chestnut', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Fancy Chestnut', 'Bailey Button Fancy Chestnut', '', ''),
+(75, 1, 'Bailey Button Gold', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Gold', 'Bailey Button Gold', '', ''),
+(76, 1, 'Bailey Button Grey Leather', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Grey Leather', 'Bailey Button Grey Leather', '', ''),
+(81, 1, 'Bailey Button Triplet Grey', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-triplet&quot;&gt;Bailey Triplet&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Triplet Grey', 'Bailey Button Triplet Grey', '', ''),
+(52, 1, 'Bailey Button Brown', '&lt;p&gt;Модель: &lt;a href=&quot;/ugg-bailey-button&quot;&gt;BAILEY BUTTON&lt;/a&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;Женские Ugg Australia с натурльным мехом.\r\n&lt;/p&gt;\r\n&lt;p&gt;Гарантия - 6 месяцев.&lt;/p&gt;\r\n\r\n&lt;p&gt;Производитель - Австралия.&lt;/p&gt;', '', 'Bailey Button Brown', 'Bailey Button Brown', '', '');
 
 -- --------------------------------------------------------
 
@@ -4592,25 +5355,15 @@ INSERT INTO `oc_product_description` (`product_id`, `language_id`, `name`, `desc
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_discount` (
-  `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_discount_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   `quantity` int(4) NOT NULL DEFAULT '0',
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`product_discount_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=450 ;
-
---
--- Дамп данных таблицы `oc_product_discount`
---
-
-INSERT INTO `oc_product_discount` (`product_discount_id`, `product_id`, `customer_group_id`, `quantity`, `priority`, `price`, `date_start`, `date_end`) VALUES
-(449, 66, 1, 0, 0, '0.0000', '0000-00-00', '0000-00-00'),
-(447, 50, 1, 0, 0, '0.0000', '0000-00-00', '0000-00-00');
+  `date_end` date NOT NULL DEFAULT '0000-00-00'
+) ENGINE=MyISAM AUTO_INCREMENT=450 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -4620,8 +5373,7 @@ INSERT INTO `oc_product_discount` (`product_discount_id`, `product_id`, `custome
 
 CREATE TABLE IF NOT EXISTS `oc_product_filter` (
   `product_id` int(11) NOT NULL,
-  `filter_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`filter_id`)
+  `filter_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -4629,49 +5381,23 @@ CREATE TABLE IF NOT EXISTS `oc_product_filter` (
 --
 
 INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
-(50, 3),
-(50, 11),
-(50, 14),
-(50, 18),
-(50, 26),
-(50, 30),
-(51, 2),
-(51, 3),
-(51, 4),
-(51, 9),
-(51, 15),
-(51, 16),
-(51, 20),
-(51, 21),
 (52, 1),
 (52, 4),
-(52, 6),
 (52, 8),
-(52, 9),
-(52, 15),
+(52, 11),
+(52, 16),
 (52, 20),
+(52, 22),
 (52, 24),
-(53, 3),
-(53, 4),
-(53, 7),
-(53, 10),
-(53, 17),
-(53, 18),
-(53, 19),
-(53, 24),
-(53, 26),
-(53, 28),
-(53, 29),
-(53, 32),
+(52, 26),
 (54, 1),
 (54, 2),
-(54, 4),
-(54, 5),
-(54, 6),
+(54, 7),
 (54, 11),
 (54, 12),
 (54, 13),
 (54, 14),
+(54, 16),
 (54, 20),
 (54, 21),
 (54, 22),
@@ -4681,44 +5407,13 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 (54, 26),
 (54, 27),
 (54, 28),
-(55, 1),
-(55, 2),
-(55, 3),
-(55, 4),
-(55, 7),
-(55, 20),
-(55, 21),
-(55, 24),
-(55, 28),
-(55, 30),
-(56, 1),
-(56, 2),
-(56, 3),
-(56, 4),
-(56, 6),
-(56, 7),
-(56, 8),
-(56, 9),
-(56, 10),
-(56, 15),
-(56, 16),
-(56, 17),
-(56, 21),
-(56, 22),
-(56, 24),
-(56, 25),
-(56, 28),
-(56, 29),
-(56, 30),
-(56, 31),
 (57, 1),
 (57, 2),
 (57, 3),
-(57, 5),
-(57, 6),
 (57, 11),
 (57, 12),
 (57, 14),
+(57, 16),
 (57, 20),
 (57, 21),
 (57, 22),
@@ -4726,22 +5421,6 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 (57, 24),
 (57, 25),
 (57, 26),
-(57, 27),
-(57, 28),
-(57, 29),
-(57, 30),
-(57, 31),
-(57, 32),
-(58, 1),
-(58, 2),
-(58, 3),
-(58, 4),
-(58, 7),
-(58, 20),
-(58, 21),
-(58, 24),
-(58, 28),
-(58, 30),
 (59, 1),
 (59, 2),
 (59, 4),
@@ -4751,6 +5430,7 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 (59, 12),
 (59, 13),
 (59, 14),
+(59, 16),
 (59, 20),
 (59, 21),
 (59, 22),
@@ -4758,103 +5438,914 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 (59, 24),
 (59, 25),
 (59, 26),
-(59, 27),
-(59, 28),
 (60, 1),
-(60, 4),
-(60, 6),
 (60, 8),
 (60, 9),
-(60, 15),
+(60, 16),
 (60, 20),
+(60, 22),
+(60, 23),
 (60, 24),
-(61, 1),
-(61, 2),
-(61, 3),
-(61, 5),
-(61, 6),
-(61, 11),
-(61, 12),
-(61, 14),
-(61, 20),
-(61, 21),
-(61, 22),
-(61, 23),
-(61, 24),
-(61, 25),
-(61, 26),
-(61, 27),
-(61, 28),
-(61, 29),
-(61, 30),
-(61, 31),
-(61, 32),
-(62, 1),
-(62, 2),
-(62, 3),
-(62, 4),
-(62, 7),
-(62, 20),
-(62, 21),
-(62, 24),
-(62, 28),
-(62, 30),
-(63, 1),
-(63, 2),
-(63, 3),
-(63, 4),
-(63, 7),
-(63, 20),
-(63, 21),
-(63, 24),
-(63, 28),
-(63, 30),
-(64, 3),
-(64, 4),
-(64, 7),
-(64, 10),
-(64, 17),
-(64, 18),
-(64, 19),
-(64, 24),
-(64, 26),
-(64, 28),
-(64, 29),
-(64, 32),
-(65, 1),
-(65, 2),
-(65, 3),
-(65, 4),
-(65, 6),
-(65, 7),
-(65, 8),
-(65, 9),
-(65, 10),
-(65, 15),
-(65, 16),
-(65, 17),
-(65, 21),
-(65, 22),
-(65, 24),
-(65, 25),
-(65, 28),
-(65, 29),
-(65, 30),
-(65, 31),
-(66, 3),
-(66, 11),
-(66, 14),
-(66, 18),
-(66, 26),
-(66, 30),
-(67, 2),
-(67, 3),
-(67, 4),
-(67, 9),
-(67, 15),
-(67, 16),
-(67, 20),
-(67, 21);
+(60, 26),
+(68, 1),
+(68, 2),
+(68, 7),
+(68, 12),
+(68, 13),
+(68, 14),
+(68, 16),
+(68, 20),
+(68, 21),
+(68, 22),
+(68, 23),
+(68, 24),
+(68, 25),
+(68, 26),
+(69, 1),
+(69, 2),
+(69, 5),
+(69, 11),
+(69, 12),
+(69, 14),
+(69, 16),
+(69, 20),
+(69, 21),
+(69, 22),
+(69, 23),
+(69, 24),
+(69, 25),
+(69, 26),
+(70, 1),
+(70, 2),
+(70, 4),
+(70, 11),
+(70, 12),
+(70, 14),
+(70, 15),
+(70, 20),
+(70, 21),
+(70, 22),
+(70, 23),
+(70, 24),
+(70, 25),
+(70, 26),
+(71, 1),
+(71, 2),
+(71, 4),
+(71, 11),
+(71, 12),
+(71, 14),
+(71, 16),
+(71, 20),
+(71, 21),
+(71, 22),
+(71, 23),
+(71, 24),
+(71, 25),
+(71, 26),
+(72, 1),
+(72, 2),
+(72, 4),
+(72, 11),
+(72, 12),
+(72, 14),
+(72, 16),
+(72, 20),
+(72, 21),
+(72, 22),
+(72, 23),
+(72, 24),
+(72, 25),
+(72, 26),
+(73, 1),
+(73, 2),
+(73, 4),
+(73, 11),
+(73, 12),
+(73, 14),
+(73, 16),
+(73, 20),
+(73, 21),
+(73, 22),
+(73, 23),
+(73, 24),
+(73, 25),
+(73, 26),
+(74, 1),
+(74, 2),
+(74, 4),
+(74, 11),
+(74, 12),
+(74, 14),
+(74, 16),
+(74, 20),
+(74, 21),
+(74, 22),
+(74, 23),
+(74, 24),
+(74, 25),
+(74, 26),
+(75, 1),
+(75, 2),
+(75, 11),
+(75, 12),
+(75, 14),
+(75, 16),
+(75, 20),
+(75, 21),
+(75, 22),
+(75, 23),
+(75, 24),
+(75, 25),
+(75, 26),
+(75, 33),
+(76, 1),
+(76, 8),
+(76, 9),
+(76, 16),
+(76, 20),
+(76, 22),
+(76, 23),
+(76, 24),
+(76, 26),
+(77, 1),
+(77, 4),
+(77, 8),
+(77, 11),
+(77, 16),
+(77, 20),
+(77, 22),
+(77, 24),
+(77, 26),
+(78, 1),
+(78, 2),
+(78, 3),
+(78, 11),
+(78, 12),
+(78, 14),
+(78, 16),
+(78, 20),
+(78, 21),
+(78, 22),
+(78, 23),
+(78, 24),
+(78, 25),
+(78, 26),
+(79, 1),
+(79, 2),
+(79, 5),
+(79, 11),
+(79, 12),
+(79, 14),
+(79, 16),
+(79, 20),
+(79, 21),
+(79, 22),
+(79, 23),
+(79, 24),
+(79, 25),
+(79, 26),
+(80, 1),
+(80, 2),
+(80, 7),
+(80, 11),
+(80, 12),
+(80, 13),
+(80, 14),
+(80, 15),
+(80, 20),
+(80, 21),
+(80, 22),
+(80, 23),
+(80, 24),
+(80, 25),
+(80, 26),
+(81, 1),
+(81, 5),
+(81, 8),
+(81, 11),
+(81, 15),
+(81, 20),
+(81, 22),
+(81, 23),
+(81, 24),
+(81, 26),
+(82, 1),
+(82, 2),
+(82, 7),
+(82, 11),
+(82, 12),
+(82, 14),
+(82, 17),
+(82, 20),
+(82, 21),
+(82, 22),
+(82, 23),
+(82, 24),
+(82, 25),
+(82, 26),
+(83, 1),
+(83, 2),
+(83, 7),
+(83, 11),
+(83, 12),
+(83, 13),
+(83, 14),
+(83, 16),
+(83, 20),
+(83, 21),
+(83, 22),
+(83, 23),
+(83, 24),
+(83, 25),
+(83, 26),
+(84, 1),
+(84, 2),
+(84, 4),
+(84, 11),
+(84, 12),
+(84, 13),
+(84, 14),
+(84, 16),
+(84, 20),
+(84, 21),
+(84, 22),
+(84, 23),
+(84, 24),
+(84, 25),
+(84, 26),
+(86, 1),
+(86, 2),
+(86, 4),
+(86, 11),
+(86, 12),
+(86, 14),
+(86, 17),
+(86, 20),
+(86, 21),
+(86, 22),
+(86, 23),
+(86, 24),
+(86, 25),
+(86, 26),
+(87, 1),
+(87, 2),
+(87, 7),
+(87, 11),
+(87, 12),
+(87, 14),
+(87, 17),
+(87, 20),
+(87, 21),
+(87, 22),
+(87, 23),
+(87, 24),
+(87, 25),
+(87, 26),
+(88, 1),
+(88, 2),
+(88, 5),
+(88, 11),
+(88, 12),
+(88, 14),
+(88, 17),
+(88, 20),
+(88, 21),
+(88, 22),
+(88, 23),
+(88, 24),
+(88, 25),
+(88, 26),
+(89, 1),
+(89, 2),
+(89, 6),
+(89, 11),
+(89, 12),
+(89, 14),
+(89, 17),
+(89, 20),
+(89, 21),
+(89, 22),
+(89, 23),
+(89, 24),
+(89, 25),
+(89, 26),
+(90, 1),
+(90, 2),
+(90, 4),
+(90, 11),
+(90, 12),
+(90, 14),
+(90, 16),
+(90, 20),
+(90, 21),
+(90, 22),
+(90, 23),
+(90, 24),
+(90, 25),
+(90, 26),
+(91, 1),
+(91, 2),
+(91, 7),
+(91, 11),
+(91, 12),
+(91, 14),
+(91, 16),
+(91, 20),
+(91, 21),
+(91, 22),
+(91, 23),
+(91, 24),
+(91, 25),
+(91, 26),
+(92, 1),
+(92, 2),
+(92, 7),
+(92, 11),
+(92, 12),
+(92, 14),
+(92, 16),
+(92, 20),
+(92, 21),
+(92, 22),
+(92, 23),
+(92, 24),
+(92, 25),
+(92, 26),
+(93, 1),
+(93, 2),
+(93, 4),
+(93, 11),
+(93, 12),
+(93, 14),
+(93, 16),
+(93, 20),
+(93, 21),
+(93, 22),
+(93, 23),
+(93, 24),
+(93, 25),
+(93, 26),
+(94, 1),
+(94, 2),
+(94, 4),
+(94, 11),
+(94, 12),
+(94, 14),
+(94, 16),
+(94, 20),
+(94, 21),
+(94, 22),
+(94, 23),
+(94, 24),
+(94, 25),
+(94, 26),
+(95, 1),
+(95, 2),
+(95, 5),
+(95, 11),
+(95, 12),
+(95, 14),
+(95, 16),
+(95, 20),
+(95, 21),
+(95, 22),
+(95, 23),
+(95, 24),
+(95, 25),
+(95, 26),
+(96, 1),
+(96, 2),
+(96, 4),
+(96, 11),
+(96, 12),
+(96, 14),
+(96, 17),
+(96, 20),
+(96, 21),
+(96, 22),
+(96, 23),
+(96, 24),
+(96, 25),
+(96, 26),
+(97, 1),
+(97, 2),
+(97, 7),
+(97, 11),
+(97, 12),
+(97, 14),
+(97, 17),
+(97, 20),
+(97, 21),
+(97, 22),
+(97, 23),
+(97, 24),
+(97, 25),
+(97, 26),
+(98, 1),
+(98, 2),
+(98, 4),
+(98, 11),
+(98, 12),
+(98, 14),
+(98, 17),
+(98, 20),
+(98, 21),
+(98, 22),
+(98, 23),
+(98, 24),
+(98, 25),
+(98, 26),
+(99, 1),
+(99, 2),
+(99, 4),
+(99, 11),
+(99, 12),
+(99, 14),
+(99, 17),
+(99, 20),
+(99, 21),
+(99, 22),
+(99, 23),
+(99, 24),
+(99, 25),
+(99, 26),
+(100, 1),
+(100, 2),
+(100, 4),
+(100, 11),
+(100, 12),
+(100, 14),
+(100, 17),
+(100, 20),
+(100, 21),
+(100, 22),
+(100, 23),
+(100, 24),
+(100, 25),
+(100, 26),
+(101, 1),
+(101, 2),
+(101, 5),
+(101, 11),
+(101, 12),
+(101, 14),
+(101, 17),
+(101, 20),
+(101, 21),
+(101, 22),
+(101, 23),
+(101, 24),
+(101, 25),
+(101, 26),
+(102, 1),
+(102, 2),
+(102, 5),
+(102, 11),
+(102, 12),
+(102, 14),
+(102, 17),
+(102, 20),
+(102, 21),
+(102, 22),
+(102, 23),
+(102, 24),
+(102, 25),
+(102, 26),
+(103, 1),
+(103, 2),
+(103, 6),
+(103, 11),
+(103, 12),
+(103, 14),
+(103, 16),
+(103, 20),
+(103, 21),
+(103, 22),
+(103, 23),
+(103, 24),
+(103, 25),
+(103, 26),
+(104, 1),
+(104, 2),
+(104, 5),
+(104, 11),
+(104, 12),
+(104, 14),
+(104, 16),
+(104, 20),
+(104, 21),
+(104, 22),
+(104, 23),
+(104, 24),
+(104, 25),
+(104, 26),
+(105, 1),
+(105, 2),
+(105, 4),
+(105, 11),
+(105, 12),
+(105, 14),
+(105, 16),
+(105, 20),
+(105, 21),
+(105, 22),
+(105, 23),
+(105, 24),
+(105, 25),
+(105, 26),
+(106, 1),
+(106, 2),
+(106, 5),
+(106, 11),
+(106, 12),
+(106, 14),
+(106, 16),
+(106, 20),
+(106, 21),
+(106, 22),
+(106, 23),
+(106, 24),
+(106, 25),
+(106, 26),
+(107, 1),
+(107, 2),
+(107, 5),
+(107, 11),
+(107, 12),
+(107, 14),
+(107, 16),
+(107, 20),
+(107, 21),
+(107, 22),
+(107, 23),
+(107, 24),
+(107, 25),
+(107, 26),
+(107, 34),
+(108, 1),
+(108, 2),
+(108, 7),
+(108, 11),
+(108, 12),
+(108, 14),
+(108, 16),
+(108, 20),
+(108, 21),
+(108, 22),
+(108, 23),
+(108, 24),
+(108, 25),
+(108, 26),
+(109, 1),
+(109, 2),
+(109, 7),
+(109, 11),
+(109, 12),
+(109, 14),
+(109, 16),
+(109, 20),
+(109, 21),
+(109, 22),
+(109, 23),
+(109, 24),
+(109, 25),
+(109, 26),
+(110, 1),
+(110, 2),
+(110, 4),
+(110, 11),
+(110, 12),
+(110, 14),
+(110, 17),
+(110, 20),
+(110, 21),
+(110, 22),
+(110, 23),
+(110, 24),
+(110, 25),
+(110, 26),
+(111, 1),
+(111, 2),
+(111, 7),
+(111, 11),
+(111, 12),
+(111, 14),
+(111, 17),
+(111, 20),
+(111, 21),
+(111, 22),
+(111, 23),
+(111, 24),
+(111, 25),
+(111, 26),
+(112, 1),
+(112, 2),
+(112, 5),
+(112, 11),
+(112, 12),
+(112, 14),
+(112, 17),
+(112, 20),
+(112, 21),
+(112, 22),
+(112, 23),
+(112, 24),
+(112, 25),
+(112, 26),
+(113, 1),
+(113, 2),
+(113, 4),
+(113, 11),
+(113, 12),
+(113, 14),
+(113, 17),
+(113, 20),
+(113, 21),
+(113, 22),
+(113, 23),
+(113, 24),
+(113, 25),
+(113, 26),
+(114, 1),
+(114, 2),
+(114, 7),
+(114, 11),
+(114, 12),
+(114, 14),
+(114, 17),
+(114, 20),
+(114, 21),
+(114, 22),
+(114, 23),
+(114, 24),
+(114, 25),
+(114, 26),
+(115, 1),
+(115, 2),
+(115, 4),
+(115, 11),
+(115, 12),
+(115, 14),
+(115, 17),
+(115, 20),
+(115, 21),
+(115, 22),
+(115, 23),
+(115, 24),
+(115, 25),
+(115, 26),
+(116, 1),
+(116, 2),
+(116, 4),
+(116, 11),
+(116, 12),
+(116, 14),
+(116, 17),
+(116, 20),
+(116, 21),
+(116, 22),
+(116, 23),
+(116, 24),
+(116, 25),
+(116, 26),
+(117, 1),
+(117, 2),
+(117, 7),
+(117, 11),
+(117, 12),
+(117, 14),
+(117, 17),
+(117, 20),
+(117, 21),
+(117, 22),
+(117, 23),
+(117, 24),
+(117, 25),
+(117, 26),
+(118, 1),
+(118, 2),
+(118, 6),
+(118, 11),
+(118, 12),
+(118, 14),
+(118, 17),
+(118, 20),
+(118, 21),
+(118, 22),
+(118, 23),
+(118, 24),
+(118, 25),
+(118, 26),
+(119, 1),
+(119, 2),
+(119, 11),
+(119, 12),
+(119, 14),
+(119, 17),
+(119, 20),
+(119, 21),
+(119, 22),
+(119, 23),
+(119, 24),
+(119, 25),
+(119, 26),
+(120, 1),
+(120, 2),
+(120, 7),
+(120, 11),
+(120, 12),
+(120, 14),
+(120, 17),
+(120, 20),
+(120, 21),
+(120, 22),
+(120, 23),
+(120, 24),
+(120, 25),
+(120, 26),
+(121, 1),
+(121, 2),
+(121, 4),
+(121, 11),
+(121, 12),
+(121, 14),
+(121, 16),
+(121, 20),
+(121, 21),
+(121, 22),
+(121, 23),
+(121, 24),
+(121, 25),
+(121, 26),
+(122, 1),
+(122, 2),
+(122, 7),
+(122, 11),
+(122, 12),
+(122, 14),
+(122, 16),
+(122, 20),
+(122, 21),
+(122, 22),
+(122, 23),
+(122, 24),
+(122, 25),
+(122, 26),
+(123, 1),
+(123, 2),
+(123, 7),
+(123, 11),
+(123, 12),
+(123, 14),
+(123, 16),
+(123, 20),
+(123, 21),
+(123, 22),
+(123, 23),
+(123, 24),
+(123, 25),
+(123, 26),
+(124, 1),
+(124, 2),
+(124, 5),
+(124, 11),
+(124, 12),
+(124, 14),
+(124, 17),
+(124, 20),
+(124, 21),
+(124, 22),
+(124, 23),
+(124, 24),
+(124, 25),
+(124, 26),
+(125, 1),
+(125, 2),
+(125, 4),
+(125, 11),
+(125, 12),
+(125, 14),
+(125, 17),
+(125, 20),
+(125, 21),
+(125, 22),
+(125, 23),
+(125, 24),
+(125, 25),
+(125, 26),
+(126, 1),
+(126, 2),
+(126, 7),
+(126, 11),
+(126, 12),
+(126, 14),
+(126, 16),
+(126, 20),
+(126, 21),
+(126, 22),
+(126, 23),
+(126, 24),
+(126, 25),
+(126, 26),
+(127, 1),
+(127, 2),
+(127, 7),
+(127, 11),
+(127, 12),
+(127, 14),
+(127, 16),
+(127, 20),
+(127, 21),
+(127, 22),
+(127, 23),
+(127, 24),
+(127, 25),
+(127, 26),
+(128, 1),
+(128, 2),
+(128, 4),
+(128, 11),
+(128, 12),
+(128, 14),
+(128, 16),
+(128, 20),
+(128, 21),
+(128, 22),
+(128, 23),
+(128, 24),
+(128, 25),
+(128, 26),
+(129, 1),
+(129, 2),
+(129, 4),
+(129, 11),
+(129, 12),
+(129, 14),
+(129, 15),
+(129, 20),
+(129, 21),
+(129, 22),
+(129, 23),
+(129, 24),
+(129, 25),
+(129, 26),
+(130, 1),
+(130, 2),
+(130, 7),
+(130, 11),
+(130, 12),
+(130, 14),
+(130, 15),
+(130, 20),
+(130, 21),
+(130, 22),
+(130, 23),
+(130, 24),
+(130, 25),
+(130, 26),
+(131, 1),
+(131, 2),
+(131, 7),
+(131, 11),
+(131, 12),
+(131, 14),
+(131, 15),
+(131, 20),
+(131, 21),
+(131, 22),
+(131, 23),
+(131, 24),
+(131, 25),
+(131, 26),
+(132, 1),
+(132, 2),
+(132, 4),
+(132, 11),
+(132, 12),
+(132, 14),
+(132, 15),
+(132, 20),
+(132, 21),
+(132, 22),
+(132, 23),
+(132, 24),
+(132, 25),
+(132, 26),
+(133, 1),
+(133, 2),
+(133, 4),
+(133, 11),
+(133, 12),
+(133, 14),
+(133, 15),
+(133, 20),
+(133, 21),
+(133, 22),
+(133, 23),
+(133, 24),
+(133, 25),
+(133, 26);
 
 -- --------------------------------------------------------
 
@@ -4863,51 +6354,140 @@ INSERT INTO `oc_product_filter` (`product_id`, `filter_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_image` (
-  `product_image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_image_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
-  `sort_order` int(3) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_image_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2496 ;
+  `sort_order` int(3) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=2963 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_image`
 --
 
 INSERT INTO `oc_product_image` (`product_image_id`, `product_id`, `image`, `sort_order`) VALUES
-(2495, 67, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2494, 67, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2446, 56, 'catalog/ugg/product7.jpg', 0),
-(2441, 57, 'catalog/ugg/product8.jpg', 0),
-(2454, 58, 'catalog/ugg/product6.jpg', 0),
-(2453, 54, 'catalog/ugg/product7.jpg', 0),
-(2455, 58, 'catalog/ugg/product-img1.png', 0),
-(2459, 55, 'catalog/ugg/product6.jpg', 0),
-(2460, 55, 'catalog/ugg/product3.jpg', 0),
-(2487, 59, 'catalog/ugg/product5.jpg', 0),
-(2486, 59, 'catalog/ugg/product7.jpg', 0),
-(2489, 60, 'catalog/ugg/product4.jpg', 0),
-(2488, 60, 'catalog/ugg/product4.jpg', 0),
-(2490, 61, 'catalog/ugg/product8.jpg', 0),
-(2493, 62, 'catalog/ugg/product7.jpg', 0),
-(2492, 62, 'catalog/ugg/product3.jpg', 0),
-(2491, 62, 'catalog/ugg/product6.jpg', 0),
-(2481, 63, 'catalog/ugg/product6.jpg', 0),
-(2480, 63, 'catalog/ugg/product-img1.png', 0),
-(2483, 64, 'catalog/ugg/product5.jpg', 0),
-(2482, 64, 'catalog/ugg/product5.jpg', 0),
-(2485, 65, 'catalog/ugg/product7.jpg', 0),
-(2477, 66, 'catalog/ugg/bailey-button-white-metallic-2.jpg', 0),
-(2458, 55, 'catalog/ugg/product7.jpg', 0),
-(2447, 50, 'catalog/ugg/bailey-button-white-metallic-2.jpg', 0),
-(2443, 53, 'catalog/ugg/product5.jpg', 0),
-(2444, 53, 'catalog/ugg/product5.jpg', 0),
-(2448, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2449, 51, 'catalog/ugg/bailey-button-yellow-1.jpg', 0),
-(2440, 52, 'catalog/ugg/product4.jpg', 0),
-(2439, 52, 'catalog/ugg/product4.jpg', 0),
-(2452, 54, 'catalog/ugg/product5.jpg', 0);
+(2831, 70, 'catalog/ugg/57.2.jpg', 0),
+(2829, 69, 'catalog/ugg/10.2.jpg', 0),
+(2828, 69, 'catalog/ugg/10.3.jpg', 0),
+(2823, 57, 'catalog/ugg/9.3.jpg', 0),
+(2932, 79, 'catalog/ugg/50.3.jpg', 0),
+(2949, 54, 'catalog/ugg/1.3.jpg', 0),
+(2825, 78, 'catalog/ugg/49.2.jpg', 0),
+(2931, 79, 'catalog/ugg/50.2.jpg', 0),
+(2936, 59, 'catalog/ugg/3.2.jpg', 0),
+(2935, 59, 'catalog/ugg/3.3.jpg', 0),
+(2813, 60, 'catalog/ugg/5.2.jpg', 0),
+(2812, 60, 'catalog/ugg/5.3.jpg', 0),
+(2962, 80, 'catalog/ugg/6.3.jpg', 0),
+(2824, 78, 'catalog/ugg/49.3.jpg', 0),
+(2817, 77, 'catalog/ugg/48.2.jpg', 0),
+(2815, 76, 'catalog/ugg/47.2.jpg', 0),
+(2816, 77, 'catalog/ugg/48.3.jpg', 0),
+(2814, 76, 'catalog/ugg/47.3.jpg', 0),
+(2930, 74, 'catalog/ugg/45.2.jpg', 0),
+(2929, 74, 'catalog/ugg/45.3.jpg', 0),
+(2960, 73, 'catalog/ugg/44.3.jpg', 0),
+(2959, 73, 'catalog/ugg/44.2.jpg', 0),
+(2948, 71, 'catalog/ugg/42.2.jpg', 0),
+(2940, 72, 'catalog/ugg/43.3.jpg', 0),
+(2939, 72, 'catalog/ugg/43.2.jpg', 0),
+(2947, 71, 'catalog/ugg/42.3.jpg', 0),
+(2830, 70, 'catalog/ugg/57.3.jpg', 0),
+(2938, 52, 'catalog/ugg/4.3.jpg', 0),
+(2937, 52, 'catalog/ugg/4.2.jpg', 0),
+(2950, 54, 'catalog/ugg/_itr4855copy-800x600.jpg', 0),
+(2924, 68, 'catalog/ugg/2.3.jpg', 0),
+(2923, 68, 'catalog/ugg/2.2.jpg', 0),
+(2822, 57, 'catalog/ugg/9.2.jpg', 0),
+(2961, 80, 'catalog/ugg/6.2.jpg', 0),
+(2954, 81, 'catalog/ugg/7.3.jpg', 0),
+(2953, 81, 'catalog/ugg/7.2.jpg', 0),
+(2834, 82, 'catalog/ugg/13.2.jpg', 0),
+(2872, 83, 'catalog/ugg/59.2.jpg', 0),
+(2871, 83, 'catalog/ugg/59.3.jpg', 0),
+(2874, 84, 'catalog/ugg/60.2.jpg', 0),
+(2873, 84, 'catalog/ugg/60.3.jpg', 0),
+(2833, 86, 'catalog/ugg/12.2.jpg', 0),
+(2832, 86, 'catalog/ugg/12.3.jpg', 0),
+(2836, 87, 'catalog/ugg/14.2.jpg', 0),
+(2835, 87, 'catalog/ugg/14.3.jpg', 0),
+(2840, 88, 'catalog/ugg/15.2.jpg', 0),
+(2839, 88, 'catalog/ugg/15.3.jpg', 0),
+(2838, 89, 'catalog/ugg/51.2.jpg', 0),
+(2837, 89, 'catalog/ugg/51.3.jpg', 0),
+(2842, 90, 'catalog/ugg/21.3.jpg', 0),
+(2841, 90, 'catalog/ugg/21.2.jpg', 0),
+(2844, 91, 'catalog/ugg/20.2.jpg', 0),
+(2843, 91, 'catalog/ugg/20.3.jpg', 0),
+(2846, 92, 'catalog/ugg/19.2.jpg', 0),
+(2845, 92, 'catalog/ugg/19.3.jpg', 0),
+(2850, 93, 'catalog/ugg/18.2.jpg', 0),
+(2849, 93, 'catalog/ugg/18.3.jpg', 0),
+(2856, 94, 'catalog/ugg/17.2.jpg', 0),
+(2855, 94, 'catalog/ugg/17.3.jpg', 0),
+(2858, 95, 'catalog/ugg/16.2.jpg', 0),
+(2857, 95, 'catalog/ugg/16.3.jpg', 0),
+(2904, 99, 'catalog/ugg/33.3.jpg', 0),
+(2903, 99, 'catalog/ugg/33.2.jpg', 0),
+(2848, 103, 'catalog/ugg/52.3.jpg', 0),
+(2847, 103, 'catalog/ugg/52.2.jpg', 0),
+(2852, 105, 'catalog/ugg/54.2.jpg', 0),
+(2851, 105, 'catalog/ugg/54.3.jpg', 0),
+(2934, 106, 'catalog/ugg/55.3.jpg', 0),
+(2933, 106, 'catalog/ugg/55.2.jpg', 0),
+(2860, 107, 'catalog/ugg/56.2.jpg', 0),
+(2859, 107, 'catalog/ugg/56.3.jpg', 0),
+(2878, 108, 'catalog/ugg/25.3.jpg', 0),
+(2877, 108, 'catalog/ugg/25.2.jpg', 0),
+(2876, 109, 'catalog/ugg/61.3.jpg', 0),
+(2875, 109, 'catalog/ugg/61.2.jpg', 0),
+(2910, 110, 'catalog/ugg/70.2.jpg', 0),
+(2909, 110, 'catalog/ugg/70.3.jpg', 0),
+(2908, 111, 'catalog/ugg/71.2.jpg', 0),
+(2907, 111, 'catalog/ugg/71.3.jpg', 0),
+(2906, 112, 'catalog/ugg/72.2.jpg', 0),
+(2905, 112, 'catalog/ugg/72.3.jpg', 0),
+(2898, 113, 'catalog/ugg/28.3.jpg', 0),
+(2897, 113, 'catalog/ugg/28.2.jpg', 0),
+(2900, 114, 'catalog/ugg/29.2.jpg', 0),
+(2899, 114, 'catalog/ugg/29.3.jpg', 0),
+(2902, 115, 'catalog/ugg/30.2.jpg', 0),
+(2901, 115, 'catalog/ugg/30.3.jpg', 0),
+(2918, 116, 'catalog/ugg/38.2.jpg', 0),
+(2917, 116, 'catalog/ugg/38.3.jpg', 0),
+(2916, 117, 'catalog/ugg/39.2.jpg', 0),
+(2915, 117, 'catalog/ugg/39.3.jpg', 0),
+(2914, 118, 'catalog/ugg/40.2.jpg', 0),
+(2913, 118, 'catalog/ugg/40.3.jpg', 0),
+(2912, 119, 'catalog/ugg/41.2.jpg', 0),
+(2911, 119, 'catalog/ugg/41.3.jpg', 0),
+(2884, 120, 'catalog/ugg/26.3.jpg', 0),
+(2883, 120, 'catalog/ugg/26.2.jpg', 0),
+(2890, 121, 'catalog/ugg/27.3.jpg', 0),
+(2889, 121, 'catalog/ugg/27.2.jpg', 0),
+(2880, 122, 'catalog/ugg/62.3.jpg', 0),
+(2879, 122, 'catalog/ugg/62.2.jpg', 0),
+(2882, 123, 'catalog/ugg/63.3.jpg', 0),
+(2881, 123, 'catalog/ugg/63.2.jpg', 0),
+(2886, 124, 'catalog/ugg/64.2.jpg', 0),
+(2885, 124, 'catalog/ugg/64.3.jpg', 0),
+(2888, 125, 'catalog/ugg/65.2.jpg', 0),
+(2887, 125, 'catalog/ugg/65.3.jpg', 0),
+(2892, 126, 'catalog/ugg/66.2.jpg', 0),
+(2891, 126, 'catalog/ugg/66.3.jpg', 0),
+(2894, 127, 'catalog/ugg/67.2.jpg', 0),
+(2893, 127, 'catalog/ugg/67.3.jpg', 0),
+(2896, 128, 'catalog/ugg/68.2.jpg', 0),
+(2895, 128, 'catalog/ugg/68.3.jpg', 0),
+(2862, 129, 'catalog/ugg/22.3.jpg', 0),
+(2861, 129, 'catalog/ugg/22.2.jpg', 0),
+(2864, 130, 'catalog/ugg/23.2.jpg', 0),
+(2863, 130, 'catalog/ugg/23.3.jpg', 0),
+(2866, 131, 'catalog/ugg/57.2.jpg', 0),
+(2865, 131, 'catalog/ugg/57.3.jpg', 0),
+(2958, 132, 'catalog/ugg/58.3.jpg', 0),
+(2957, 132, 'catalog/ugg/58.2.jpg', 0),
+(2956, 133, 'catalog/ugg/24.3.jpg', 0),
+(2955, 133, 'catalog/ugg/24.2.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -4916,91 +6496,301 @@ INSERT INTO `oc_product_image` (`product_image_id`, `product_id`, `image`, `sort
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_option` (
-  `product_option_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_option_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
   `value` text NOT NULL,
-  `required` tinyint(1) NOT NULL,
-  PRIMARY KEY (`product_option_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=300 ;
+  `required` tinyint(1) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=568 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_option`
 --
 
 INSERT INTO `oc_product_option` (`product_option_id`, `product_id`, `option_id`, `value`, `required`) VALUES
-(253, 51, 15, '', 0),
-(247, 52, 15, '', 1),
-(246, 54, 16, '', 0),
-(254, 55, 16, '', 0),
-(251, 57, 15, '', 0),
-(245, 54, 15, '', 0),
+(315, 71, 16, '', 0),
 (248, 52, 16, '', 1),
-(236, 57, 14, '', 0),
-(255, 55, 15, '', 0),
-(231, 53, 13, '55%', 0),
-(239, 56, 13, '56%', 0),
-(227, 50, 13, '60%', 0),
-(252, 51, 16, '', 0),
-(257, 58, 15, '', 0),
-(243, 58, 14, '', 0),
+(246, 54, 16, '', 0),
+(339, 77, 16, '', 1),
+(250, 57, 16, '', 0),
+(245, 54, 15, '', 0),
+(247, 52, 15, '', 1),
+(251, 57, 15, '', 0),
+(336, 77, 13, '60%', 0),
+(335, 76, 16, '', 1),
+(323, 73, 16, '', 0),
+(319, 72, 16, '', 0),
+(314, 71, 15, '', 0),
 (234, 54, 14, '', 0),
 (230, 54, 13, '60%', 0),
 (249, 52, 14, '', 0),
 (229, 52, 13, '60%', 0),
-(233, 57, 13, '59%', 0),
-(242, 51, 14, '', 0),
-(228, 51, 13, '50%', 0),
-(237, 55, 14, '', 0),
-(250, 57, 16, '', 0),
-(238, 53, 14, '', 0),
-(258, 53, 16, '', 0),
-(259, 53, 15, '', 0),
-(244, 58, 13, '50%', 0),
-(240, 56, 14, '', 0),
-(260, 56, 16, '', 0),
-(261, 56, 15, '', 0),
-(241, 50, 14, '', 0),
-(262, 50, 16, '', 0),
-(263, 50, 15, '', 0),
-(256, 58, 16, '', 0),
-(232, 55, 13, '50%', 0),
+(311, 70, 16, '', 0),
+(310, 70, 15, '', 0),
+(236, 57, 14, '', 0),
+(267, 59, 16, '', 0),
+(327, 74, 16, '', 0),
+(326, 74, 15, '', 0),
+(322, 73, 15, '', 0),
+(321, 73, 14, '', 0),
+(318, 72, 15, '', 0),
+(313, 71, 14, '', 0),
 (266, 59, 15, '', 0),
 (265, 59, 14, '', 0),
-(264, 59, 13, '60%', 0),
-(270, 60, 15, '', 1),
-(269, 60, 14, '', 0),
-(268, 60, 13, '60%', 0),
-(274, 61, 15, '', 0),
-(273, 61, 14, '', 0),
-(272, 61, 13, '59%', 0),
-(278, 62, 15, '', 0),
-(277, 62, 14, '', 0),
-(276, 62, 13, '50%', 0),
-(282, 63, 15, '', 0),
-(281, 63, 14, '', 0),
-(286, 64, 15, '', 0),
-(285, 64, 14, '', 0),
-(284, 64, 13, '55%', 0),
-(290, 65, 15, '', 0),
-(289, 65, 14, '', 0),
-(294, 66, 15, '', 0),
-(293, 66, 14, '', 0),
-(292, 66, 13, '60%', 0),
-(298, 67, 15, '', 0),
-(297, 67, 14, '', 0),
-(296, 67, 13, '50%', 0),
-(295, 66, 16, '', 0),
-(280, 63, 13, '50%', 0),
-(283, 63, 16, '', 0),
-(287, 64, 16, '', 0),
-(288, 65, 13, '56%', 0),
-(291, 65, 16, '', 0),
-(267, 59, 16, '', 0),
 (271, 60, 16, '', 1),
-(275, 61, 16, '', 0),
-(279, 62, 16, '', 0),
-(299, 67, 16, '', 0);
+(270, 60, 15, '', 1),
+(342, 78, 15, '', 0),
+(338, 77, 15, '', 1),
+(337, 77, 14, '', 0),
+(334, 76, 15, '', 1),
+(332, 76, 13, '60%', 0),
+(331, 75, 16, '', 0),
+(330, 75, 15, '', 0),
+(324, 74, 13, '59%', 0),
+(317, 72, 14, '', 0),
+(316, 72, 13, '59%', 0),
+(309, 70, 14, '', 0),
+(307, 69, 16, '', 0),
+(306, 69, 15, '', 0),
+(305, 69, 14, '', 0),
+(304, 69, 13, '59%', 0),
+(269, 60, 14, '', 0),
+(333, 76, 14, '', 0),
+(308, 70, 13, '59%', 0),
+(264, 59, 13, '60%', 0),
+(303, 68, 16, '', 0),
+(302, 68, 15, '', 0),
+(301, 68, 14, '', 0),
+(268, 60, 13, '60%', 0),
+(329, 75, 14, '', 0),
+(325, 74, 14, '', 0),
+(233, 57, 13, '59%', 0),
+(341, 78, 14, '', 0),
+(340, 78, 13, '59%', 0),
+(347, 79, 16, '', 0),
+(346, 79, 15, '', 0),
+(345, 79, 14, '', 0),
+(350, 80, 15, '', 0),
+(349, 80, 14, '', 0),
+(348, 80, 13, '60%', 0),
+(355, 81, 16, '', 1),
+(354, 81, 15, '', 1),
+(353, 81, 14, '', 0),
+(359, 82, 16, '', 0),
+(358, 82, 15, '', 0),
+(356, 82, 13, '59%', 0),
+(352, 81, 13, '60%', 0),
+(363, 83, 16, '', 0),
+(362, 83, 15, '', 0),
+(360, 83, 13, '60%', 0),
+(361, 83, 14, '', 0),
+(366, 84, 15, '', 0),
+(365, 84, 14, '', 0),
+(364, 84, 13, '60%', 0),
+(375, 86, 16, '', 0),
+(374, 86, 15, '', 0),
+(372, 86, 13, '59%', 0),
+(357, 82, 14, '', 0),
+(373, 86, 14, '', 0),
+(379, 87, 16, '', 0),
+(378, 87, 15, '', 0),
+(377, 87, 14, '', 0),
+(382, 88, 15, '', 0),
+(381, 88, 14, '', 0),
+(380, 88, 13, '59%', 0),
+(376, 87, 13, '59%', 0),
+(386, 89, 15, '', 0),
+(385, 89, 14, '', 0),
+(384, 89, 13, '59%', 0),
+(391, 90, 16, '', 0),
+(390, 90, 15, '', 0),
+(389, 90, 14, '', 0),
+(394, 91, 15, '', 0),
+(393, 91, 14, '', 0),
+(392, 91, 13, '59%', 0),
+(388, 90, 13, '59%', 0),
+(398, 92, 15, '', 0),
+(397, 92, 14, '', 0),
+(396, 92, 13, '59%', 0),
+(402, 93, 15, '', 0),
+(401, 93, 14, '', 0),
+(400, 93, 13, '59%', 0),
+(406, 94, 15, '', 0),
+(405, 94, 14, '', 0),
+(404, 94, 13, '59%', 0),
+(410, 95, 15, '', 0),
+(409, 95, 14, '', 0),
+(408, 95, 13, '59%', 0),
+(415, 96, 16, '', 0),
+(414, 96, 15, '', 0),
+(413, 96, 14, '', 0),
+(419, 97, 16, '', 0),
+(418, 97, 15, '', 0),
+(417, 97, 14, '', 0),
+(423, 98, 16, '', 0),
+(422, 98, 15, '', 0),
+(420, 98, 13, '59%', 0),
+(421, 98, 14, '', 0),
+(427, 99, 16, '', 0),
+(426, 99, 15, '', 0),
+(425, 99, 14, '', 0),
+(431, 100, 16, '', 0),
+(430, 100, 15, '', 0),
+(429, 100, 14, '', 0),
+(435, 101, 16, '', 0),
+(434, 101, 15, '', 0),
+(433, 101, 14, '', 0),
+(439, 102, 16, '', 0),
+(438, 102, 15, '', 0),
+(437, 102, 14, '', 0),
+(442, 103, 15, '', 0),
+(441, 103, 14, '', 0),
+(440, 103, 13, '59%', 0),
+(446, 104, 15, '', 0),
+(445, 104, 14, '', 0),
+(444, 104, 13, '59%', 0),
+(451, 105, 16, '', 0),
+(450, 105, 15, '', 0),
+(448, 105, 13, '59%', 0),
+(449, 105, 14, '', 0),
+(455, 106, 16, '', 0),
+(454, 106, 15, '', 0),
+(453, 106, 14, '', 0),
+(459, 107, 16, '', 0),
+(458, 107, 15, '', 0),
+(456, 107, 13, '59%', 0),
+(457, 107, 14, '', 0),
+(463, 108, 16, '', 0),
+(462, 108, 15, '', 0),
+(461, 108, 14, '', 0),
+(467, 109, 16, '', 0),
+(466, 109, 15, '', 0),
+(465, 109, 14, '', 0),
+(470, 110, 15, '', 0),
+(469, 110, 14, '', 0),
+(468, 110, 13, '59%', 0),
+(464, 109, 13, '59%', 0),
+(460, 108, 13, '59%', 0),
+(474, 111, 15, '', 0),
+(473, 111, 14, '', 0),
+(472, 111, 13, '59%', 0),
+(478, 112, 15, '', 0),
+(477, 112, 14, '', 0),
+(476, 112, 13, '59%', 0),
+(412, 96, 13, '59%', 0),
+(416, 97, 13, '59%', 0),
+(424, 99, 13, '59%', 0),
+(428, 100, 13, '59%', 0),
+(432, 101, 13, '59%', 0),
+(436, 102, 13, '59%', 0),
+(482, 113, 15, '', 0),
+(481, 113, 14, '', 0),
+(480, 113, 13, '59%', 0),
+(486, 114, 15, '', 0),
+(485, 114, 14, '', 0),
+(490, 115, 15, '', 0),
+(489, 115, 14, '', 0),
+(484, 114, 13, '59%', 0),
+(488, 115, 13, '59%', 0),
+(495, 116, 16, '', 0),
+(494, 116, 15, '', 0),
+(493, 116, 14, '', 0),
+(492, 116, 13, '59%', 0),
+(498, 117, 15, '', 0),
+(497, 117, 14, '', 0),
+(496, 117, 13, '59%', 0),
+(502, 118, 15, '', 0),
+(501, 118, 14, '', 0),
+(500, 118, 13, '59%', 0),
+(506, 119, 15, '', 0),
+(505, 119, 14, '', 0),
+(504, 119, 13, '59%', 0),
+(511, 120, 16, '', 0),
+(510, 120, 15, '', 0),
+(509, 120, 14, '', 0),
+(515, 121, 16, '', 0),
+(514, 121, 15, '', 0),
+(513, 121, 14, '', 0),
+(508, 120, 13, '59%', 0),
+(519, 122, 16, '', 0),
+(518, 122, 15, '', 0),
+(517, 122, 14, '', 0),
+(523, 123, 16, '', 0),
+(522, 123, 15, '', 0),
+(521, 123, 14, '', 0),
+(526, 124, 15, '', 0),
+(525, 124, 14, '', 0),
+(524, 124, 13, '59%', 0),
+(516, 122, 13, '59%', 0),
+(520, 123, 13, '59%', 0),
+(512, 121, 13, '59%', 0),
+(530, 125, 15, '', 0),
+(529, 125, 14, '', 0),
+(528, 125, 13, '59%', 0),
+(534, 126, 15, '', 0),
+(533, 126, 14, '', 0),
+(532, 126, 13, '59%', 0),
+(538, 127, 15, '', 0),
+(537, 127, 14, '', 0),
+(536, 127, 13, '59%', 0),
+(542, 128, 15, '', 0),
+(541, 128, 14, '', 0),
+(540, 128, 13, '59%', 0),
+(547, 129, 16, '', 0),
+(546, 129, 15, '', 0),
+(545, 129, 14, '', 0),
+(550, 130, 15, '', 0),
+(549, 130, 14, '', 0),
+(544, 129, 13, '59%', 0),
+(548, 130, 13, '59%', 0),
+(554, 131, 15, '', 0),
+(553, 131, 14, '', 0),
+(552, 131, 13, '59%', 0),
+(559, 132, 16, '', 0),
+(558, 132, 15, '', 0),
+(563, 133, 16, '', 0),
+(562, 133, 15, '', 0),
+(561, 133, 14, '', 0),
+(557, 132, 14, '', 0),
+(300, 68, 13, '60%', 0),
+(328, 75, 13, '59%', 0),
+(343, 78, 16, '', 0),
+(344, 79, 13, '59%', 0),
+(387, 89, 16, '', 0),
+(383, 88, 16, '', 0),
+(395, 91, 16, '', 0),
+(399, 92, 16, '', 0),
+(443, 103, 16, '', 0),
+(403, 93, 16, '', 0),
+(447, 104, 16, '', 0),
+(452, 106, 13, '59%', 0),
+(407, 94, 16, '', 0),
+(411, 95, 16, '', 0),
+(551, 130, 16, '', 0),
+(555, 131, 16, '', 0),
+(560, 133, 13, '59%', 0),
+(556, 132, 13, '59%', 0),
+(367, 84, 16, '', 0),
+(527, 124, 16, '', 0),
+(531, 125, 16, '', 0),
+(535, 126, 16, '', 0),
+(539, 127, 16, '', 0),
+(543, 128, 16, '', 0),
+(483, 113, 16, '', 0),
+(487, 114, 16, '', 0),
+(491, 115, 16, '', 0),
+(479, 112, 16, '', 0),
+(475, 111, 16, '', 0),
+(471, 110, 16, '', 0),
+(507, 119, 16, '', 0),
+(503, 118, 16, '', 0),
+(499, 117, 16, '', 0),
+(320, 73, 13, '59%', 0),
+(312, 71, 13, '59%', 0),
+(565, 71, 17, '', 1),
+(566, 73, 17, '', 1),
+(351, 80, 16, '', 0),
+(567, 80, 17, '', 1);
 
 -- --------------------------------------------------------
 
@@ -5009,7 +6799,7 @@ INSERT INTO `oc_product_option` (`product_option_id`, `product_id`, `option_id`,
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_option_value` (
-  `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_option_value_id` int(11) NOT NULL,
   `product_option_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `option_id` int(11) NOT NULL,
@@ -5021,9 +6811,8 @@ CREATE TABLE IF NOT EXISTS `oc_product_option_value` (
   `points` int(8) NOT NULL,
   `points_prefix` varchar(1) NOT NULL,
   `weight` decimal(15,2) NOT NULL,
-  `weight_prefix` varchar(1) NOT NULL,
-  PRIMARY KEY (`product_option_value_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=202 ;
+  `weight_prefix` varchar(1) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=1344 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_option_value`
@@ -5044,6 +6833,8 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 (23, 234, 54, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
 (22, 234, 54, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (21, 234, 54, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(91, 250, 57, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(90, 250, 57, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (92, 251, 57, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (45, 236, 57, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (44, 236, 57, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
@@ -5056,41 +6847,28 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 (37, 236, 57, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (36, 236, 57, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (35, 236, 57, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(34, 236, 57, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(33, 236, 57, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(97, 254, 55, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(96, 254, 55, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(98, 255, 55, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(52, 237, 55, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(51, 237, 55, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(50, 237, 55, 14, 55, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(49, 237, 55, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(57, 238, 53, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(56, 238, 53, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(55, 238, 53, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(54, 238, 53, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(53, 238, 53, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(66, 240, 56, 14, 62, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(65, 240, 56, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(64, 240, 56, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(63, 240, 56, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(62, 240, 56, 14, 56, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(61, 240, 56, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(60, 240, 56, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(59, 240, 56, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(58, 240, 56, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(68, 241, 50, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(67, 241, 50, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(94, 252, 51, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(93, 252, 51, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(95, 253, 51, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(100, 256, 58, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(99, 256, 58, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(101, 257, 58, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(78, 243, 58, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(77, 243, 58, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(76, 243, 58, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(75, 243, 58, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(305, 323, 73, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(304, 323, 73, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(286, 319, 72, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(287, 319, 72, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(285, 318, 72, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(284, 317, 72, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(283, 317, 72, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(282, 317, 72, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(280, 317, 72, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(251, 311, 70, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(281, 317, 72, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(248, 309, 70, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(249, 310, 70, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(250, 311, 70, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(224, 305, 69, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(225, 305, 69, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(226, 305, 69, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(227, 305, 69, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(228, 305, 69, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(229, 305, 69, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(230, 305, 69, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(231, 306, 69, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (20, 234, 54, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (19, 234, 54, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (18, 234, 54, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
@@ -5099,28 +6877,22 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 (87, 249, 52, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (86, 249, 52, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (85, 249, 52, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(34, 236, 57, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(33, 236, 57, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(246, 309, 70, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(247, 309, 70, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(245, 309, 70, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(244, 309, 70, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(243, 309, 70, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (32, 236, 57, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(31, 236, 57, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(71, 242, 51, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(70, 242, 51, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(69, 242, 51, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(48, 237, 55, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(47, 237, 55, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(46, 237, 55, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(90, 250, 57, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(91, 250, 57, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(74, 243, 58, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(73, 243, 58, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(72, 243, 58, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(102, 258, 53, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(103, 258, 53, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(104, 259, 53, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(105, 260, 56, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(106, 260, 56, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(107, 261, 56, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(108, 262, 50, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(109, 262, 50, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(110, 263, 50, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(279, 317, 72, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(276, 317, 72, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(277, 317, 72, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(241, 309, 70, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(242, 309, 70, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(233, 307, 69, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(232, 307, 69, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(124, 267, 59, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
 (123, 267, 59, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (122, 266, 59, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (121, 265, 59, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
@@ -5132,8 +6904,6 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 (115, 265, 59, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (114, 265, 59, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (113, 265, 59, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(112, 265, 59, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(111, 265, 59, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (132, 271, 60, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
 (131, 271, 60, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (130, 270, 60, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
@@ -5142,76 +6912,1100 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 (127, 269, 60, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (126, 269, 60, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
 (125, 269, 60, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(148, 274, 61, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(147, 273, 61, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(146, 273, 61, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(145, 273, 61, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(144, 273, 61, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(143, 273, 61, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(142, 273, 61, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(141, 273, 61, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(140, 273, 61, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(139, 273, 61, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(138, 273, 61, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(137, 273, 61, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(136, 273, 61, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(135, 273, 61, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(134, 273, 61, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(133, 273, 61, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(160, 279, 62, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(159, 279, 62, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(158, 278, 62, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(157, 277, 62, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(156, 277, 62, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(155, 277, 62, 14, 55, 0, 1, '0.0000', '+', 0, '+', '0.00', '+'),
-(154, 277, 62, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(153, 277, 62, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(152, 277, 62, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(151, 277, 62, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(170, 283, 63, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(169, 283, 63, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(168, 282, 63, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(167, 281, 63, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(166, 281, 63, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(165, 281, 63, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(164, 281, 63, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(163, 281, 63, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(162, 281, 63, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(161, 281, 63, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(178, 287, 64, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(177, 287, 64, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(176, 286, 64, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(175, 285, 64, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(174, 285, 64, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(173, 285, 64, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(172, 285, 64, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(171, 285, 64, 14, 55, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(190, 291, 65, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(189, 291, 65, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(188, 290, 65, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(187, 289, 65, 14, 62, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(186, 289, 65, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(185, 289, 65, 14, 60, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(184, 289, 65, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(183, 289, 65, 14, 56, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(182, 289, 65, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(181, 289, 65, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(180, 289, 65, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(179, 289, 65, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(195, 295, 66, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(194, 295, 66, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(193, 294, 66, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(192, 293, 66, 14, 61, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(191, 293, 66, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(201, 299, 67, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(200, 299, 67, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(199, 298, 67, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(198, 297, 67, 14, 52, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(197, 297, 67, 14, 51, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(196, 297, 67, 14, 50, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(124, 267, 59, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
-(149, 275, 61, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
-(150, 275, 61, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+');
+(303, 322, 73, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(302, 321, 73, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(301, 321, 73, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(300, 321, 73, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(299, 321, 73, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(298, 321, 73, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(297, 321, 73, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(296, 321, 73, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(295, 321, 73, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(294, 321, 73, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(293, 321, 73, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(292, 321, 73, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(291, 321, 73, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(290, 321, 73, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(289, 321, 73, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(288, 321, 73, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(278, 317, 72, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(274, 317, 72, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(275, 317, 72, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(273, 317, 72, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(271, 317, 72, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(269, 315, 71, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(267, 314, 71, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(268, 315, 71, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(266, 313, 71, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(265, 313, 71, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(264, 313, 71, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(263, 313, 71, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(260, 313, 71, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(262, 313, 71, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(261, 313, 71, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(257, 313, 71, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(258, 313, 71, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(259, 313, 71, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(255, 313, 71, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(256, 313, 71, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(253, 313, 71, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(239, 309, 70, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(240, 309, 70, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(236, 309, 70, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(237, 309, 70, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(238, 309, 70, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(235, 309, 70, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(234, 309, 70, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(222, 305, 69, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(223, 305, 69, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(219, 305, 69, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(220, 305, 69, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(221, 305, 69, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(216, 305, 69, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(217, 305, 69, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(218, 305, 69, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(112, 265, 59, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(272, 317, 72, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(111, 265, 59, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(215, 303, 68, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(214, 303, 68, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(213, 302, 68, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(212, 301, 68, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(211, 301, 68, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(210, 301, 68, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(209, 301, 68, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(208, 301, 68, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(207, 301, 68, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(205, 301, 68, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(206, 301, 68, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(204, 301, 68, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(203, 301, 68, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(202, 301, 68, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(31, 236, 57, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(323, 327, 74, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(322, 327, 74, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(321, 326, 74, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(320, 325, 74, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(319, 325, 74, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(318, 325, 74, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(317, 325, 74, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(316, 325, 74, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(315, 325, 74, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(314, 325, 74, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(313, 325, 74, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(312, 325, 74, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(311, 325, 74, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(310, 325, 74, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(309, 325, 74, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(307, 325, 74, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(308, 325, 74, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(306, 325, 74, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(341, 331, 75, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(340, 331, 75, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(339, 330, 75, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(338, 329, 75, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(337, 329, 75, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(336, 329, 75, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(335, 329, 75, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(334, 329, 75, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(333, 329, 75, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(332, 329, 75, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(331, 329, 75, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(330, 329, 75, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(329, 329, 75, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(328, 329, 75, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(327, 329, 75, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(326, 329, 75, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(325, 329, 75, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(324, 329, 75, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(349, 335, 76, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(348, 335, 76, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(347, 334, 76, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(346, 333, 76, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(345, 333, 76, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(344, 333, 76, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(343, 333, 76, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(342, 333, 76, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(357, 339, 77, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(356, 339, 77, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(355, 338, 77, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(354, 337, 77, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(353, 337, 77, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(352, 337, 77, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(351, 337, 77, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(350, 337, 77, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(375, 343, 78, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(374, 343, 78, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(373, 342, 78, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(372, 341, 78, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(371, 341, 78, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(370, 341, 78, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(369, 341, 78, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(368, 341, 78, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(367, 341, 78, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(366, 341, 78, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(365, 341, 78, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(364, 341, 78, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(363, 341, 78, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(362, 341, 78, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(361, 341, 78, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(359, 341, 78, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(360, 341, 78, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(358, 341, 78, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(393, 347, 79, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(392, 347, 79, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(391, 346, 79, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(390, 345, 79, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(389, 345, 79, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(388, 345, 79, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(387, 345, 79, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(386, 345, 79, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(385, 345, 79, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(384, 345, 79, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(383, 345, 79, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(382, 345, 79, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(381, 345, 79, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(380, 345, 79, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(378, 345, 79, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(379, 345, 79, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(376, 345, 79, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(377, 345, 79, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(407, 351, 80, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(406, 351, 80, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(405, 350, 80, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(404, 349, 80, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(403, 349, 80, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(402, 349, 80, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(401, 349, 80, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(400, 349, 80, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(399, 349, 80, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(398, 349, 80, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(397, 349, 80, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(396, 349, 80, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(395, 349, 80, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(394, 349, 80, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(415, 355, 81, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(414, 355, 81, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(413, 354, 81, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(412, 353, 81, 14, 63, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(411, 353, 81, 14, 59, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(410, 353, 81, 14, 57, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(409, 353, 81, 14, 53, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(408, 353, 81, 14, 49, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(433, 359, 82, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(432, 359, 82, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(431, 358, 82, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(430, 357, 82, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(429, 357, 82, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(428, 357, 82, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(427, 357, 82, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(426, 357, 82, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(425, 357, 82, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(424, 357, 82, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(423, 357, 82, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(422, 357, 82, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(421, 357, 82, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(420, 357, 82, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(419, 357, 82, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(418, 357, 82, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(417, 357, 82, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(416, 357, 82, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(447, 363, 83, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(446, 363, 83, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(445, 362, 83, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(444, 361, 83, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(443, 361, 83, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(442, 361, 83, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(441, 361, 83, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(440, 361, 83, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(439, 361, 83, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(438, 361, 83, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(437, 361, 83, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(436, 361, 83, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(435, 361, 83, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(434, 361, 83, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(461, 367, 84, 16, 66, 1000, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(460, 367, 84, 16, 65, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(459, 366, 84, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(458, 365, 84, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(457, 365, 84, 14, 58, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(456, 365, 84, 14, 57, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(455, 365, 84, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(454, 365, 84, 14, 55, 1000, 1, '0.0000', '+', 0, '+', '0.00', '+'),
+(453, 365, 84, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(451, 365, 84, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(452, 365, 84, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(450, 365, 84, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(449, 365, 84, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(448, 365, 84, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(497, 375, 86, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(496, 375, 86, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(495, 374, 86, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(494, 373, 86, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(493, 373, 86, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(492, 373, 86, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(491, 373, 86, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(490, 373, 86, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(489, 373, 86, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(488, 373, 86, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(487, 373, 86, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(486, 373, 86, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(485, 373, 86, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(484, 373, 86, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(483, 373, 86, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(482, 373, 86, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(481, 373, 86, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(480, 373, 86, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(515, 379, 87, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(514, 379, 87, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(513, 378, 87, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(512, 377, 87, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(511, 377, 87, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(510, 377, 87, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(509, 377, 87, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(508, 377, 87, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(507, 377, 87, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(506, 377, 87, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(505, 377, 87, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(504, 377, 87, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(503, 377, 87, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(502, 377, 87, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(500, 377, 87, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(501, 377, 87, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(498, 377, 87, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(499, 377, 87, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(533, 383, 88, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(532, 383, 88, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(531, 382, 88, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(530, 381, 88, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(529, 381, 88, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(528, 381, 88, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(527, 381, 88, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(526, 381, 88, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(525, 381, 88, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(524, 381, 88, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(523, 381, 88, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(522, 381, 88, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(521, 381, 88, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(520, 381, 88, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(519, 381, 88, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(517, 381, 88, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(518, 381, 88, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(516, 381, 88, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(551, 387, 89, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(550, 387, 89, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(549, 386, 89, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(548, 385, 89, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(547, 385, 89, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(546, 385, 89, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(545, 385, 89, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(544, 385, 89, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(543, 385, 89, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(542, 385, 89, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(541, 385, 89, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(540, 385, 89, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(539, 385, 89, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(538, 385, 89, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(537, 385, 89, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(535, 385, 89, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(536, 385, 89, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(534, 385, 89, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(569, 391, 90, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(568, 391, 90, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(567, 390, 90, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(566, 389, 90, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(565, 389, 90, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(564, 389, 90, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(563, 389, 90, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(562, 389, 90, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(561, 389, 90, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(560, 389, 90, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(559, 389, 90, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(558, 389, 90, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(557, 389, 90, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(556, 389, 90, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(554, 389, 90, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(555, 389, 90, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(552, 389, 90, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(553, 389, 90, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(587, 395, 91, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(586, 395, 91, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(585, 394, 91, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(584, 393, 91, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(583, 393, 91, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(582, 393, 91, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(581, 393, 91, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(580, 393, 91, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(579, 393, 91, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(578, 393, 91, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(577, 393, 91, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(576, 393, 91, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(575, 393, 91, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(574, 393, 91, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(573, 393, 91, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(571, 393, 91, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(572, 393, 91, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(570, 393, 91, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(605, 399, 92, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(604, 399, 92, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(603, 398, 92, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(602, 397, 92, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(601, 397, 92, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(600, 397, 92, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(599, 397, 92, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(598, 397, 92, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(597, 397, 92, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(596, 397, 92, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(595, 397, 92, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(594, 397, 92, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(593, 397, 92, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(592, 397, 92, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(591, 397, 92, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(589, 397, 92, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(590, 397, 92, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(588, 397, 92, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(623, 403, 93, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(622, 403, 93, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(621, 402, 93, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(620, 401, 93, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(619, 401, 93, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(618, 401, 93, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(617, 401, 93, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(616, 401, 93, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(615, 401, 93, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(614, 401, 93, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(613, 401, 93, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(612, 401, 93, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(611, 401, 93, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(610, 401, 93, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(609, 401, 93, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(607, 401, 93, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(608, 401, 93, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(606, 401, 93, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(641, 407, 94, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(640, 407, 94, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(639, 406, 94, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(638, 405, 94, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(637, 405, 94, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(636, 405, 94, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(635, 405, 94, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(634, 405, 94, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(633, 405, 94, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(632, 405, 94, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(631, 405, 94, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(630, 405, 94, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(629, 405, 94, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(628, 405, 94, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(627, 405, 94, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(625, 405, 94, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(626, 405, 94, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(624, 405, 94, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(659, 411, 95, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(658, 411, 95, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(657, 410, 95, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(656, 409, 95, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(655, 409, 95, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(654, 409, 95, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(653, 409, 95, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(652, 409, 95, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(651, 409, 95, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(650, 409, 95, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(649, 409, 95, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(648, 409, 95, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(647, 409, 95, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(646, 409, 95, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(645, 409, 95, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(643, 409, 95, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(644, 409, 95, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(642, 409, 95, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(677, 415, 96, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(676, 415, 96, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(675, 414, 96, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(674, 413, 96, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(673, 413, 96, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(672, 413, 96, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(671, 413, 96, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(670, 413, 96, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(669, 413, 96, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(668, 413, 96, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(667, 413, 96, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(666, 413, 96, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(665, 413, 96, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(664, 413, 96, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(662, 413, 96, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(663, 413, 96, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(660, 413, 96, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(661, 413, 96, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(695, 419, 97, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(694, 419, 97, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(693, 418, 97, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(692, 417, 97, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(691, 417, 97, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(690, 417, 97, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(689, 417, 97, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(688, 417, 97, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(687, 417, 97, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(686, 417, 97, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(685, 417, 97, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(684, 417, 97, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(683, 417, 97, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(682, 417, 97, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(680, 417, 97, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(681, 417, 97, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(678, 417, 97, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(679, 417, 97, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(713, 423, 98, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(712, 423, 98, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(711, 422, 98, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(710, 421, 98, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(709, 421, 98, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(708, 421, 98, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(707, 421, 98, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(706, 421, 98, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(705, 421, 98, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(704, 421, 98, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(703, 421, 98, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(702, 421, 98, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(701, 421, 98, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(696, 421, 98, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(697, 421, 98, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(698, 421, 98, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(699, 421, 98, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(700, 421, 98, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(731, 427, 99, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(730, 427, 99, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(729, 426, 99, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(728, 425, 99, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(727, 425, 99, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(726, 425, 99, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(725, 425, 99, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(724, 425, 99, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(723, 425, 99, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(722, 425, 99, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(721, 425, 99, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(720, 425, 99, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(719, 425, 99, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(718, 425, 99, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(716, 425, 99, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(717, 425, 99, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(714, 425, 99, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(715, 425, 99, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(749, 431, 100, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(748, 431, 100, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(747, 430, 100, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(746, 429, 100, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(745, 429, 100, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(744, 429, 100, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(743, 429, 100, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(742, 429, 100, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(741, 429, 100, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(740, 429, 100, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(739, 429, 100, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(738, 429, 100, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(737, 429, 100, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(736, 429, 100, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(734, 429, 100, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(735, 429, 100, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(732, 429, 100, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(733, 429, 100, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(767, 435, 101, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(766, 435, 101, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(765, 434, 101, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(764, 433, 101, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(763, 433, 101, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(762, 433, 101, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(761, 433, 101, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(760, 433, 101, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(759, 433, 101, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(758, 433, 101, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(757, 433, 101, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(756, 433, 101, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(755, 433, 101, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(754, 433, 101, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(752, 433, 101, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(753, 433, 101, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(750, 433, 101, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(751, 433, 101, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(785, 439, 102, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(784, 439, 102, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(783, 438, 102, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(782, 437, 102, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(781, 437, 102, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(780, 437, 102, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(779, 437, 102, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(778, 437, 102, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(777, 437, 102, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(776, 437, 102, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(775, 437, 102, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(774, 437, 102, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(773, 437, 102, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(772, 437, 102, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(770, 437, 102, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(771, 437, 102, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(768, 437, 102, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(769, 437, 102, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(803, 443, 103, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(802, 443, 103, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(801, 442, 103, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(800, 441, 103, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(799, 441, 103, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(798, 441, 103, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(797, 441, 103, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(796, 441, 103, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(795, 441, 103, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(794, 441, 103, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(793, 441, 103, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(792, 441, 103, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(791, 441, 103, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(790, 441, 103, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(789, 441, 103, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(787, 441, 103, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(788, 441, 103, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(786, 441, 103, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(821, 447, 104, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(820, 447, 104, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(819, 446, 104, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(818, 445, 104, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(817, 445, 104, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(816, 445, 104, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(815, 445, 104, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(814, 445, 104, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(813, 445, 104, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(812, 445, 104, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(811, 445, 104, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(810, 445, 104, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(809, 445, 104, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(808, 445, 104, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(807, 445, 104, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(805, 445, 104, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(806, 445, 104, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(804, 445, 104, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(839, 451, 105, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(838, 451, 105, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(837, 450, 105, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(836, 449, 105, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(835, 449, 105, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(834, 449, 105, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(833, 449, 105, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(832, 449, 105, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(831, 449, 105, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(830, 449, 105, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(829, 449, 105, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(828, 449, 105, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(827, 449, 105, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(822, 449, 105, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(823, 449, 105, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(824, 449, 105, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(825, 449, 105, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(826, 449, 105, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(857, 455, 106, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(856, 455, 106, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(855, 454, 106, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(854, 453, 106, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(853, 453, 106, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(852, 453, 106, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(851, 453, 106, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(850, 453, 106, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(849, 453, 106, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(848, 453, 106, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(847, 453, 106, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(846, 453, 106, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(845, 453, 106, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(844, 453, 106, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(842, 453, 106, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(843, 453, 106, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(840, 453, 106, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(841, 453, 106, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(875, 459, 107, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(874, 459, 107, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(873, 458, 107, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(872, 457, 107, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(871, 457, 107, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(870, 457, 107, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(869, 457, 107, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(868, 457, 107, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(867, 457, 107, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(866, 457, 107, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(865, 457, 107, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(864, 457, 107, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(863, 457, 107, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(858, 457, 107, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(859, 457, 107, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(860, 457, 107, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(861, 457, 107, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(862, 457, 107, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(893, 463, 108, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(892, 463, 108, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(891, 462, 108, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(890, 461, 108, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(889, 461, 108, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(888, 461, 108, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(887, 461, 108, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(886, 461, 108, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(885, 461, 108, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(884, 461, 108, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(883, 461, 108, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(882, 461, 108, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(881, 461, 108, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(880, 461, 108, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(878, 461, 108, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(879, 461, 108, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(876, 461, 108, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(877, 461, 108, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(911, 467, 109, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(910, 467, 109, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(909, 466, 109, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(908, 465, 109, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(907, 465, 109, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(906, 465, 109, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(905, 465, 109, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(904, 465, 109, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(903, 465, 109, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(902, 465, 109, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(901, 465, 109, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(900, 465, 109, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(899, 465, 109, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+');
+INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_option_id`, `product_id`, `option_id`, `option_value_id`, `quantity`, `subtract`, `price`, `price_prefix`, `points`, `points_prefix`, `weight`, `weight_prefix`) VALUES
+(898, 465, 109, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(896, 465, 109, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(897, 465, 109, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(894, 465, 109, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(895, 465, 109, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(929, 471, 110, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(928, 471, 110, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(927, 470, 110, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(926, 469, 110, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(925, 469, 110, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(924, 469, 110, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(923, 469, 110, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(922, 469, 110, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(921, 469, 110, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(920, 469, 110, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(919, 469, 110, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(918, 469, 110, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(917, 469, 110, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(916, 469, 110, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(915, 469, 110, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(913, 469, 110, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(914, 469, 110, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(912, 469, 110, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(947, 475, 111, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(946, 475, 111, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(945, 474, 111, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(944, 473, 111, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(943, 473, 111, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(942, 473, 111, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(941, 473, 111, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(940, 473, 111, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(939, 473, 111, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(938, 473, 111, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(937, 473, 111, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(936, 473, 111, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(935, 473, 111, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(934, 473, 111, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(933, 473, 111, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(931, 473, 111, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(932, 473, 111, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(930, 473, 111, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(965, 479, 112, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(964, 479, 112, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(963, 478, 112, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(962, 477, 112, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(961, 477, 112, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(960, 477, 112, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(959, 477, 112, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(958, 477, 112, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(957, 477, 112, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(956, 477, 112, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(955, 477, 112, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(954, 477, 112, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(953, 477, 112, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(952, 477, 112, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(951, 477, 112, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(949, 477, 112, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(950, 477, 112, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(948, 477, 112, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(983, 483, 113, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(982, 483, 113, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(981, 482, 113, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(980, 481, 113, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(979, 481, 113, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(978, 481, 113, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(977, 481, 113, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(976, 481, 113, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(975, 481, 113, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(974, 481, 113, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(973, 481, 113, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(972, 481, 113, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(971, 481, 113, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(970, 481, 113, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(969, 481, 113, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(967, 481, 113, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(968, 481, 113, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(966, 481, 113, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1001, 487, 114, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1000, 487, 114, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(999, 486, 114, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(998, 485, 114, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(997, 485, 114, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(996, 485, 114, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(995, 485, 114, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(994, 485, 114, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(993, 485, 114, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(992, 485, 114, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(991, 485, 114, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(990, 485, 114, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(989, 485, 114, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(988, 485, 114, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(987, 485, 114, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(985, 485, 114, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(986, 485, 114, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1019, 491, 115, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1018, 491, 115, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1017, 490, 115, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1016, 489, 115, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1015, 489, 115, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1014, 489, 115, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1013, 489, 115, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1012, 489, 115, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1011, 489, 115, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1010, 489, 115, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1009, 489, 115, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1008, 489, 115, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1007, 489, 115, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1006, 489, 115, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1005, 489, 115, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1003, 489, 115, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1004, 489, 115, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(984, 485, 114, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1002, 489, 115, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1037, 495, 116, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1036, 495, 116, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1035, 494, 116, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1034, 493, 116, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1033, 493, 116, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1032, 493, 116, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1031, 493, 116, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1030, 493, 116, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1029, 493, 116, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1028, 493, 116, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1027, 493, 116, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1026, 493, 116, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1025, 493, 116, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1024, 493, 116, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1022, 493, 116, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1023, 493, 116, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1020, 493, 116, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1021, 493, 116, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1055, 499, 117, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1054, 499, 117, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1053, 498, 117, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1052, 497, 117, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1051, 497, 117, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1050, 497, 117, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1049, 497, 117, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1048, 497, 117, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1047, 497, 117, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1046, 497, 117, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1045, 497, 117, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1044, 497, 117, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1043, 497, 117, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1042, 497, 117, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1041, 497, 117, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1039, 497, 117, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1040, 497, 117, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1038, 497, 117, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1073, 503, 118, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1072, 503, 118, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1071, 502, 118, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1070, 501, 118, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1069, 501, 118, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1068, 501, 118, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1067, 501, 118, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1066, 501, 118, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1065, 501, 118, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1064, 501, 118, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1063, 501, 118, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1062, 501, 118, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1061, 501, 118, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1060, 501, 118, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1059, 501, 118, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1057, 501, 118, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1058, 501, 118, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1056, 501, 118, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1091, 507, 119, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1090, 507, 119, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1089, 506, 119, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1088, 505, 119, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1087, 505, 119, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1086, 505, 119, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1085, 505, 119, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1084, 505, 119, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1083, 505, 119, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1082, 505, 119, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1081, 505, 119, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1080, 505, 119, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1079, 505, 119, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1078, 505, 119, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1077, 505, 119, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1075, 505, 119, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1076, 505, 119, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1074, 505, 119, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1109, 511, 120, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1108, 511, 120, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1107, 510, 120, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1106, 509, 120, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1105, 509, 120, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1104, 509, 120, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1103, 509, 120, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1102, 509, 120, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1101, 509, 120, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1100, 509, 120, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1099, 509, 120, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1098, 509, 120, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1097, 509, 120, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1096, 509, 120, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1094, 509, 120, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1095, 509, 120, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1092, 509, 120, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1093, 509, 120, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1127, 515, 121, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1126, 515, 121, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1125, 514, 121, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1124, 513, 121, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1123, 513, 121, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1122, 513, 121, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1121, 513, 121, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1120, 513, 121, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1119, 513, 121, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1118, 513, 121, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1117, 513, 121, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1116, 513, 121, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1115, 513, 121, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1114, 513, 121, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1112, 513, 121, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1113, 513, 121, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1110, 513, 121, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1111, 513, 121, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1145, 519, 122, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1144, 519, 122, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1143, 518, 122, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1142, 517, 122, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1141, 517, 122, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1140, 517, 122, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1139, 517, 122, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1138, 517, 122, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1137, 517, 122, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1136, 517, 122, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1135, 517, 122, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1134, 517, 122, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1133, 517, 122, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1132, 517, 122, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1130, 517, 122, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1131, 517, 122, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1128, 517, 122, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1129, 517, 122, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1163, 523, 123, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1162, 523, 123, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1161, 522, 123, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1160, 521, 123, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1159, 521, 123, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1158, 521, 123, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1157, 521, 123, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1156, 521, 123, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1155, 521, 123, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1154, 521, 123, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1153, 521, 123, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1152, 521, 123, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1151, 521, 123, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1150, 521, 123, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1148, 521, 123, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1149, 521, 123, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1146, 521, 123, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1147, 521, 123, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1181, 527, 124, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1180, 527, 124, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1179, 526, 124, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1178, 525, 124, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1177, 525, 124, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1176, 525, 124, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1175, 525, 124, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1174, 525, 124, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1173, 525, 124, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1172, 525, 124, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1171, 525, 124, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1170, 525, 124, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1169, 525, 124, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1168, 525, 124, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1167, 525, 124, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1165, 525, 124, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1166, 525, 124, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1164, 525, 124, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1199, 531, 125, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1198, 531, 125, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1197, 530, 125, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1196, 529, 125, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1195, 529, 125, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1194, 529, 125, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1193, 529, 125, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1192, 529, 125, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1191, 529, 125, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1190, 529, 125, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1189, 529, 125, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1188, 529, 125, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1187, 529, 125, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1186, 529, 125, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1185, 529, 125, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1183, 529, 125, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1184, 529, 125, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1182, 529, 125, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1217, 535, 126, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1216, 535, 126, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1215, 534, 126, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1214, 533, 126, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1213, 533, 126, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1212, 533, 126, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1211, 533, 126, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1210, 533, 126, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1209, 533, 126, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1208, 533, 126, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1207, 533, 126, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1206, 533, 126, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1205, 533, 126, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1204, 533, 126, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1203, 533, 126, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1201, 533, 126, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1202, 533, 126, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1200, 533, 126, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1235, 539, 127, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1234, 539, 127, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1233, 538, 127, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1232, 537, 127, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1231, 537, 127, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1230, 537, 127, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1229, 537, 127, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1228, 537, 127, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1227, 537, 127, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1226, 537, 127, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1225, 537, 127, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1224, 537, 127, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1223, 537, 127, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1222, 537, 127, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1221, 537, 127, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1219, 537, 127, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1220, 537, 127, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1218, 537, 127, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1253, 543, 128, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1252, 543, 128, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1251, 542, 128, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1250, 541, 128, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1249, 541, 128, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1248, 541, 128, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1247, 541, 128, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1246, 541, 128, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1245, 541, 128, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1244, 541, 128, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1243, 541, 128, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1242, 541, 128, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1241, 541, 128, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1240, 541, 128, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1239, 541, 128, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1237, 541, 128, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1238, 541, 128, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1236, 541, 128, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1271, 547, 129, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1270, 547, 129, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1269, 546, 129, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1268, 545, 129, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1267, 545, 129, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1266, 545, 129, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1265, 545, 129, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1264, 545, 129, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1263, 545, 129, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1262, 545, 129, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1261, 545, 129, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1260, 545, 129, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1259, 545, 129, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1258, 545, 129, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1256, 545, 129, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1257, 545, 129, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1254, 545, 129, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1255, 545, 129, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1289, 551, 130, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1288, 551, 130, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1287, 550, 130, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1286, 549, 130, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1285, 549, 130, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1284, 549, 130, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1283, 549, 130, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1282, 549, 130, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1281, 549, 130, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1280, 549, 130, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1279, 549, 130, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1278, 549, 130, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1277, 549, 130, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1276, 549, 130, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1275, 549, 130, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1273, 549, 130, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1274, 549, 130, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1272, 549, 130, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1307, 555, 131, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1306, 555, 131, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1305, 554, 131, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1304, 553, 131, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1303, 553, 131, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1302, 553, 131, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1301, 553, 131, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1300, 553, 131, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1299, 553, 131, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1298, 553, 131, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1297, 553, 131, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1296, 553, 131, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1295, 553, 131, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1294, 553, 131, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1293, 553, 131, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1291, 553, 131, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1292, 553, 131, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1290, 553, 131, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1325, 559, 132, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1324, 559, 132, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1323, 558, 132, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1322, 557, 132, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1321, 557, 132, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1320, 557, 132, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1319, 557, 132, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1318, 557, 132, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1317, 557, 132, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1316, 557, 132, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1315, 557, 132, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1314, 557, 132, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1313, 557, 132, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1312, 557, 132, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1310, 557, 132, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1311, 557, 132, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1343, 563, 133, 16, 66, 0, 0, '390.0000', '+', 0, '+', '0.00', '+'),
+(1342, 563, 133, 16, 65, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1341, 562, 133, 15, 64, 0, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1340, 561, 133, 14, 63, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1339, 561, 133, 14, 62, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1338, 561, 133, 14, 61, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1337, 561, 133, 14, 60, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1336, 561, 133, 14, 59, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1335, 561, 133, 14, 58, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1334, 561, 133, 14, 57, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1333, 561, 133, 14, 56, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1332, 561, 133, 14, 55, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1331, 561, 133, 14, 54, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1330, 561, 133, 14, 53, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1328, 561, 133, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1329, 561, 133, 14, 52, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1326, 561, 133, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1327, 561, 133, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1308, 557, 132, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(1309, 557, 132, 14, 50, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(270, 317, 72, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(254, 313, 71, 14, 51, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+'),
+(252, 313, 71, 14, 49, 1000, 0, '0.0000', '+', 0, '+', '0.00', '+');
 
 -- --------------------------------------------------------
 
@@ -5222,8 +8016,7 @@ INSERT INTO `oc_product_option_value` (`product_option_value_id`, `product_optio
 CREATE TABLE IF NOT EXISTS `oc_product_recurring` (
   `product_id` int(11) NOT NULL,
   `recurring_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`)
+  `customer_group_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -5234,8 +8027,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_recurring` (
 
 CREATE TABLE IF NOT EXISTS `oc_product_related` (
   `product_id` int(11) NOT NULL,
-  `related_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`related_id`)
+  `related_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -5245,12 +8037,11 @@ CREATE TABLE IF NOT EXISTS `oc_product_related` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_reward` (
-  `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_reward_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL DEFAULT '0',
   `customer_group_id` int(11) NOT NULL DEFAULT '0',
-  `points` int(8) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_reward_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=546 ;
+  `points` int(8) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=546 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5259,40 +8050,90 @@ CREATE TABLE IF NOT EXISTS `oc_product_reward` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_product_special` (
-  `product_special_id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_special_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `customer_group_id` int(11) NOT NULL,
   `priority` int(5) NOT NULL DEFAULT '1',
   `price` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `date_start` date NOT NULL DEFAULT '0000-00-00',
-  `date_end` date NOT NULL DEFAULT '0000-00-00',
-  PRIMARY KEY (`product_special_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=521 ;
+  `date_end` date NOT NULL DEFAULT '0000-00-00'
+) ENGINE=MyISAM AUTO_INCREMENT=793 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_product_special`
 --
 
 INSERT INTO `oc_product_special` (`product_special_id`, `product_id`, `customer_group_id`, `priority`, `price`, `date_start`, `date_end`) VALUES
-(497, 54, 1, 0, '9100.0000', '0000-00-00', '0000-00-00'),
-(494, 50, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
-(488, 52, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
-(491, 53, 1, 0, '5400.0000', '0000-00-00', '0000-00-00'),
-(495, 51, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
-(500, 55, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
-(493, 56, 1, 0, '6600.0000', '0000-00-00', '0000-00-00'),
-(489, 57, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
-(498, 58, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
-(516, 59, 1, 0, '9100.0000', '0000-00-00', '0000-00-00'),
-(517, 60, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
-(518, 61, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
-(519, 62, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
-(512, 63, 1, 0, '4900.0000', '0000-00-00', '0000-00-00'),
-(513, 64, 1, 0, '5400.0000', '0000-00-00', '0000-00-00'),
-(515, 65, 1, 0, '6600.0000', '0000-00-00', '0000-00-00'),
-(510, 66, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
-(520, 67, 1, 0, '5800.0000', '0000-00-00', '0000-00-00');
+(786, 54, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(785, 71, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(779, 52, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
+(781, 75, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(718, 70, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(776, 79, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(791, 73, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(714, 57, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
+(715, 78, 1, 0, '5800.0000', '0000-00-00', '0000-00-00'),
+(778, 59, 1, 0, '6490.0000', '0000-00-00', '0000-00-00'),
+(709, 60, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
+(788, 81, 1, 0, '6380.0000', '0000-00-00', '0000-00-00'),
+(711, 77, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
+(792, 80, 1, 0, '6380.0000', '0000-00-00', '0000-00-00'),
+(710, 76, 1, 0, '9460.0000', '0000-00-00', '0000-00-00'),
+(775, 74, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(780, 72, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(717, 69, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(772, 68, 1, 0, '6490.0000', '0000-00-00', '0000-00-00'),
+(720, 82, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(740, 83, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(741, 84, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(719, 86, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(721, 87, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(723, 88, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(722, 89, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(724, 90, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(725, 91, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(726, 92, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(728, 93, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(732, 94, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(733, 95, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(756, 96, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(757, 97, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(759, 98, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(758, 99, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(769, 100, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(768, 101, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(767, 102, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(727, 103, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(729, 104, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(730, 105, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(777, 106, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(734, 107, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(743, 108, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(742, 109, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(762, 110, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(761, 111, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(760, 112, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(753, 113, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(754, 114, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(755, 115, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(766, 116, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(765, 117, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(764, 118, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(763, 119, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(746, 120, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(749, 121, 1, 0, '6480.0000', '0000-00-00', '0000-00-00'),
+(744, 122, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(745, 123, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(747, 124, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(748, 125, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(750, 126, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(751, 127, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(752, 128, 1, 0, '12000.0000', '0000-00-00', '0000-00-00'),
+(735, 129, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(736, 130, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(737, 131, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(790, 132, 1, 0, '6460.0000', '0000-00-00', '0000-00-00'),
+(789, 133, 1, 0, '6460.0000', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -5303,9 +8144,7 @@ INSERT INTO `oc_product_special` (`product_special_id`, `product_id`, `customer_
 CREATE TABLE IF NOT EXISTS `oc_product_to_category` (
   `product_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
-  `main_category` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_id`,`category_id`),
-  KEY `category_id` (`category_id`)
+  `main_category` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -5313,86 +8152,309 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_category` (
 --
 
 INSERT INTO `oc_product_to_category` (`product_id`, `category_id`, `main_category`) VALUES
-(57, 82, 0),
-(56, 79, 0),
-(52, 82, 0),
-(52, 83, 0),
-(57, 78, 0),
-(57, 80, 0),
-(52, 81, 0),
-(54, 81, 0),
-(51, 83, 0),
-(50, 81, 1),
-(54, 82, 1),
-(51, 78, 1),
-(55, 83, 0),
-(56, 77, 0),
-(56, 83, 0),
-(56, 78, 1),
-(58, 81, 1),
-(58, 80, 0),
-(54, 67, 0),
-(54, 83, 0),
-(53, 80, 1),
-(53, 81, 0),
-(52, 79, 1),
-(50, 67, 0),
-(50, 83, 0),
-(57, 81, 1),
 (57, 83, 0),
-(55, 79, 0),
-(55, 81, 1),
-(51, 77, 0),
-(58, 83, 0),
-(54, 80, 0),
-(52, 77, 0),
+(73, 85, 1),
+(82, 94, 0),
+(52, 83, 0),
+(82, 83, 0),
+(57, 82, 0),
+(52, 79, 0),
+(68, 82, 0),
+(70, 79, 0),
+(71, 79, 0),
+(54, 79, 0),
+(70, 83, 0),
+(78, 83, 0),
+(74, 82, 0),
+(73, 82, 0),
+(73, 83, 0),
+(77, 85, 1),
+(78, 82, 0),
+(54, 82, 0),
+(54, 83, 0),
+(75, 85, 1),
+(75, 83, 0),
+(52, 85, 1),
+(71, 85, 1),
+(71, 82, 0),
 (57, 79, 0),
-(55, 80, 0),
-(58, 79, 0),
-(56, 80, 0),
-(50, 80, 0),
-(51, 82, 0),
-(54, 84, 0),
-(59, 84, 0),
-(59, 80, 0),
-(59, 82, 1),
-(59, 81, 0),
-(59, 67, 0),
+(57, 85, 1),
+(79, 82, 0),
+(78, 85, 1),
+(70, 85, 1),
+(77, 83, 0),
+(68, 79, 0),
+(52, 82, 0),
+(81, 83, 0),
+(78, 79, 0),
+(73, 79, 0),
+(71, 83, 0),
+(70, 81, 0),
+(54, 85, 1),
+(59, 85, 1),
+(68, 85, 1),
+(59, 82, 0),
+(59, 79, 0),
+(68, 83, 0),
 (59, 83, 0),
-(60, 82, 0),
-(60, 79, 1),
-(60, 81, 0),
-(60, 77, 0),
 (60, 83, 0),
-(61, 80, 0),
-(61, 82, 0),
-(61, 79, 0),
-(61, 78, 0),
-(61, 81, 1),
-(61, 83, 0),
-(62, 80, 0),
-(62, 79, 0),
-(62, 81, 1),
-(62, 83, 0),
-(63, 79, 0),
-(63, 80, 0),
-(63, 81, 1),
-(63, 83, 0),
-(64, 80, 1),
-(64, 81, 0),
-(65, 77, 0),
-(65, 78, 1),
-(65, 79, 0),
-(65, 80, 0),
-(65, 83, 0),
-(66, 80, 0),
-(66, 81, 1),
-(66, 67, 0),
-(66, 83, 0),
-(67, 82, 0),
-(67, 78, 1),
-(67, 77, 0),
-(67, 83, 0);
+(60, 82, 0),
+(60, 79, 0),
+(82, 79, 0),
+(60, 85, 1),
+(81, 81, 0),
+(80, 83, 0),
+(81, 77, 1),
+(81, 79, 0),
+(80, 85, 0),
+(80, 81, 0),
+(77, 82, 0),
+(77, 79, 0),
+(76, 85, 1),
+(76, 83, 0),
+(80, 79, 0),
+(80, 77, 1),
+(79, 83, 0),
+(79, 85, 1),
+(76, 79, 0),
+(76, 82, 0),
+(75, 82, 0),
+(75, 79, 0),
+(74, 85, 1),
+(74, 83, 0),
+(74, 79, 0),
+(72, 85, 1),
+(72, 82, 0),
+(72, 83, 0),
+(72, 79, 0),
+(69, 79, 0),
+(69, 83, 0),
+(69, 85, 1),
+(69, 82, 0),
+(82, 86, 1),
+(83, 82, 0),
+(83, 79, 0),
+(83, 67, 1),
+(83, 83, 0),
+(84, 79, 0),
+(84, 67, 1),
+(84, 82, 0),
+(84, 83, 0),
+(86, 86, 1),
+(86, 83, 0),
+(86, 94, 0),
+(87, 94, 0),
+(87, 86, 1),
+(87, 83, 0),
+(88, 94, 0),
+(88, 83, 0),
+(88, 86, 1),
+(88, 79, 0),
+(87, 79, 0),
+(86, 79, 0),
+(89, 79, 0),
+(89, 94, 0),
+(89, 83, 0),
+(89, 86, 1),
+(90, 79, 0),
+(90, 87, 1),
+(90, 85, 0),
+(90, 83, 0),
+(90, 82, 0),
+(91, 82, 0),
+(91, 83, 0),
+(91, 87, 1),
+(91, 79, 0),
+(92, 82, 0),
+(92, 83, 0),
+(92, 87, 1),
+(92, 79, 0),
+(93, 79, 0),
+(93, 82, 0),
+(93, 83, 0),
+(93, 85, 0),
+(93, 87, 1),
+(94, 82, 0),
+(94, 83, 0),
+(94, 87, 1),
+(94, 79, 0),
+(95, 82, 0),
+(115, 94, 0),
+(95, 83, 0),
+(95, 87, 1),
+(95, 79, 0),
+(96, 83, 0),
+(96, 94, 0),
+(96, 89, 0),
+(96, 87, 1),
+(96, 85, 0),
+(97, 83, 0),
+(97, 94, 0),
+(97, 89, 0),
+(97, 87, 1),
+(97, 85, 0),
+(98, 94, 0),
+(98, 83, 0),
+(98, 85, 0),
+(98, 87, 1),
+(98, 89, 0),
+(99, 83, 0),
+(99, 94, 0),
+(99, 89, 0),
+(99, 87, 1),
+(99, 85, 0),
+(100, 83, 0),
+(100, 94, 0),
+(100, 89, 0),
+(100, 87, 1),
+(100, 85, 0),
+(101, 83, 0),
+(101, 94, 0),
+(101, 89, 0),
+(101, 87, 1),
+(101, 85, 0),
+(102, 83, 0),
+(102, 94, 0),
+(102, 89, 0),
+(102, 87, 1),
+(102, 85, 0),
+(103, 82, 0),
+(103, 83, 0),
+(103, 87, 1),
+(103, 79, 0),
+(104, 82, 0),
+(104, 83, 0),
+(104, 87, 1),
+(104, 79, 0),
+(105, 82, 0),
+(105, 83, 0),
+(105, 87, 1),
+(105, 79, 0),
+(106, 79, 0),
+(106, 87, 1),
+(106, 83, 0),
+(106, 82, 0),
+(108, 82, 0),
+(107, 82, 0),
+(107, 83, 0),
+(107, 87, 1),
+(107, 79, 0),
+(108, 79, 0),
+(108, 88, 1),
+(108, 85, 0),
+(108, 83, 0),
+(109, 82, 0),
+(109, 79, 0),
+(109, 88, 1),
+(109, 85, 0),
+(109, 83, 0),
+(110, 79, 0),
+(110, 94, 0),
+(110, 83, 0),
+(110, 85, 0),
+(110, 88, 1),
+(111, 79, 0),
+(111, 94, 0),
+(111, 83, 0),
+(111, 85, 0),
+(111, 88, 1),
+(112, 79, 0),
+(112, 94, 0),
+(112, 83, 0),
+(112, 85, 0),
+(112, 88, 1),
+(96, 79, 0),
+(97, 79, 0),
+(98, 79, 0),
+(99, 79, 0),
+(100, 79, 0),
+(101, 79, 0),
+(102, 79, 0),
+(114, 94, 0),
+(114, 79, 0),
+(113, 79, 0),
+(113, 94, 0),
+(113, 83, 0),
+(113, 90, 1),
+(114, 83, 0),
+(114, 90, 1),
+(115, 79, 0),
+(115, 82, 0),
+(115, 83, 0),
+(115, 90, 1),
+(117, 79, 0),
+(116, 94, 0),
+(116, 79, 0),
+(116, 91, 1),
+(116, 83, 0),
+(117, 94, 0),
+(117, 83, 0),
+(117, 91, 1),
+(118, 79, 0),
+(118, 94, 0),
+(118, 83, 0),
+(118, 91, 1),
+(119, 79, 0),
+(119, 94, 0),
+(119, 83, 0),
+(119, 91, 1),
+(121, 79, 0),
+(120, 94, 0),
+(120, 79, 0),
+(120, 92, 1),
+(120, 83, 0),
+(121, 82, 0),
+(121, 92, 1),
+(121, 83, 0),
+(122, 79, 0),
+(122, 82, 0),
+(122, 92, 1),
+(122, 83, 0),
+(123, 79, 0),
+(123, 82, 0),
+(123, 92, 1),
+(123, 83, 0),
+(124, 79, 0),
+(124, 94, 0),
+(124, 83, 0),
+(124, 92, 1),
+(125, 79, 0),
+(125, 94, 0),
+(125, 83, 0),
+(125, 92, 1),
+(126, 82, 0),
+(126, 79, 0),
+(126, 83, 0),
+(126, 92, 1),
+(127, 82, 0),
+(127, 79, 0),
+(127, 83, 0),
+(127, 92, 1),
+(128, 82, 0),
+(128, 79, 0),
+(128, 83, 0),
+(128, 92, 1),
+(130, 79, 0),
+(129, 79, 0),
+(129, 81, 0),
+(129, 93, 1),
+(129, 83, 0),
+(130, 81, 0),
+(130, 83, 0),
+(130, 93, 1),
+(131, 79, 0),
+(131, 81, 0),
+(131, 83, 0),
+(131, 93, 1),
+(132, 79, 0),
+(132, 81, 0),
+(132, 93, 1),
+(132, 83, 0),
+(133, 79, 0),
+(133, 81, 0),
+(133, 93, 1),
+(133, 83, 0),
+(79, 79, 0);
 
 -- --------------------------------------------------------
 
@@ -5402,8 +8464,7 @@ INSERT INTO `oc_product_to_category` (`product_id`, `category_id`, `main_categor
 
 CREATE TABLE IF NOT EXISTS `oc_product_to_download` (
   `product_id` int(11) NOT NULL,
-  `download_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`download_id`)
+  `download_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -5415,8 +8476,7 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_download` (
 CREATE TABLE IF NOT EXISTS `oc_product_to_layout` (
   `product_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  PRIMARY KEY (`product_id`,`store_id`)
+  `layout_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -5424,24 +8484,76 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_layout` (
 --
 
 INSERT INTO `oc_product_to_layout` (`product_id`, `store_id`, `layout_id`) VALUES
-(50, 0, 0),
-(51, 0, 0),
+(71, 0, 0),
+(70, 0, 0),
 (52, 0, 0),
-(53, 0, 0),
+(75, 0, 0),
 (54, 0, 0),
-(55, 0, 0),
-(56, 0, 0),
+(79, 0, 0),
+(73, 0, 0),
 (57, 0, 0),
-(58, 0, 0),
+(78, 0, 0),
 (59, 0, 0),
 (60, 0, 0),
-(61, 0, 0),
-(62, 0, 0),
-(63, 0, 0),
-(64, 0, 0),
-(65, 0, 0),
-(66, 0, 0),
-(67, 0, 0);
+(81, 0, 0),
+(77, 0, 0),
+(80, 0, 0),
+(76, 0, 0),
+(74, 0, 0),
+(72, 0, 0),
+(69, 0, 0),
+(68, 0, 0),
+(82, 0, 0),
+(83, 0, 0),
+(84, 0, 0),
+(86, 0, 0),
+(87, 0, 0),
+(88, 0, 0),
+(89, 0, 0),
+(90, 0, 0),
+(91, 0, 0),
+(92, 0, 0),
+(93, 0, 0),
+(94, 0, 0),
+(95, 0, 0),
+(96, 0, 0),
+(97, 0, 0),
+(98, 0, 0),
+(99, 0, 0),
+(100, 0, 0),
+(101, 0, 0),
+(102, 0, 0),
+(103, 0, 0),
+(104, 0, 0),
+(105, 0, 0),
+(106, 0, 0),
+(107, 0, 0),
+(108, 0, 0),
+(109, 0, 0),
+(110, 0, 0),
+(111, 0, 0),
+(112, 0, 0),
+(113, 0, 0),
+(114, 0, 0),
+(115, 0, 0),
+(116, 0, 0),
+(117, 0, 0),
+(118, 0, 0),
+(119, 0, 0),
+(120, 0, 0),
+(121, 0, 0),
+(122, 0, 0),
+(123, 0, 0),
+(124, 0, 0),
+(125, 0, 0),
+(126, 0, 0),
+(127, 0, 0),
+(128, 0, 0),
+(129, 0, 0),
+(130, 0, 0),
+(131, 0, 0),
+(132, 0, 0),
+(133, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5451,8 +8563,7 @@ INSERT INTO `oc_product_to_layout` (`product_id`, `store_id`, `layout_id`) VALUE
 
 CREATE TABLE IF NOT EXISTS `oc_product_to_store` (
   `product_id` int(11) NOT NULL,
-  `store_id` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`product_id`,`store_id`)
+  `store_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -5460,24 +8571,76 @@ CREATE TABLE IF NOT EXISTS `oc_product_to_store` (
 --
 
 INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
-(50, 0),
-(51, 0),
 (52, 0),
-(53, 0),
 (54, 0),
-(55, 0),
-(56, 0),
 (57, 0),
-(58, 0),
 (59, 0),
 (60, 0),
-(61, 0),
-(62, 0),
-(63, 0),
-(64, 0),
-(65, 0),
-(66, 0),
-(67, 0);
+(68, 0),
+(69, 0),
+(70, 0),
+(71, 0),
+(72, 0),
+(73, 0),
+(74, 0),
+(75, 0),
+(76, 0),
+(77, 0),
+(78, 0),
+(79, 0),
+(80, 0),
+(81, 0),
+(82, 0),
+(83, 0),
+(84, 0),
+(86, 0),
+(87, 0),
+(88, 0),
+(89, 0),
+(90, 0),
+(91, 0),
+(92, 0),
+(93, 0),
+(94, 0),
+(95, 0),
+(96, 0),
+(97, 0),
+(98, 0),
+(99, 0),
+(100, 0),
+(101, 0),
+(102, 0),
+(103, 0),
+(104, 0),
+(105, 0),
+(106, 0),
+(107, 0),
+(108, 0),
+(109, 0),
+(110, 0),
+(111, 0),
+(112, 0),
+(113, 0),
+(114, 0),
+(115, 0),
+(116, 0),
+(117, 0),
+(118, 0),
+(119, 0),
+(120, 0),
+(121, 0),
+(122, 0),
+(123, 0),
+(124, 0),
+(125, 0),
+(126, 0),
+(127, 0),
+(128, 0),
+(129, 0),
+(130, 0),
+(131, 0),
+(132, 0),
+(133, 0);
 
 -- --------------------------------------------------------
 
@@ -5486,7 +8649,7 @@ INSERT INTO `oc_product_to_store` (`product_id`, `store_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_recurring` (
-  `recurring_id` int(11) NOT NULL AUTO_INCREMENT,
+  `recurring_id` int(11) NOT NULL,
   `price` decimal(10,4) NOT NULL,
   `frequency` enum('day','week','semi_month','month','year') NOT NULL,
   `duration` int(10) unsigned NOT NULL,
@@ -5497,9 +8660,8 @@ CREATE TABLE IF NOT EXISTS `oc_recurring` (
   `trial_duration` int(10) unsigned NOT NULL,
   `trial_cycle` int(10) unsigned NOT NULL,
   `status` tinyint(4) NOT NULL,
-  `sort_order` int(11) NOT NULL,
-  PRIMARY KEY (`recurring_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `sort_order` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5510,8 +8672,7 @@ CREATE TABLE IF NOT EXISTS `oc_recurring` (
 CREATE TABLE IF NOT EXISTS `oc_recurring_description` (
   `recurring_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`recurring_id`,`language_id`)
+  `name` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -5521,7 +8682,7 @@ CREATE TABLE IF NOT EXISTS `oc_recurring_description` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return` (
-  `return_id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
@@ -5539,9 +8700,8 @@ CREATE TABLE IF NOT EXISTS `oc_return` (
   `comment` text,
   `date_ordered` date NOT NULL DEFAULT '0000-00-00',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`return_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5550,11 +8710,10 @@ CREATE TABLE IF NOT EXISTS `oc_return` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_action` (
-  `return_action_id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_action_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(64) NOT NULL,
-  PRIMARY KEY (`return_action_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `name` varchar(64) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_return_action`
@@ -5572,14 +8731,13 @@ INSERT INTO `oc_return_action` (`return_action_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_history` (
-  `return_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_history_id` int(11) NOT NULL,
   `return_id` int(11) NOT NULL,
   `return_status_id` int(11) NOT NULL,
   `notify` tinyint(1) NOT NULL,
   `comment` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`return_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5588,11 +8746,10 @@ CREATE TABLE IF NOT EXISTS `oc_return_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_reason` (
-  `return_reason_id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_reason_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`return_reason_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `name` varchar(128) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_return_reason`
@@ -5611,11 +8768,10 @@ INSERT INTO `oc_return_reason` (`return_reason_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_return_status` (
-  `return_status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `return_status_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(128) NOT NULL,
-  PRIMARY KEY (`return_status_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  `name` varchar(128) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_return_status`
@@ -5633,7 +8789,7 @@ INSERT INTO `oc_return_status` (`return_status_id`, `language_id`, `name`) VALUE
 --
 
 CREATE TABLE IF NOT EXISTS `oc_review` (
-  `review_id` int(11) NOT NULL AUTO_INCREMENT,
+  `review_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `author` varchar(64) NOT NULL,
@@ -5641,10 +8797,8 @@ CREATE TABLE IF NOT EXISTS `oc_review` (
   `rating` int(1) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`review_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5653,62 +8807,48 @@ CREATE TABLE IF NOT EXISTS `oc_review` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_setting` (
-  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `setting_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(32) NOT NULL,
   `key` varchar(64) NOT NULL,
   `value` text NOT NULL,
-  `serialized` tinyint(1) NOT NULL,
-  PRIMARY KEY (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2253 ;
+  `serialized` tinyint(1) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=5619 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_setting`
 --
 
 INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `serialized`) VALUES
-(2251, 0, 'config', 'config_owner', 'Мое Имя', 0),
-(2252, 0, 'config', 'config_address', '', 0),
-(2249, 0, 'config', 'config_meta_keyword', '', 0),
-(2250, 0, 'config', 'config_name', 'Официальный сайт UGG Australia', 0),
-(2248, 0, 'config', 'config_meta_description', 'Официальный сайт UGG Australia', 0),
-(2247, 0, 'config', 'config_meta_title', 'Официальный сайт UGG Australia', 0),
-(2246, 0, 'config', 'config_sms_gate_password', '', 0),
-(2245, 0, 'config', 'config_sms_gate_username', '', 0),
-(2244, 0, 'config', 'config_sms_message', '', 0),
-(2243, 0, 'config', 'config_sms_copy', '', 0),
-(2242, 0, 'config', 'config_sms_to', '', 0),
-(2241, 0, 'config', 'config_sms_from', '', 0),
-(2236, 0, 'config', 'config_error_display', '1', 0),
-(2237, 0, 'config', 'config_error_log', '1', 0),
-(2238, 0, 'config', 'config_error_filename', 'error.log', 0),
-(2239, 0, 'config', 'config_sms_alert', '0', 0),
-(2240, 0, 'config', 'config_sms_gatename', 'testsms', 0),
+(5570, 0, 'config', 'config_address', '', 0),
+(5569, 0, 'config', 'config_owner', 'Мое Имя', 0),
+(5567, 0, 'config', 'config_meta_keyword', '', 0),
+(5568, 0, 'config', 'config_name', 'Официальный сайт UGG Australia', 0),
 (617, 0, 'filter', 'filter_status', '1', 0),
-(2235, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\n&quot;application/zip&quot;\r\napplication/x-zip\r\n&quot;application/x-zip&quot;\r\napplication/x-zip-compressed\r\n&quot;application/x-zip-compressed&quot;\r\napplication/rar\r\n&quot;application/rar&quot;\r\napplication/x-rar\r\n&quot;application/x-rar&quot;\r\napplication/x-rar-compressed\r\n&quot;application/x-rar-compressed&quot;\r\napplication/octet-stream\r\n&quot;application/octet-stream&quot;\r\naudio/mpeg\r\nvideo/quicktime\r\napplication/pdf', 0),
-(2233, 0, 'config', 'config_file_max_size', '300000', 0),
-(2234, 0, 'config', 'config_file_ext_allowed', 'zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc', 0),
-(2232, 0, 'config', 'config_encryption', 'VLWteTBEi9ocKzd6AcezNYvTcmCnHXfFZ4gF3bvyNIvcNqtzhY6tcRxpdNCRJoVtxAlDvt3SAIn3OHzrrvXa9E7j4Lfncz6l1DzGZsP5GERSTOigNPwJo2pevCEk1cosKsqGSMVna2gxdi0Cx8ENIFL00Kv09GMFfmATQvVidwUSa4XyGdfmAlTqjK6BKrm6g8KlM2cLstulS6B15IsUfZ5cm8dd9XztPm9CXyiql3SCoNLbGHF8PPyZbDSCAl4p05B5ejJFP6ItOuotVuYG0o8zj8PeDKOuaDcexg0PgJ4bEQuqUqZNnErPJkJG1UAmKBSbByQkCdAMNyfhE3VV0XV29kxOccuNqSeMOjuNDO3a13XR6cWve8TMnNRyLBZd13PIcOouiNvqWqy0JayuEqg0UhKeXaf5IrhFWOUtCHIMHk2HG71sQj6Kfz2YUbonlYeQ0DV957cLlhtkpCrulghEjkDFxi69X0UMG6SqwOc3ddzgvxUgpw8c6yIsy2ONeP5anI8jqiamiTRWWa1mF5snrdZlrtt3EwEmVsfu5bflVNRz38vmOknzumy60HtnNhKnFEeNsCyHnoLZVbFxk3ttLOfh8As02Hh3f1YTaHzRtQPiOwDjIVgefLYNTmRAl0ZzkWJ3Jc16sSZIPtrFqOcjkg1DQMbUzyS98gInlJqQ1QlVu03SQu8yEPPmMG1K4qYz6yPwCvwAqcSeZYxeXp2xjxy1D5Xh8EUpmr2agNQYtZJ006H1tLKwjKrkAScERimwrVna3tzkkvV415WkLuftOJXOxDKU3Sq72C84MAOlBDwcuDpkIeiaSnbAYSFNaUfdpeeKJuvbrMHTLRJI72SHJVE7ht4oEmPqFkJRnEWtyF36pYRgeWyUOI4UGHmSMnVxwAao3wC0BMeF4EijWQt2IfHP1hMHhUuWiD9zowkMOpwFGFaK38C8vVSFMyDpO6Ur7xBkYtKlaYlAYUG26rRnjB57zfrZ89kNQj12dmwCu13iscW0NxllFcoeGLzR', 0),
-(2231, 0, 'config', 'config_shared', '0', 0),
-(2225, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
-(2224, 0, 'config', 'config_seo_pro_utm', 'block\r\nfrommarket\r\ngclid\r\nkeyword\r\nlist_type\r\nopenstat\r\nopenstat_service\r\nopenstat_campaign\r\nopenstat_ad\r\nopenstat_source\r\nposition\r\nsource\r\ntracking\r\ntype\r\nyclid\r\nymclid\r\nuri\r\nurltype\r\nutm_source\r\nutm_medium\r\nutm_campaign\r\nutm_term\r\nutm_content', 0),
-(2230, 0, 'config', 'config_password', '1', 0),
+(5566, 0, 'config', 'config_meta_description', 'Официальный сайт UGG Australia', 0),
+(5565, 0, 'config', 'config_meta_title', 'Официальный сайт UGG Australia', 0),
+(5564, 0, 'config', 'config_sms_gate_password', '', 0),
+(5563, 0, 'config', 'config_sms_gate_username', '', 0),
+(5562, 0, 'config', 'config_sms_message', '', 0),
+(5561, 0, 'config', 'config_sms_copy', '', 0),
+(5560, 0, 'config', 'config_sms_to', '', 0),
+(5542, 0, 'config', 'config_seo_pro_utm', 'block\r\nfrommarket\r\ngclid\r\nkeyword\r\nlist_type\r\nopenstat\r\nopenstat_service\r\nopenstat_campaign\r\nopenstat_ad\r\nopenstat_source\r\nposition\r\nsource\r\ntracking\r\ntype\r\nyclid\r\nymclid\r\nuri\r\nurltype\r\nutm_source\r\nutm_medium\r\nutm_campaign\r\nutm_term\r\nutm_content', 0),
+(5557, 0, 'config', 'config_sms_alert', '0', 0),
+(5558, 0, 'config', 'config_sms_gatename', 'testsms', 0),
+(5559, 0, 'config', 'config_sms_from', '', 0),
+(5554, 0, 'config', 'config_error_display', '0', 0),
+(5555, 0, 'config', 'config_error_log', '0', 0),
+(5556, 0, 'config', 'config_error_filename', 'error.log', 0),
+(5544, 0, 'config', 'config_compression', '0', 0),
+(5545, 0, 'config', 'config_mail_regexp', '/^[^@]+@.*.[a-z]{2,15}$/i', 0),
+(5546, 0, 'config', 'config_editor_default', '0', 0),
+(5547, 0, 'config', 'config_secure', '0', 0),
+(5548, 0, 'config', 'config_password', '1', 0),
+(5549, 0, 'config', 'config_shared', '0', 0),
+(5550, 0, 'config', 'config_encryption', 'VLWteTBEi9ocKzd6AcezNYvTcmCnHXfFZ4gF3bvyNIvcNqtzhY6tcRxpdNCRJoVtxAlDvt3SAIn3OHzrrvXa9E7j4Lfncz6l1DzGZsP5GERSTOigNPwJo2pevCEk1cosKsqGSMVna2gxdi0Cx8ENIFL00Kv09GMFfmATQvVidwUSa4XyGdfmAlTqjK6BKrm6g8KlM2cLstulS6B15IsUfZ5cm8dd9XztPm9CXyiql3SCoNLbGHF8PPyZbDSCAl4p05B5ejJFP6ItOuotVuYG0o8zj8PeDKOuaDcexg0PgJ4bEQuqUqZNnErPJkJG1UAmKBSbByQkCdAMNyfhE3VV0XV29kxOccuNqSeMOjuNDO3a13XR6cWve8TMnNRyLBZd13PIcOouiNvqWqy0JayuEqg0UhKeXaf5IrhFWOUtCHIMHk2HG71sQj6Kfz2YUbonlYeQ0DV957cLlhtkpCrulghEjkDFxi69X0UMG6SqwOc3ddzgvxUgpw8c6yIsy2ONeP5anI8jqiamiTRWWa1mF5snrdZlrtt3EwEmVsfu5bflVNRz38vmOknzumy60HtnNhKnFEeNsCyHnoLZVbFxk3ttLOfh8As02Hh3f1YTaHzRtQPiOwDjIVgefLYNTmRAl0ZzkWJ3Jc16sSZIPtrFqOcjkg1DQMbUzyS98gInlJqQ1QlVu03SQu8yEPPmMG1K4qYz6yPwCvwAqcSeZYxeXp2xjxy1D5Xh8EUpmr2agNQYtZJ006H1tLKwjKrkAScERimwrVna3tzkkvV415WkLuftOJXOxDKU3Sq72C84MAOlBDwcuDpkIeiaSnbAYSFNaUfdpeeKJuvbrMHTLRJI72SHJVE7ht4oEmPqFkJRnEWtyF36pYRgeWyUOI4UGHmSMnVxwAao3wC0BMeF4EijWQt2IfHP1hMHhUuWiD9zowkMOpwFGFaK38C8vVSFMyDpO6Ur7xBkYtKlaYlAYUG26rRnjB57zfrZ89kNQj12dmwCu13iscW0NxllFcoeGLzR', 0),
+(5543, 0, 'config', 'config_robots', 'abot\r\ndbot\r\nebot\r\nhbot\r\nkbot\r\nlbot\r\nmbot\r\nnbot\r\nobot\r\npbot\r\nrbot\r\nsbot\r\ntbot\r\nvbot\r\nybot\r\nzbot\r\nbot.\r\nbot/\r\n_bot\r\n.bot\r\n/bot\r\n-bot\r\n:bot\r\n(bot\r\ncrawl\r\nslurp\r\nspider\r\nseek\r\naccoona\r\nacoon\r\nadressendeutschland\r\nah-ha.com\r\nahoy\r\naltavista\r\nananzi\r\nanthill\r\nappie\r\narachnophilia\r\narale\r\naraneo\r\naranha\r\narchitext\r\naretha\r\narks\r\nasterias\r\natlocal\r\natn\r\natomz\r\naugurfind\r\nbackrub\r\nbannana_bot\r\nbaypup\r\nbdfetch\r\nbig brother\r\nbiglotron\r\nbjaaland\r\nblackwidow\r\nblaiz\r\nblog\r\nblo.\r\nbloodhound\r\nboitho\r\nbooch\r\nbradley\r\nbutterfly\r\ncalif\r\ncassandra\r\nccubee\r\ncfetch\r\ncharlotte\r\nchurl\r\ncienciaficcion\r\ncmc\r\ncollective\r\ncomagent\r\ncombine\r\ncomputingsite\r\ncsci\r\ncurl\r\ncusco\r\ndaumoa\r\ndeepindex\r\ndelorie\r\ndepspid\r\ndeweb\r\ndie blinde kuh\r\ndigger\r\nditto\r\ndmoz\r\ndocomo\r\ndownload express\r\ndtaagent\r\ndwcp\r\nebiness\r\nebingbong\r\ne-collector\r\nejupiter\r\nemacs-w3 search engine\r\nesther\r\nevliya celebi\r\nezresult\r\nfalcon\r\nfelix ide\r\nferret\r\nfetchrover\r\nfido\r\nfindlinks\r\nfireball\r\nfish search\r\nfouineur\r\nfunnelweb\r\ngazz\r\ngcreep\r\ngenieknows\r\ngetterroboplus\r\ngeturl\r\nglx\r\ngoforit\r\ngolem\r\ngrabber\r\ngrapnel\r\ngralon\r\ngriffon\r\ngromit\r\ngrub\r\ngulliver\r\nhamahakki\r\nharvest\r\nhavindex\r\nhelix\r\nheritrix\r\nhku www octopus\r\nhomerweb\r\nhtdig\r\nhtml index\r\nhtml_analyzer\r\nhtmlgobble\r\nhubater\r\nhyper-decontextualizer\r\nia_archiver\r\nibm_planetwide\r\nichiro\r\niconsurf\r\niltrovatore\r\nimage.kapsi.net\r\nimagelock\r\nincywincy\r\nindexer\r\ninfobee\r\ninformant\r\ningrid\r\ninktomisearch.com\r\ninspector web\r\nintelliagent\r\ninternet shinchakubin\r\nip3000\r\niron33\r\nisraeli-search\r\nivia\r\njack\r\njakarta\r\njavabee\r\njetbot\r\njumpstation\r\nkatipo\r\nkdd-explorer\r\nkilroy\r\nknowledge\r\nkototoi\r\nkretrieve\r\nlabelgrabber\r\nlachesis\r\nlarbin\r\nlegs\r\nlibwww\r\nlinkalarm\r\nlink validator\r\nlinkscan\r\nlockon\r\nlwp\r\nlycos\r\nmagpie\r\nmantraagent\r\nmapoftheinternet\r\nmarvin/\r\nmattie\r\nmediafox\r\nmediapartners\r\nmercator\r\nmerzscope\r\nmicrosoft url control\r\nminirank\r\nmiva\r\nmj12\r\nmnogosearch\r\nmoget\r\nmonster\r\nmoose\r\nmotor\r\nmultitext\r\nmuncher\r\nmuscatferret\r\nmwd.search\r\nmyweb\r\nnajdi\r\nnameprotect\r\nnationaldirectory\r\nnazilla\r\nncsa beta\r\nnec-meshexplorer\r\nnederland.zoek\r\nnetcarta webmap engine\r\nnetmechanic\r\nnetresearchserver\r\nnetscoop\r\nnewscan-online\r\nnhse\r\nnokia6682/\r\nnomad\r\nnoyona\r\nnutch\r\nnzexplorer\r\nobjectssearch\r\noccam\r\nomni\r\nopen text\r\nopenfind\r\nopenintelligencedata\r\norb search\r\nosis-project\r\npack rat\r\npageboy\r\npagebull\r\npage_verifier\r\npanscient\r\nparasite\r\npartnersite\r\npatric\r\npear.\r\npegasus\r\nperegrinator\r\npgp key agent\r\nphantom\r\nphpdig\r\npicosearch\r\npiltdownman\r\npimptrain\r\npinpoint\r\npioneer\r\npiranha\r\nplumtreewebaccessor\r\npogodak\r\npoirot\r\npompos\r\npoppelsdorf\r\npoppi\r\npopular iconoclast\r\npsycheclone\r\npublisher\r\npython\r\nrambler\r\nraven search\r\nroach\r\nroad runner\r\nroadhouse\r\nrobbie\r\nrobofox\r\nrobozilla\r\nrules\r\nsalty\r\nsbider\r\nscooter\r\nscoutjet\r\nscrubby\r\nsearch.\r\nsearchprocess\r\nsemanticdiscovery\r\nsenrigan\r\nsg-scout\r\nshai''hulud\r\nshark\r\nshopwiki\r\nsidewinder\r\nsift\r\nsilk\r\nsimmany\r\nsite searcher\r\nsite valet\r\nsitetech-rover\r\nskymob.com\r\nsleek\r\nsmartwit\r\nsna-\r\nsnappy\r\nsnooper\r\nsohu\r\nspeedfind\r\nsphere\r\nsphider\r\nspinner\r\nspyder\r\nsteeler/\r\nsuke\r\nsuntek\r\nsupersnooper\r\nsurfnomore\r\nsven\r\nsygol\r\nszukacz\r\ntach black widow\r\ntarantula\r\ntempleton\r\n/teoma\r\nt-h-u-n-d-e-r-s-t-o-n-e\r\ntheophrastus\r\ntitan\r\ntitin\r\ntkwww\r\ntoutatis\r\nt-rex\r\ntutorgig\r\ntwiceler\r\ntwisted\r\nucsd\r\nudmsearch\r\nurl check\r\nupdated\r\nvagabondo\r\nvalkyrie\r\nverticrawl\r\nvictoria\r\nvision-search\r\nvolcano\r\nvoyager/\r\nvoyager-hc\r\nw3c_validator\r\nw3m2\r\nw3mir\r\nwalker\r\nwallpaper\r\nwanderer\r\nwauuu\r\nwavefire\r\nweb core\r\nweb hopper\r\nweb wombat\r\nwebbandit\r\nwebcatcher\r\nwebcopy\r\nwebfoot\r\nweblayers\r\nweblinker\r\nweblog monitor\r\nwebmirror\r\nwebmonkey\r\nwebquest\r\nwebreaper\r\nwebsitepulse\r\nwebsnarf\r\nwebstolperer\r\nwebvac\r\nwebwalk\r\nwebwatch\r\nwebwombat\r\nwebzinger\r\nwhizbang\r\nwhowhere\r\nwild ferret\r\nworldlight\r\nwwwc\r\nwwwster\r\nxenu\r\nxget\r\nxift\r\nxirq\r\nyandex\r\nyanga\r\nyeti\r\nyodao\r\nzao\r\nzippp\r\nzyborg', 0),
 (4, 0, 'voucher', 'voucher_sort_order', '8', 0),
 (5, 0, 'voucher', 'voucher_status', '1', 0),
-(2229, 0, 'config', 'config_secure', '0', 0),
-(2228, 0, 'config', 'config_editor_default', '0', 0),
-(2226, 0, 'config', 'config_compression', '0', 0),
-(2227, 0, 'config', 'config_mail_regexp', '/^[^@]+@.*.[a-z]{2,15}$/i', 0),
-(2223, 0, 'config', 'config_seo_url_postfix', '', 0),
-(2222, 0, 'config', 'config_seo_url_include_path', '0', 0),
-(2221, 0, 'config', 'config_seo_url_type', 'seo_url', 0),
-(2220, 0, 'config', 'config_seo_url', '1', 0),
-(2213, 0, 'config', 'config_mail_smtp_username', 'info@geekteam.kz', 0),
-(2214, 0, 'config', 'config_mail_smtp_password', 'j6hlW4tmUy', 0),
-(2215, 0, 'config', 'config_mail_smtp_port', '465', 0),
-(2216, 0, 'config', 'config_mail_smtp_timeout', '5', 0),
-(2217, 0, 'config', 'config_mail_alert', '["order"]', 1),
-(2218, 0, 'config', 'config_alert_email', '', 0),
 (96, 0, 'free_checkout', 'free_checkout_status', '1', 0),
 (97, 0, 'free_checkout', 'free_checkout_order_status_id', '1', 0),
 (98, 0, 'shipping', 'shipping_sort_order', '3', 0),
@@ -5740,30 +8880,22 @@ INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `ser
 (124, 0, 'category', 'category_status', '1', 0),
 (125, 0, 'account', 'account_status', '1', 0),
 (126, 0, 'affiliate', 'affiliate_status', '1', 0),
-(127, 0, 'theme_default', 'theme_default_product_limit', '15', 0),
-(128, 0, 'theme_default', 'theme_default_product_description_length', '100', 0),
-(129, 0, 'theme_default', 'theme_default_image_thumb_width', '228', 0),
-(130, 0, 'theme_default', 'theme_default_image_thumb_height', '228', 0),
-(131, 0, 'theme_default', 'theme_default_image_popup_width', '500', 0),
-(132, 0, 'theme_default', 'theme_default_image_popup_height', '500', 0),
-(133, 0, 'theme_default', 'theme_default_image_category_width', '80', 0),
-(134, 0, 'theme_default', 'theme_default_image_category_height', '80', 0),
-(135, 0, 'theme_default', 'theme_default_image_product_width', '228', 0),
-(136, 0, 'theme_default', 'theme_default_image_product_height', '228', 0),
-(137, 0, 'theme_default', 'theme_default_image_additional_width', '74', 0),
-(138, 0, 'theme_default', 'theme_default_image_additional_height', '74', 0),
-(139, 0, 'theme_default', 'theme_default_image_related_width', '200', 0),
-(140, 0, 'theme_default', 'theme_default_image_related_height', '200', 0),
-(141, 0, 'theme_default', 'theme_default_image_compare_width', '90', 0),
-(142, 0, 'theme_default', 'theme_default_image_compare_height', '90', 0),
-(143, 0, 'theme_default', 'theme_default_image_wishlist_width', '47', 0),
-(144, 0, 'theme_default', 'theme_default_image_wishlist_height', '47', 0),
-(145, 0, 'theme_default', 'theme_default_image_cart_height', '47', 0),
-(146, 0, 'theme_default', 'theme_default_image_cart_width', '47', 0),
-(147, 0, 'theme_default', 'theme_default_image_location_height', '50', 0),
-(148, 0, 'theme_default', 'theme_default_image_location_width', '268', 0),
-(149, 0, 'theme_default', 'theme_default_directory', 'default', 0),
-(150, 0, 'theme_default', 'theme_default_status', '1', 0),
+(5615, 0, 'theme_default', 'theme_default_image_cart_width', '47', 0),
+(5616, 0, 'theme_default', 'theme_default_image_cart_height', '47', 0),
+(5614, 0, 'theme_default', 'theme_default_image_wishlist_height', '47', 0),
+(5613, 0, 'theme_default', 'theme_default_image_wishlist_width', '47', 0),
+(5612, 0, 'theme_default', 'theme_default_image_compare_height', '90', 0),
+(5610, 0, 'theme_default', 'theme_default_image_related_height', '200', 0),
+(5611, 0, 'theme_default', 'theme_default_image_compare_width', '90', 0),
+(5609, 0, 'theme_default', 'theme_default_image_related_width', '200', 0),
+(5608, 0, 'theme_default', 'theme_default_image_additional_height', '500', 0),
+(5607, 0, 'theme_default', 'theme_default_image_additional_width', '500', 0),
+(5606, 0, 'theme_default', 'theme_default_image_product_height', '500', 0),
+(5605, 0, 'theme_default', 'theme_default_image_product_width', '500', 0),
+(5604, 0, 'theme_default', 'theme_default_image_popup_height', '500', 0),
+(5603, 0, 'theme_default', 'theme_default_image_popup_width', '500', 0),
+(5602, 0, 'theme_default', 'theme_default_image_thumb_height', '500', 0),
+(5601, 0, 'theme_default', 'theme_default_image_thumb_width', '500', 0),
 (151, 0, 'dashboard_activity', 'dashboard_activity_status', '1', 0),
 (152, 0, 'dashboard_activity', 'dashboard_activity_sort_order', '7', 0),
 (153, 0, 'dashboard_sale', 'dashboard_sale_status', '1', 0),
@@ -5788,76 +8920,97 @@ INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `ser
 (172, 0, 'dashboard_recent', 'dashboard_recent_sort_order', '8', 0),
 (173, 0, 'dashboard_activity', 'dashboard_activity_width', '4', 0),
 (174, 0, 'dashboard_recent', 'dashboard_recent_width', '8', 0),
-(2219, 0, 'config', 'config_maintenance', '0', 0),
-(2212, 0, 'config', 'config_mail_smtp_hostname', 'ssl://smtp.yandex.ru', 0),
-(2211, 0, 'config', 'config_mail_parameter', '', 0),
-(2210, 0, 'config', 'config_mail_protocol', 'smtp', 0),
-(2209, 0, 'config', 'config_ftp_status', '1', 0),
-(2208, 0, 'config', 'config_ftp_root', '', 0),
-(2207, 0, 'config', 'config_ftp_password', 'admin', 0),
-(2206, 0, 'config', 'config_ftp_username', 'ugg', 0),
-(2202, 0, 'config', 'config_logo', 'catalog/logo.png', 0),
-(2203, 0, 'config', 'config_icon', 'catalog/logo.png', 0),
-(2204, 0, 'config', 'config_ftp_hostname', 'ugg.opencart', 0),
-(2205, 0, 'config', 'config_ftp_port', '21', 0),
-(2201, 0, 'config', 'config_captcha_page', '["review","return","contact"]', 1),
-(2200, 0, 'config', 'config_captcha', '', 0),
-(2199, 0, 'config', 'config_return_status_id', '2', 0),
-(2198, 0, 'config', 'config_return_id', '0', 0),
-(2197, 0, 'config', 'config_affiliate_id', '4', 0),
-(2196, 0, 'config', 'config_affiliate_commission', '5', 0),
-(2195, 0, 'config', 'config_affiliate_auto', '0', 0),
-(2194, 0, 'config', 'config_affiliate_approval', '0', 0),
-(2193, 0, 'config', 'config_stock_checkout', '0', 0),
-(2192, 0, 'config', 'config_stock_warning', '0', 0),
-(2191, 0, 'config', 'config_stock_display', '0', 0),
-(2189, 0, 'config', 'config_fraud_status_id', '2', 0),
-(2190, 0, 'config', 'config_api_id', '1', 0),
-(2188, 0, 'config', 'config_complete_status', '["3","5"]', 1),
-(2187, 0, 'config', 'config_processing_status', '["2","3","1","12","5"]', 1),
-(2186, 0, 'config', 'config_order_status_id', '2', 0),
-(2185, 0, 'config', 'config_checkout_id', '5', 0),
-(2184, 0, 'config', 'config_checkout_guest', '1', 0),
-(2183, 0, 'config', 'config_cart_weight', '1', 0),
-(2182, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
-(2181, 0, 'config', 'config_account_id', '3', 0),
-(2179, 0, 'config', 'config_customer_price', '0', 0),
-(2180, 0, 'config', 'config_login_attempts', '5', 0),
-(2178, 0, 'config', 'config_customer_group_display', '["1"]', 1),
-(2177, 0, 'config', 'config_customer_group_id', '1', 0),
-(2176, 0, 'config', 'config_customer_search', '0', 0),
-(2175, 0, 'config', 'config_customer_activity', '0', 0),
-(2174, 0, 'config', 'config_customer_online', '0', 0),
-(2173, 0, 'config', 'config_tax_customer', 'shipping', 0),
-(2172, 0, 'config', 'config_tax_default', 'shipping', 0),
-(2171, 0, 'config', 'config_tax', '1', 0),
-(2170, 0, 'config', 'config_voucher_max', '1000', 0),
-(2169, 0, 'config', 'config_voucher_min', '1', 0),
-(2168, 0, 'config', 'config_review_guest', '1', 0),
-(2167, 0, 'config', 'config_review_status', '1', 0),
-(2166, 0, 'config', 'config_product_mpn_hide', '0', 0),
-(2165, 0, 'config', 'config_product_isbn_hide', '0', 0),
-(2164, 0, 'config', 'config_product_jan_hide', '0', 0),
-(2163, 0, 'config', 'config_product_ean_hide', '0', 0),
-(2162, 0, 'config', 'config_product_upc_hide', '0', 0),
-(2161, 0, 'config', 'config_limit_admin', '30', 0),
-(2160, 0, 'config', 'config_product_count', '1', 0),
-(2159, 0, 'config', 'config_weight_class_id', '1', 0),
-(2158, 0, 'config', 'config_length_class_id', '1', 0),
-(2157, 0, 'config', 'config_currency_auto', '0', 0),
-(2155, 0, 'config', 'config_admin_language', 'ru-ru', 0),
-(2156, 0, 'config', 'config_currency', 'RUB', 0),
-(2154, 0, 'config', 'config_language', 'ru-ru', 0),
-(2153, 0, 'config', 'config_zone_id', '2785', 0),
-(2152, 0, 'config', 'config_country_id', '176', 0),
-(2151, 0, 'config', 'config_image', '', 0),
-(2150, 0, 'config', 'config_fax', '', 0),
-(2149, 0, 'config', 'config_telephone', '123456789', 0),
-(2148, 0, 'config', 'config_email', 'admin@ugg.opencart', 0),
-(2147, 0, 'config', 'config_geocode', '54.718681,20.499113', 0),
-(2146, 0, 'config', 'config_layout_id', '4', 0),
-(2145, 0, 'config', 'config_theme', 'theme_default', 0),
-(2144, 0, 'config', 'config_langdata', '{"1":{"meta_title":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_description":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_keyword":"","name":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","owner":"\\u041c\\u043e\\u0435 \\u0418\\u043c\\u044f","address":"\\u0410\\u0434\\u0440\\u0435\\u0441","open":"\\u0441 10\\u0447 \\u0434\\u043e 18\\u0447\\r\\n\\u043e\\u0431\\u0435\\u0434 \\u0441 14\\u0447 \\u0434\\u043e 15\\u0447\\r\\n\\u0432\\u043e\\u0441\\u043a\\u0440\\u0435\\u0441\\u0435\\u043d\\u044c\\u0435 - \\u0432\\u044b\\u0445\\u043e\\u0434\\u043d\\u043e\\u0439","comment":""}}', 1);
+(5551, 0, 'config', 'config_file_max_size', '300000', 0),
+(5552, 0, 'config', 'config_file_ext_allowed', 'zip\r\ntxt\r\npng\r\njpe\r\njpeg\r\njpg\r\ngif\r\nbmp\r\nico\r\ntiff\r\ntif\r\nsvg\r\nsvgz\r\nzip\r\nrar\r\nmsi\r\ncab\r\nmp3\r\nqt\r\nmov\r\npdf\r\npsd\r\nai\r\neps\r\nps\r\ndoc', 0),
+(5553, 0, 'config', 'config_file_mime_allowed', 'text/plain\r\nimage/png\r\nimage/jpeg\r\nimage/gif\r\nimage/bmp\r\nimage/tiff\r\nimage/svg+xml\r\napplication/zip\r\n&quot;application/zip&quot;\r\napplication/x-zip\r\n&quot;application/x-zip&quot;\r\napplication/x-zip-compressed\r\n&quot;application/x-zip-compressed&quot;\r\napplication/rar\r\n&quot;application/rar&quot;\r\napplication/x-rar\r\n&quot;application/x-rar&quot;\r\napplication/x-rar-compressed\r\n&quot;application/x-rar-compressed&quot;\r\napplication/octet-stream\r\n&quot;application/octet-stream&quot;\r\naudio/mpeg\r\nvideo/quicktime\r\napplication/pdf', 0),
+(5541, 0, 'config', 'config_seo_url_postfix', '', 0),
+(5540, 0, 'config', 'config_seo_url_include_path', '0', 0),
+(5539, 0, 'config', 'config_seo_url_type', 'seo_url', 0),
+(5538, 0, 'config', 'config_seo_url', '1', 0),
+(5537, 0, 'config', 'config_maintenance', '0', 0),
+(5536, 0, 'config', 'config_alert_email', '', 0),
+(5534, 0, 'config', 'config_mail_smtp_timeout', '10', 0),
+(5535, 0, 'config', 'config_mail_alert', '["order"]', 1),
+(5533, 0, 'config', 'config_mail_smtp_port', '465', 0),
+(5532, 0, 'config', 'config_mail_smtp_password', 'j6hlW4tmUy', 0),
+(5531, 0, 'config', 'config_mail_smtp_username', 'info@geekteam.kz', 0),
+(5530, 0, 'config', 'config_mail_smtp_hostname', 'ssl://smtp.yandex.ru', 0),
+(5529, 0, 'config', 'config_mail_parameter', '', 0),
+(5528, 0, 'config', 'config_mail_protocol', 'smtp', 0),
+(5527, 0, 'config', 'config_ftp_status', '1', 0),
+(5526, 0, 'config', 'config_ftp_root', '', 0),
+(5524, 0, 'config', 'config_ftp_username', 'ugg', 0),
+(5525, 0, 'config', 'config_ftp_password', 'admin', 0),
+(5523, 0, 'config', 'config_ftp_port', '21', 0),
+(5522, 0, 'config', 'config_ftp_hostname', 'ugg.opencart', 0),
+(5521, 0, 'config', 'config_icon', 'catalog/logo.png', 0),
+(5520, 0, 'config', 'config_logo', 'catalog/logo.png', 0),
+(5519, 0, 'config', 'config_captcha_page', '["review","return","contact"]', 1),
+(5518, 0, 'config', 'config_captcha', '', 0),
+(5517, 0, 'config', 'config_return_status_id', '2', 0),
+(5516, 0, 'config', 'config_return_id', '0', 0),
+(5515, 0, 'config', 'config_affiliate_id', '4', 0),
+(5514, 0, 'config', 'config_affiliate_commission', '5', 0),
+(5513, 0, 'config', 'config_affiliate_auto', '0', 0),
+(5512, 0, 'config', 'config_affiliate_approval', '0', 0),
+(5511, 0, 'config', 'config_stock_checkout', '0', 0),
+(5509, 0, 'config', 'config_stock_display', '0', 0),
+(5510, 0, 'config', 'config_stock_warning', '0', 0),
+(5507, 0, 'config', 'config_fraud_status_id', '2', 0),
+(5508, 0, 'config', 'config_api_id', '1', 0),
+(5506, 0, 'config', 'config_complete_status', '["3","5"]', 1),
+(5505, 0, 'config', 'config_processing_status', '["2","3","1","12","5"]', 1),
+(5504, 0, 'config', 'config_order_status_id', '2', 0),
+(5503, 0, 'config', 'config_checkout_id', '5', 0),
+(5502, 0, 'config', 'config_checkout_guest', '1', 0),
+(5501, 0, 'config', 'config_cart_weight', '1', 0),
+(5500, 0, 'config', 'config_invoice_prefix', 'INV-2013-00', 0),
+(5499, 0, 'config', 'config_account_id', '3', 0),
+(5498, 0, 'config', 'config_login_attempts', '5', 0),
+(5496, 0, 'config', 'config_customer_group_display', '["1"]', 1),
+(5497, 0, 'config', 'config_customer_price', '0', 0),
+(5495, 0, 'config', 'config_customer_group_id', '1', 0),
+(5494, 0, 'config', 'config_customer_search', '0', 0),
+(5493, 0, 'config', 'config_customer_activity', '0', 0),
+(5600, 0, 'theme_default', 'theme_default_image_category_height', '230', 0),
+(5599, 0, 'theme_default', 'theme_default_image_category_width', '230', 0),
+(5598, 0, 'theme_default', 'theme_default_product_description_length', '100', 0),
+(5492, 0, 'config', 'config_customer_online', '0', 0),
+(5491, 0, 'config', 'config_tax_customer', 'shipping', 0),
+(5490, 0, 'config', 'config_tax_default', 'shipping', 0),
+(5489, 0, 'config', 'config_tax', '1', 0),
+(5488, 0, 'config', 'config_voucher_max', '1000', 0),
+(5487, 0, 'config', 'config_voucher_min', '1', 0),
+(5486, 0, 'config', 'config_review_guest', '1', 0),
+(5485, 0, 'config', 'config_review_status', '1', 0),
+(5484, 0, 'config', 'config_product_mpn_hide', '0', 0),
+(5483, 0, 'config', 'config_product_isbn_hide', '0', 0),
+(5482, 0, 'config', 'config_product_jan_hide', '0', 0),
+(5481, 0, 'config', 'config_product_ean_hide', '0', 0),
+(5480, 0, 'config', 'config_product_upc_hide', '0', 0),
+(5479, 0, 'config', 'config_limit_admin', '30', 0),
+(5478, 0, 'config', 'config_product_count', '1', 0),
+(5477, 0, 'config', 'config_weight_class_id', '1', 0),
+(5476, 0, 'config', 'config_length_class_id', '1', 0),
+(5475, 0, 'config', 'config_currency_auto', '0', 0),
+(5474, 0, 'config', 'config_currency', 'RUB', 0),
+(5473, 0, 'config', 'config_admin_language', 'ru-ru', 0),
+(5472, 0, 'config', 'config_language', 'ru-ru', 0),
+(5471, 0, 'config', 'config_zone_id', '2785', 0),
+(5470, 0, 'config', 'config_country_id', '176', 0),
+(5469, 0, 'config', 'config_image', '', 0),
+(5468, 0, 'config', 'config_fax', '', 0),
+(5467, 0, 'config', 'config_telephone', '123456789', 0),
+(5466, 0, 'config', 'config_email', 'info@geekteam.kz', 0),
+(5465, 0, 'config', 'config_geocode', '54.718681,20.499113', 0),
+(5464, 0, 'config', 'config_layout_id', '4', 0),
+(5462, 0, 'config', 'config_langdata', '{"1":{"meta_title":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_description":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","meta_keyword":"","name":"\\u041e\\u0444\\u0438\\u0446\\u0438\\u0430\\u043b\\u044c\\u043d\\u044b\\u0439 \\u0441\\u0430\\u0439\\u0442 UGG Australia","owner":"\\u041c\\u043e\\u0435 \\u0418\\u043c\\u044f","address":"\\u0410\\u0434\\u0440\\u0435\\u0441","open":"\\u0441 10\\u0447 \\u0434\\u043e 18\\u0447\\r\\n\\u043e\\u0431\\u0435\\u0434 \\u0441 14\\u0447 \\u0434\\u043e 15\\u0447\\r\\n\\u0432\\u043e\\u0441\\u043a\\u0440\\u0435\\u0441\\u0435\\u043d\\u044c\\u0435 - \\u0432\\u044b\\u0445\\u043e\\u0434\\u043d\\u043e\\u0439","comment":""}}', 1),
+(5463, 0, 'config', 'config_theme', 'theme_default', 0),
+(5597, 0, 'theme_default', 'theme_default_product_limit', '15', 0),
+(5596, 0, 'theme_default', 'theme_default_status', '1', 0),
+(5595, 0, 'theme_default', 'theme_default_directory', 'default', 0),
+(5617, 0, 'theme_default', 'theme_default_image_location_width', '268', 0),
+(5618, 0, 'theme_default', 'theme_default_image_location_height', '50', 0);
 
 -- --------------------------------------------------------
 
@@ -5866,11 +9019,10 @@ INSERT INTO `oc_setting` (`setting_id`, `store_id`, `code`, `key`, `value`, `ser
 --
 
 CREATE TABLE IF NOT EXISTS `oc_stock_status` (
-  `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_status_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`stock_status_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `name` varchar(32) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_stock_status`
@@ -5889,12 +9041,11 @@ INSERT INTO `oc_stock_status` (`stock_status_id`, `language_id`, `name`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_store` (
-  `store_id` int(11) NOT NULL AUTO_INCREMENT,
+  `store_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `url` varchar(255) NOT NULL,
-  `ssl` varchar(255) NOT NULL,
-  PRIMARY KEY (`store_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `ssl` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5903,13 +9054,12 @@ CREATE TABLE IF NOT EXISTS `oc_store` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_class` (
-  `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tax_class_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
   `description` varchar(255) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`tax_class_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_tax_class`
@@ -5926,15 +9076,14 @@ INSERT INTO `oc_tax_class` (`tax_class_id`, `title`, `description`, `date_added`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rate` (
-  `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tax_rate_id` int(11) NOT NULL,
   `geo_zone_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(32) NOT NULL,
   `rate` decimal(15,4) NOT NULL DEFAULT '0.0000',
   `type` char(1) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`tax_rate_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=88 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_tax_rate`
@@ -5952,8 +9101,7 @@ INSERT INTO `oc_tax_rate` (`tax_rate_id`, `geo_zone_id`, `name`, `rate`, `type`,
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rate_to_customer_group` (
   `tax_rate_id` int(11) NOT NULL,
-  `customer_group_id` int(11) NOT NULL,
-  PRIMARY KEY (`tax_rate_id`,`customer_group_id`)
+  `customer_group_id` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -5971,13 +9119,12 @@ INSERT INTO `oc_tax_rate_to_customer_group` (`tax_rate_id`, `customer_group_id`)
 --
 
 CREATE TABLE IF NOT EXISTS `oc_tax_rule` (
-  `tax_rule_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tax_rule_id` int(11) NOT NULL,
   `tax_class_id` int(11) NOT NULL,
   `tax_rate_id` int(11) NOT NULL,
   `based` varchar(10) NOT NULL,
-  `priority` int(5) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`tax_rule_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=129 ;
+  `priority` int(5) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_tax_rule`
@@ -5996,13 +9143,12 @@ INSERT INTO `oc_tax_rule` (`tax_rule_id`, `tax_class_id`, `tax_rate_id`, `based`
 --
 
 CREATE TABLE IF NOT EXISTS `oc_theme` (
-  `theme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `theme_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `theme` varchar(64) NOT NULL,
   `route` varchar(64) NOT NULL,
-  `code` text NOT NULL,
-  PRIMARY KEY (`theme_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `code` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -6011,14 +9157,13 @@ CREATE TABLE IF NOT EXISTS `oc_theme` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_translation` (
-  `translation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `translation_id` int(11) NOT NULL,
   `store_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `route` varchar(64) NOT NULL,
   `key` varchar(64) NOT NULL,
-  `value` text NOT NULL,
-  PRIMARY KEY (`translation_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `value` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -6027,13 +9172,12 @@ CREATE TABLE IF NOT EXISTS `oc_translation` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_upload` (
-  `upload_id` int(11) NOT NULL AUTO_INCREMENT,
+  `upload_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`upload_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -6042,13 +9186,10 @@ CREATE TABLE IF NOT EXISTS `oc_upload` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_url_alias` (
-  `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url_alias_id` int(11) NOT NULL,
   `query` varchar(255) NOT NULL,
-  `keyword` varchar(255) NOT NULL,
-  PRIMARY KEY (`url_alias_id`),
-  KEY `query` (`query`),
-  KEY `keyword` (`keyword`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1016 ;
+  `keyword` varchar(255) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=1271 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_url_alias`
@@ -6093,28 +9234,24 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (636, 'affiliate/login', 'affiliate-login'),
 (637, 'account/return/add', 'add-return'),
 (638, 'common/home', ''),
-(1007, 'product_id=67', 'bailey-button-yellow-2'),
-(1006, 'product_id=62', 'bailey-button-rust-3'),
+(1158, 'product_id=69', 'bailey-button-white-netallic'),
 (982, 'information_id=4', 'o-nas'),
-(1005, 'product_id=61', 'bailey-button-leather-2'),
-(968, 'product_id=50', 'bailey-button-white-metallic'),
-(1015, 'category_id=80', 'muzhskie-ugg'),
-(1011, 'category_id=81', 'vysokie-ugg'),
-(1014, 'category_id=82', 'korotkie-ugg'),
-(1010, 'category_id=77', 'ugg-bailey-triplet'),
-(1012, 'category_id=78', 'detskie-ugg'),
-(1013, 'category_id=79', 'zhenskie-ugg'),
-(1009, 'category_id=67', 'ugg-bailey-dylyn'),
-(1002, 'product_id=65', 'bailey-button-white-2'),
-(1003, 'product_id=59', 'bailey-button-black-2'),
-(1004, 'product_id=60', 'bailey-button-grey-2'),
-(969, 'product_id=51', 'bailey-button-yellow'),
-(964, 'product_id=52', 'bailey-button-grey'),
-(966, 'product_id=53', 'bailey-button-wheat'),
-(980, 'product_id=54', 'bailey-button-black'),
-(994, 'product_id=55', 'bailey-button-rust'),
-(967, 'product_id=56', 'bailey-button-white'),
-(965, 'product_id=57', 'bailey-button-leather'),
+(1220, 'product_id=71', 'bailey-button-black-brilliant'),
+(1229, 'category_id=80', 'muzhskie-ugg'),
+(1231, 'category_id=81', 'vysokie-ugg'),
+(1232, 'category_id=82', 'korotkie-ugg'),
+(1238, 'category_id=77', 'ugg-bailey-triplet'),
+(1230, 'category_id=78', 'detskie-ugg'),
+(1246, 'category_id=79', 'zhenskie-ugg'),
+(1236, 'category_id=67', 'ugg-bailey-dylyn'),
+(1215, 'product_id=59', 'bailey-button-black'),
+(1151, 'product_id=60', 'bailey-button-grey'),
+(1159, 'product_id=70', 'bailey-button-yellow'),
+(1216, 'product_id=52', 'bailey-button-brown'),
+(1152, 'product_id=76', 'bailey-button-grey-leather'),
+(1212, 'product_id=74', 'bailey-button-fancy-chestnut'),
+(1226, 'product_id=73', 'bailey-button-fancy-brown'),
+(1155, 'product_id=57', 'bailey-button-wheat'),
 (907, 'newsblog_category_id=1', 'otzyvy'),
 (991, 'newsblog_article_id=1', 'artem-moskva'),
 (990, 'newsblog_article_id=2', 'artem-moskva-2'),
@@ -6124,14 +9261,75 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 (986, 'newsblog_article_id=6', 'Аrtem-Мoskva-6'),
 (985, 'newsblog_article_id=7', 'Аrtem-Мoskva-7'),
 (984, 'newsblog_article_id=8', 'Аrtem-Мoskva-8'),
-(1008, 'category_id=83', 'all'),
-(979, 'category_id=84', 'rasprodazha'),
+(1270, 'category_id=83', 'all'),
+(1227, 'category_id=84', 'rasprodazha'),
 (996, 'information_id=5', 'contacts'),
-(997, 'product_id=66', 'bailey-button-white-metallic-2'),
-(999, 'product_id=63', 'bailey-button-rust-2'),
+(1217, 'product_id=72', 'bailey-button-brown-leather'),
 (981, 'information_id=6', 'dostavka-i-oplata'),
 (983, 'information_id=3', 'vozvrat'),
-(1000, 'product_id=64', 'bailey-button-wheat-2');
+(1153, 'product_id=77', 'bailey-button-rust'),
+(1221, 'product_id=54', 'bailey-button-bow-black'),
+(1237, 'category_id=85', 'ugg-bailey-button'),
+(1209, 'product_id=68', 'bailey-button-black-leather'),
+(1156, 'product_id=78', 'bailey-button-wheat-leather'),
+(1213, 'product_id=79', 'bailey-button-white'),
+(1222, 'product_id=81', 'bailey-button-triplet-grey'),
+(1178, 'product_id=83', 'dylyn-and-blaise-black'),
+(1179, 'product_id=84', 'dylyn-and-blaise-rust'),
+(1239, 'category_id=86', 'ugg-classic-mini'),
+(1161, 'product_id=82', 'classic-mini-black'),
+(1160, 'product_id=86', 'classic-mini-beige'),
+(1162, 'product_id=87', 'classic-mini-black-leather'),
+(1163, 'product_id=88', 'classic-mini-grey'),
+(1240, 'category_id=87', 'ugg-classic-short'),
+(1164, 'product_id=90', 'classic-short-beige'),
+(1165, 'product_id=92', 'classic-short-black-leather'),
+(1170, 'product_id=94', 'classic-short-rust'),
+(1171, 'product_id=95', 'classic-short-silver'),
+(1194, 'product_id=96', 'ugg-mini-fox-fur-biege'),
+(1195, 'product_id=97', 'ugg-mini-fox-fur-black-leather'),
+(1197, 'product_id=98', 'ugg-mini-fox-fur-brown-zamsha'),
+(1196, 'product_id=99', 'ugg-mini-fox-fur-brown'),
+(1206, 'product_id=100', 'ugg-mini-fox-fur-chocolate-leather'),
+(1205, 'product_id=101', 'ugg-mini-fox-fur-grey'),
+(1204, 'product_id=102', 'ugg-mini-fox-fur-grey-leather'),
+(1166, 'product_id=103', 'classic-short-blue'),
+(1167, 'product_id=104', 'classic-short-grey'),
+(1168, 'product_id=105', 'classic-short-metallic-beige'),
+(1214, 'product_id=106', 'classic-short-metallic-grey'),
+(1172, 'product_id=107', 'classic-short-white'),
+(1241, 'category_id=88', 'ugg-classic-sparkless'),
+(1181, 'product_id=108', 'ugg-classic-sparkles-dark-black'),
+(1180, 'product_id=109', 'ugg-classic-sparkles-black'),
+(1199, 'product_id=110', 'ugg-short-sparkles-beige'),
+(1198, 'product_id=112', 'ugg-short-sparkles-grey'),
+(1244, 'category_id=89', 'ugg-mini-fox-fur'),
+(1243, 'category_id=90', 'ugg-mini-mailey-bow'),
+(1191, 'product_id=113', 'ugg-mini-bailey-bow-beige'),
+(1192, 'product_id=114', 'ugg-mini-bailey-bow-black'),
+(1193, 'product_id=115', 'ugg-mini-bailey-bow-rust'),
+(1245, 'category_id=91', 'ugg-mocassin'),
+(1203, 'product_id=116', 'ugg-mocassins-beige'),
+(1202, 'product_id=117', 'ugg-mocassins-black'),
+(1201, 'product_id=118', 'ugg-mocassins-blue'),
+(1200, 'product_id=119', 'ugg-mocassins-red'),
+(1235, 'category_id=92', 'ugg-jimmy-choo'),
+(1184, 'product_id=120', 'ugg-jimmy-choo-short-black'),
+(1187, 'product_id=121', 'ugg-jimmy-choo-starlit-beige'),
+(1182, 'product_id=122', 'ugg-jimmy-choo-mandah-gold'),
+(1183, 'product_id=123', 'ugg-jimmy-choo-mandah-silver'),
+(1185, 'product_id=124', 'ugg-jimmy-choo-short-grey'),
+(1186, 'product_id=125', 'ugg-jimmy-choo-short-rust'),
+(1188, 'product_id=126', 'ugg-jimmy-choo-starlit-black'),
+(1189, 'product_id=127', 'ugg-jimmy-choo-starlit-leather'),
+(1190, 'product_id=128', 'ugg-jimmy-choo-starlit-rust'),
+(1242, 'category_id=93', 'ugg-classic-tall'),
+(1173, 'product_id=129', 'classic-tall-beige'),
+(1174, 'product_id=130', 'classic-tall-black'),
+(1175, 'product_id=131', 'classic-tall-black-leather'),
+(1223, 'product_id=133', 'classic-tall-brown'),
+(1224, 'product_id=132', 'classic-tall-brown-leather'),
+(1233, 'category_id=94', 'uggi-mini');
 
 -- --------------------------------------------------------
 
@@ -6140,7 +9338,7 @@ INSERT INTO `oc_url_alias` (`url_alias_id`, `query`, `keyword`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `user_group_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password` varchar(40) NOT NULL,
@@ -6152,9 +9350,8 @@ CREATE TABLE IF NOT EXISTS `oc_user` (
   `code` varchar(40) NOT NULL,
   `ip` varchar(40) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_user`
@@ -6170,11 +9367,10 @@ INSERT INTO `oc_user` (`user_id`, `user_group_id`, `username`, `password`, `salt
 --
 
 CREATE TABLE IF NOT EXISTS `oc_user_group` (
-  `user_group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_group_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
-  `permission` text NOT NULL,
-  PRIMARY KEY (`user_group_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `permission` text NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_user_group`
@@ -6191,7 +9387,7 @@ INSERT INTO `oc_user_group` (`user_group_id`, `name`, `permission`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher` (
-  `voucher_id` int(11) NOT NULL AUTO_INCREMENT,
+  `voucher_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `code` varchar(10) NOT NULL,
   `from_name` varchar(64) NOT NULL,
@@ -6202,9 +9398,8 @@ CREATE TABLE IF NOT EXISTS `oc_voucher` (
   `message` text NOT NULL,
   `amount` decimal(15,4) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`voucher_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -6213,13 +9408,12 @@ CREATE TABLE IF NOT EXISTS `oc_voucher` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher_history` (
-  `voucher_history_id` int(11) NOT NULL AUTO_INCREMENT,
+  `voucher_history_id` int(11) NOT NULL,
   `voucher_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `amount` decimal(15,4) NOT NULL,
-  `date_added` datetime NOT NULL,
-  PRIMARY KEY (`voucher_history_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -6228,10 +9422,9 @@ CREATE TABLE IF NOT EXISTS `oc_voucher_history` (
 --
 
 CREATE TABLE IF NOT EXISTS `oc_voucher_theme` (
-  `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,
-  `image` varchar(255) NOT NULL,
-  PRIMARY KEY (`voucher_theme_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `voucher_theme_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_voucher_theme`
@@ -6251,8 +9444,7 @@ INSERT INTO `oc_voucher_theme` (`voucher_theme_id`, `image`) VALUES
 CREATE TABLE IF NOT EXISTS `oc_voucher_theme_description` (
   `voucher_theme_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`voucher_theme_id`,`language_id`)
+  `name` varchar(32) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -6271,10 +9463,9 @@ INSERT INTO `oc_voucher_theme_description` (`voucher_theme_id`, `language_id`, `
 --
 
 CREATE TABLE IF NOT EXISTS `oc_weight_class` (
-  `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
-  `value` decimal(15,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`weight_class_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+  `weight_class_id` int(11) NOT NULL,
+  `value` decimal(15,2) NOT NULL DEFAULT '0.00'
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_weight_class`
@@ -6293,12 +9484,11 @@ INSERT INTO `oc_weight_class` (`weight_class_id`, `value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_weight_class_description` (
-  `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,
+  `weight_class_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
-  `unit` varchar(4) NOT NULL,
-  PRIMARY KEY (`weight_class_id`,`language_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `unit` varchar(4) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_weight_class_description`
@@ -6315,13 +9505,12 @@ INSERT INTO `oc_weight_class_description` (`weight_class_id`, `language_id`, `ti
 --
 
 CREATE TABLE IF NOT EXISTS `oc_zone` (
-  `zone_id` int(11) NOT NULL AUTO_INCREMENT,
+  `zone_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `code` varchar(32) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`zone_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4236 ;
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM AUTO_INCREMENT=4236 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_zone`
@@ -7818,8 +11007,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1488, 99, 'Jammu and Kashmir', 'JA', 1),
 (1489, 99, 'Karnataka', 'KA', 1),
 (1490, 99, 'Kerala', 'KE', 1),
-(1491, 99, 'Lakshadweep Islands', 'LI', 1);
-INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+(1491, 99, 'Lakshadweep Islands', 'LI', 1),
 (1492, 99, 'Madhya Pradesh', 'MP', 1),
 (1493, 99, 'Maharashtra', 'MA', 1),
 (1494, 99, 'Manipur', 'MN', 1),
@@ -7868,7 +11056,8 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1537, 100, 'Yogyakarta', 'YO', 1),
 (1538, 101, 'Tehran', 'TEH', 1),
 (1539, 101, 'Qom', 'QOM', 1),
-(1540, 101, 'Markazi', 'MKZ', 1),
+(1540, 101, 'Markazi', 'MKZ', 1);
+INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1541, 101, 'Qazvin', 'QAZ', 1),
 (1542, 101, 'Gilan', 'GIL', 1),
 (1543, 101, 'Ardabil', 'ARD', 1),
@@ -9232,8 +12421,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2907, 186, 'Bel Ombre', 'BO', 1),
 (2908, 186, 'Cascade', 'CA', 1),
 (2909, 186, 'Glacis', 'GL', 1),
-(2910, 186, 'Grand'' Anse (on Mahe)', 'GM', 1);
-INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
+(2910, 186, 'Grand'' Anse (on Mahe)', 'GM', 1),
 (2911, 186, 'Grand'' Anse (on Praslin)', 'GP', 1),
 (2912, 186, 'La Digue', 'DG', 1),
 (2913, 186, 'La Riviere Anglaise', 'RA', 1),
@@ -9337,7 +12525,8 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3011, 195, 'Segovia', 'SG', 1),
 (3012, 195, 'Sevilla', 'SV', 1),
 (3013, 195, 'Soria', 'SO', 1),
-(3014, 195, 'Tarragona', 'TA', 1),
+(3014, 195, 'Tarragona', 'TA', 1);
+INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3015, 195, 'Teruel', 'TE', 1),
 (3016, 195, 'Toledo', 'TO', 1),
 (3017, 195, 'Valencia', 'VC', 1),
@@ -10538,14 +13727,13 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `oc_zone_to_geo_zone` (
-  `zone_to_geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,
+  `zone_to_geo_zone_id` int(11) NOT NULL,
   `country_id` int(11) NOT NULL,
   `zone_id` int(11) NOT NULL DEFAULT '0',
   `geo_zone_id` int(11) NOT NULL,
   `date_added` datetime NOT NULL,
-  `date_modified` datetime NOT NULL,
-  PRIMARY KEY (`zone_to_geo_zone_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=58 ;
+  `date_modified` datetime NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `oc_zone_to_geo_zone`
@@ -10554,6 +13742,1391 @@ CREATE TABLE IF NOT EXISTS `oc_zone_to_geo_zone` (
 INSERT INTO `oc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_id`, `geo_zone_id`, `date_added`, `date_modified`) VALUES
 (57, 176, 0, 3, '2015-11-11 15:56:24', '0000-00-00 00:00:00');
 
+--
+-- Индексы сохранённых таблиц
+--
+
+--
+-- Индексы таблицы `oc_address`
+--
+ALTER TABLE `oc_address`
+  ADD PRIMARY KEY (`address_id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Индексы таблицы `oc_affiliate`
+--
+ALTER TABLE `oc_affiliate`
+  ADD PRIMARY KEY (`affiliate_id`);
+
+--
+-- Индексы таблицы `oc_affiliate_activity`
+--
+ALTER TABLE `oc_affiliate_activity`
+  ADD PRIMARY KEY (`affiliate_activity_id`);
+
+--
+-- Индексы таблицы `oc_affiliate_login`
+--
+ALTER TABLE `oc_affiliate_login`
+  ADD PRIMARY KEY (`affiliate_login_id`),
+  ADD KEY `email` (`email`),
+  ADD KEY `ip` (`ip`);
+
+--
+-- Индексы таблицы `oc_affiliate_transaction`
+--
+ALTER TABLE `oc_affiliate_transaction`
+  ADD PRIMARY KEY (`affiliate_transaction_id`);
+
+--
+-- Индексы таблицы `oc_api`
+--
+ALTER TABLE `oc_api`
+  ADD PRIMARY KEY (`api_id`);
+
+--
+-- Индексы таблицы `oc_api_ip`
+--
+ALTER TABLE `oc_api_ip`
+  ADD PRIMARY KEY (`api_ip_id`);
+
+--
+-- Индексы таблицы `oc_api_session`
+--
+ALTER TABLE `oc_api_session`
+  ADD PRIMARY KEY (`api_session_id`);
+
+--
+-- Индексы таблицы `oc_attribute`
+--
+ALTER TABLE `oc_attribute`
+  ADD PRIMARY KEY (`attribute_id`);
+
+--
+-- Индексы таблицы `oc_attribute_description`
+--
+ALTER TABLE `oc_attribute_description`
+  ADD PRIMARY KEY (`attribute_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_attribute_group`
+--
+ALTER TABLE `oc_attribute_group`
+  ADD PRIMARY KEY (`attribute_group_id`);
+
+--
+-- Индексы таблицы `oc_attribute_group_description`
+--
+ALTER TABLE `oc_attribute_group_description`
+  ADD PRIMARY KEY (`attribute_group_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_banner`
+--
+ALTER TABLE `oc_banner`
+  ADD PRIMARY KEY (`banner_id`);
+
+--
+-- Индексы таблицы `oc_banner_image`
+--
+ALTER TABLE `oc_banner_image`
+  ADD PRIMARY KEY (`banner_image_id`);
+
+--
+-- Индексы таблицы `oc_cart`
+--
+ALTER TABLE `oc_cart`
+  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `cart_id` (`api_id`,`customer_id`,`session_id`,`product_id`,`recurring_id`);
+
+--
+-- Индексы таблицы `oc_category`
+--
+ALTER TABLE `oc_category`
+  ADD PRIMARY KEY (`category_id`),
+  ADD KEY `parent_id` (`parent_id`);
+
+--
+-- Индексы таблицы `oc_category_description`
+--
+ALTER TABLE `oc_category_description`
+  ADD PRIMARY KEY (`category_id`,`language_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_category_filter`
+--
+ALTER TABLE `oc_category_filter`
+  ADD PRIMARY KEY (`category_id`,`filter_id`);
+
+--
+-- Индексы таблицы `oc_category_path`
+--
+ALTER TABLE `oc_category_path`
+  ADD PRIMARY KEY (`category_id`,`path_id`);
+
+--
+-- Индексы таблицы `oc_category_to_layout`
+--
+ALTER TABLE `oc_category_to_layout`
+  ADD PRIMARY KEY (`category_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_category_to_store`
+--
+ALTER TABLE `oc_category_to_store`
+  ADD PRIMARY KEY (`category_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_country`
+--
+ALTER TABLE `oc_country`
+  ADD PRIMARY KEY (`country_id`);
+
+--
+-- Индексы таблицы `oc_coupon`
+--
+ALTER TABLE `oc_coupon`
+  ADD PRIMARY KEY (`coupon_id`);
+
+--
+-- Индексы таблицы `oc_coupon_category`
+--
+ALTER TABLE `oc_coupon_category`
+  ADD PRIMARY KEY (`coupon_id`,`category_id`);
+
+--
+-- Индексы таблицы `oc_coupon_history`
+--
+ALTER TABLE `oc_coupon_history`
+  ADD PRIMARY KEY (`coupon_history_id`);
+
+--
+-- Индексы таблицы `oc_coupon_product`
+--
+ALTER TABLE `oc_coupon_product`
+  ADD PRIMARY KEY (`coupon_product_id`);
+
+--
+-- Индексы таблицы `oc_currency`
+--
+ALTER TABLE `oc_currency`
+  ADD PRIMARY KEY (`currency_id`);
+
+--
+-- Индексы таблицы `oc_customer`
+--
+ALTER TABLE `oc_customer`
+  ADD PRIMARY KEY (`customer_id`);
+
+--
+-- Индексы таблицы `oc_customer_activity`
+--
+ALTER TABLE `oc_customer_activity`
+  ADD PRIMARY KEY (`customer_activity_id`);
+
+--
+-- Индексы таблицы `oc_customer_group`
+--
+ALTER TABLE `oc_customer_group`
+  ADD PRIMARY KEY (`customer_group_id`);
+
+--
+-- Индексы таблицы `oc_customer_group_description`
+--
+ALTER TABLE `oc_customer_group_description`
+  ADD PRIMARY KEY (`customer_group_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_customer_history`
+--
+ALTER TABLE `oc_customer_history`
+  ADD PRIMARY KEY (`customer_history_id`);
+
+--
+-- Индексы таблицы `oc_customer_ip`
+--
+ALTER TABLE `oc_customer_ip`
+  ADD PRIMARY KEY (`customer_ip_id`),
+  ADD KEY `ip` (`ip`);
+
+--
+-- Индексы таблицы `oc_customer_login`
+--
+ALTER TABLE `oc_customer_login`
+  ADD PRIMARY KEY (`customer_login_id`),
+  ADD KEY `email` (`email`),
+  ADD KEY `ip` (`ip`);
+
+--
+-- Индексы таблицы `oc_customer_online`
+--
+ALTER TABLE `oc_customer_online`
+  ADD PRIMARY KEY (`ip`);
+
+--
+-- Индексы таблицы `oc_customer_reward`
+--
+ALTER TABLE `oc_customer_reward`
+  ADD PRIMARY KEY (`customer_reward_id`);
+
+--
+-- Индексы таблицы `oc_customer_search`
+--
+ALTER TABLE `oc_customer_search`
+  ADD PRIMARY KEY (`customer_search_id`);
+
+--
+-- Индексы таблицы `oc_customer_transaction`
+--
+ALTER TABLE `oc_customer_transaction`
+  ADD PRIMARY KEY (`customer_transaction_id`);
+
+--
+-- Индексы таблицы `oc_customer_wishlist`
+--
+ALTER TABLE `oc_customer_wishlist`
+  ADD PRIMARY KEY (`customer_id`,`product_id`);
+
+--
+-- Индексы таблицы `oc_custom_field`
+--
+ALTER TABLE `oc_custom_field`
+  ADD PRIMARY KEY (`custom_field_id`);
+
+--
+-- Индексы таблицы `oc_custom_field_customer_group`
+--
+ALTER TABLE `oc_custom_field_customer_group`
+  ADD PRIMARY KEY (`custom_field_id`,`customer_group_id`);
+
+--
+-- Индексы таблицы `oc_custom_field_description`
+--
+ALTER TABLE `oc_custom_field_description`
+  ADD PRIMARY KEY (`custom_field_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_custom_field_value`
+--
+ALTER TABLE `oc_custom_field_value`
+  ADD PRIMARY KEY (`custom_field_value_id`);
+
+--
+-- Индексы таблицы `oc_custom_field_value_description`
+--
+ALTER TABLE `oc_custom_field_value_description`
+  ADD PRIMARY KEY (`custom_field_value_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_download`
+--
+ALTER TABLE `oc_download`
+  ADD PRIMARY KEY (`download_id`);
+
+--
+-- Индексы таблицы `oc_download_description`
+--
+ALTER TABLE `oc_download_description`
+  ADD PRIMARY KEY (`download_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_event`
+--
+ALTER TABLE `oc_event`
+  ADD PRIMARY KEY (`event_id`);
+
+--
+-- Индексы таблицы `oc_extension`
+--
+ALTER TABLE `oc_extension`
+  ADD PRIMARY KEY (`extension_id`);
+
+--
+-- Индексы таблицы `oc_filter`
+--
+ALTER TABLE `oc_filter`
+  ADD PRIMARY KEY (`filter_id`);
+
+--
+-- Индексы таблицы `oc_filter_description`
+--
+ALTER TABLE `oc_filter_description`
+  ADD PRIMARY KEY (`filter_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_filter_group`
+--
+ALTER TABLE `oc_filter_group`
+  ADD PRIMARY KEY (`filter_group_id`);
+
+--
+-- Индексы таблицы `oc_filter_group_description`
+--
+ALTER TABLE `oc_filter_group_description`
+  ADD PRIMARY KEY (`filter_group_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_geo_zone`
+--
+ALTER TABLE `oc_geo_zone`
+  ADD PRIMARY KEY (`geo_zone_id`);
+
+--
+-- Индексы таблицы `oc_information`
+--
+ALTER TABLE `oc_information`
+  ADD PRIMARY KEY (`information_id`);
+
+--
+-- Индексы таблицы `oc_information_description`
+--
+ALTER TABLE `oc_information_description`
+  ADD PRIMARY KEY (`information_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_information_to_layout`
+--
+ALTER TABLE `oc_information_to_layout`
+  ADD PRIMARY KEY (`information_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_information_to_store`
+--
+ALTER TABLE `oc_information_to_store`
+  ADD PRIMARY KEY (`information_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_language`
+--
+ALTER TABLE `oc_language`
+  ADD PRIMARY KEY (`language_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_layout`
+--
+ALTER TABLE `oc_layout`
+  ADD PRIMARY KEY (`layout_id`);
+
+--
+-- Индексы таблицы `oc_layout_module`
+--
+ALTER TABLE `oc_layout_module`
+  ADD PRIMARY KEY (`layout_module_id`);
+
+--
+-- Индексы таблицы `oc_layout_route`
+--
+ALTER TABLE `oc_layout_route`
+  ADD PRIMARY KEY (`layout_route_id`);
+
+--
+-- Индексы таблицы `oc_length_class`
+--
+ALTER TABLE `oc_length_class`
+  ADD PRIMARY KEY (`length_class_id`);
+
+--
+-- Индексы таблицы `oc_length_class_description`
+--
+ALTER TABLE `oc_length_class_description`
+  ADD PRIMARY KEY (`length_class_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_location`
+--
+ALTER TABLE `oc_location`
+  ADD PRIMARY KEY (`location_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_manufacturer`
+--
+ALTER TABLE `oc_manufacturer`
+  ADD PRIMARY KEY (`manufacturer_id`);
+
+--
+-- Индексы таблицы `oc_manufacturer_description`
+--
+ALTER TABLE `oc_manufacturer_description`
+  ADD PRIMARY KEY (`manufacturer_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_manufacturer_to_store`
+--
+ALTER TABLE `oc_manufacturer_to_store`
+  ADD PRIMARY KEY (`manufacturer_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_marketing`
+--
+ALTER TABLE `oc_marketing`
+  ADD PRIMARY KEY (`marketing_id`);
+
+--
+-- Индексы таблицы `oc_menu`
+--
+ALTER TABLE `oc_menu`
+  ADD PRIMARY KEY (`menu_id`);
+
+--
+-- Индексы таблицы `oc_menu_description`
+--
+ALTER TABLE `oc_menu_description`
+  ADD PRIMARY KEY (`menu_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_menu_module`
+--
+ALTER TABLE `oc_menu_module`
+  ADD PRIMARY KEY (`menu_module_id`),
+  ADD KEY `menu_id` (`menu_id`);
+
+--
+-- Индексы таблицы `oc_modification`
+--
+ALTER TABLE `oc_modification`
+  ADD PRIMARY KEY (`modification_id`);
+
+--
+-- Индексы таблицы `oc_module`
+--
+ALTER TABLE `oc_module`
+  ADD PRIMARY KEY (`module_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article`
+--
+ALTER TABLE `oc_newsblog_article`
+  ADD PRIMARY KEY (`article_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_attribute`
+--
+ALTER TABLE `oc_newsblog_article_attribute`
+  ADD PRIMARY KEY (`article_id`,`attribute_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_description`
+--
+ALTER TABLE `oc_newsblog_article_description`
+  ADD PRIMARY KEY (`article_id`,`language_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_image`
+--
+ALTER TABLE `oc_newsblog_article_image`
+  ADD PRIMARY KEY (`product_image_id`),
+  ADD KEY `article_id` (`article_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_related`
+--
+ALTER TABLE `oc_newsblog_article_related`
+  ADD PRIMARY KEY (`article_id`,`related_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_to_category`
+--
+ALTER TABLE `oc_newsblog_article_to_category`
+  ADD PRIMARY KEY (`article_id`,`category_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_to_layout`
+--
+ALTER TABLE `oc_newsblog_article_to_layout`
+  ADD PRIMARY KEY (`article_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_article_to_store`
+--
+ALTER TABLE `oc_newsblog_article_to_store`
+  ADD PRIMARY KEY (`article_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_category`
+--
+ALTER TABLE `oc_newsblog_category`
+  ADD PRIMARY KEY (`category_id`),
+  ADD KEY `parent_id` (`parent_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_category_description`
+--
+ALTER TABLE `oc_newsblog_category_description`
+  ADD PRIMARY KEY (`category_id`,`language_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_newsblog_category_path`
+--
+ALTER TABLE `oc_newsblog_category_path`
+  ADD PRIMARY KEY (`category_id`,`path_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_category_to_layout`
+--
+ALTER TABLE `oc_newsblog_category_to_layout`
+  ADD PRIMARY KEY (`category_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_newsblog_category_to_store`
+--
+ALTER TABLE `oc_newsblog_category_to_store`
+  ADD PRIMARY KEY (`category_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_option`
+--
+ALTER TABLE `oc_option`
+  ADD PRIMARY KEY (`option_id`);
+
+--
+-- Индексы таблицы `oc_option_description`
+--
+ALTER TABLE `oc_option_description`
+  ADD PRIMARY KEY (`option_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_option_value`
+--
+ALTER TABLE `oc_option_value`
+  ADD PRIMARY KEY (`option_value_id`);
+
+--
+-- Индексы таблицы `oc_option_value_description`
+--
+ALTER TABLE `oc_option_value_description`
+  ADD PRIMARY KEY (`option_value_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_order`
+--
+ALTER TABLE `oc_order`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Индексы таблицы `oc_order_custom_field`
+--
+ALTER TABLE `oc_order_custom_field`
+  ADD PRIMARY KEY (`order_custom_field_id`);
+
+--
+-- Индексы таблицы `oc_order_history`
+--
+ALTER TABLE `oc_order_history`
+  ADD PRIMARY KEY (`order_history_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Индексы таблицы `oc_order_option`
+--
+ALTER TABLE `oc_order_option`
+  ADD PRIMARY KEY (`order_option_id`);
+
+--
+-- Индексы таблицы `oc_order_product`
+--
+ALTER TABLE `oc_order_product`
+  ADD PRIMARY KEY (`order_product_id`);
+
+--
+-- Индексы таблицы `oc_order_recurring`
+--
+ALTER TABLE `oc_order_recurring`
+  ADD PRIMARY KEY (`order_recurring_id`);
+
+--
+-- Индексы таблицы `oc_order_recurring_transaction`
+--
+ALTER TABLE `oc_order_recurring_transaction`
+  ADD PRIMARY KEY (`order_recurring_transaction_id`);
+
+--
+-- Индексы таблицы `oc_order_status`
+--
+ALTER TABLE `oc_order_status`
+  ADD PRIMARY KEY (`order_status_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_order_total`
+--
+ALTER TABLE `oc_order_total`
+  ADD PRIMARY KEY (`order_total_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Индексы таблицы `oc_order_voucher`
+--
+ALTER TABLE `oc_order_voucher`
+  ADD PRIMARY KEY (`order_voucher_id`);
+
+--
+-- Индексы таблицы `oc_product`
+--
+ALTER TABLE `oc_product`
+  ADD PRIMARY KEY (`product_id`);
+
+--
+-- Индексы таблицы `oc_product_attribute`
+--
+ALTER TABLE `oc_product_attribute`
+  ADD PRIMARY KEY (`product_id`,`attribute_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_product_description`
+--
+ALTER TABLE `oc_product_description`
+  ADD PRIMARY KEY (`product_id`,`language_id`),
+  ADD KEY `name` (`name`);
+
+--
+-- Индексы таблицы `oc_product_discount`
+--
+ALTER TABLE `oc_product_discount`
+  ADD PRIMARY KEY (`product_discount_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `oc_product_filter`
+--
+ALTER TABLE `oc_product_filter`
+  ADD PRIMARY KEY (`product_id`,`filter_id`);
+
+--
+-- Индексы таблицы `oc_product_image`
+--
+ALTER TABLE `oc_product_image`
+  ADD PRIMARY KEY (`product_image_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `oc_product_option`
+--
+ALTER TABLE `oc_product_option`
+  ADD PRIMARY KEY (`product_option_id`);
+
+--
+-- Индексы таблицы `oc_product_option_value`
+--
+ALTER TABLE `oc_product_option_value`
+  ADD PRIMARY KEY (`product_option_value_id`);
+
+--
+-- Индексы таблицы `oc_product_recurring`
+--
+ALTER TABLE `oc_product_recurring`
+  ADD PRIMARY KEY (`product_id`,`recurring_id`,`customer_group_id`);
+
+--
+-- Индексы таблицы `oc_product_related`
+--
+ALTER TABLE `oc_product_related`
+  ADD PRIMARY KEY (`product_id`,`related_id`);
+
+--
+-- Индексы таблицы `oc_product_reward`
+--
+ALTER TABLE `oc_product_reward`
+  ADD PRIMARY KEY (`product_reward_id`);
+
+--
+-- Индексы таблицы `oc_product_special`
+--
+ALTER TABLE `oc_product_special`
+  ADD PRIMARY KEY (`product_special_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `oc_product_to_category`
+--
+ALTER TABLE `oc_product_to_category`
+  ADD PRIMARY KEY (`product_id`,`category_id`),
+  ADD KEY `category_id` (`category_id`);
+
+--
+-- Индексы таблицы `oc_product_to_download`
+--
+ALTER TABLE `oc_product_to_download`
+  ADD PRIMARY KEY (`product_id`,`download_id`);
+
+--
+-- Индексы таблицы `oc_product_to_layout`
+--
+ALTER TABLE `oc_product_to_layout`
+  ADD PRIMARY KEY (`product_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_product_to_store`
+--
+ALTER TABLE `oc_product_to_store`
+  ADD PRIMARY KEY (`product_id`,`store_id`);
+
+--
+-- Индексы таблицы `oc_recurring`
+--
+ALTER TABLE `oc_recurring`
+  ADD PRIMARY KEY (`recurring_id`);
+
+--
+-- Индексы таблицы `oc_recurring_description`
+--
+ALTER TABLE `oc_recurring_description`
+  ADD PRIMARY KEY (`recurring_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_return`
+--
+ALTER TABLE `oc_return`
+  ADD PRIMARY KEY (`return_id`);
+
+--
+-- Индексы таблицы `oc_return_action`
+--
+ALTER TABLE `oc_return_action`
+  ADD PRIMARY KEY (`return_action_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_return_history`
+--
+ALTER TABLE `oc_return_history`
+  ADD PRIMARY KEY (`return_history_id`);
+
+--
+-- Индексы таблицы `oc_return_reason`
+--
+ALTER TABLE `oc_return_reason`
+  ADD PRIMARY KEY (`return_reason_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_return_status`
+--
+ALTER TABLE `oc_return_status`
+  ADD PRIMARY KEY (`return_status_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_review`
+--
+ALTER TABLE `oc_review`
+  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Индексы таблицы `oc_setting`
+--
+ALTER TABLE `oc_setting`
+  ADD PRIMARY KEY (`setting_id`);
+
+--
+-- Индексы таблицы `oc_stock_status`
+--
+ALTER TABLE `oc_stock_status`
+  ADD PRIMARY KEY (`stock_status_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_store`
+--
+ALTER TABLE `oc_store`
+  ADD PRIMARY KEY (`store_id`);
+
+--
+-- Индексы таблицы `oc_tax_class`
+--
+ALTER TABLE `oc_tax_class`
+  ADD PRIMARY KEY (`tax_class_id`);
+
+--
+-- Индексы таблицы `oc_tax_rate`
+--
+ALTER TABLE `oc_tax_rate`
+  ADD PRIMARY KEY (`tax_rate_id`);
+
+--
+-- Индексы таблицы `oc_tax_rate_to_customer_group`
+--
+ALTER TABLE `oc_tax_rate_to_customer_group`
+  ADD PRIMARY KEY (`tax_rate_id`,`customer_group_id`);
+
+--
+-- Индексы таблицы `oc_tax_rule`
+--
+ALTER TABLE `oc_tax_rule`
+  ADD PRIMARY KEY (`tax_rule_id`);
+
+--
+-- Индексы таблицы `oc_theme`
+--
+ALTER TABLE `oc_theme`
+  ADD PRIMARY KEY (`theme_id`);
+
+--
+-- Индексы таблицы `oc_translation`
+--
+ALTER TABLE `oc_translation`
+  ADD PRIMARY KEY (`translation_id`);
+
+--
+-- Индексы таблицы `oc_upload`
+--
+ALTER TABLE `oc_upload`
+  ADD PRIMARY KEY (`upload_id`);
+
+--
+-- Индексы таблицы `oc_url_alias`
+--
+ALTER TABLE `oc_url_alias`
+  ADD PRIMARY KEY (`url_alias_id`),
+  ADD KEY `query` (`query`),
+  ADD KEY `keyword` (`keyword`);
+
+--
+-- Индексы таблицы `oc_user`
+--
+ALTER TABLE `oc_user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Индексы таблицы `oc_user_group`
+--
+ALTER TABLE `oc_user_group`
+  ADD PRIMARY KEY (`user_group_id`);
+
+--
+-- Индексы таблицы `oc_voucher`
+--
+ALTER TABLE `oc_voucher`
+  ADD PRIMARY KEY (`voucher_id`);
+
+--
+-- Индексы таблицы `oc_voucher_history`
+--
+ALTER TABLE `oc_voucher_history`
+  ADD PRIMARY KEY (`voucher_history_id`);
+
+--
+-- Индексы таблицы `oc_voucher_theme`
+--
+ALTER TABLE `oc_voucher_theme`
+  ADD PRIMARY KEY (`voucher_theme_id`);
+
+--
+-- Индексы таблицы `oc_voucher_theme_description`
+--
+ALTER TABLE `oc_voucher_theme_description`
+  ADD PRIMARY KEY (`voucher_theme_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_weight_class`
+--
+ALTER TABLE `oc_weight_class`
+  ADD PRIMARY KEY (`weight_class_id`);
+
+--
+-- Индексы таблицы `oc_weight_class_description`
+--
+ALTER TABLE `oc_weight_class_description`
+  ADD PRIMARY KEY (`weight_class_id`,`language_id`);
+
+--
+-- Индексы таблицы `oc_zone`
+--
+ALTER TABLE `oc_zone`
+  ADD PRIMARY KEY (`zone_id`);
+
+--
+-- Индексы таблицы `oc_zone_to_geo_zone`
+--
+ALTER TABLE `oc_zone_to_geo_zone`
+  ADD PRIMARY KEY (`zone_to_geo_zone_id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
+
+--
+-- AUTO_INCREMENT для таблицы `oc_address`
+--
+ALTER TABLE `oc_address`
+  MODIFY `address_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_affiliate`
+--
+ALTER TABLE `oc_affiliate`
+  MODIFY `affiliate_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_affiliate_activity`
+--
+ALTER TABLE `oc_affiliate_activity`
+  MODIFY `affiliate_activity_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_affiliate_login`
+--
+ALTER TABLE `oc_affiliate_login`
+  MODIFY `affiliate_login_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_affiliate_transaction`
+--
+ALTER TABLE `oc_affiliate_transaction`
+  MODIFY `affiliate_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_api`
+--
+ALTER TABLE `oc_api`
+  MODIFY `api_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_api_ip`
+--
+ALTER TABLE `oc_api_ip`
+  MODIFY `api_ip_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_api_session`
+--
+ALTER TABLE `oc_api_session`
+  MODIFY `api_session_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_attribute`
+--
+ALTER TABLE `oc_attribute`
+  MODIFY `attribute_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT для таблицы `oc_attribute_group`
+--
+ALTER TABLE `oc_attribute_group`
+  MODIFY `attribute_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT для таблицы `oc_banner`
+--
+ALTER TABLE `oc_banner`
+  MODIFY `banner_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT для таблицы `oc_banner_image`
+--
+ALTER TABLE `oc_banner_image`
+  MODIFY `banner_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=113;
+--
+-- AUTO_INCREMENT для таблицы `oc_cart`
+--
+ALTER TABLE `oc_cart`
+  MODIFY `cart_id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_category`
+--
+ALTER TABLE `oc_category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
+--
+-- AUTO_INCREMENT для таблицы `oc_country`
+--
+ALTER TABLE `oc_country`
+  MODIFY `country_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=258;
+--
+-- AUTO_INCREMENT для таблицы `oc_coupon`
+--
+ALTER TABLE `oc_coupon`
+  MODIFY `coupon_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT для таблицы `oc_coupon_history`
+--
+ALTER TABLE `oc_coupon_history`
+  MODIFY `coupon_history_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_coupon_product`
+--
+ALTER TABLE `oc_coupon_product`
+  MODIFY `coupon_product_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_currency`
+--
+ALTER TABLE `oc_currency`
+  MODIFY `currency_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer`
+--
+ALTER TABLE `oc_customer`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_activity`
+--
+ALTER TABLE `oc_customer_activity`
+  MODIFY `customer_activity_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_group`
+--
+ALTER TABLE `oc_customer_group`
+  MODIFY `customer_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_history`
+--
+ALTER TABLE `oc_customer_history`
+  MODIFY `customer_history_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_ip`
+--
+ALTER TABLE `oc_customer_ip`
+  MODIFY `customer_ip_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_login`
+--
+ALTER TABLE `oc_customer_login`
+  MODIFY `customer_login_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_reward`
+--
+ALTER TABLE `oc_customer_reward`
+  MODIFY `customer_reward_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_search`
+--
+ALTER TABLE `oc_customer_search`
+  MODIFY `customer_search_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_customer_transaction`
+--
+ALTER TABLE `oc_customer_transaction`
+  MODIFY `customer_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_custom_field`
+--
+ALTER TABLE `oc_custom_field`
+  MODIFY `custom_field_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_custom_field_value`
+--
+ALTER TABLE `oc_custom_field_value`
+  MODIFY `custom_field_value_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_download`
+--
+ALTER TABLE `oc_download`
+  MODIFY `download_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_event`
+--
+ALTER TABLE `oc_event`
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_extension`
+--
+ALTER TABLE `oc_extension`
+  MODIFY `extension_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT для таблицы `oc_filter`
+--
+ALTER TABLE `oc_filter`
+  MODIFY `filter_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+--
+-- AUTO_INCREMENT для таблицы `oc_filter_group`
+--
+ALTER TABLE `oc_filter_group`
+  MODIFY `filter_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT для таблицы `oc_geo_zone`
+--
+ALTER TABLE `oc_geo_zone`
+  MODIFY `geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `oc_information`
+--
+ALTER TABLE `oc_information`
+  MODIFY `information_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT для таблицы `oc_language`
+--
+ALTER TABLE `oc_language`
+  MODIFY `language_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT для таблицы `oc_layout`
+--
+ALTER TABLE `oc_layout`
+  MODIFY `layout_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT для таблицы `oc_layout_module`
+--
+ALTER TABLE `oc_layout_module`
+  MODIFY `layout_module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=177;
+--
+-- AUTO_INCREMENT для таблицы `oc_layout_route`
+--
+ALTER TABLE `oc_layout_route`
+  MODIFY `layout_route_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
+--
+-- AUTO_INCREMENT для таблицы `oc_length_class`
+--
+ALTER TABLE `oc_length_class`
+  MODIFY `length_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `oc_location`
+--
+ALTER TABLE `oc_location`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_manufacturer`
+--
+ALTER TABLE `oc_manufacturer`
+  MODIFY `manufacturer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT для таблицы `oc_marketing`
+--
+ALTER TABLE `oc_marketing`
+  MODIFY `marketing_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_menu`
+--
+ALTER TABLE `oc_menu`
+  MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_modification`
+--
+ALTER TABLE `oc_modification`
+  MODIFY `modification_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_module`
+--
+ALTER TABLE `oc_module`
+  MODIFY `module_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
+--
+-- AUTO_INCREMENT для таблицы `oc_newsblog_article`
+--
+ALTER TABLE `oc_newsblog_article`
+  MODIFY `article_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT для таблицы `oc_newsblog_article_image`
+--
+ALTER TABLE `oc_newsblog_article_image`
+  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT для таблицы `oc_newsblog_category`
+--
+ALTER TABLE `oc_newsblog_category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_option`
+--
+ALTER TABLE `oc_option`
+  MODIFY `option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT для таблицы `oc_option_value`
+--
+ALTER TABLE `oc_option_value`
+  MODIFY `option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+--
+-- AUTO_INCREMENT для таблицы `oc_order`
+--
+ALTER TABLE `oc_order`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=469;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_custom_field`
+--
+ALTER TABLE `oc_order_custom_field`
+  MODIFY `order_custom_field_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_history`
+--
+ALTER TABLE `oc_order_history`
+  MODIFY `order_history_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=464;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_option`
+--
+ALTER TABLE `oc_order_option`
+  MODIFY `order_option_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_product`
+--
+ALTER TABLE `oc_order_product`
+  MODIFY `order_product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=472;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_recurring`
+--
+ALTER TABLE `oc_order_recurring`
+  MODIFY `order_recurring_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_recurring_transaction`
+--
+ALTER TABLE `oc_order_recurring_transaction`
+  MODIFY `order_recurring_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_status`
+--
+ALTER TABLE `oc_order_status`
+  MODIFY `order_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_total`
+--
+ALTER TABLE `oc_order_total`
+  MODIFY `order_total_id` int(10) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=525;
+--
+-- AUTO_INCREMENT для таблицы `oc_order_voucher`
+--
+ALTER TABLE `oc_order_voucher`
+  MODIFY `order_voucher_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_product`
+--
+ALTER TABLE `oc_product`
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=134;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_discount`
+--
+ALTER TABLE `oc_product_discount`
+  MODIFY `product_discount_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=450;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_image`
+--
+ALTER TABLE `oc_product_image`
+  MODIFY `product_image_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2963;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_option`
+--
+ALTER TABLE `oc_product_option`
+  MODIFY `product_option_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=568;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_option_value`
+--
+ALTER TABLE `oc_product_option_value`
+  MODIFY `product_option_value_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1344;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_reward`
+--
+ALTER TABLE `oc_product_reward`
+  MODIFY `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=546;
+--
+-- AUTO_INCREMENT для таблицы `oc_product_special`
+--
+ALTER TABLE `oc_product_special`
+  MODIFY `product_special_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=793;
+--
+-- AUTO_INCREMENT для таблицы `oc_recurring`
+--
+ALTER TABLE `oc_recurring`
+  MODIFY `recurring_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_return`
+--
+ALTER TABLE `oc_return`
+  MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_return_action`
+--
+ALTER TABLE `oc_return_action`
+  MODIFY `return_action_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `oc_return_history`
+--
+ALTER TABLE `oc_return_history`
+  MODIFY `return_history_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_return_reason`
+--
+ALTER TABLE `oc_return_reason`
+  MODIFY `return_reason_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT для таблицы `oc_return_status`
+--
+ALTER TABLE `oc_return_status`
+  MODIFY `return_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `oc_review`
+--
+ALTER TABLE `oc_review`
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_setting`
+--
+ALTER TABLE `oc_setting`
+  MODIFY `setting_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5619;
+--
+-- AUTO_INCREMENT для таблицы `oc_stock_status`
+--
+ALTER TABLE `oc_stock_status`
+  MODIFY `stock_status_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT для таблицы `oc_store`
+--
+ALTER TABLE `oc_store`
+  MODIFY `store_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_tax_class`
+--
+ALTER TABLE `oc_tax_class`
+  MODIFY `tax_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT для таблицы `oc_tax_rate`
+--
+ALTER TABLE `oc_tax_rate`
+  MODIFY `tax_rate_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=88;
+--
+-- AUTO_INCREMENT для таблицы `oc_tax_rule`
+--
+ALTER TABLE `oc_tax_rule`
+  MODIFY `tax_rule_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=129;
+--
+-- AUTO_INCREMENT для таблицы `oc_theme`
+--
+ALTER TABLE `oc_theme`
+  MODIFY `theme_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_translation`
+--
+ALTER TABLE `oc_translation`
+  MODIFY `translation_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_upload`
+--
+ALTER TABLE `oc_upload`
+  MODIFY `upload_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_url_alias`
+--
+ALTER TABLE `oc_url_alias`
+  MODIFY `url_alias_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1271;
+--
+-- AUTO_INCREMENT для таблицы `oc_user`
+--
+ALTER TABLE `oc_user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT для таблицы `oc_user_group`
+--
+ALTER TABLE `oc_user_group`
+  MODIFY `user_group_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT для таблицы `oc_voucher`
+--
+ALTER TABLE `oc_voucher`
+  MODIFY `voucher_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_voucher_history`
+--
+ALTER TABLE `oc_voucher_history`
+  MODIFY `voucher_history_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `oc_voucher_theme`
+--
+ALTER TABLE `oc_voucher_theme`
+  MODIFY `voucher_theme_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT для таблицы `oc_weight_class`
+--
+ALTER TABLE `oc_weight_class`
+  MODIFY `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT для таблицы `oc_weight_class_description`
+--
+ALTER TABLE `oc_weight_class_description`
+  MODIFY `weight_class_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT для таблицы `oc_zone`
+--
+ALTER TABLE `oc_zone`
+  MODIFY `zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4236;
+--
+-- AUTO_INCREMENT для таблицы `oc_zone_to_geo_zone`
+--
+ALTER TABLE `oc_zone_to_geo_zone`
+  MODIFY `zone_to_geo_zone_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=58;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
